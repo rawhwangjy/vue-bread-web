@@ -1,0 +1,147 @@
+@use '../commons';
+
+// common style
+.scroll-hidden {
+    overflow-y: hidden;
+}
+.sr-only {
+	overflow: hidden;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	border: 0;
+	margin: -1px;
+	padding: 0;
+	clip: rect(0, 0, 0, 0);
+	clip-path: rect(0, 0, 0, 0);
+}
+.dot-list {
+    li {
+        display: flex;
+        align-items: center;
+        &::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 4px;
+            margin-right: 5px;
+            border-radius: 50%;
+            background-color: commons.$gray3;
+        }
+    }
+}
+.notice-dot {
+    display: flex;
+    align-items: center;
+    &::before {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 4px;
+        margin-right: 5px;
+        border-radius: 50%;
+        background-color: commons.$gray3;
+        line-height: 1;
+    }
+}
+// button
+a.btn {
+    max-width: 100px;
+    text-align: center;
+}
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.xs {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+    &.sm {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+    &.md {
+        padding: 12px 15px;
+        font-size: 13px;
+    }
+    &.lg {
+        padding: 13px 20px;
+        font-size: 14px;
+    }
+    &.xl {
+        padding: 14px 24px;
+        font-size: 16px;
+    }
+    &.primary {
+        background-color: commons.$primary;
+        color: commons.$white;
+    }
+    &.secondary {
+        background-color: commons.$primary-light;
+        color: commons.$primary;
+    }
+    &.dark {
+        background-color: commons.$gray3;
+        color: commons.$white;
+    }
+    &.light {
+        border: 1px solid commons.$grayC;
+        background-color: commons.$white;
+        color: commons.$main-font;
+    }
+    &.border {
+        border-radius: 5px;
+    }
+}
+// input
+input {
+    border: 1px solid red;
+}
+// table
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 1rem;
+    border: 1px solid commons.$grayD;
+    thead {
+        th {
+            padding: 20px;
+            border-bottom: 1px solid commons.$grayD;
+            border-left: 1px solid commons.$grayD;
+            background-color: commons.$primary-bg;
+            &:first-child {
+                border-top-left-radius: 1rem;
+                border-left: 0 none;
+            }
+            &:last-child {
+                border-top-right-radius: 1rem;
+            }
+        }
+    }
+    tbody {
+        th, td {
+            border-bottom: 1px solid commons.$grayD;
+            border-left: 1px solid commons.$grayD;
+            padding: 20px;
+            &:first-child {
+                border-left: 0 none;
+            }
+        }
+        tr {
+            &:last-child {
+                th, td {
+                    border-bottom: 0 none;
+                    &:first-child {
+                        border-bottom-left-radius: 1rem;
+                    }
+                    &:last-child {
+                        border-bottom-right-radius: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,94 @@
+// touch
+let touchEventFlag = false
+let movingDirection = -1
+const moveHorizontal = ref(0)
+const moveVetical = ref(0)
+const touch = reactive({
+  startX: -1,
+  startY: -1
+})
+const slopeH = ((window.innerHeight / 2) / window.innerWidth)
+// console.log('slopeH', slopeH) // .toFixed(2) * 1
+function initTouchStart (): void {
+  touch.startX = -1
+  touch.startY = -1
+}
+function getMoveType (endX: number, endY: number): number {
+  movingDirection = -1
+  const diffX = touch.startX - endX
+  const diffY = touch.startY - endY
+  const absX = Math.abs(diffX)
+  const absY = Math.abs(diffY)
+  const absDistance = absX + absY
+  if (absDistance < 25) {
+    return movingDirection
+  }
+  const slope = parseFloat((absY / absX).toFixed(2))
+  if (slope > slopeH) {
+    if (initPrams.direction === 'vertical') {
+      // diffY > 0 ? onPrev() : onNext()
+      if (diffY > 0) {
+        // top = prev
+        moveVetical.value = -1
+      } else {
+        // bottom = next
+        moveVetical.value = 1
+      }
+      movingDirection = 1
+    }
+    // console.log('vertical')
+    // diffY > 0 ? console.log('top') : console.log('bottom')
+  } else {
+    if (initPrams.direction === 'horizontal') {
+      // diffX > 0 ? onNext() : onPrev()
+      if (diffX > 0) {
+        // bottom = next
+        moveHorizontal.value = 1
+      } else {
+        // top = prev
+        moveHorizontal.value = -1
+      }
+      movingDirection = 0
+    }
+    // console.log('horizontal')
+    // diffX > 0 ? console.log('left') : console.log('right')
+  }
+  return movingDirection
+}
+function onStart (event: Event) {
+  initTouchStart()
+  movingDirection = -1
+  touchEventFlag = true
+  const e = event as TouchEvent
+  touch.startX = e.changedTouches[0].pageX
+  touch.startY = e.changedTouches[0].pageY
+}
+
+function onMove (event: Event) {
+  if (!touchEventFlag) {
+    return
+  }
+  const e = event as TouchEvent
+  const endX = e.changedTouches[0].pageX
+  const endY = e.changedTouches[0].pageY
+  movingDirection = getMoveType(endX, endY)
+
+  movingDirection === 1
+    ? document.body.classList.add('scroll-hidden')
+    : document.body.classList.remove('scroll-hidden')
+}
+
+function onEnd (event: Event) {
+  if (!touchEventFlag) {
+    return
+  }
+  if (movingDirection < 0) {
+    const e = event as TouchEvent
+    const endX = e.changedTouches[0].pageX
+    const endY = e.changedTouches[0].pageY
+    movingDirection = getMoveType(endX, endY)
+  }
+  initTouchStart()
+  movingDirection = -1
+  touchEventFlag = false
+}

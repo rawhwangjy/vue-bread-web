@@ -1,0 +1,46 @@
+@charset 'UTF-8';
+
+@forward './components/modules/_reset';
+@forward './components/modules/_component';
+@forward './components/modules/_modules';
+@forward './components/modules/_prism';
+@forward './components/_page';
+@forward './components/_guide';
+
+
+// // box.scss 
+// $background-color: red; 
+// @function getBorder($is-black: true) { 
+//     @if $is-black { @return 4px solid black; 
+//     } @else 
+//     { @return 2px dashed blue; } 
+// } 
+// .box { background-color: $background-color; width: 200px; height: 200px; }
+
+// // card.scss 
+// $background-color: blue; 
+// @function getBorder($is-black: true) { 
+//     @if $is-black { @return 1px dashed black; 
+//     } @else { 
+//         @return none; } 
+//     } 
+//     .card { 
+//         background-color: 
+//         $background-color; 
+//         border: getBorder(true); width: 200px; height: 200px; 
+//     }
+
+// // main.scss 
+// @import 'box'; 
+// @import 'card'; 
+// .big-box { background: $background-color; // background-color는 red일까? blue일까? 
+// }
+
+
+// // main.scss 
+// @use 'box'; 
+// @use 'card' as c; 
+// .big-box { 
+//     background: box.$background-color; 
+//     border: box.getBorder(true); width: 200px; height: 200px; 
+// }
