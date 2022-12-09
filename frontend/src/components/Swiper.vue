@@ -184,7 +184,7 @@ export default defineComponent({
         timer.value = setInterval(autoplay, initParams.autoplay.delay)
       }
       if (initParams.pagination) {
-        swiperDom.pagination?.querySelectorAll('button').forEach((item, index) => {
+        swiperDom.pagination?.querySelectorAll('button').forEach((item: any, index: number) => {
           item.addEventListener('click', () => {
             moveTo(index)
             if (initParams.autoplay.delay) {
@@ -195,7 +195,7 @@ export default defineComponent({
         })
       }
       if (initParams.tab) {
-        swiperDom.tab?.querySelectorAll('button').forEach((item, index) => {
+        swiperDom.tab?.querySelectorAll('button').forEach((item: any, index: number) => {
           item.addEventListener('click', () => {
             moveTo(index)
             if (initParams.autoplay.delay) {
@@ -224,7 +224,7 @@ export default defineComponent({
             }
           } else {
             for (let i = 0; i < initProps.slideLength; i++) {
-              tabType?.forEach((item, index) => {
+              tabType?.forEach((item: any, index: number) => {
                 if (initProps.slideLength === tabType?.length) {
                   tabArray.push(item)
                 } else {
@@ -247,7 +247,7 @@ export default defineComponent({
       }
       if (swiperDom.slides) {
         const slidesHeight: number[] = []
-        swiperDom.slides.forEach((slide, index) => {
+        swiperDom.slides.forEach((slide: any, index: number) => {
           slidesHeight.push(slide.clientHeight)
           // touch events
           slide.addEventListener('touchstart', touchStart(index))
