@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-import { GetBoardListInterface } from '@/service/board/interface/getBoardList.interface'
+import { GetBoardListInterface, GetBoardListInterfaceAAAA } from '@/service/board/interface/getBoardList.interface'
 
 import { httpGetBoardList, httpGetBoard } from '@/service/board/board.api'
 
@@ -26,7 +26,7 @@ export const useBoardStore = defineStore({
     }
   }),
   actions: {
-    async actionHttpGetBoardList (fdata: GetBoardListInterface) {
+    async actionHttpGetBoardList (fdata: GetBoardListInterfaceAAAA) {
       this.getBoardList = []
       try {
         const res = await httpGetBoardList(fdata)

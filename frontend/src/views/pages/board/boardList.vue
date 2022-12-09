@@ -65,7 +65,11 @@ export default defineComponent({
 
     async function getBoardList () {
       // boardType 만 추가해서 사용
-      const result = await boardStore.actionHttpGetBoardList(fdata.value)
+      const fdata = {
+        id: 0, // ?
+        boardType: route.path.replace(/^.*\//, '') // board or notice
+      }
+      const result = await boardStore.actionHttpGetBoardList(fdata)
       boardList.value = result
     }
 

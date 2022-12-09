@@ -10,7 +10,7 @@ enum Api {
 /**
  * @description Get Board List
  */
-export const httpGetBoardList = (fdata: GetBoardListInterface) => {
+export const httpGetBoardList = (fdata: GetBoardListInterfaceAAAA) => {
   return axiosInstance({
     method: RequestEnum.POST,
     url: Api.getBoardList,
