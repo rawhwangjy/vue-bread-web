@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 
-import { GetBoardListInterface, GetBoardListInterfaceAAAA } from '@/service/board/interface/getBoardList.interface'
+import { ReqBoardListInaterface, ResBoardListInaterface } from '@/service/board/interface/getBoardList.interface'
+import { ReqBoardDetailInaterface, ResBoardDetailInaterface } from '@/service/board/interface/getBoardDetail.interface'
 
 import { httpGetBoardList, httpGetBoard } from '@/service/board/board.api'
 
 interface boardState {
-  getBoardList: GetBoardListInterface[],
-  getBoardDetail: GetBoardListInterface
+  getBoardList: ResBoardListInaterface[],
+  getBoardDetail: ResBoardDetailInaterface
 }
 
 export const getBoardListInit = {
@@ -26,7 +27,7 @@ export const useBoardStore = defineStore({
     }
   }),
   actions: {
-    async actionHttpGetBoardList (fdata: GetBoardListInterfaceAAAA) {
+    async actionHttpGetBoardList (fdata: ReqBoardListInaterface) {
       this.getBoardList = []
       try {
         const res = await httpGetBoardList(fdata)
@@ -38,7 +39,7 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpGetBoard (fdata: GetBoardListInterface) {
+    async actionHttpGetBoard (fdata: ReqBoardDetailInaterface) {
       this.getBoardDetail = getBoardListInit
       try {
         const res = await httpGetBoard(fdata)

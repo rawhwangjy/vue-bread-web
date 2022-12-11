@@ -1,6 +1,7 @@
 import { axiosInstance } from '@/utils/instance.axios'
 import { RequestEnum } from '@/utils/common.constants'
-import { GetBoardListInterface, GetBoardListInterfaceAAAA } from '@/service/board/interface/getBoardList.interface'
+import { ReqBoardListInaterface } from '@/service/board/interface/getBoardList.interface'
+import { ReqBoardDetailInaterface } from '@/service/board/interface/getBoardDetail.interface'
 
 enum Api {
   getBoardList = '/board/board/boardList',
@@ -10,7 +11,7 @@ enum Api {
 /**
  * @description Get Board List
  */
-export const httpGetBoardList = (fdata: GetBoardListInterfaceAAAA) => {
+export const httpGetBoardList = (fdata: ReqBoardListInaterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
     url: Api.getBoardList,
@@ -21,7 +22,7 @@ export const httpGetBoardList = (fdata: GetBoardListInterfaceAAAA) => {
 /**
  * @description Get Board View
  */
-export const httpGetBoard = (fdata: GetBoardListInterfaceAAAA) => {
+export const httpGetBoard = (fdata: ReqBoardDetailInaterface) => {
   console.log('dddd', fdata.id)
   return axiosInstance({
     method: RequestEnum.POST,

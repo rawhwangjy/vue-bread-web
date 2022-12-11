@@ -17,41 +17,37 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
-import { GetBoardListInterface } from '@/service/board/interface/getBoardList.interface'
+import { ResBoardDetailInaterface } from '@/service/board/interface/getBoardDetail.interface'
 
 export default defineComponent({
   name: 'boardView',
   components: {
   },
   setup () {
-    const router = useRouter()
     const route = useRoute()
     const boardStore = useBoardStore()
-    const detail = ref<GetBoardListInterface>({
+    const detail = ref<ResBoardDetailInaterface>({
       id: 0,
       boardType: '',
       title: ''
     })
 
     async function getBoardDetail () {
-      // id 값 받아서 조회하는 로직
-      const fdata: GetBoardListInterface = {
+      const targetBoard = {
         id: Number(route.params.id),
-        boardType: String(route.params.boardType),
-        title: ''
+        boardType: String(route.params.boardType)
       }
-      const result = await boardStore.actionHttpGetBoard(fdata) // detail 내용 요청
+      const result = await boardStore.actionHttpGetBoard(targetBoard)
       detail.value = result[0]
     }
     function back () {
       window.history.back()
     }
 
-    onMounted(async () => {
+    onMounted(() => {
       getBoardDetail()
-      console.log('route.path', route.params)
     })
 
     return {

@@ -1,6 +1,5 @@
 <template>
   <div class="board-wrap">
-    <h3>{{ fdata.boardType }} list</h3>
     <div class="board-list">
       <table class="table vertical">
         <thead>
@@ -42,10 +41,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, computed, onUpdated } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
-import { GetBoardListInterface } from '@/service/board/interface/getBoardList.interface'
+import { ResBoardListInaterface } from '@/service/board/interface/getBoardList.interface'
 
 export default defineComponent({
   name: 'boardList',
@@ -55,42 +54,25 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const boardStore = useBoardStore()
-    // 삭제
-    const fdata = ref<GetBoardListInterface>({
-      id: 0, // ?
-      boardType: route.path.replace(/^.*\//, ''), // board or notice
-      title: '' // ?
-    })
-    const boardList = ref<GetBoardListInterface[]>([])
+    const boardList = ref<ResBoardListInaterface[]>([])
 
     async function getBoardList () {
-      // boardType 만 추가해서 사용
-      const fdata = {
-        id: 0, // ?
-        boardType: route.path.replace(/^.*\//, '') // board or notice
+      const targetBoardList = {
+        boardType: String(route.params.boardType)
       }
-      const result = await boardStore.actionHttpGetBoardList(fdata)
+      const result = await boardStore.actionHttpGetBoardList(targetBoardList)
       boardList.value = result
     }
 
     function getBoardDetail (targetId: number) {
       const id = targetId
-      const boardType = route.path.replace(/^.*\//, '')
-      // path
-      // router.push({
-      //   name: 'boardView',
-      //   params: {
-      //     id: id,
-      //     boardType: fdata.value.boardType,
-      //     title: '' // ?
-      //   }
-      // })
+      const boardType = route.params.boardType
       router.push({
         path: `/board/${boardType}/${id}`
       })
     }
 
-    onMounted(async () => {
+    onMounted(() => {
       getBoardList()
     })
     // onUpdated()
@@ -100,7 +82,6 @@ export default defineComponent({
       boardStore,
       getBoardList,
       getBoardDetail,
-      fdata,
       boardList
     }
   }
