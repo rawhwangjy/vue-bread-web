@@ -1,6 +1,6 @@
 <template>
   <div class="board-wrap">
-    <h3>list</h3>
+    <h3>{{ route.params.boardType }} view</h3>
     <div class="board-list">
       {{ detail }}
       {{ detail.id }}
@@ -51,6 +51,7 @@ export default defineComponent({
     })
 
     return {
+      route,
       detail,
       back
     }

@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { ResBoardListInaterface } from '@/service/board/interface/getBoardList.interface'
@@ -55,11 +55,11 @@ export default defineComponent({
     const route = useRoute()
     const boardStore = useBoardStore()
     const boardList = ref<ResBoardListInaterface[]>([])
+    const targetBoardList = {
+      boardType: String(route.params.boardType)
+    }
 
     async function getBoardList () {
-      const targetBoardList = {
-        boardType: String(route.params.boardType)
-      }
       const result = await boardStore.actionHttpGetBoardList(targetBoardList)
       boardList.value = result
     }
@@ -74,9 +74,17 @@ export default defineComponent({
 
     onMounted(() => {
       getBoardList()
+      console.log('onMounted', route.path)
     })
     // onUpdated()
     // 라우터가 변경될 때 이벤트를 캐치한다.
+    watch(
+      () => route.params.boardType,
+      newBoardType => {
+        targetBoardList.boardType = String(newBoardType)
+        getBoardList()
+      }
+    )
 
     return {
       boardStore,
