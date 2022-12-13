@@ -7,6 +7,7 @@
             <th scope="col">Id</th>
             <th scope="col">Title</th>
             <th scope="col">Date</th>
+            <th scope="col">btns</th>
           </tr>
         </thead>
         <tbody v-if="boardList.length > 0">
@@ -23,6 +24,9 @@
               </a>
             </td>
             <td>date</td>
+            <td>
+              <button type="button" @click="boardUpdate(board.id)">수정</button>
+            </td>
           </tr>
         </tbody>
         <tbody v-else>
@@ -34,7 +38,6 @@
     </div>
     <button @click="boardRegister" class="btn lg dark">글쓰기</button>
     <!-- <div class="btn-wrap">
-      <button type="button" @click="goToUpdate(board.id)">수정</button>
       <button type="button" @click="requestApiHttpDelBoard(board)">삭제</button>
     </div> -->
   </div>
@@ -76,6 +79,13 @@ export default defineComponent({
         path: `/board/${boardType}/register`
       })
     }
+    function boardUpdate (targetId: number) {
+      const id = targetId
+      const boardType = route.params.boardType
+      router.push({
+        path: `/board/${boardType}/update/${id}`
+      })
+    }
 
     onMounted(() => {
       getBoardList()
@@ -96,6 +106,7 @@ export default defineComponent({
       getBoardList,
       getBoardDetail,
       boardRegister,
+      boardUpdate,
       boardList
     }
   }
