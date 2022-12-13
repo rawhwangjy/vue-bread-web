@@ -32,7 +32,7 @@
         </tbody>
       </table>
     </div>
-    <!-- <router-link to="/board/register" class="btn lg dark">글쓰기</router-link> -->
+    <router-link to="/board/register" class="btn lg dark">글쓰기</router-link>
     <!-- <div class="btn-wrap">
       <button type="button" @click="goToUpdate(board.id)">수정</button>
       <button type="button" @click="requestApiHttpDelBoard(board)">삭제</button>
@@ -44,7 +44,7 @@
 import { defineComponent, onMounted, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
-import { ResBoardListInaterface } from '@/service/board/interface/getBoardList.interface'
+import { ResBoardListInterface } from '@/service/board/interface/getBoardList.interface'
 
 export default defineComponent({
   name: 'boardList',
@@ -54,7 +54,7 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const boardStore = useBoardStore()
-    const boardList = ref<ResBoardListInaterface[]>([])
+    const boardList = ref<ResBoardListInterface[]>([])
     const targetBoardList = {
       boardType: String(route.params.boardType)
     }
@@ -81,6 +81,8 @@ export default defineComponent({
     watch(
       () => route.params.boardType,
       newBoardType => {
+        console.log('route.params.boardType', route.params.boardType)
+        console.log('newBoardType', newBoardType)
         targetBoardList.boardType = String(newBoardType)
         getBoardList()
       }

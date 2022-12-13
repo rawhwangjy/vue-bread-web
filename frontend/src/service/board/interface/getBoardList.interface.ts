@@ -1,12 +1,12 @@
 /**
  * @description: board list
- * BoardListInaterface Request, Response
+ * BoardListInterface Request, Response
  */
-export interface ReqBoardListInaterface {
+export interface ReqBoardListInterface {
   boardType: string
 }
 
-export interface ResBoardListInaterface {
+export interface ResBoardListInterface {
   id: number,
   boardType: string,
   title: string

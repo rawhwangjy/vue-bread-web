@@ -6,7 +6,6 @@
       {{ detail.id }}
       {{ detail.title }}
     </div>
-    <!-- <router-link to="/board/register" class="btn lg dark">글쓰기</router-link> -->
     <!-- <div class="btn-wrap">
       <button type="button" @click="goToUpdate(board.id)">수정</button>
       <button type="button" @click="requestApiHttpDelBoard(board)">삭제</button>
@@ -19,7 +18,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
-import { ResBoardDetailInaterface } from '@/service/board/interface/getBoardDetail.interface'
+import { ResBoardDetailInterface } from '@/service/board/interface/getBoardDetail.interface'
 
 export default defineComponent({
   name: 'boardView',
@@ -28,10 +27,12 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const boardStore = useBoardStore()
-    const detail = ref<ResBoardDetailInaterface>({
+    const detail = ref<ResBoardDetailInterface>({
       id: 0,
       boardType: '',
-      title: ''
+      title: '',
+      content: '',
+      agree: false
     })
 
     async function getBoardDetail () {

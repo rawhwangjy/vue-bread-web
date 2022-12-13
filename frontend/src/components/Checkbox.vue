@@ -85,7 +85,7 @@ export default defineComponent({
     //   return result
     // }
     onMounted(() => {
-      // console.log('props.modelValue', typeof props.modelValue)
+      console.log('props.modelValue', props.modelValue)
     })
     return {
       randomString,

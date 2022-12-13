@@ -1,14 +1,16 @@
 /**
  * @description: board detail
- * BoardDetailInaterface Request, Response
+ * BoardDetailInterface Request, Response
  */
-export interface ReqBoardDetailInaterface {
+export interface ReqBoardDetailInterface {
   id: number,
   boardType: string
 }
 
-export interface ResBoardDetailInaterface {
+export interface ResBoardDetailInterface {
   id: number,
   boardType: string,
-  title: string
+  title: string,
+  content: string,
+  agree: boolean
 }

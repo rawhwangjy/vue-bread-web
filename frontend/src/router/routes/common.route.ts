@@ -1,6 +1,7 @@
 const container = () => import(/* webpackChunkName: "pages" */ '@/views/pages/_pageContainer.vue')
 const boardList = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardList.vue')
 const boardView = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardView.vue')
+const boardRegister = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardRegister.vue')
 
 const test = () => import(/* webpackChunkName: "pages" */ '@/views/pages/test.vue')
 
@@ -22,19 +23,15 @@ export default {
       name: 'boardList',
       component: boardList
     },
-    // {
-    //   path: '/notice',
-    //   component: boardList
-    // },
     {
       path: '/board/:boardType/:id',
       name: 'boardView',
       component: boardView
+    },
+    {
+      path: '/board/register',
+      component: boardRegister
     }
-    // {
-    //   path: '/board/register',
-    //   component: boardRegister
-    // },
     // {
     //   path: '/board/update/:id',
     //   component: boardUpdate

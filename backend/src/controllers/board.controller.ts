@@ -12,6 +12,17 @@ router.post('/board/boardList', async (req, res) => {
     })
   }
 })
+router.post('/board/register', async (req, res) => {
+  try {
+    console.log('register', req.body)
+    const sql = `INSERT INTO admin_t_boards SET ?`
+    res.send(await serverReq.db(sql, req.body))
+  } catch (err) {
+    res.status(500).send({
+      error: err
+    })
+  }
+})
 router.post('/board/:id', async (req, res) => {
   try {
     console.log('req.body.params.boardType', req.body)
