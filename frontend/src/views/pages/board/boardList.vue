@@ -32,7 +32,7 @@
         </tbody>
       </table>
     </div>
-    <router-link to="/board/register" class="btn lg dark">글쓰기</router-link>
+    <button @click="boardRegister" class="btn lg dark">글쓰기</button>
     <!-- <div class="btn-wrap">
       <button type="button" @click="goToUpdate(board.id)">수정</button>
       <button type="button" @click="requestApiHttpDelBoard(board)">삭제</button>
@@ -60,8 +60,7 @@ export default defineComponent({
     }
 
     async function getBoardList () {
-      const result = await boardStore.actionHttpGetBoardList(targetBoardList)
-      boardList.value = result
+      boardList.value = await boardStore.actionHttpGetBoardList(targetBoardList)
     }
 
     function getBoardDetail (targetId: number) {
@@ -71,13 +70,17 @@ export default defineComponent({
         path: `/board/${boardType}/${id}`
       })
     }
+    function boardRegister () {
+      const boardType = route.params.boardType
+      router.push({
+        path: `/board/${boardType}/register`
+      })
+    }
 
     onMounted(() => {
       getBoardList()
-      console.log('onMounted', route.path)
+      console.log('onMounted', route.params.boardType)
     })
-    // onUpdated()
-    // 라우터가 변경될 때 이벤트를 캐치한다.
     watch(
       () => route.params.boardType,
       newBoardType => {
@@ -92,6 +95,7 @@ export default defineComponent({
       boardStore,
       getBoardList,
       getBoardDetail,
+      boardRegister,
       boardList
     }
   }

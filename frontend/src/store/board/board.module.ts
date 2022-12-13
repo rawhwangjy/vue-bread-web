@@ -3,15 +3,21 @@ import { defineStore } from 'pinia'
 import { ReqBoardListInterface, ResBoardListInterface } from '@/service/board/interface/getBoardList.interface'
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/getBoardDetail.interface'
 import { ReqBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
+import { ReqBoardTypeInterface } from '@/service/board/interface/getBoardType.interfac'
 
-import { httpGetBoardList, httpGetBoard, httpSetBoard } from '@/service/board/board.api'
+import { httpGetBoardType, httpGetBoardList, httpGetBoard, httpSetBoard } from '@/service/board/board.api'
 
 interface boardState {
+  getBoardType: ReqBoardTypeInterface[],
   getBoardList: ResBoardListInterface[],
   getBoardDetail: ResBoardDetailInterface,
   boardRegister: ReqBoardRegisterInterface
 }
 
+export const getBoardTypeInit = {
+  id: 0,
+  boardType: ''
+}
 export const getBoardListInit = {
   id: 0,
   boardType: '',
@@ -29,6 +35,7 @@ export const boardRegisterInit = {
 export const useBoardStore = defineStore({
   id: '',
   state: (): boardState => ({
+    getBoardType: [],
     getBoardList: [],
     getBoardDetail: {
       id: 0,
@@ -45,6 +52,18 @@ export const useBoardStore = defineStore({
     }
   }),
   actions: {
+    async actionHttpBoardType () {
+      this.getBoardType = []
+      try {
+        const res = await httpGetBoardType()
+        if (res.data) {
+          this.getBoardType = res.data
+        }
+        return res.data
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
     async actionHttpGetBoardList (fdata: ReqBoardListInterface) {
       this.getBoardList = []
       try {

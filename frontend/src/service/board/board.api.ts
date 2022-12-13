@@ -3,11 +3,23 @@ import { RequestEnum } from '@/utils/common.constants'
 import { ReqBoardListInterface } from '@/service/board/interface/getBoardList.interface'
 import { ReqBoardDetailInterface } from '@/service/board/interface/getBoardDetail.interface'
 import { ReqBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
+import { ReqBoardTypeInterface } from '@/service/board/interface/getBoardType.interfac'
 
 enum Api {
+  getBoardType = '/board/:boardType',
   getBoardList = '/board/board/boardList',
   getBoard = '/board/board/:id',
   boardRegister = '/board/board/register'
+}
+
+/**
+ * @description Board Type
+ */
+export const httpGetBoardType = () => {
+  return axiosInstance({
+    method: RequestEnum.POST,
+    url: Api.getBoardType
+  })
 }
 
 /**

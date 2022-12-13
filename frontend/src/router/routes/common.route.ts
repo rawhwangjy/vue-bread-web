@@ -29,7 +29,7 @@ export default {
       component: boardView
     },
     {
-      path: '/board/register',
+      path: '/board/:boardType/register',
       component: boardRegister
     }
     // {

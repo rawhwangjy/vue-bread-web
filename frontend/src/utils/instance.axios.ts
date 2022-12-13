@@ -11,7 +11,7 @@ function createInstance () {
 export function setInterceptors (instance: AxiosInstance): AxiosInstance {
   instance.interceptors.request.use(
     config => {
-      console.log('instance.interceptors.request', config)
+      // console.log('instance.interceptors.request', config)
       return config
     },
     error => {
@@ -20,7 +20,7 @@ export function setInterceptors (instance: AxiosInstance): AxiosInstance {
   )
   instance.interceptors.response.use(
     response => {
-      console.log('instance.interceptors.response', response)
+      // console.log('instance.interceptors.response', response)
       return response
     },
     error => {

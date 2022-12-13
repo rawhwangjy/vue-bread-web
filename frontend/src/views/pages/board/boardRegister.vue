@@ -6,13 +6,13 @@
         <div>
           <dt>타입</dt>
           <dd>
-          <select v-model="selectInit">
+          <select v-model="selectedBoardType">
             <option
-              v-for="(item, index) in selectList"
+              v-for="(item, index) in boardTypeList"
               :key="`select${index}`"
-              :value="item.value"
+              :value="item.boardType"
             >
-              {{ item.text }}
+              {{ item.boardType }}
             </option>
           </select>
 
@@ -21,20 +21,20 @@
         <div>
           <dt>제목</dt>
           <dd>
-            <input type="text" name="" id="" v-model="board.title">
+            <input type="text" name="" id="" v-model="boardModel.title">
           </dd>
         </div>
         <div>
           <dt>내용</dt>
           <dd>
-            <textarea name="" id="" cols="30" rows="10" v-model="board.content"></textarea>
+            <textarea name="" id="" cols="30" rows="10" v-model="boardModel.content"></textarea>
           </dd>
         </div>
         <div>
           <dt>동의</dt>
           <dd>
             <Checkbox
-              v-model="board.agree"
+              v-model="boardModel.agree"
               label="동의합니다."
               value="html5"
               name="skills"
@@ -49,11 +49,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, computed, onUpdated } from 'vue'
-import { useRoute } from 'vue-router'
+import { defineComponent, onMounted, reactive, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import Checkbox from '@/components/Checkbox.vue'
-import { ReqBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
+import { ReqBoardTypeInterface } from '@/service/board/interface/getBoardType.interfac'
 
 export default defineComponent({
   name: 'boardView',
@@ -61,57 +61,44 @@ export default defineComponent({
     Checkbox
   },
   setup () {
+    const router = useRouter()
     const route = useRoute()
     const boardStore = useBoardStore()
-    const selectList = ref([
-      {
-        text: 'board',
-        value: 0
-      },
-      {
-        text: 'notice',
-        value: 1
-      }
-    ])
-    const selectInit = ref(0)
-    const selectValue = computed(() => {
-      if (selectInit.value === 0) {
-        return 'board'
-      } else if (selectInit.value === 1) {
-        return 'notice'
-      }
-      return false
-    })
-    const board = reactive({
-      boardType: String(selectValue.value),
+    const boardTypeList = ref<ReqBoardTypeInterface[]>([])
+    const selectedBoardType = ref('default') // v-model
+
+    const boardType = String(route.params.boardType)
+    const boardModel = reactive({
+      boardType: selectedBoardType,
       title: '',
       content: '',
       agree: false
     })
 
+    async function getBoardType () {
+      boardTypeList.value = await boardStore.actionHttpBoardType()
+    }
     async function boardRegister () {
-      const result = await boardStore.actionHttpBoardRegister(board)
-      console.log('result', result)
+      await boardStore.actionHttpBoardRegister(boardModel)
+      alert('글 등록이 완료되었습니다.')
+      router.push({
+        path: `/board/${boardType}`
+      })
     }
     function back () {
       window.history.back()
     }
 
     onMounted(() => {
-      console.log()
-    })
-    onUpdated(() => {
-      // console.log('selectInit.value', selectInit.value)
-      // console.log('selectValue', String(selectValue.value))
-      // console.log('board.agree', board.agree)
+      getBoardType()
     })
 
     return {
       route,
-      board,
-      selectList,
+      selectedBoardType,
+      boardModel,
+      boardTypeList,
       boardRegister,
-      selectInit,
       back
     }
   }
