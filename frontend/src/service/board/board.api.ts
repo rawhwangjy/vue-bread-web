@@ -9,7 +9,7 @@ enum Api {
   getBoardType = '/board/:boardType',
   getBoardList = '/board/board/boardList',
   getBoardDetail = '/board/:boardType/:id',
-  boardRegister = '/board/:boardType/register',
+  boardRegister = '/board/register',
   boardUpdate = '/board/:boardType/update/:id'
 }
 

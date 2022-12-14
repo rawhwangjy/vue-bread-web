@@ -30,7 +30,7 @@ export default {
       component: boardView
     },
     {
-      path: '/board/:boardType/register',
+      path: '/board/register',
       component: boardRegister
     },
     {

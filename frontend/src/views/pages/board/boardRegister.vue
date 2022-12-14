@@ -68,7 +68,6 @@ export default defineComponent({
     const boardTypeList = ref<ReqBoardTypeInterface[]>([])
     const selectedBoardType = ref<string>('default') // v-model
 
-    const boardType = String(route.params.boardType)
     const boardModel = reactive<ResBoardRegisterInterface>({
       boardType: selectedBoardType,
       title: '',
@@ -80,12 +79,11 @@ export default defineComponent({
       boardTypeList.value = await boardStore.actionHttpBoardType()
     }
     async function boardRegister () {
-      boardModel.agree === true ? boardModel.agree = 1 : boardModel.agree = 0 // 쓰는 페이지에서
-      console.log('boardModel', boardModel.boardType)
+      boardModel.agree === true ? boardModel.agree = 1 : boardModel.agree = 0
       await boardStore.actionHttpBoardRegister(boardModel)
       alert('글 등록이 완료되었습니다.')
       router.push({
-        path: `/board/${boardType}`
+        path: `/board/${boardModel.boardType}`
       })
     }
     function back () {
@@ -96,8 +94,7 @@ export default defineComponent({
       getBoardType()
     })
     onUpdated(() => {
-      console.log('onUpdated', selectedBoardType)
-      console.log('onUpdated value', selectedBoardType.value)
+      // console.log('onUpdated', selectedBoardType)
     })
 
     return {

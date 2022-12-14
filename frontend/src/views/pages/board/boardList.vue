@@ -74,9 +74,8 @@ export default defineComponent({
       })
     }
     function boardRegister () {
-      const boardType = route.params.boardType
       router.push({
-        path: `/board/${boardType}/register`
+        path: '/board/register'
       })
     }
     function boardUpdate (targetId: number) {
@@ -93,8 +92,6 @@ export default defineComponent({
     watch(
       () => route.params.boardType,
       newBoardType => {
-        console.log('route.params.boardType', route.params.boardType)
-        console.log('newBoardType', newBoardType)
         targetBoardList.boardType = String(newBoardType)
         getBoardList()
       }

@@ -41,8 +41,7 @@ export default defineComponent({
         boardType: String(route.params.boardType)
       }
       const result = await boardStore.actionHttpGetBoard(targetBoard)
-      console.log(result)
-      result[0].agree === 1 ? result[0].agree = true : result[0].agree = false // 쓰는 페이지에서
+      result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       detail.value = result[0]
     }
     function back () {
