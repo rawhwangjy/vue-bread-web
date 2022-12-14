@@ -2,9 +2,9 @@
   <div class="board-wrap">
     <h3>{{ route.params.boardType }} view</h3>
     <div class="board-list">
-      {{ detail }}
-      {{ detail.id }}
-      {{ detail.title }}
+      <div>{{ detail.id }}</div>
+      <div>{{ detail.title }}</div>
+      <div>{{ detail.agree }}</div>
     </div>
     <!-- <div class="btn-wrap">
       <button type="button" @click="goToUpdate(board.id)">수정</button>
@@ -41,7 +41,7 @@ export default defineComponent({
         boardType: String(route.params.boardType)
       }
       const result = await boardStore.actionHttpGetBoard(targetBoard)
-      // result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
+      result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       detail.value = result[0]
     }
     function back () {

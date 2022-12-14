@@ -96,6 +96,7 @@ export default defineComponent({
       const result = await boardStore.actionHttpBoardUpdateDetail(targetBoard)
       detail.value = result[0]
       // detail.value.agree === 1 ? detail.value.agree = true : detail.value.agree = false
+      detail.value.agree === 1 ? detail.value.agree = true : detail.value.agree = false
       selectedBoardType.value = detail.value.boardType
     }
     async function boardUpdate () {
