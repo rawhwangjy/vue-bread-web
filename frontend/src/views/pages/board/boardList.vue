@@ -47,7 +47,7 @@
 import { defineComponent, onMounted, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
-import { ResBoardListInterface } from '@/service/board/interface/getBoardList.interface'
+import { ResBoardListInterface } from '@/service/board/interface/boardList.interface'
 
 export default defineComponent({
   name: 'boardList',
@@ -89,7 +89,6 @@ export default defineComponent({
 
     onMounted(() => {
       getBoardList()
-      console.log('onMounted', route.params.boardType)
     })
     watch(
       () => route.params.boardType,

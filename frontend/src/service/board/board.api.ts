@@ -1,15 +1,16 @@
 import { axiosInstance } from '@/utils/instance.axios'
 import { RequestEnum } from '@/utils/common.constants'
-import { ReqBoardListInterface } from '@/service/board/interface/getBoardList.interface'
-import { ReqBoardDetailInterface } from '@/service/board/interface/getBoardDetail.interface'
+import { ReqBoardListInterface } from '@/service/board/interface/boardList.interface'
+import { ReqBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 import { ReqBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
-import { ReqBoardTypeInterface } from '@/service/board/interface/getBoardType.interfac'
+import { ReqBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 
 enum Api {
   getBoardType = '/board/:boardType',
   getBoardList = '/board/board/boardList',
-  getBoard = '/board/board/:id',
-  boardRegister = '/board/board/register'
+  getBoardDetail = '/board/:boardType/:id',
+  boardRegister = '/board/:boardType/register',
+  boardUpdate = '/board/:boardType/update/:id'
 }
 
 /**
@@ -39,7 +40,7 @@ export const httpGetBoardList = (fdata: ReqBoardListInterface) => {
 export const httpGetBoard = (fdata: ReqBoardDetailInterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
-    url: Api.getBoard,
+    url: Api.getBoardDetail,
     data: fdata
   })
 }
@@ -51,6 +52,17 @@ export const httpSetBoard = (fdata: ReqBoardRegisterInterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
     url: Api.boardRegister,
+    data: fdata
+  })
+}
+
+/**
+ * @description Board Update
+ */
+export const httpSetBoardUpdate = (fdata: ReqBoardUpdateInterface) => {
+  return axiosInstance({
+    method: RequestEnum.POST,
+    url: Api.boardUpdate,
     data: fdata
   })
 }

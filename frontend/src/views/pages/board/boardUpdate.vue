@@ -21,20 +21,20 @@
         <div>
           <dt>제목</dt>
           <dd>
-            <input type="text" name="" id="" v-model="boardModel.title">
+            <input type="text" name="" id="" v-model="detail.title">
           </dd>
         </div>
         <div>
           <dt>내용</dt>
           <dd>
-            <textarea name="" id="" cols="30" rows="10" v-model="boardModel.content"></textarea>
+            <textarea name="" id="" cols="30" rows="10" v-model="detail.content"></textarea>
           </dd>
         </div>
         <div>
           <dt>동의</dt>
           <dd>
             <Checkbox
-              v-model="boardModel.agree"
+              v-model="detail.agree"
               label="동의합니다."
               value="html5"
               name="skills"
@@ -53,7 +53,8 @@ import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import Checkbox from '@/components/Checkbox.vue'
-import { ReqBoardTypeInterface } from '@/service/board/interface/getBoardType.interfac'
+import { ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ReqBoardTypeInterface } from '@/service/board/interface/boardType.interface'
 
 export default defineComponent({
   name: 'boardView',
@@ -64,15 +65,52 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const boardStore = useBoardStore()
+    const boardTypeList = ref<ReqBoardTypeInterface[]>([])
+    const selectedBoardType = ref() // v-model
+
+    const detail = ref<ResBoardUpdateInterface>({
+      id: 0,
+      boardType: '',
+      title: '',
+      content: '',
+      agree: false
+    })
+
+    // const boardModel = reactive<ResBoardUpdateInterface>({
+    //   id: 0,
+    //   boardType: selectedBoardType,
+    //   title: '',
+    //   content: '',
+    //   agree: false
+    // })
+
+    async function getBoardType () {
+      boardTypeList.value = await boardStore.actionHttpBoardType()
+    }
+    async function getBoardDetail () {
+      const targetBoard = {
+        id: Number(route.params.id),
+        boardType: String(route.params.boardType)
+      }
+      const result = await boardStore.actionHttpBoardUpdate(targetBoard)
+      detail.value = result[0]
+      console.log()
+      selectedBoardType.value = detail.value.boardType
+    }
     function back () {
       window.history.back()
     }
 
     onMounted(() => {
+      getBoardType()
+      getBoardDetail()
     })
 
     return {
       route,
+      selectedBoardType,
+      boardTypeList,
+      detail,
       back
     }
   }

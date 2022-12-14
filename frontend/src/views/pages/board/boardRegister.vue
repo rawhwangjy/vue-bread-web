@@ -49,11 +49,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue'
+import { defineComponent, onMounted, reactive, ref, onUpdated } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import Checkbox from '@/components/Checkbox.vue'
-import { ReqBoardTypeInterface } from '@/service/board/interface/getBoardType.interfac'
+import { ReqBoardTypeInterface } from '@/service/board/interface/boardType.interface'
+import { ResBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
 
 export default defineComponent({
   name: 'boardView',
@@ -65,10 +66,10 @@ export default defineComponent({
     const route = useRoute()
     const boardStore = useBoardStore()
     const boardTypeList = ref<ReqBoardTypeInterface[]>([])
-    const selectedBoardType = ref('default') // v-model
+    const selectedBoardType = ref<string>('default') // v-model
 
     const boardType = String(route.params.boardType)
-    const boardModel = reactive({
+    const boardModel = reactive<ResBoardRegisterInterface>({
       boardType: selectedBoardType,
       title: '',
       content: '',
@@ -79,6 +80,8 @@ export default defineComponent({
       boardTypeList.value = await boardStore.actionHttpBoardType()
     }
     async function boardRegister () {
+      boardModel.agree === true ? boardModel.agree = 1 : boardModel.agree = 0 // 쓰는 페이지에서
+      console.log('boardModel', boardModel.boardType)
       await boardStore.actionHttpBoardRegister(boardModel)
       alert('글 등록이 완료되었습니다.')
       router.push({
@@ -91,6 +94,10 @@ export default defineComponent({
 
     onMounted(() => {
       getBoardType()
+    })
+    onUpdated(() => {
+      console.log('onUpdated', selectedBoardType)
+      console.log('onUpdated value', selectedBoardType.value)
     })
 
     return {

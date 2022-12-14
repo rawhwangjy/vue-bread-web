@@ -12,5 +12,5 @@ export interface ResBoardDetailInterface {
   boardType: string,
   title: string,
   content: string,
-  agree: boolean
+  agree: boolean | number
 }

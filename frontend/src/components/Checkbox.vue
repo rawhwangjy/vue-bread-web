@@ -26,7 +26,7 @@ export default defineComponent({
   },
   props: {
     modelValue: {
-      type: [Boolean, Array],
+      type: [Boolean, Number, Array],
       default: false
     },
     label: {

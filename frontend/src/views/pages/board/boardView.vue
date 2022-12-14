@@ -18,7 +18,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
-import { ResBoardDetailInterface } from '@/service/board/interface/getBoardDetail.interface'
+import { ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 
 export default defineComponent({
   name: 'boardView',
@@ -41,6 +41,8 @@ export default defineComponent({
         boardType: String(route.params.boardType)
       }
       const result = await boardStore.actionHttpGetBoard(targetBoard)
+      console.log(result)
+      result[0].agree === 1 ? result[0].agree = true : result[0].agree = false // 쓰는 페이지에서
       detail.value = result[0]
     }
     function back () {
