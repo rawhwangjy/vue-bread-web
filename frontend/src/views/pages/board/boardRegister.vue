@@ -79,7 +79,7 @@ export default defineComponent({
       boardTypeList.value = await boardStore.actionHttpBoardType()
     }
     async function boardRegister () {
-      boardModel.agree === true ? boardModel.agree = 1 : boardModel.agree = 0
+      // boardModel.agree === true ? boardModel.agree = 1 : boardModel.agree = 0
       await boardStore.actionHttpBoardRegister(boardModel)
       alert('글 등록이 완료되었습니다.')
       router.push({

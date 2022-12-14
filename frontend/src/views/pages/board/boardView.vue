@@ -41,7 +41,7 @@ export default defineComponent({
         boardType: String(route.params.boardType)
       }
       const result = await boardStore.actionHttpGetBoard(targetBoard)
-      result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
+      // result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       detail.value = result[0]
     }
     function back () {

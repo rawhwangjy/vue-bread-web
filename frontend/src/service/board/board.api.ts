@@ -3,14 +3,15 @@ import { RequestEnum } from '@/utils/common.constants'
 import { ReqBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 import { ReqBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
-import { ReqBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ReqBoardUpdateDetailInterface, ReqBoardUpdateRegisterInterface } from '@/service/board/interface/boardUpdate.interface'
 
 enum Api {
   getBoardType = '/board/:boardType',
   getBoardList = '/board/board/boardList',
   getBoardDetail = '/board/:boardType/:id',
   boardRegister = '/board/register',
-  boardUpdate = '/board/:boardType/update/:id'
+  boardUpdateDetail = '/board/:boardType/update/:id',
+  boardUpdateRegister = '/board/:boardType/register/:id'
 }
 
 /**
@@ -24,7 +25,7 @@ export const httpGetBoardType = () => {
 }
 
 /**
- * @description Get Board List
+ * @description Board List
  */
 export const httpGetBoardList = (fdata: ReqBoardListInterface) => {
   return axiosInstance({
@@ -35,7 +36,7 @@ export const httpGetBoardList = (fdata: ReqBoardListInterface) => {
 }
 
 /**
- * @description Get Board View
+ * @description Board View
  */
 export const httpGetBoard = (fdata: ReqBoardDetailInterface) => {
   return axiosInstance({
@@ -57,12 +58,23 @@ export const httpSetBoard = (fdata: ReqBoardRegisterInterface) => {
 }
 
 /**
- * @description Board Update
+ * @description Board Update View
  */
-export const httpSetBoardUpdate = (fdata: ReqBoardUpdateInterface) => {
+export const httpGetBoardUpdate = (fdata: ReqBoardUpdateDetailInterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
-    url: Api.boardUpdate,
+    url: Api.boardUpdateDetail,
+    data: fdata
+  })
+}
+
+/**
+ * @description Board Update Register
+ */
+export const httpSetBoardUpdate = (fdata: ReqBoardUpdateRegisterInterface) => {
+  return axiosInstance({
+    method: RequestEnum.PUT,
+    url: Api.boardUpdateRegister,
     data: fdata
   })
 }

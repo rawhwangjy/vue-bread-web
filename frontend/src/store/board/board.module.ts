@@ -4,16 +4,17 @@ import { ResBoardTypeInterface } from '@/service/board/interface/boardType.inter
 import { ReqBoardListInterface, ResBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 import { ReqBoardRegisterInterface, ResBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
-import { ReqBoardUpdateInterface, ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ReqBoardUpdateDetailInterface, ResBoardUpdateDetailInterface, ReqBoardUpdateRegisterInterface, ResBoardUpdateRegisterInterface } from '@/service/board/interface/boardUpdate.interface'
 
-import { httpGetBoardType, httpGetBoardList, httpGetBoard, httpSetBoard, httpSetBoardUpdate } from '@/service/board/board.api'
+import { httpGetBoardType, httpGetBoardList, httpGetBoard, httpSetBoard, httpGetBoardUpdate, httpSetBoardUpdate } from '@/service/board/board.api'
 
 interface boardState {
   getBoardType: ResBoardTypeInterface[],
   getBoardList: ResBoardListInterface[],
   getBoardDetail: ResBoardDetailInterface,
   boardRegister: ResBoardRegisterInterface,
-  boardUpdate: ResBoardUpdateInterface
+  boardUpdateDetail: ResBoardUpdateDetailInterface,
+  boardUpdateRegister: ResBoardUpdateRegisterInterface
 }
 
 export const getBoardDetailInit = {
@@ -30,6 +31,20 @@ export const boardRegisterInit = {
   agree: false
 }
 export const boardUpdateInit = {
+  id: 0,
+  boardType: '',
+  title: '',
+  content: '',
+  agree: false
+}
+export const getBoardUpdateDetailInit = {
+  id: 0,
+  boardType: '',
+  title: '',
+  content: '',
+  agree: false
+}
+export const getBoardUpdateRegisterInit = {
   id: 0,
   boardType: '',
   title: '',
@@ -55,7 +70,14 @@ export const useBoardStore = defineStore({
       content: '',
       agree: false
     },
-    boardUpdate: {
+    boardUpdateDetail: {
+      id: 0,
+      boardType: '',
+      title: '',
+      content: '',
+      agree: false
+    },
+    boardUpdateRegister: {
       id: 0,
       boardType: '',
       title: '',
@@ -112,11 +134,22 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardUpdate (fdata: ReqBoardUpdateInterface) {
-      this.boardUpdate = boardUpdateInit
+    async actionHttpBoardUpdateDetail (fdata: ReqBoardUpdateDetailInterface) {
+      this.boardUpdateDetail = getBoardUpdateDetailInit
+      try {
+        const res = await httpGetBoardUpdate(fdata)
+        if (res.data) {
+          this.boardRegister = res.data
+        }
+        return res.data
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
+    async actionHttpBoardUpdateRegister (fdata: ReqBoardUpdateRegisterInterface) {
+      this.boardUpdateDetail = getBoardUpdateRegisterInit
       try {
         const res = await httpSetBoardUpdate(fdata)
-        // res.data.agree === true ? res.data.agree = 1 : res.data.agree = 0 // 쓰는 페이지에서
         if (res.data) {
           this.boardRegister = res.data
         }

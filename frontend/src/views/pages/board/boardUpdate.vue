@@ -38,12 +38,13 @@
               label="동의합니다."
               value="html5"
               name="skills"
+              :checked="detail.agree"
             />
           </dd>
         </div>
       </dl>
     </div>
-    <!-- <button @click="boardUpdate" class="btn lg dark">수정</button> -->
+    <button @click="boardUpdate" class="btn lg dark">수정</button>
     <button @click="back" class="btn-home">메인으로</button>
   </div>
 </template>
@@ -53,8 +54,8 @@ import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import Checkbox from '@/components/Checkbox.vue'
-import { ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import { ReqBoardTypeInterface } from '@/service/board/interface/boardType.interface'
+import { ResBoardUpdateDetailInterface, ResBoardUpdateRegisterInterface } from '@/service/board/interface/boardUpdate.interface'
 
 export default defineComponent({
   name: 'boardView',
@@ -68,7 +69,7 @@ export default defineComponent({
     const boardTypeList = ref<ReqBoardTypeInterface[]>([])
     const selectedBoardType = ref() // v-model
 
-    const detail = ref<ResBoardUpdateInterface>({
+    const detail = ref<ResBoardUpdateDetailInterface>({
       id: 0,
       boardType: '',
       title: '',
@@ -76,13 +77,13 @@ export default defineComponent({
       agree: false
     })
 
-    // const boardModel = reactive<ResBoardUpdateInterface>({
-    //   id: 0,
-    //   boardType: selectedBoardType,
-    //   title: '',
-    //   content: '',
-    //   agree: false
-    // })
+    let boardModel = reactive<ResBoardUpdateRegisterInterface>({
+      id: 0,
+      boardType: selectedBoardType,
+      title: '',
+      content: '',
+      agree: false
+    })
 
     async function getBoardType () {
       boardTypeList.value = await boardStore.actionHttpBoardType()
@@ -92,11 +93,21 @@ export default defineComponent({
         id: Number(route.params.id),
         boardType: String(route.params.boardType)
       }
-      const result = await boardStore.actionHttpBoardUpdate(targetBoard)
+      const result = await boardStore.actionHttpBoardUpdateDetail(targetBoard)
       detail.value = result[0]
-      console.log()
+      // detail.value.agree === 1 ? detail.value.agree = true : detail.value.agree = false
       selectedBoardType.value = detail.value.boardType
     }
+    async function boardUpdate () {
+      boardModel = detail.value
+      console.log('boardModel', boardModel)
+      await boardStore.actionHttpBoardUpdateRegister(boardModel)
+      alert('글 수정이 완료되었습니다.')
+      router.push({
+        path: `/board/${boardModel.boardType}`
+      })
+    }
+
     function back () {
       window.history.back()
     }
@@ -111,6 +122,7 @@ export default defineComponent({
       selectedBoardType,
       boardTypeList,
       detail,
+      boardUpdate,
       back
     }
   }
