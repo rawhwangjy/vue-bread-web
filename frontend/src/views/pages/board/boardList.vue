@@ -26,6 +26,7 @@
             <td>date</td>
             <td>
               <button type="button" @click="boardUpdate(board.id)">수정</button>
+              <button type="button" @click="boardDelete(board.id)">삭제</button>
             </td>
           </tr>
         </tbody>
@@ -37,9 +38,6 @@
       </table>
     </div>
     <button @click="boardCreate" class="btn lg dark">글쓰기</button>
-    <!-- <div class="btn-wrap">
-      <button type="button" @click="requestApiHttpDelBoard(board)">삭제</button>
-    </div> -->
   </div>
 </template>
 
@@ -78,6 +76,13 @@ export default defineComponent({
         path: `/board/${currentBoardType}/${id}`
       })
     }
+    async function boardDelete (targetId: number) {
+      const targetBoard = {
+        id: targetId
+      }
+      await boardStore.actionHttpBoardDelete(targetBoard)
+      getBoardList()
+    }
     function boardCreate () {
       router.push({
         path: '/board/register'
@@ -108,7 +113,8 @@ export default defineComponent({
       getBoardDetail,
       boardList,
       boardCreate,
-      boardUpdate
+      boardUpdate,
+      boardDelete
     }
   }
 })

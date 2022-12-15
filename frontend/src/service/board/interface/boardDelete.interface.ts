@@ -1,15 +1,11 @@
 /**
- * @description: board detail
- * BoardDetailInterface Request, Response
+ * @description: board delete
+ * BoardDeletelInterface Request
  */
-export interface ReqBoardDetailInterface {
+export interface ReqBoardDeleteInterface {
   id: number
 }
 
-export interface ResBoardDetailInterface {
-  id: number,
-  boardType: string,
-  title: string,
-  content: string,
-  agree: boolean | number
+export interface ResBoardDeleteInterface {
+  id: number
 }

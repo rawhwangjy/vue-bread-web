@@ -4,6 +4,7 @@ import { ReqBoardListInterface } from '@/service/board/interface/boardList.inter
 import { ReqBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
 import { ReqBoardUpdateDetailInterface, ReqBoardUpdateCreateInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ReqBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
 
 enum Api {
   getBoardType = '/board/:boardType',
@@ -11,7 +12,8 @@ enum Api {
   getBoardDetail = '/board/:boardType/:id',
   boardCreate = '/board/register',
   boardUpdateDetail = '/board/:boardType/update/:id',
-  boardUpdateCreate = '/board/:boardType/register/:id'
+  boardUpdateCreate = '/board/:boardType/register/:id',
+  boardDelete = '/board/delete/:id',
 }
 
 /**
@@ -75,6 +77,17 @@ export const httpSetBoardUpdate = (fdata: ReqBoardUpdateCreateInterface) => {
   return axiosInstance({
     method: RequestEnum.PUT,
     url: Api.boardUpdateCreate,
+    data: fdata
+  })
+}
+
+/**
+ * @description Board Update Create
+ */
+export const httpDeleteBoard = (fdata: ReqBoardDeleteInterface) => {
+  return axiosInstance({
+    method: RequestEnum.DELETE,
+    url: Api.boardDelete,
     data: fdata
   })
 }

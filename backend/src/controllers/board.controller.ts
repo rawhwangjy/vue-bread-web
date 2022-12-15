@@ -76,5 +76,17 @@ router.put('/:boardType/register/:id', async (req, res) => {
     })
   }
 })
+// board update register
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    console.log('here delete')
+    const sql = `DELETE FROM admin_t_boards WHERE id = ${req.body.id}`
+    res.send(await serverReq.db(sql, req.body))
+  } catch (err) {
+    res.status(500).send({
+      error: err
+    })
+  }
+})
 
 export default router
