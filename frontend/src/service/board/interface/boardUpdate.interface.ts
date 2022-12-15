@@ -18,8 +18,7 @@ export interface ResBoardUpdateDetailInterface {
  * BoardUpdateRegisterInterface Request, Response
  */
 export interface ReqBoardUpdateRegisterInterface {
-  id: number,
-  boardType: string
+  id: number
 }
 
 export interface ResBoardUpdateRegisterInterface {
