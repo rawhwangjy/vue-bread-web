@@ -2,9 +2,9 @@
   <div class="board-wrap">
     <h3>{{ route.params.boardType }} view</h3>
     <div class="board-list">
-      <div>{{ detail.id }}</div>
-      <div>{{ detail.title }}</div>
-      <div>{{ detail.agree }}</div>
+      <div>dd{{ boardDetail.id }}</div>
+      <div>{{ boardDetail.title }}</div>
+      <div>{{ boardDetail.agree }}</div>
     </div>
     <!-- <div class="btn-wrap">
       <button type="button" @click="goToUpdate(board.id)">수정</button>
@@ -25,9 +25,12 @@ export default defineComponent({
   components: {
   },
   setup () {
+    // router & store
     const route = useRoute()
     const boardStore = useBoardStore()
-    const detail = ref<ResBoardDetailInterface>({
+
+    // init data
+    const boardDetail = ref<ResBoardDetailInterface>({
       id: 0,
       boardType: '',
       title: '',
@@ -35,15 +38,16 @@ export default defineComponent({
       agree: false
     })
 
+    // api
     async function getBoardDetail () {
       const targetBoard = {
-        id: Number(route.params.id),
-        boardType: String(route.params.boardType)
+        id: Number(route.params.id)
       }
       const result = await boardStore.actionHttpGetBoard(targetBoard)
       result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
-      detail.value = result[0]
+      boardDetail.value = result[0]
     }
+
     function back () {
       window.history.back()
     }
@@ -54,7 +58,7 @@ export default defineComponent({
 
     return {
       route,
-      detail,
+      boardDetail,
       back
     }
   }

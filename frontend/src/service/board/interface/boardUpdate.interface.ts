@@ -1,12 +1,9 @@
-import { Ref } from 'vue'
-
 /**
  * @description: board update detail
  * BoardUpdateDetailInterface Request, Response
  */
 export interface ReqBoardUpdateDetailInterface {
-  id: number,
-  boardType: string
+  id: number
 }
 
 export interface ResBoardUpdateDetailInterface {
@@ -27,7 +24,7 @@ export interface ReqBoardUpdateRegisterInterface {
 
 export interface ResBoardUpdateRegisterInterface {
   id: number,
-  boardType: string | Ref<string>,
+  boardType: string,
   title: string,
   content: string,
   agree: boolean | number

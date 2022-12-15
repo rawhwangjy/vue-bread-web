@@ -31,7 +31,7 @@ router.post('/:boardType/boardList', async (req, res) => {
 router.post('/:boardType/:id', async (req, res) => {
   try {
     console.log('here detail')
-    const sql = `SELECT * FROM admin_t_boards WHERE boardType = '${req.body.boardType}' AND id = ${req.body.id}`
+    const sql = `SELECT * FROM admin_t_boards WHERE id = ${req.body.id}`
     res.send(await serverReq.db(sql, req.body))
   } catch (err) {
     res.status(500).send({

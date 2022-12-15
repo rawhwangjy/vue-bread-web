@@ -21,20 +21,20 @@
         <div>
           <dt>제목</dt>
           <dd>
-            <input type="text" name="" id="" v-model="boardModel.title">
+            <input type="text" name="" id="" v-model="boardDetail.title">
           </dd>
         </div>
         <div>
           <dt>내용</dt>
           <dd>
-            <textarea name="" id="" cols="30" rows="10" v-model="boardModel.content"></textarea>
+            <textarea name="" id="" cols="30" rows="10" v-model="boardDetail.content"></textarea>
           </dd>
         </div>
         <div>
           <dt>동의</dt>
           <dd>
             <Checkbox
-              v-model="boardModel.agree"
+              v-model="boardDetail.agree"
               label="동의합니다."
               value="html5"
               name="skills"
@@ -49,43 +49,47 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, onUpdated } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
-import Checkbox from '@/components/Checkbox.vue'
-import { ReqBoardTypeInterface } from '@/service/board/interface/boardType.interface'
+import { ResBoardTypeInterface } from '@/service/board/interface/boardType.interface'
 import { ResBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
+import Checkbox from '@/components/Checkbox.vue'
 
 export default defineComponent({
-  name: 'boardView',
+  name: 'boardRegister',
   components: {
     Checkbox
   },
   setup () {
+    // router & store
     const router = useRouter()
     const route = useRoute()
     const boardStore = useBoardStore()
-    const boardTypeList = ref<ReqBoardTypeInterface[]>([])
-    const selectedBoardType = ref<string>('default') // v-model
 
-    const boardModel = reactive<ResBoardRegisterInterface>({
-      boardType: selectedBoardType,
+    // init data
+    const currentBoardType = route.params.boardType
+    const boardTypeList = ref<ResBoardTypeInterface[]>([])
+    const selectedBoardType = ref<string>('default') // v-model
+    const boardDetail = ref<ResBoardRegisterInterface>({
+      boardType: String(selectedBoardType),
       title: '',
       content: '',
       agree: false
     })
 
+    // api
     async function getBoardType () {
       boardTypeList.value = await boardStore.actionHttpBoardType()
     }
     async function boardRegister () {
-      // boardModel.agree === true ? boardModel.agree = 1 : boardModel.agree = 0
-      await boardStore.actionHttpBoardRegister(boardModel)
+      await boardStore.actionHttpBoardRegister(boardDetail.value)
       alert('글 등록이 완료되었습니다.')
       router.push({
-        path: `/board/${boardModel.boardType}`
+        path: `/board/${currentBoardType}`
       })
     }
+
     function back () {
       window.history.back()
     }
@@ -93,15 +97,12 @@ export default defineComponent({
     onMounted(() => {
       getBoardType()
     })
-    onUpdated(() => {
-      // console.log('onUpdated', selectedBoardType)
-    })
 
     return {
       route,
-      selectedBoardType,
-      boardModel,
       boardTypeList,
+      selectedBoardType,
+      boardDetail,
       boardRegister,
       back
     }

@@ -3,8 +3,7 @@
  * BoardDetailInterface Request, Response
  */
 export interface ReqBoardDetailInterface {
-  id: number,
-  boardType: string
+  id: number
 }
 
 export interface ResBoardDetailInterface {

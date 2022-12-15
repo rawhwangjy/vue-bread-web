@@ -54,23 +54,28 @@ export default defineComponent({
   components: {
   },
   setup () {
+    // router & store
     const router = useRouter()
     const route = useRoute()
     const boardStore = useBoardStore()
+
+    // init data
+    const currentBoardType = route.params.boardType
     const boardList = ref<ResBoardListInterface[]>([])
-    const targetBoardList = {
-      boardType: String(route.params.boardType)
+    const targetBoardType = {
+      boardType: typeof currentBoardType === 'string' ? currentBoardType : currentBoardType[0]
     }
 
+    // api
     async function getBoardList () {
-      boardList.value = await boardStore.actionHttpGetBoardList(targetBoardList)
+      boardList.value = await boardStore.actionHttpGetBoardList(targetBoardType)
     }
 
+    // route
     function getBoardDetail (targetId: number) {
       const id = targetId
-      const boardType = route.params.boardType
       router.push({
-        path: `/board/${boardType}/${id}`
+        path: `/board/${currentBoardType}/${id}`
       })
     }
     function boardRegister () {
@@ -80,19 +85,19 @@ export default defineComponent({
     }
     function boardUpdate (targetId: number) {
       const id = targetId
-      const boardType = route.params.boardType
       router.push({
-        path: `/board/${boardType}/update/${id}`
+        path: `/board/${currentBoardType}/update/${id}`
       })
     }
 
     onMounted(() => {
       getBoardList()
     })
+
     watch(
       () => route.params.boardType,
       newBoardType => {
-        targetBoardList.boardType = String(newBoardType)
+        targetBoardType.boardType = String(newBoardType)
         getBoardList()
       }
     )
@@ -101,9 +106,9 @@ export default defineComponent({
       boardStore,
       getBoardList,
       getBoardDetail,
+      boardList,
       boardRegister,
-      boardUpdate,
-      boardList
+      boardUpdate
     }
   }
 })

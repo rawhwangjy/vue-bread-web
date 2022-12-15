@@ -6,7 +6,7 @@
         <div>
           <dt>타입</dt>
           <dd>
-          <select v-model="selectedBoardType">
+          <select v-model="boardDetail.boardType">
             <option
               v-for="(item, index) in boardTypeList"
               :key="`select${index}`"
@@ -21,24 +21,24 @@
         <div>
           <dt>제목</dt>
           <dd>
-            <input type="text" name="" id="" v-model="detail.title">
+            <input type="text" name="" id="" v-model="boardDetail.title">
           </dd>
         </div>
         <div>
           <dt>내용</dt>
           <dd>
-            <textarea name="" id="" cols="30" rows="10" v-model="detail.content"></textarea>
+            <textarea name="" id="" cols="30" rows="10" v-model="boardDetail.content"></textarea>
           </dd>
         </div>
         <div>
           <dt>동의</dt>
           <dd>
             <Checkbox
-              v-model="detail.agree"
+              v-model="boardDetail.agree"
               label="동의합니다."
               value="html5"
               name="skills"
-              :checked="detail.agree"
+              :checked="boardDetail.agree"
             />
           </dd>
         </div>
@@ -50,62 +50,52 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
-import Checkbox from '@/components/Checkbox.vue'
 import { ReqBoardTypeInterface } from '@/service/board/interface/boardType.interface'
-import { ResBoardUpdateDetailInterface, ResBoardUpdateRegisterInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ResBoardUpdateDetailInterface } from '@/service/board/interface/boardUpdate.interface'
+import Checkbox from '@/components/Checkbox.vue'
 
 export default defineComponent({
-  name: 'boardView',
+  name: 'boardUpdate',
   components: {
     Checkbox
   },
   setup () {
+    // router & store
     const router = useRouter()
     const route = useRoute()
     const boardStore = useBoardStore()
+
+    // init data
+    const currentBoardType = route.params.boardType
     const boardTypeList = ref<ReqBoardTypeInterface[]>([])
-    const selectedBoardType = ref() // v-model
-
-    const detail = ref<ResBoardUpdateDetailInterface>({
+    const boardDetail = ref<ResBoardUpdateDetailInterface>({
       id: 0,
-      boardType: '',
+      boardType: typeof currentBoardType === 'string' ? currentBoardType : currentBoardType[0],
       title: '',
       content: '',
       agree: false
     })
 
-    let boardModel = reactive<ResBoardUpdateRegisterInterface>({
-      id: 0,
-      boardType: selectedBoardType,
-      title: '',
-      content: '',
-      agree: false
-    })
-
+    // api
     async function getBoardType () {
       boardTypeList.value = await boardStore.actionHttpBoardType()
     }
     async function getBoardDetail () {
       const targetBoard = {
-        id: Number(route.params.id),
-        boardType: String(route.params.boardType)
+        id: Number(route.params.id)
       }
       const result = await boardStore.actionHttpBoardUpdateDetail(targetBoard)
-      detail.value = result[0]
-      // detail.value.agree === 1 ? detail.value.agree = true : detail.value.agree = false
-      detail.value.agree === 1 ? detail.value.agree = true : detail.value.agree = false
-      selectedBoardType.value = detail.value.boardType
+      result.agree === 1 ? result.agree = true : result.agree = false
+      boardDetail.value = result[0]
     }
     async function boardUpdate () {
-      boardModel = detail.value
-      console.log('boardModel', boardModel)
-      await boardStore.actionHttpBoardUpdateRegister(boardModel)
+      await boardStore.actionHttpBoardUpdateRegister(boardDetail.value)
       alert('글 수정이 완료되었습니다.')
       router.push({
-        path: `/board/${boardModel.boardType}`
+        path: `/board/${boardDetail.value.boardType}`
       })
     }
 
@@ -120,9 +110,8 @@ export default defineComponent({
 
     return {
       route,
-      selectedBoardType,
       boardTypeList,
-      detail,
+      boardDetail,
       boardUpdate,
       back
     }
