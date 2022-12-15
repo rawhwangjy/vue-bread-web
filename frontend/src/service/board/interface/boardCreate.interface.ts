@@ -1,14 +1,14 @@
 /**
  * @description: board register
- * RegisterBoardInterface Request
+ * CreateBoardInterface Request
  */
-export interface ReqBoardRegisterInterface {
+export interface ReqBoardCreateInterface {
   boardType: string,
   title: string,
   content: string,
   agree: boolean | number
 }
-export interface ResBoardRegisterInterface {
+export interface ResBoardCreateInterface {
   boardType: string,
   title: string,
   content: string,

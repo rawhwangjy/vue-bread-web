@@ -2,16 +2,16 @@ import { axiosInstance } from '@/utils/instance.axios'
 import { RequestEnum } from '@/utils/common.constants'
 import { ReqBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
-import { ReqBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
-import { ReqBoardUpdateDetailInterface, ReqBoardUpdateRegisterInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
+import { ReqBoardUpdateDetailInterface, ReqBoardUpdateCreateInterface } from '@/service/board/interface/boardUpdate.interface'
 
 enum Api {
   getBoardType = '/board/:boardType',
   getBoardList = '/board/board/boardList',
   getBoardDetail = '/board/:boardType/:id',
-  boardRegister = '/board/register',
+  boardCreate = '/board/register',
   boardUpdateDetail = '/board/:boardType/update/:id',
-  boardUpdateRegister = '/board/:boardType/register/:id'
+  boardUpdateCreate = '/board/:boardType/register/:id'
 }
 
 /**
@@ -47,12 +47,12 @@ export const httpGetBoard = (fdata: ReqBoardDetailInterface) => {
 }
 
 /**
- * @description Board Register
+ * @description Board Create
  */
-export const httpSetBoard = (fdata: ReqBoardRegisterInterface) => {
+export const httpSetBoard = (fdata: ReqBoardCreateInterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
-    url: Api.boardRegister,
+    url: Api.boardCreate,
     data: fdata
   })
 }
@@ -69,12 +69,12 @@ export const httpGetBoardUpdate = (fdata: ReqBoardUpdateDetailInterface) => {
 }
 
 /**
- * @description Board Update Register
+ * @description Board Update Create
  */
-export const httpSetBoardUpdate = (fdata: ReqBoardUpdateRegisterInterface) => {
+export const httpSetBoardUpdate = (fdata: ReqBoardUpdateCreateInterface) => {
   return axiosInstance({
     method: RequestEnum.PUT,
-    url: Api.boardUpdateRegister,
+    url: Api.boardUpdateCreate,
     data: fdata
   })
 }

@@ -15,13 +15,13 @@ export interface ResBoardUpdateDetailInterface {
 }
 /**
  * @description: board update register
- * BoardUpdateRegisterInterface Request, Response
+ * BoardUpdateCreateInterface Request, Response
  */
-export interface ReqBoardUpdateRegisterInterface {
+export interface ReqBoardUpdateCreateInterface {
   id: number
 }
 
-export interface ResBoardUpdateRegisterInterface {
+export interface ResBoardUpdateCreateInterface {
   id: number,
   boardType: string,
   title: string,

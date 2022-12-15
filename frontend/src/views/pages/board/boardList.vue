@@ -36,7 +36,7 @@
         </tbody>
       </table>
     </div>
-    <button @click="boardRegister" class="btn lg dark">글쓰기</button>
+    <button @click="boardCreate" class="btn lg dark">글쓰기</button>
     <!-- <div class="btn-wrap">
       <button type="button" @click="requestApiHttpDelBoard(board)">삭제</button>
     </div> -->
@@ -78,7 +78,7 @@ export default defineComponent({
         path: `/board/${currentBoardType}/${id}`
       })
     }
-    function boardRegister () {
+    function boardCreate () {
       router.push({
         path: '/board/register'
       })
@@ -107,7 +107,7 @@ export default defineComponent({
       getBoardList,
       getBoardDetail,
       boardList,
-      boardRegister,
+      boardCreate,
       boardUpdate
     }
   }

@@ -92,7 +92,7 @@ export default defineComponent({
       boardDetail.value = result[0]
     }
     async function boardUpdate () {
-      await boardStore.actionHttpBoardUpdateRegister(boardDetail.value)
+      await boardStore.actionHttpBoardUpdateCreate(boardDetail.value)
       alert('글 수정이 완료되었습니다.')
       router.push({
         path: `/board/${boardDetail.value.boardType}`

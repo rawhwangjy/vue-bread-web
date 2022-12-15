@@ -3,8 +3,8 @@ import { defineStore } from 'pinia'
 import { ResBoardTypeInterface } from '@/service/board/interface/boardType.interface'
 import { ReqBoardListInterface, ResBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
-import { ReqBoardRegisterInterface, ResBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
-import { ReqBoardUpdateDetailInterface, ResBoardUpdateDetailInterface, ReqBoardUpdateRegisterInterface, ResBoardUpdateRegisterInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ReqBoardCreateInterface, ResBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
+import { ReqBoardUpdateDetailInterface, ResBoardUpdateDetailInterface, ReqBoardUpdateCreateInterface, ResBoardUpdateCreateInterface } from '@/service/board/interface/boardUpdate.interface'
 
 import { httpGetBoardType, httpGetBoardList, httpGetBoard, httpSetBoard, httpGetBoardUpdate, httpSetBoardUpdate } from '@/service/board/board.api'
 
@@ -12,9 +12,9 @@ interface boardState {
   getBoardType: ResBoardTypeInterface[],
   getBoardList: ResBoardListInterface[],
   getBoardDetail: ResBoardDetailInterface,
-  boardRegister: ResBoardRegisterInterface,
+  boardCreate: ResBoardCreateInterface,
   boardUpdateDetail: ResBoardUpdateDetailInterface,
-  boardUpdateRegister: ResBoardUpdateRegisterInterface
+  boardUpdateCreate: ResBoardUpdateCreateInterface
 }
 
 export const getBoardDetailInit = {
@@ -24,7 +24,7 @@ export const getBoardDetailInit = {
   content: '',
   agree: false
 }
-export const boardRegisterInit = {
+export const boardCreateInit = {
   boardType: '',
   title: '',
   content: '',
@@ -44,7 +44,7 @@ export const getBoardUpdateDetailInit = {
   content: '',
   agree: false
 }
-export const getBoardUpdateRegisterInit = {
+export const getBoardUpdateCreateInit = {
   id: 0,
   boardType: '',
   title: '',
@@ -64,7 +64,7 @@ export const useBoardStore = defineStore({
       content: '',
       agree: false
     },
-    boardRegister: {
+    boardCreate: {
       boardType: '',
       title: '',
       content: '',
@@ -77,7 +77,7 @@ export const useBoardStore = defineStore({
       content: '',
       agree: false
     },
-    boardUpdateRegister: {
+    boardUpdateCreate: {
       id: 0,
       boardType: '',
       title: '',
@@ -122,12 +122,12 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardRegister (fdata: ReqBoardRegisterInterface) {
-      this.boardRegister = boardRegisterInit
+    async actionHttpBoardCreate (fdata: ReqBoardCreateInterface) {
+      this.boardCreate = boardCreateInit
       try {
         const res = await httpSetBoard(fdata)
         if (res.data) {
-          this.boardRegister = res.data
+          this.boardCreate = res.data
         }
         return res.data
       } catch (error) {
@@ -139,19 +139,19 @@ export const useBoardStore = defineStore({
       try {
         const res = await httpGetBoardUpdate(fdata)
         if (res.data) {
-          this.boardRegister = res.data
+          this.boardCreate = res.data
         }
         return res.data
       } catch (error) {
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardUpdateRegister (fdata: ReqBoardUpdateRegisterInterface) {
-      this.boardUpdateDetail = getBoardUpdateRegisterInit
+    async actionHttpBoardUpdateCreate (fdata: ReqBoardUpdateCreateInterface) {
+      this.boardUpdateDetail = getBoardUpdateCreateInit
       try {
         const res = await httpSetBoardUpdate(fdata)
         if (res.data) {
-          this.boardRegister = res.data
+          this.boardCreate = res.data
         }
         return res.data
       } catch (error) {

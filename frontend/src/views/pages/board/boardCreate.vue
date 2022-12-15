@@ -43,7 +43,7 @@
         </div>
       </dl>
     </div>
-    <button @click="boardRegister" class="btn lg dark">글쓰기</button>
+    <button @click="boardCreate" class="btn lg dark">글쓰기</button>
     <button @click="back" class="btn-home">메인으로</button>
   </div>
 </template>
@@ -53,11 +53,11 @@ import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { ResBoardTypeInterface } from '@/service/board/interface/boardType.interface'
-import { ResBoardRegisterInterface } from '@/service/board/interface/boardRegister.interface'
+import { ResBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
 import Checkbox from '@/components/Checkbox.vue'
 
 export default defineComponent({
-  name: 'boardRegister',
+  name: 'boardCreate',
   components: {
     Checkbox
   },
@@ -71,7 +71,7 @@ export default defineComponent({
     const currentBoardType = route.params.boardType
     const boardTypeList = ref<ResBoardTypeInterface[]>([])
     const selectedBoardType = ref<string>('default') // v-model
-    const boardDetail = ref<ResBoardRegisterInterface>({
+    const boardDetail = ref<ResBoardCreateInterface>({
       boardType: String(selectedBoardType),
       title: '',
       content: '',
@@ -82,8 +82,8 @@ export default defineComponent({
     async function getBoardType () {
       boardTypeList.value = await boardStore.actionHttpBoardType()
     }
-    async function boardRegister () {
-      await boardStore.actionHttpBoardRegister(boardDetail.value)
+    async function boardCreate () {
+      await boardStore.actionHttpBoardCreate(boardDetail.value)
       alert('글 등록이 완료되었습니다.')
       router.push({
         path: `/board/${currentBoardType}`
@@ -103,7 +103,7 @@ export default defineComponent({
       boardTypeList,
       selectedBoardType,
       boardDetail,
-      boardRegister,
+      boardCreate,
       back
     }
   }
