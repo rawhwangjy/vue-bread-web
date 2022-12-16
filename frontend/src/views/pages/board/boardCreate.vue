@@ -6,16 +6,16 @@
         <div>
           <dt>타입</dt>
           <dd>
-          <select v-model="selectedBoardType">
-            <option
-              v-for="(item, index) in boardTypeList"
-              :key="`select${index}`"
-              :value="item.boardType"
-            >
-              {{ item.boardType }}
-            </option>
-          </select>
-
+            <select v-model="boardDetail.boardType">
+              <option value="default">default</option>
+              <option
+                v-for="(item, index) in boardTypeList"
+                :key="`select${index}`"
+                :value="item.boardType"
+              >
+                {{ item.boardType }}
+              </option>
+            </select>
           </dd>
         </div>
         <div>
@@ -68,11 +68,9 @@ export default defineComponent({
     const boardStore = useBoardStore()
 
     // init data
-    const currentBoardType = route.params.boardType
     const boardTypeList = ref<ResBoardTypeInterface[]>([])
-    const selectedBoardType = ref<string>('default') // v-model
     const boardDetail = ref<ResBoardCreateInterface>({
-      boardType: String(selectedBoardType),
+      boardType: 'default',
       title: '',
       content: '',
       agree: false
@@ -83,10 +81,13 @@ export default defineComponent({
       boardTypeList.value = await boardStore.actionHttpBoardType()
     }
     async function boardCreate () {
-      await boardStore.actionHttpBoardCreate(boardDetail.value)
+      if (boardDetail.value.boardType === 'default') {
+        console.log('default')
+      }
+      // await boardStore.actionHttpBoardCreate(boardDetail.value)
       alert('글 등록이 완료되었습니다.')
       router.push({
-        path: `/board/${currentBoardType}`
+        path: `/board/${boardDetail.value.boardType}`
       })
     }
 
@@ -101,7 +102,6 @@ export default defineComponent({
     return {
       route,
       boardTypeList,
-      selectedBoardType,
       boardDetail,
       boardCreate,
       back
