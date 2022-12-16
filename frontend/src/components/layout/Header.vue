@@ -2,15 +2,41 @@
   <header>
     <nav>
       <div class="global-nav-links">
-        <router-link to="/board/board" class="global-nav-item">board</router-link>
-        <router-link to="/board/notice" class="global-nav-item">notice</router-link>
+        <nav>
+          <router-link :to="`/board/notice`" class="global-nav-item">notice</router-link>
+          <ul>
+            <li>
+              <router-link
+                :to="`/board/${boardTypeList[0]?.boardType}`"
+                class="global-nav-item"
+                @click="onSateSub"
+                @blur="stateSub = false"
+              >
+                {{ boardTypeList[0]?.boardType }}
+              </router-link>
+              <ul
+                v-show="stateSub"
+                class="local-nav-link"
+              >
+                <li
+                  v-for="(item, index) in boardTypeList"
+                  :key="`select${index}`"
+                >
+                  <router-link :to="`/board/${item.boardType}`" class="global-nav-item">{{ item.boardType }}</router-link>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
       </div>
     </nav>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
+import { useBoardStore } from '@/store/board/board.module'
+import { ResBoardTypeInterface } from '@/service/board/interface/boardType.interface'
 
 export default defineComponent({
   name: 'Header',
@@ -27,11 +53,38 @@ export default defineComponent({
     }
   },
   setup () {
+    // router & store
+    const boardStore = useBoardStore()
+
+    // init
+    const boardTypeList = ref<ResBoardTypeInterface[]>([])
+    const stateSub = ref(false)
+    // const computedState = computed(() => {
+    //   return !stateSub.value
+    // })
+
+    // api
+    async function getBoardType () {
+      boardTypeList.value = await boardStore.actionHttpBoardType()
+    }
+
+    function onSateSub () {
+      console.log('stateSub', stateSub.value)
+      if (stateSub.value) {
+        stateSub.value = false
+      } else {
+        stateSub.value = true
+      }
+    }
+
     onMounted(() => {
-      // console.log('props.scrollTop', props.scrollTop)
+      getBoardType()
     })
 
     return {
+      boardTypeList,
+      stateSub,
+      onSateSub
     }
   }
 })
