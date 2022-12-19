@@ -92,6 +92,14 @@ export default defineComponent({
       boardDetail.value = result[0]
     }
     async function boardUpdate () {
+      if (boardDetail.value.title === '') {
+        alert('제목을 입력해 주세요.')
+        return false
+      }
+      if (boardDetail.value.content === '') {
+        alert('내용을 입력해 주세요.')
+        return false
+      }
       await boardStore.actionHttpBoardUpdateCreate(boardDetail.value)
       alert('글 수정이 완료되었습니다.')
       router.push({

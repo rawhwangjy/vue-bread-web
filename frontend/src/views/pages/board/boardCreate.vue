@@ -7,7 +7,7 @@
           <dt>타입</dt>
           <dd>
             <select v-model="boardDetail.boardType">
-              <option value="default">default</option>
+              <option value="카테고리를 선택해주세요.">카테고리를 선택해주세요.</option>
               <option
                 v-for="(item, index) in boardTypeList"
                 :key="`select${index}`"
@@ -70,7 +70,7 @@ export default defineComponent({
     // init data
     const boardTypeList = ref<ResBoardTypeInterface[]>([])
     const boardDetail = ref<ResBoardCreateInterface>({
-      boardType: 'default',
+      boardType: '카테고리를 선택해주세요.',
       title: '',
       content: '',
       agree: false
@@ -81,10 +81,19 @@ export default defineComponent({
       boardTypeList.value = await boardStore.actionHttpBoardType()
     }
     async function boardCreate () {
-      if (boardDetail.value.boardType === 'default') {
-        console.log('default')
+      if (boardDetail.value.boardType === '카테고리를 선택해주세요.') {
+        alert('카테고리를 선택해 주세요.')
+        return false
       }
-      // await boardStore.actionHttpBoardCreate(boardDetail.value)
+      if (boardDetail.value.title === '') {
+        alert('제목을 입력해 주세요.')
+        return false
+      }
+      if (boardDetail.value.content === '') {
+        alert('내용을 입력해 주세요.')
+        return false
+      }
+      await boardStore.actionHttpBoardCreate(boardDetail.value)
       alert('글 등록이 완료되었습니다.')
       router.push({
         path: `/board/${boardDetail.value.boardType}`

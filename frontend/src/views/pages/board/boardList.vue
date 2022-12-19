@@ -80,8 +80,13 @@ export default defineComponent({
       const targetBoard = {
         id: targetId
       }
-      await boardStore.actionHttpBoardDelete(targetBoard)
-      getBoardList()
+      if (confirm('정말 삭제하시겠습니까?')) {
+        alert('삭제되었습니다.')
+        await boardStore.actionHttpBoardDelete(targetBoard)
+        getBoardList()
+      } else {
+        alert('취소되었습니다.')
+      }
     }
     function boardCreate () {
       router.push({
