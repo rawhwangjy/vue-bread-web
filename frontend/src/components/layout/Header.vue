@@ -10,7 +10,6 @@
                 :to="`/board/${boardTypeList[0]?.boardType}`"
                 class="global-nav-item"
                 @click="onSateSub"
-                @blur="stateSub = false"
               >
                 {{ boardTypeList[0]?.boardType }}
               </router-link>
