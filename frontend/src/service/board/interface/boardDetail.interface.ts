@@ -8,7 +8,7 @@ export interface ReqBoardDetailInterface {
 
 export interface ResBoardDetailInterface {
   id: number,
-  boardType: string,
+  category: string,
   title: string,
   content: string,
   agree: boolean | number

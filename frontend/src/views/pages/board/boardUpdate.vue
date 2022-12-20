@@ -1,18 +1,18 @@
 <template>
   <div class="board-wrap">
-    <h3>{{ route.params.boardType }} update</h3>
+    <h3>{{ route.params.category }} update</h3>
     <div class="board-list">
       <dl>
         <div>
           <dt>타입</dt>
           <dd>
-          <select v-model="boardDetail.boardType">
+          <select v-model="boardDetail.category">
             <option
-              v-for="(item, index) in boardTypeList"
+              v-for="(item, index) in categoryList"
               :key="`select${index}`"
-              :value="item.boardType"
+              :value="item.category"
             >
-              {{ item.boardType }}
+              {{ item.category }}
             </option>
           </select>
 
@@ -53,7 +53,8 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
-import { ReqBoardTypeInterface } from '@/service/board/interface/boardType.interface'
+import { useCategoryStore } from '@/store/category/category.module'
+import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 import { ResBoardUpdateDetailInterface } from '@/service/board/interface/boardUpdate.interface'
 import Checkbox from '@/components/Checkbox.vue'
 
@@ -67,21 +68,22 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const boardStore = useBoardStore()
+    const categoryStore = useCategoryStore()
 
     // init data
-    const currentBoardType = route.params.boardType
-    const boardTypeList = ref<ReqBoardTypeInterface[]>([])
+    const currentCategory = route.params.category
+    const categoryList = ref<ResCategoryListInterface[]>([])
     const boardDetail = ref<ResBoardUpdateDetailInterface>({
       id: 0,
-      boardType: typeof currentBoardType === 'string' ? currentBoardType : currentBoardType[0],
+      category: typeof currentCategory === 'string' ? currentCategory : currentCategory[0],
       title: '',
       content: '',
       agree: false
     })
 
     // api
-    async function getBoardType () {
-      boardTypeList.value = await boardStore.actionHttpBoardType()
+    async function getCategoryList () {
+      categoryList.value = await categoryStore.actionHttpGetCategoryList()
     }
     async function getBoardDetail () {
       const targetBoard = {
@@ -103,7 +105,7 @@ export default defineComponent({
       await boardStore.actionHttpBoardUpdateCreate(boardDetail.value)
       alert('글 수정이 완료되었습니다.')
       router.push({
-        path: `/board/${boardDetail.value.boardType}`
+        path: `/board/${boardDetail.value.category}`
       })
     }
 
@@ -112,13 +114,13 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      getBoardType()
+      getCategoryList()
       getBoardDetail()
     })
 
     return {
       route,
-      boardTypeList,
+      categoryList,
       boardDetail,
       boardUpdate,
       back

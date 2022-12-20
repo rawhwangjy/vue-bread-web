@@ -58,22 +58,22 @@ export default defineComponent({
     const boardStore = useBoardStore()
 
     // init data
-    const currentBoardType = route.params.boardType
+    const currentCategory = route.params.category
     const boardList = ref<ResBoardListInterface[]>([])
-    const targetBoardType = {
-      boardType: typeof currentBoardType === 'string' ? currentBoardType : currentBoardType[0]
+    const targetCategory = {
+      category: typeof currentCategory === 'string' ? currentCategory : currentCategory[0]
     }
 
     // api
     async function getBoardList () {
-      boardList.value = await boardStore.actionHttpGetBoardList(targetBoardType)
+      boardList.value = await boardStore.actionHttpGetBoardList(targetCategory)
     }
 
     // route
     function getBoardDetail (targetId: number) {
       const id = targetId
       router.push({
-        path: `/board/${currentBoardType}/${id}`
+        path: `/board/${currentCategory}/${id}`
       })
     }
     async function boardDelete (targetId: number) {
@@ -90,13 +90,13 @@ export default defineComponent({
     }
     function boardCreate () {
       router.push({
-        path: '/board/register'
+        path: `/board/${currentCategory}/register`
       })
     }
     function boardUpdate (targetId: number) {
       const id = targetId
       router.push({
-        path: `/board/${currentBoardType}/update/${id}`
+        path: `/board/${currentCategory}/update/${id}`
       })
     }
 
@@ -105,9 +105,9 @@ export default defineComponent({
     })
 
     watch(
-      () => route.params.boardType,
-      newBoardType => {
-        targetBoardType.boardType = String(newBoardType)
+      () => route.params.category,
+      newCategory => {
+        targetCategory.category = String(newCategory)
         getBoardList()
       }
     )

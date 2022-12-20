@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 
-import { ResBoardTypeInterface } from '@/service/board/interface/boardType.interface'
 import { ReqBoardListInterface, ResBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 import { ReqBoardCreateInterface, ResBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
@@ -8,7 +7,6 @@ import { ReqBoardUpdateDetailInterface, ResBoardUpdateDetailInterface, ReqBoardU
 import { ResBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
 
 import {
-  httpGetBoardType,
   httpGetBoardList,
   httpGetBoard,
   httpSetBoard,
@@ -18,7 +16,6 @@ import {
 } from '@/service/board/board.api'
 
 interface boardState {
-  getBoardType: ResBoardTypeInterface[],
   getBoardList: ResBoardListInterface[],
   getBoardDetail: ResBoardDetailInterface,
   boardCreate: ResBoardCreateInterface,
@@ -29,34 +26,34 @@ interface boardState {
 
 export const getBoardDetailInit = {
   id: 0,
-  boardType: '',
+  category: '',
   title: '',
   content: '',
   agree: false
 }
 export const boardCreateInit = {
-  boardType: '',
+  category: '',
   title: '',
   content: '',
   agree: false
 }
 export const boardUpdateInit = {
   id: 0,
-  boardType: '',
+  category: '',
   title: '',
   content: '',
   agree: false
 }
 export const getBoardUpdateDetailInit = {
   id: 0,
-  boardType: '',
+  category: '',
   title: '',
   content: '',
   agree: false
 }
 export const getBoardUpdateCreateInit = {
   id: 0,
-  boardType: '',
+  category: '',
   title: '',
   content: '',
   agree: false
@@ -66,33 +63,34 @@ export const getBoardDeleteInit = {
 }
 
 export const useBoardStore = defineStore({
-  id: '',
+  id: 'board',
   state: (): boardState => ({
-    getBoardType: [],
+    // 초기값
+    // 스토어가 생성될 때의 초기값
     getBoardList: [],
     getBoardDetail: {
       id: 0,
-      boardType: '',
+      category: '',
       title: '',
       content: '',
       agree: false
     },
     boardCreate: {
-      boardType: '',
+      category: '',
       title: '',
       content: '',
       agree: false
     },
     boardUpdateDetail: {
       id: 0,
-      boardType: '',
+      category: '',
       title: '',
       content: '',
       agree: false
     },
     boardUpdateCreate: {
       id: 0,
-      boardType: '',
+      category: '',
       title: '',
       content: '',
       agree: false
@@ -102,18 +100,6 @@ export const useBoardStore = defineStore({
     }
   }),
   actions: {
-    async actionHttpBoardType () {
-      this.getBoardType = []
-      try {
-        const res = await httpGetBoardType()
-        if (res.data) {
-          this.getBoardType = res.data
-        }
-        return res.data
-      } catch (error) {
-        return Promise.reject(error)
-      }
-    },
     async actionHttpGetBoardList (fdata: ReqBoardListInterface) {
       this.getBoardList = []
       try {

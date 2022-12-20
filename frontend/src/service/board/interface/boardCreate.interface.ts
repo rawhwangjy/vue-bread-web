@@ -3,13 +3,13 @@
  * CreateBoardInterface Request
  */
 export interface ReqBoardCreateInterface {
-  boardType: string,
+  category: string,
   title: string,
   content: string,
   agree: boolean | number
 }
 export interface ResBoardCreateInterface {
-  boardType: string,
+  category: string,
   title: string,
   content: string,
   agree: boolean | number

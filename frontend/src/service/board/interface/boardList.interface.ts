@@ -3,11 +3,11 @@
  * BoardListInterface Request, Response
  */
 export interface ReqBoardListInterface {
-  boardType: string
+  category: string
 }
 
 export interface ResBoardListInterface {
   id: number,
-  boardType: string,
+  category: string,
   title: string
 }

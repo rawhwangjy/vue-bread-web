@@ -1,6 +1,6 @@
 <template>
   <div class="board-wrap">
-    <h3>{{ route.params.boardType }} view</h3>
+    <h3>{{ route.params.category }} view</h3>
     <div class="board-list">
       <div>dd{{ boardDetail.id }}</div>
       <div>{{ boardDetail.title }}</div>
@@ -32,7 +32,7 @@ export default defineComponent({
     // init data
     const boardDetail = ref<ResBoardDetailInterface>({
       id: 0,
-      boardType: '',
+      category: '',
       title: '',
       content: '',
       agree: false

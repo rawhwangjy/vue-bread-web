@@ -7,22 +7,22 @@ import { ReqBoardUpdateDetailInterface, ReqBoardUpdateCreateInterface } from '@/
 import { ReqBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
 
 enum Api {
-  getBoardType = '/board/:boardType',
-  getBoardList = '/board/board/boardList',
-  getBoardDetail = '/board/:boardType/:id',
-  boardCreate = '/board/register',
-  boardUpdateDetail = '/board/:boardType/update/:id',
-  boardUpdateCreate = '/board/:boardType/register/:id',
+  getCategory = '/board/:category',
+  getBoardList = '/board/:category/boardList',
+  getBoardDetail = '/board/:category/:id',
+  boardCreate = '/board/:category/register',
+  boardUpdateDetail = '/board/:category/update/:id',
+  boardUpdateCreate = '/board/:category/register/:id',
   boardDelete = '/board/delete/:id',
 }
 
 /**
  * @description Board Type
  */
-export const httpGetBoardType = () => {
+export const httpGetCategory = () => {
   return axiosInstance({
     method: RequestEnum.POST,
-    url: Api.getBoardType
+    url: Api.getCategory
   })
 }
 
