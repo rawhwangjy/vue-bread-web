@@ -66,7 +66,6 @@ export default defineComponent({
     // api
     async function getCategoryList () {
       categoryList.value = await categoryStore.actionHttpGetCategoryList()
-      console.log('11', categoryList.value)
     }
 
     function onSateSub () {
