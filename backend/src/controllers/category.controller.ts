@@ -27,5 +27,18 @@ router.post('/register', async (req, res) => {
     })
   }
 })
+// board update
+router.put('/register/:id', async (req, res) => {
+  try {
+    console.log('here update register')
+    console.log('update register', req.body)
+    const sql = `UPDATE admin_t_board_config SET ? WHERE id = ${req.body.id}`
+    res.send(await serverReq.db(sql, req.body))
+  } catch (err) {
+    res.status(500).send({
+      error: err
+    })
+  }
+})
 
 export default router

@@ -17,10 +17,17 @@
               <h4 class="board-title">{{ category.id }}</h4>
             </td>
             <td>
-              <button type="button">
-                {{ category.category }}
-                <font-awesome-icon icon="fa-solid fa-pencil" />
-              </button>
+              <div @click="changeUI(category)">
+                <span v-show="categoryDetail.id !== category.id">
+                  {{ category.category }}
+                  <font-awesome-icon icon="fa-solid fa-pencil" />
+                </span>
+                <!-- v-if="categoryDetail.id !== 0" -->
+                <span v-if="categoryDetail.id === category.id">
+                  <input type="text" name="" id="" v-model="categoryDetail.category" >
+                  <button type="button" @click="categoryUpdate(categoryDetail)">완료</button>
+                </span>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -39,7 +46,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { useCategoryStore } from '@/store/category/category.module'
 import { useRouter } from 'vue-router'
-import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
+import { ResCategoryListInterface, ResCategoryUpdateDetailInterface } from '@/service/category/interface/categoryList.interface'
 
 export default defineComponent({
   name: 'boardList',
@@ -52,6 +59,10 @@ export default defineComponent({
 
     // init data
     const categoryList = ref<ResCategoryListInterface[]>([])
+    const categoryDetail = ref<ResCategoryUpdateDetailInterface>({
+      id: 0,
+      category: ''
+    })
 
     // api
     async function getCategoryList () {
@@ -65,6 +76,24 @@ export default defineComponent({
         path: '/board/category/register'
       })
     }
+    async function categoryUpdate (target: ResCategoryUpdateDetailInterface) {
+      console.log('categoryList.value ', categoryList.value)
+      console.log('target ', target)
+      // categoryList.value.filter((item) => {
+      //   if (item.id === target.id) {
+      //     item.category = target.category
+      //   }
+      //   return false
+      // })
+      console.log('categoryList.value ', categoryList.value)
+      await categoryStore.actionHttpCategoryUpdate(target)
+      getCategoryList()
+      categoryDetail.value.id = 0
+    }
+    function changeUI (target: ResCategoryUpdateDetailInterface) {
+      categoryDetail.value.id = target.id
+      categoryDetail.value.category = target.category
+    }
 
     onMounted(() => {
       getCategoryList()
@@ -74,7 +103,10 @@ export default defineComponent({
       categoryStore,
       getCategoryList,
       categoryList,
-      categoryCreate
+      categoryCreate,
+      changeUI,
+      categoryUpdate,
+      categoryDetail
     }
   }
 })
