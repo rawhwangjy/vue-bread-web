@@ -44,8 +44,8 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import { useCategoryStore } from '@/store/category/category.module'
 import { useRouter } from 'vue-router'
+import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface, ResCategoryUpdateDetailInterface } from '@/service/category/interface/categoryList.interface'
 
 export default defineComponent({
@@ -69,26 +69,25 @@ export default defineComponent({
       const result = await categoryStore.actionHttpGetCategoryList()
       categoryList.value = result
     }
-
-    // route
-    function categoryCreate () {
-      router.push({
-        path: '/board/category/register'
-      })
-    }
     async function categoryUpdate (target: ResCategoryUpdateDetailInterface) {
-      console.log('categoryList.value ', categoryList.value)
-      console.log('target ', target)
       // categoryList.value.filter((item) => {
       //   if (item.id === target.id) {
       //     item.category = target.category
       //   }
       //   return false
       // })
-      console.log('categoryList.value ', categoryList.value)
+      const afterCategory = categoryDetail.value.category
       await categoryStore.actionHttpCategoryUpdate(target)
+      const beforeCategory = categoryDetail.value.category
       getCategoryList()
       categoryDetail.value.id = 0
+    }
+
+    // route
+    function categoryCreate () {
+      router.push({
+        path: '/board/category/register'
+      })
     }
     function changeUI (target: ResCategoryUpdateDetailInterface) {
       categoryDetail.value.id = target.id

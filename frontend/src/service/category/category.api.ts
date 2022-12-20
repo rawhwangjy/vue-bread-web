@@ -7,7 +7,8 @@ import { ReqCategoryUpdateInterface } from '@/service/category/interface/categor
 enum Api {
   categoryList = '/board/category/categoryList',
   categoryCreate = '/board/category/register',
-  categoryUpdate = '/board/category/register/:id'
+  categoryUpdate = '/board/category/update/:id',
+  boardListCategoryUpdate = '/board/:category/update/:id'
 }
 
 /**
@@ -32,7 +33,7 @@ export const httpSetCategory = (fdata: ReqCategoryCreateInterface) => {
 }
 
 /**
- * @description Category Update Create
+ * @description Category Update
  */
 export const httpSetCategoryUpdate = (fdata: ReqCategoryUpdateInterface) => {
   return axiosInstance({

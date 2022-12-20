@@ -1,5 +1,5 @@
 /**
- * @description: category update register
+ * @description: category update
  * CategoryUpdateInterface Request, Response
  */
 export interface ReqCategoryUpdateInterface {

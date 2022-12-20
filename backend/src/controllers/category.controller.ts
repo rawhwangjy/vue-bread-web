@@ -2,7 +2,7 @@ import express from 'express'
 const router = express.Router()
 import serverReq from '../db'
 
-// board list
+// category list
 router.post('/categoryList', async (req, res) => {
   try {
     console.log('category list')
@@ -14,7 +14,7 @@ router.post('/categoryList', async (req, res) => {
     })
   }
 })
-// board register
+// category register
 router.post('/register', async (req, res) => {
   try {
     console.log('here register')
@@ -27,8 +27,8 @@ router.post('/register', async (req, res) => {
     })
   }
 })
-// board update
-router.put('/register/:id', async (req, res) => {
+// category update
+router.put('/update/:id', async (req, res) => {
   try {
     console.log('here update register')
     console.log('update register', req.body)
