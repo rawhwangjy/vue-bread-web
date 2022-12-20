@@ -2,7 +2,7 @@
   <div class="board-wrap">
     <h3>{{ route.params.category }} view</h3>
     <div class="board-list">
-      <div>dd{{ boardDetail.id }}</div>
+      <div>id 는 {{ boardDetail.id }}</div>
       <div>{{ boardDetail.title }}</div>
       <div>{{ boardDetail.agree }}</div>
     </div>

@@ -1,27 +1,12 @@
 /**
- * @description: board update detail
- * BoardUpdateDetailInterface Request, Response
+ * @description: board update
+ * BoardUpdateInterface Request, Response
  */
-export interface ReqBoardUpdateDetailInterface {
+export interface ReqBoardUpdateInterface {
   id: number
 }
 
-export interface ResBoardUpdateDetailInterface {
-  id: number,
-  category: string,
-  title: string,
-  content: string,
-  agree: boolean | number
-}
-/**
- * @description: board update register
- * BoardUpdateCreateInterface Request, Response
- */
-export interface ReqBoardUpdateCreateInterface {
-  id: number
-}
-
-export interface ResBoardUpdateCreateInterface {
+export interface ResBoardUpdateInterface {
   id: number,
   category: string,
   title: string,

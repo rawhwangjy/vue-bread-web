@@ -51,22 +51,10 @@ router.post('/:category', async (req, res) => {
     })
   }
 })
-// board update view
-router.post('/:category/update/:id', async (req, res) => {
+// board update
+router.put('/:category/update/:id', async (req, res) => {
   try {
     console.log('here update')
-    const sql = `SELECT * FROM admin_t_boards WHERE id = ${req.body.id}`
-    res.send(await serverReq.db(sql, req.body))
-  } catch (err) {
-    res.status(500).send({
-      error: err
-    })
-  }
-})
-// board update register
-router.put('/:category/register/:id', async (req, res) => {
-  try {
-    console.log('here update register')
     console.log('update register', req.body)
     const sql = `UPDATE admin_t_boards SET ? WHERE id = ${req.body.id}`
     res.send(await serverReq.db(sql, req.body))

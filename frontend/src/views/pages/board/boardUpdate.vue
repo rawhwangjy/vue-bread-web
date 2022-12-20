@@ -55,7 +55,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
-import { ResBoardUpdateDetailInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import Checkbox from '@/components/Checkbox.vue'
 
 export default defineComponent({
@@ -73,7 +73,7 @@ export default defineComponent({
     // init data
     const currentCategory = route.params.category
     const categoryList = ref<ResCategoryListInterface[]>([])
-    const boardDetail = ref<ResBoardUpdateDetailInterface>({
+    const boardDetail = ref<ResBoardUpdateInterface>({
       id: 0,
       category: typeof currentCategory === 'string' ? currentCategory : currentCategory[0],
       title: '',
@@ -89,8 +89,8 @@ export default defineComponent({
       const targetBoard = {
         id: Number(route.params.id)
       }
-      const result = await boardStore.actionHttpBoardUpdateDetail(targetBoard)
-      result.agree === 1 ? result.agree = true : result.agree = false
+      const result = await boardStore.actionHttpGetBoard(targetBoard)
+      result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       boardDetail.value = result[0]
     }
     async function boardUpdate () {
@@ -102,7 +102,7 @@ export default defineComponent({
         alert('내용을 입력해 주세요.')
         return false
       }
-      await boardStore.actionHttpBoardUpdateCreate(boardDetail.value)
+      await boardStore.actionHttpBoardUpdate(boardDetail.value)
       alert('글 수정이 완료되었습니다.')
       router.push({
         path: `/board/${boardDetail.value.category}`

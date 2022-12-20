@@ -3,15 +3,14 @@ import { defineStore } from 'pinia'
 import { ReqBoardListInterface, ResBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 import { ReqBoardCreateInterface, ResBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
-import { ReqBoardUpdateDetailInterface, ResBoardUpdateDetailInterface, ReqBoardUpdateCreateInterface, ResBoardUpdateCreateInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ReqBoardUpdateInterface, ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import { ResBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
 
 import {
   httpGetBoardList,
   httpGetBoard,
   httpSetBoard,
-  httpGetBoardUpdate,
-  httpSetBoardUpdate,
+  httpBoardUpdate,
   httpDeleteBoard
 } from '@/service/board/board.api'
 
@@ -19,8 +18,7 @@ interface boardState {
   getBoardList: ResBoardListInterface[],
   getBoardDetail: ResBoardDetailInterface,
   boardCreate: ResBoardCreateInterface,
-  boardUpdateDetail: ResBoardUpdateDetailInterface,
-  boardUpdateCreate: ResBoardUpdateCreateInterface,
+  boardUpdate: ResBoardUpdateInterface,
   boardDelete: ResBoardDeleteInterface
 }
 
@@ -44,14 +42,7 @@ export const boardUpdateInit = {
   content: '',
   agree: false
 }
-export const getBoardUpdateDetailInit = {
-  id: 0,
-  category: '',
-  title: '',
-  content: '',
-  agree: false
-}
-export const getBoardUpdateCreateInit = {
+export const getBoardUpdateInit = {
   id: 0,
   category: '',
   title: '',
@@ -81,14 +72,7 @@ export const useBoardStore = defineStore({
       content: '',
       agree: false
     },
-    boardUpdateDetail: {
-      id: 0,
-      category: '',
-      title: '',
-      content: '',
-      agree: false
-    },
-    boardUpdateCreate: {
+    boardUpdate: {
       id: 0,
       category: '',
       title: '',
@@ -136,24 +120,24 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardUpdateDetail (fdata: ReqBoardUpdateDetailInterface) {
-      this.boardUpdateDetail = getBoardUpdateDetailInit
+    // async actionHttpBoardUpdateDetail (fdata: ReqBoardUpdateDetailInterface) {
+    //   this.boardUpdateDetail = getBoardUpdateDetailInit
+    //   try {
+    //     const res = await httpGetBoardUpdate(fdata)
+    //     if (res.data) {
+    //       this.boardCreate = res.data
+    //     }
+    //     return res.data
+    //   } catch (error) {
+    //     return Promise.reject(error)
+    //   }
+    // },
+    async actionHttpBoardUpdate (fdata: ReqBoardUpdateInterface) {
+      this.boardUpdate = getBoardUpdateInit
       try {
-        const res = await httpGetBoardUpdate(fdata)
+        const res = await httpBoardUpdate(fdata)
         if (res.data) {
-          this.boardCreate = res.data
-        }
-        return res.data
-      } catch (error) {
-        return Promise.reject(error)
-      }
-    },
-    async actionHttpBoardUpdateCreate (fdata: ReqBoardUpdateCreateInterface) {
-      this.boardUpdateDetail = getBoardUpdateCreateInit
-      try {
-        const res = await httpSetBoardUpdate(fdata)
-        if (res.data) {
-          this.boardCreate = res.data
+          this.boardUpdate = res.data
         }
         return res.data
       } catch (error) {
