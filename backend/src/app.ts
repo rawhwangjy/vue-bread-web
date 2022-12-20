@@ -1,5 +1,6 @@
 import express from 'express'
 import session from 'express-session'
+import categoryController from './controllers/category.controller'
 import boardController from './controllers/board.controller'
 
 const app = express()
@@ -19,6 +20,7 @@ app.use(express.json({
   limit: '50mb'
 }))
 
+app.use('/api/board/category', categoryController)
 app.use('/api/board', boardController)
 
 app.listen('3000', () => {
