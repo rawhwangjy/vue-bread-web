@@ -1,5 +1,6 @@
 import { axiosInstance } from '@/utils/instance.axios'
 import { RequestEnum } from '@/utils/common.constants'
+
 import { ReqBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
@@ -14,16 +15,6 @@ enum Api {
   boardUpdateDetail = '/board/:category/update/:id',
   boardUpdateCreate = '/board/:category/register/:id',
   boardDelete = '/board/delete/:id',
-}
-
-/**
- * @description Board Type
- */
-export const httpGetCategory = () => {
-  return axiosInstance({
-    method: RequestEnum.POST,
-    url: Api.getCategory
-  })
 }
 
 /**

@@ -14,5 +14,18 @@ router.post('/categoryList', async (req, res) => {
     })
   }
 })
+// board register
+router.post('/register', async (req, res) => {
+  try {
+    console.log('here register')
+    console.log('register', req.body)
+    const sql = `INSERT INTO admin_t_board_config SET ?`
+    res.send(await serverReq.db(sql, req.body))
+  } catch (err) {
+    res.status(500).send({
+      error: err
+    })
+  }
+})
 
 export default router

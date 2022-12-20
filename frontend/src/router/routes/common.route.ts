@@ -1,6 +1,7 @@
 const container = () => import(/* webpackChunkName: "pages" */ '@/views/pages/_pageContainer.vue')
 
 const categoryList = () => import(/* webpackChunkName: "pages" */ '@/views/pages/category/categoryList.vue')
+const categoryCreate = () => import(/* webpackChunkName: "pages" */ '@/views/pages/category/categoryCreate.vue')
 
 const boardList = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardList.vue')
 const boardView = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardView.vue')
@@ -26,6 +27,11 @@ export default {
       path: '/board/category',
       name: 'categoryList',
       component: categoryList
+    },
+    {
+      path: '/board/category/register',
+      name: 'categoryCreate',
+      component: categoryCreate
     },
     {
       path: '/board/:category',

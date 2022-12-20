@@ -3,25 +3,24 @@
     <nav>
       <div class="global-nav-links">
         <nav>
-          <router-link :to="`/board/notice`" class="global-nav-item">notice</router-link>
           <ul>
             <li>
               <router-link
-                :to="`/board/${boardTypeList[0]?.boardType}`"
+                to="/board/category"
                 class="global-nav-item"
                 @click="onSateSub"
               >
-                {{ boardTypeList[0]?.boardType }}
+                Board
               </router-link>
               <ul
                 v-show="stateSub"
                 class="local-nav-link"
               >
                 <li
-                  v-for="(item, index) in boardTypeList"
+                  v-for="(item, index) in categoryList"
                   :key="`select${index}`"
                 >
-                  <router-link :to="`/board/${item.boardType}`" class="global-nav-item">{{ item.boardType }}</router-link>
+                  <router-link :to="`/board/${item.category}`" class="global-nav-item">{{ item.category }}</router-link>
                 </li>
               </ul>
             </li>
@@ -35,7 +34,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useBoardStore } from '@/store/board/board.module'
-import { ResBoardTypeInterface } from '@/service/board/interface/boardType.interface'
+import { useCategoryStore } from '@/store/category/category.module'
+import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 
 export default defineComponent({
   name: 'Header',
@@ -54,17 +54,19 @@ export default defineComponent({
   setup () {
     // router & store
     const boardStore = useBoardStore()
+    const categoryStore = useCategoryStore()
 
     // init
-    const boardTypeList = ref<ResBoardTypeInterface[]>([])
+    const categoryList = ref<ResCategoryListInterface[]>([])
     const stateSub = ref(false)
     // const computedState = computed(() => {
     //   return !stateSub.value
     // })
 
     // api
-    async function getBoardType () {
-      boardTypeList.value = await boardStore.actionHttpBoardType()
+    async function getCategoryList () {
+      categoryList.value = await categoryStore.actionHttpGetCategoryList()
+      console.log('11', categoryList.value)
     }
 
     function onSateSub () {
@@ -77,11 +79,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      getBoardType()
+      getCategoryList()
     })
 
     return {
-      boardTypeList,
+      categoryList,
       stateSub,
       onSateSub
     }
