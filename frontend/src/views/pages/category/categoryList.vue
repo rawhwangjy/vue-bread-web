@@ -45,8 +45,10 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface, ResCategoryUpdateDetailInterface } from '@/service/category/interface/categoryList.interface'
+import { ResBoardListInterface } from '@/service/board/interface/boardList.interface'
 
 export default defineComponent({
   name: 'boardList',
@@ -55,6 +57,7 @@ export default defineComponent({
   setup () {
     // router & store
     const router = useRouter()
+    const boardStore = useBoardStore()
     const categoryStore = useCategoryStore()
 
     // init data
@@ -63,6 +66,7 @@ export default defineComponent({
       id: 0,
       category: ''
     })
+    const boardList = ref<ResBoardListInterface[]>([])
 
     // api
     async function getCategoryList () {
@@ -81,6 +85,21 @@ export default defineComponent({
       const beforeCategory = categoryDetail.value.category
       getCategoryList()
       categoryDetail.value.id = 0
+      getBoardList(beforeCategory, afterCategory)
+    }
+    async function getBoardList (beforeCategory: string, afterCategory: string) {
+      const targetCategory = {
+        category: beforeCategory
+      }
+      boardList.value = await boardStore.actionHttpGetBoardList(targetCategory)
+      boardList.value.filter((item) => {
+        item.category = afterCategory
+        boardsUpdate(item)
+        return false
+      })
+    }
+    async function boardsUpdate (target: ResCategoryUpdateDetailInterface) {
+      await boardStore.actionHttpBoardUpdate(target)
     }
 
     // route
