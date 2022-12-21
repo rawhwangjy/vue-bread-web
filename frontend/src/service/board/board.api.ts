@@ -8,7 +8,6 @@ import { ReqBoardUpdateInterface } from '@/service/board/interface/boardUpdate.i
 import { ReqBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
 
 enum Api {
-  getCategory = '/board/:category',
   getBoardList = '/board/:category/boardList',
   getBoardDetail = '/board/:category/:id',
   boardCreate = '/board/:category/register',

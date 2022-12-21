@@ -6,12 +6,12 @@
         <div>
           <dt>타입</dt>
           <dd>
-            <select v-model="boardDetail.category">
-              <option value="카테고리를 선택해주세요.">카테고리를 선택해주세요.</option>
+            <select v-model="boardDetail.categoryId">
+              <option value="0">카테고리를 선택해주세요.</option>
               <option
                 v-for="(item, index) in categoryList"
                 :key="`select${index}`"
-                :value="item.category"
+                :value="item.id"
               >
                 {{ item.category }}
               </option>
@@ -70,9 +70,10 @@ export default defineComponent({
     const categoryStore = useCategoryStore()
 
     // init data
+    const currentCategory = ref('')
     const categoryList = ref<ResCategoryListInterface[]>([])
     const boardDetail = ref<ResBoardCreateInterface>({
-      category: '카테고리를 선택해주세요.',
+      categoryId: 0,
       title: '',
       content: '',
       agree: false
@@ -83,7 +84,7 @@ export default defineComponent({
       categoryList.value = await categoryStore.actionHttpGetCategoryList()
     }
     async function boardCreate () {
-      if (boardDetail.value.category === '카테고리를 선택해주세요.') {
+      if (boardDetail.value.categoryId === 0) {
         alert('카테고리를 선택해 주세요.')
         return false
       }
@@ -96,9 +97,15 @@ export default defineComponent({
         return false
       }
       await boardStore.actionHttpBoardCreate(boardDetail.value)
+      categoryList.value.filter((item) => {
+        if (item.id === boardDetail.value.categoryId) {
+          currentCategory.value = item.category
+        }
+        return false
+      })
       alert('글 등록이 완료되었습니다.')
       router.push({
-        path: `/board/${boardDetail.value.category}`
+        path: `/board/${currentCategory.value}`
       })
     }
 

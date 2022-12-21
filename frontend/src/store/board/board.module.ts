@@ -30,21 +30,14 @@ export const getBoardDetailInit = {
   agree: false
 }
 export const boardCreateInit = {
-  category: '',
+  categoryId: 0,
   title: '',
   content: '',
   agree: false
 }
 export const boardUpdateInit = {
   id: 0,
-  category: '',
-  title: '',
-  content: '',
-  agree: false
-}
-export const getBoardUpdateInit = {
-  id: 0,
-  category: '',
+  categoryId: 0,
   title: '',
   content: '',
   agree: false
@@ -67,14 +60,14 @@ export const useBoardStore = defineStore({
       agree: false
     },
     boardCreate: {
-      category: '',
+      categoryId: 0,
       title: '',
       content: '',
       agree: false
     },
     boardUpdate: {
       id: 0,
-      category: '',
+      categoryId: 0,
       title: '',
       content: '',
       agree: false
@@ -133,7 +126,7 @@ export const useBoardStore = defineStore({
     //   }
     // },
     async actionHttpBoardUpdate (fdata: ReqBoardUpdateInterface) {
-      this.boardUpdate = getBoardUpdateInit
+      this.boardUpdate = boardUpdateInit
       try {
         const res = await httpBoardUpdate(fdata)
         if (res.data) {

@@ -6,15 +6,16 @@
         <div>
           <dt>타입</dt>
           <dd>
-          <select v-model="boardDetail.category">
-            <option
-              v-for="(item, index) in categoryList"
-              :key="`select${index}`"
-              :value="item.category"
-            >
-              {{ item.category }}
-            </option>
-          </select>
+            <select v-model="boardDetail.categoryId">
+              <option value="0">카테고리를 선택해주세요.</option>
+              <option
+                v-for="(item, index) in categoryList"
+                :key="`select${index}`"
+                :value="item.id"
+              >
+                {{ item.category }}
+              </option>
+            </select>
 
           </dd>
         </div>
@@ -71,11 +72,11 @@ export default defineComponent({
     const categoryStore = useCategoryStore()
 
     // init data
-    const currentCategory = route.params.category
+    const currentCategory = ref('')
     const categoryList = ref<ResCategoryListInterface[]>([])
     const boardDetail = ref<ResBoardUpdateInterface>({
       id: 0,
-      category: typeof currentCategory === 'string' ? currentCategory : currentCategory[0],
+      categoryId: 0,
       title: '',
       content: '',
       agree: false
@@ -94,6 +95,10 @@ export default defineComponent({
       boardDetail.value = result[0]
     }
     async function boardUpdate () {
+      if (boardDetail.value.categoryId === 0) {
+        alert('카테고리를 선택해 주세요.')
+        return false
+      }
       if (boardDetail.value.title === '') {
         alert('제목을 입력해 주세요.')
         return false
@@ -103,9 +108,15 @@ export default defineComponent({
         return false
       }
       await boardStore.actionHttpBoardUpdate(boardDetail.value)
+      categoryList.value.filter((item) => {
+        if (item.id === boardDetail.value.categoryId) {
+          currentCategory.value = item.category
+        }
+        return false
+      })
       alert('글 수정이 완료되었습니다.')
       router.push({
-        path: `/board/${boardDetail.value.category}`
+        path: `/board/${currentCategory.value}`
       })
     }
 

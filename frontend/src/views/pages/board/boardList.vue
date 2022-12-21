@@ -4,9 +4,9 @@
       <table class="table vertical">
         <thead>
           <tr>
-            <th scope="col">Id</th>
+            <th scope="col">ID</th>
+            <th scope="col">Category</th>
             <th scope="col">Title</th>
-            <th scope="col">Date</th>
             <th scope="col">btns</th>
           </tr>
         </thead>
@@ -18,12 +18,12 @@
             <td>
               <h4 class="board-title">{{ board.id }}</h4>
             </td>
+            <td>{{ board.category }}</td>
             <td>
               <a href="javascript:;" @click="getBoardDetail(board.id)">
                 {{ board.title }}
               </a>
             </td>
-            <td>date</td>
             <td>
               <button type="button" @click="boardUpdate(board.id)">수정</button>
               <button type="button" @click="boardDelete(board.id)">삭제</button>

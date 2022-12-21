@@ -8,7 +8,7 @@ export interface ReqBoardUpdateInterface {
 
 export interface ResBoardUpdateInterface {
   id: number,
-  category: string,
+  categoryId: number,
   title: string,
   content: string,
   agree: boolean | number

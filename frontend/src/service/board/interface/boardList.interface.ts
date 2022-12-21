@@ -9,5 +9,7 @@ export interface ReqBoardListInterface {
 export interface ResBoardListInterface {
   id: number,
   category: string,
-  title: string
+  title: string,
+  content: string,
+  agree: boolean | number
 }

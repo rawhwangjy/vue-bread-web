@@ -19,7 +19,13 @@ router.post('/:category/register', async (req, res) => {
 router.post('/:category/boardList', async (req, res) => {
   try {
     console.log('here list')
-    const sql = `SELECT * FROM admin_t_boards WHERE category = ?`
+    console.log('body', req.body)
+    const sql = `
+      SELECT a.id, a.title, a.content, a.agree, b.category
+      FROM admin_t_boards AS a
+        INNER JOIN admin_t_board_config AS b
+        ON a.categoryId = b.id
+      WHERE b.category = '${req.body.category}'`
     res.send(await serverReq.db(sql, req.body.category))
   } catch (err) {
     res.status(500).send({
@@ -31,19 +37,13 @@ router.post('/:category/boardList', async (req, res) => {
 router.post('/:category/:id', async (req, res) => {
   try {
     console.log('here detail')
-    const sql = `SELECT * FROM admin_t_boards WHERE id = ${req.body.id}`
-    res.send(await serverReq.db(sql, req.body))
-  } catch (err) {
-    res.status(500).send({
-      error: err
-    })
-  }
-})
-// board type
-router.post('/:category', async (req, res) => {
-  try {
-    console.log('here type')
-    const sql = `SELECT * FROM admin_t_board_config`
+    console.log('here detail', req.body.id)
+    const sql = `
+      SELECT a.id, a.title, a.content, a.agree, a.categoryId, b.category
+      FROM admin_t_boards as a
+        INNER JOIN admin_t_board_config as b
+        ON a.categoryId = b.id
+      WHERE a.id = '${req.body.id}'`
     res.send(await serverReq.db(sql, req.body))
   } catch (err) {
     res.status(500).send({
@@ -56,7 +56,14 @@ router.put('/:category/update/:id', async (req, res) => {
   try {
     console.log('here update')
     console.log('update register', req.body)
-    const sql = `UPDATE admin_t_boards SET ? WHERE id = ${req.body.id}`
+    const sql = `
+      UPDATE admin_t_boards
+      SET id = ${req.body.id}, 
+        categoryId = ${req.body.categoryId}, 
+        title = '${req.body.title}', 
+        content = '${req.body.content}', 
+        agree = ${req.body.agree}
+      WHERE id = ${req.body.id}`
     res.send(await serverReq.db(sql, req.body))
   } catch (err) {
     res.status(500).send({
@@ -64,7 +71,7 @@ router.put('/:category/update/:id', async (req, res) => {
     })
   }
 })
-// board update register
+// board delete
 router.delete('/delete/:id', async (req, res) => {
   try {
     console.log('here delete')
