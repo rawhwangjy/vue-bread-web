@@ -4,14 +4,14 @@ import { ReqBoardListInterface, ResBoardListInterface } from '@/service/board/in
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 import { ReqBoardCreateInterface, ResBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
 import { ReqBoardUpdateInterface, ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
-import { ResBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
+import { ReqBoardDeleteInterface, ResBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
 
 import {
   httpGetBoardList,
   httpGetBoard,
   httpSetBoard,
   httpBoardUpdate,
-  httpDeleteBoard
+  httpBoardDelete
 } from '@/service/board/board.api'
 
 interface boardState {
@@ -113,18 +113,6 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    // async actionHttpBoardUpdateDetail (fdata: ReqBoardUpdateDetailInterface) {
-    //   this.boardUpdateDetail = getBoardUpdateDetailInit
-    //   try {
-    //     const res = await httpGetBoardUpdate(fdata)
-    //     if (res.data) {
-    //       this.boardCreate = res.data
-    //     }
-    //     return res.data
-    //   } catch (error) {
-    //     return Promise.reject(error)
-    //   }
-    // },
     async actionHttpBoardUpdate (fdata: ReqBoardUpdateInterface) {
       this.boardUpdate = boardUpdateInit
       try {
@@ -137,10 +125,10 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardDelete (fdata: ResBoardDeleteInterface) {
+    async actionHttpBoardDelete (fdata: ReqBoardDeleteInterface) {
       this.boardDelete = getBoardDeleteInit
       try {
-        const res = await httpDeleteBoard(fdata)
+        const res = await httpBoardDelete(fdata)
         if (res.data) {
           this.boardCreate = res.data
         }

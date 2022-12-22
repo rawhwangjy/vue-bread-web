@@ -17,10 +17,13 @@
               <h4 class="board-title">{{ category.id }}</h4>
             </td>
             <td>
-              <div @click="changeUI(category)">
-                <span v-show="categoryDetail.id !== category.id">
-                  {{ category.category }}
-                  <font-awesome-icon icon="fa-solid fa-pencil" />
+              <div class="editable-area">
+                <span
+                  v-show="categoryDetail.id !== category.id"
+                  @click="changeUI(category)"
+                >
+                  <span>{{ category.category }}</span>
+                  <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
                 </span>
                 <!-- v-if="categoryDetail.id !== 0" -->
                 <span v-if="categoryDetail.id === category.id">
@@ -28,6 +31,9 @@
                   <button type="button" @click="categoryUpdate(categoryDetail)">완료</button>
                 </span>
               </div>
+              <button type="button" @click="categoryDelete(category.id)">
+                <font-awesome-icon icon="fa-solid fa-trash" aria-label="삭제" />
+              </button>
             </td>
           </tr>
         </tbody>
@@ -45,10 +51,10 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
-import { ResCategoryListInterface, ResCategoryUpdateDetailInterface } from '@/service/category/interface/categoryList.interface'
-import { ResBoardListInterface } from '@/service/board/interface/boardList.interface'
+import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
+import { ResCategoryDetailInterface } from '@/service/category/interface/categoryDetail.interface'
+import { ResCategoryUpdateInterface } from '@/service/category/interface/categoryUpdate.interface'
 
 export default defineComponent({
   name: 'boardList',
@@ -57,49 +63,36 @@ export default defineComponent({
   setup () {
     // router & store
     const router = useRouter()
-    const boardStore = useBoardStore()
     const categoryStore = useCategoryStore()
 
     // init data
     const categoryList = ref<ResCategoryListInterface[]>([])
-    const categoryDetail = ref<ResCategoryUpdateDetailInterface>({
+    const categoryDetail = ref<ResCategoryDetailInterface>({
       id: 0,
       category: ''
     })
-    const boardList = ref<ResBoardListInterface[]>([])
 
     // api
     async function getCategoryList () {
       const result = await categoryStore.actionHttpGetCategoryList()
       categoryList.value = result
     }
-    async function categoryUpdate (target: ResCategoryUpdateDetailInterface) {
-      // categoryList.value.filter((item) => {
-      //   if (item.id === target.id) {
-      //     item.category = target.category
-      //   }
-      //   return false
-      // })
-      const afterCategory = categoryDetail.value.category
+    async function categoryUpdate (target: ResCategoryUpdateInterface) {
       await categoryStore.actionHttpCategoryUpdate(target)
-      const beforeCategory = categoryDetail.value.category
       getCategoryList()
       categoryDetail.value.id = 0
-      getBoardList(beforeCategory, afterCategory)
     }
-    async function getBoardList (beforeCategory: string, afterCategory: string) {
-      const targetCategory = {
-        category: beforeCategory
+    async function categoryDelete (targetId: number) {
+      const targetBoard = {
+        id: targetId
       }
-      boardList.value = await boardStore.actionHttpGetBoardList(targetCategory)
-      boardList.value.filter((item) => {
-        item.category = afterCategory
-        boardsUpdate(item)
-        return false
-      })
-    }
-    async function boardsUpdate (target: ResCategoryUpdateDetailInterface) {
-      await boardStore.actionHttpBoardUpdate(target)
+      if (confirm('정말 삭제하시겠습니까?')) {
+        alert('삭제되었습니다.')
+        await categoryStore.actionHttpCategoryDelete(targetBoard)
+        getCategoryList()
+      } else {
+        alert('취소되었습니다.')
+      }
     }
 
     // route
@@ -108,7 +101,7 @@ export default defineComponent({
         path: '/board/category/register'
       })
     }
-    function changeUI (target: ResCategoryUpdateDetailInterface) {
+    function changeUI (target: ResCategoryUpdateInterface) {
       categoryDetail.value.id = target.id
       categoryDetail.value.category = target.category
     }
@@ -124,7 +117,8 @@ export default defineComponent({
       categoryCreate,
       changeUI,
       categoryUpdate,
-      categoryDetail
+      categoryDetail,
+      categoryDelete
     }
   }
 })

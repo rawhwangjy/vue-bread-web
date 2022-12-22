@@ -62,7 +62,7 @@ export const httpBoardUpdate = (fdata: ReqBoardUpdateInterface) => {
 /**
  * @description Board Update Create
  */
-export const httpDeleteBoard = (fdata: ReqBoardDeleteInterface) => {
+export const httpBoardDelete = (fdata: ReqBoardDeleteInterface) => {
   return axiosInstance({
     method: RequestEnum.DELETE,
     url: Api.boardDelete,

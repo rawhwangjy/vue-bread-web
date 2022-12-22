@@ -3,12 +3,13 @@ import { RequestEnum } from '@/utils/common.constants'
 
 import { ReqCategoryCreateInterface } from '@/service/category/interface/categoryCreate.interface'
 import { ReqCategoryUpdateInterface } from '@/service/category/interface/categoryUpdate.interface'
+import { ReqCategoryDeleteInterface } from '@/service/category/interface/categoryDelete.interface'
 
 enum Api {
   categoryList = '/board/category/categoryList',
   categoryCreate = '/board/category/register',
   categoryUpdate = '/board/category/update/:id',
-  boardListCategoryUpdate = '/board/:category/update/:id'
+  CategoryDelete = '/board/category/delete/:id'
 }
 
 /**
@@ -35,10 +36,21 @@ export const httpSetCategory = (fdata: ReqCategoryCreateInterface) => {
 /**
  * @description Category Update
  */
-export const httpSetCategoryUpdate = (fdata: ReqCategoryUpdateInterface) => {
+export const httpCategoryUpdate = (fdata: ReqCategoryUpdateInterface) => {
   return axiosInstance({
     method: RequestEnum.PUT,
     url: Api.categoryUpdate,
+    data: fdata
+  })
+}
+
+/**
+ * @description Category Delete
+ */
+export const httpCategoryDelete = (fdata: ReqCategoryDeleteInterface) => {
+  return axiosInstance({
+    method: RequestEnum.DELETE,
+    url: Api.CategoryDelete,
     data: fdata
   })
 }

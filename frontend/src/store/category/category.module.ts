@@ -3,17 +3,20 @@ import { defineStore } from 'pinia'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 import { ReqCategoryCreateInterface, ResCategoryCreateInterface } from '@/service/category/interface/categoryCreate.interface'
 import { ReqCategoryUpdateInterface, ResCategoryUpdateInterface } from '@/service/category/interface/categoryUpdate.interface'
+import { ReqCategoryDeleteInterface, ResCategoryDeleteInterface } from '@/service/category/interface/categoryDelete.interface'
 
 import {
   httpGetCategoryList,
   httpSetCategory,
-  httpSetCategoryUpdate
+  httpCategoryUpdate,
+  httpCategoryDelete
 } from '@/service/category/category.api'
 
 interface categoryState {
   getCategoryList: ResCategoryListInterface[],
   categoryCreate: ResCategoryCreateInterface,
-  categoryUpdate: ResCategoryUpdateInterface
+  categoryUpdate: ResCategoryUpdateInterface,
+  categoryDelete: ResCategoryDeleteInterface
 }
 
 export const categoryCreateInit = {
@@ -22,6 +25,9 @@ export const categoryCreateInit = {
 export const getCategoryUpdateInit = {
   id: 0,
   category: ''
+}
+export const getCategoryDeleteInit = {
+  id: 0
 }
 
 export const useCategoryStore = defineStore({
@@ -34,6 +40,9 @@ export const useCategoryStore = defineStore({
     categoryUpdate: {
       id: 0,
       category: ''
+    },
+    categoryDelete: {
+      id: 0
     }
   }),
   actions: {
@@ -64,9 +73,21 @@ export const useCategoryStore = defineStore({
     async actionHttpCategoryUpdate (fdata: ReqCategoryUpdateInterface) {
       this.categoryUpdate = getCategoryUpdateInit
       try {
-        const res = await httpSetCategoryUpdate(fdata)
+        const res = await httpCategoryUpdate(fdata)
         if (res.data) {
           this.categoryUpdate = res.data
+        }
+        return res.data
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
+    async actionHttpCategoryDelete (fdata: ReqCategoryDeleteInterface) {
+      this.categoryDelete = getCategoryDeleteInit
+      try {
+        const res = await httpCategoryDelete(fdata)
+        if (res.data) {
+          this.categoryDelete = res.data
         }
         return res.data
       } catch (error) {
