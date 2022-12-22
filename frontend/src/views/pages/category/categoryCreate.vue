@@ -39,6 +39,10 @@ export default defineComponent({
 
     // api
     async function categoryCreate () {
+      if (categoryDetail.value.category === '') {
+        alert('카테고리를 입력해 주세요.')
+        return false
+      }
       await categoryStore.actionHttpCategoryCreate(categoryDetail.value)
       alert('카테고리 등록이 완료되었습니다.')
       router.push({
