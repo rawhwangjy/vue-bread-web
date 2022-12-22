@@ -8,16 +8,22 @@
               <router-link
                 to="/board/category"
                 class="global-nav-item"
-                @click="onSateSub"
               >
-                Board
+                Board 관리
               </router-link>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="global-nav-item"
+                @click="onSateSub"
+              >Boards</button>
               <ul
                 v-show="stateSub"
                 class="local-nav-link"
               >
                 <li
-                  v-for="(item, index) in categoryList"
+                  v-for="(item, index) in categoryStore.categoryList"
                   :key="`select${index}`"
                 >
                   <router-link :to="`/board/${item.category}`" class="global-nav-item">{{ item.category }}</router-link>
@@ -33,9 +39,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
-import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 
 export default defineComponent({
   name: 'Header',
@@ -53,23 +57,13 @@ export default defineComponent({
   },
   setup () {
     // router & store
-    const boardStore = useBoardStore()
     const categoryStore = useCategoryStore()
 
     // init
-    const categoryList = ref<ResCategoryListInterface[]>([])
     const stateSub = ref(false)
-    // const computedState = computed(() => {
-    //   return !stateSub.value
-    // })
 
     // api
-    async function getCategoryList () {
-      categoryList.value = await categoryStore.actionHttpGetCategoryList()
-    }
-
     function onSateSub () {
-      console.log('stateSub', stateSub.value)
       if (stateSub.value) {
         stateSub.value = false
       } else {
@@ -78,11 +72,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      getCategoryList()
+      //
     })
 
     return {
-      categoryList,
+      categoryStore,
       stateSub,
       onSateSub
     }

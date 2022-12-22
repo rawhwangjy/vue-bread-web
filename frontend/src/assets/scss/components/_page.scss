@@ -51,7 +51,7 @@ header {
                     display: flex;
                     > li {
                         position: relative;
-                        > a {
+                        > a, button {
                             display: block;
                             padding: 15px;
                             font-size: 18px;
