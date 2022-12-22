@@ -5,13 +5,15 @@ import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/boar
 import { ReqBoardCreateInterface, ResBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
 import { ReqBoardUpdateInterface, ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import { ReqBoardDeleteInterface, ResBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
+import { ReqBoardListDeleteInterface, ResBoardListDeleteInterface } from '@/service/board/interface/boardListDelete.interface'
 
 import {
   httpGetBoardList,
   httpGetBoard,
   httpSetBoard,
   httpBoardUpdate,
-  httpBoardDelete
+  httpBoardDelete,
+  httpBoardListDelete
 } from '@/service/board/board.api'
 
 interface boardState {
@@ -19,7 +21,8 @@ interface boardState {
   getBoardDetail: ResBoardDetailInterface,
   boardCreate: ResBoardCreateInterface,
   boardUpdate: ResBoardUpdateInterface,
-  boardDelete: ResBoardDeleteInterface
+  boardDelete: ResBoardDeleteInterface,
+  boardListDelete: ResBoardListDeleteInterface
 }
 
 export const getBoardDetailInit = {
@@ -43,6 +46,9 @@ export const boardUpdateInit = {
   agree: false
 }
 export const getBoardDeleteInit = {
+  id: 0
+}
+export const getBoardListDeleteInit = {
   id: 0
 }
 
@@ -73,6 +79,9 @@ export const useBoardStore = defineStore({
       agree: false
     },
     boardDelete: {
+      id: 0
+    },
+    boardListDelete: {
       id: 0
     }
   }),
@@ -130,7 +139,19 @@ export const useBoardStore = defineStore({
       try {
         const res = await httpBoardDelete(fdata)
         if (res.data) {
-          this.boardCreate = res.data
+          this.boardDelete = res.data
+        }
+        return res.data
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
+    async actionHttpBoardListDelete (fdata: ReqBoardListDeleteInterface) {
+      this.boardListDelete = getBoardListDeleteInit
+      try {
+        const res = await httpBoardListDelete(fdata)
+        if (res.data) {
+          this.boardListDelete = res.data
         }
         return res.data
       } catch (error) {

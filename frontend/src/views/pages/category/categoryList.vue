@@ -51,6 +51,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 import { ResCategoryDetailInterface } from '@/service/category/interface/categoryDetail.interface'
@@ -63,6 +64,7 @@ export default defineComponent({
   setup () {
     // router & store
     const router = useRouter()
+    const boardStore = useBoardStore()
     const categoryStore = useCategoryStore()
 
     // init data
@@ -88,8 +90,10 @@ export default defineComponent({
       }
       if (confirm('정말 삭제하시겠습니까?')) {
         alert('삭제되었습니다.')
+        console.log('targetBoard', targetBoard)
         await categoryStore.actionHttpCategoryDelete(targetBoard)
         getCategoryList()
+        await boardStore.actionHttpBoardListDelete(targetBoard)
       } else {
         alert('취소되었습니다.')
       }

@@ -3,9 +3,9 @@
  * BoardListDeletelInterface Request
  */
 export interface ReqBoardListDeleteInterface {
-  categoryId: number
+  id: number
 }
 
 export interface ResBoardListDeleteInterface {
-  categoryId: number
+  id: number
 }
