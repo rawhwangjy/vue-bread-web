@@ -13,7 +13,7 @@ import {
 } from '@/service/category/category.api'
 
 interface categoryState {
-  getCategoryList: ResCategoryListInterface[],
+  categoryList: ResCategoryListInterface[],
   categoryCreate: ResCategoryCreateInterface,
   categoryUpdate: ResCategoryUpdateInterface,
   categoryDelete: ResCategoryDeleteInterface
@@ -22,18 +22,18 @@ interface categoryState {
 export const categoryCreateInit = {
   category: ''
 }
-export const getCategoryUpdateInit = {
+export const categoryUpdateInit = {
   id: 0,
   category: ''
 }
-export const getCategoryDeleteInit = {
+export const categoryDeleteInit = {
   id: 0
 }
 
 export const useCategoryStore = defineStore({
   id: 'category',
   state: (): categoryState => ({
-    getCategoryList: [],
+    categoryList: [],
     categoryCreate: {
       category: ''
     },
@@ -47,11 +47,11 @@ export const useCategoryStore = defineStore({
   }),
   actions: {
     async actionHttpGetCategoryList () {
-      this.getCategoryList = []
+      this.categoryList = []
       try {
         const res = await httpGetCategoryList()
         if (res.data) {
-          this.getCategoryList = res.data
+          this.categoryList = res.data
         }
         return res.data
       } catch (error) {
@@ -71,7 +71,7 @@ export const useCategoryStore = defineStore({
       }
     },
     async actionHttpCategoryUpdate (reqData: ReqCategoryUpdateInterface) {
-      this.categoryUpdate = getCategoryUpdateInit
+      this.categoryUpdate = categoryUpdateInit
       try {
         const res = await httpCategoryUpdate(reqData)
         if (res.data) {
@@ -83,7 +83,7 @@ export const useCategoryStore = defineStore({
       }
     },
     async actionHttpCategoryDelete (reqData: ReqCategoryDeleteInterface) {
-      this.categoryDelete = getCategoryDeleteInit
+      this.categoryDelete = categoryDeleteInit
       try {
         const res = await httpCategoryDelete(reqData)
         if (res.data) {

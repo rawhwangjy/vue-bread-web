@@ -17,15 +17,15 @@ import {
 } from '@/service/board/board.api'
 
 interface boardState {
-  getBoardList: ResBoardListInterface[],
-  getBoardDetail: ResBoardDetailInterface,
+  boardList: ResBoardListInterface[],
+  boardDetail: ResBoardDetailInterface,
   boardCreate: ResBoardCreateInterface,
   boardUpdate: ResBoardUpdateInterface,
   boardDelete: ResBoardDeleteInterface,
   boardListDelete: ResBoardListDeleteInterface
 }
 
-export const getBoardDetailInit = {
+export const boardDetailInit = {
   id: 0,
   category: '',
   title: '',
@@ -45,10 +45,10 @@ export const boardUpdateInit = {
   content: '',
   agree: false
 }
-export const getBoardDeleteInit = {
+export const boardDeleteInit = {
   id: 0
 }
-export const getBoardListDeleteInit = {
+export const boardListDeleteInit = {
   id: 0
 }
 
@@ -57,8 +57,8 @@ export const useBoardStore = defineStore({
   state: (): boardState => ({
     // 초기값
     // 스토어가 생성될 때의 초기값
-    getBoardList: [],
-    getBoardDetail: {
+    boardList: [],
+    boardDetail: {
       id: 0,
       category: '',
       title: '',
@@ -87,11 +87,11 @@ export const useBoardStore = defineStore({
   }),
   actions: {
     async actionHttpGetBoardList (reqData: ReqBoardListInterface) {
-      this.getBoardList = []
+      this.boardList = []
       try {
         const res = await httpGetBoardList(reqData)
         if (res.data) {
-          this.getBoardList = res.data
+          this.boardList = res.data
         }
         return res.data
       } catch (error) {
@@ -99,11 +99,11 @@ export const useBoardStore = defineStore({
       }
     },
     async actionHttpGetBoard (reqData: ReqBoardDetailInterface) {
-      this.getBoardDetail = getBoardDetailInit
+      this.boardDetail = boardDetailInit
       try {
         const res = await httpGetBoard(reqData)
         if (res.data) {
-          this.getBoardDetail = res.data
+          this.boardDetail = res.data
         }
         return res.data
       } catch (error) {
@@ -135,7 +135,7 @@ export const useBoardStore = defineStore({
       }
     },
     async actionHttpBoardDelete (reqData: ReqBoardDeleteInterface) {
-      this.boardDelete = getBoardDeleteInit
+      this.boardDelete = boardDeleteInit
       try {
         const res = await httpBoardDelete(reqData)
         if (res.data) {
@@ -147,7 +147,7 @@ export const useBoardStore = defineStore({
       }
     },
     async actionHttpBoardListDelete (reqData: ReqBoardListDeleteInterface) {
-      this.boardListDelete = getBoardListDeleteInit
+      this.boardListDelete = boardListDeleteInit
       try {
         const res = await httpBoardListDelete(reqData)
         if (res.data) {
