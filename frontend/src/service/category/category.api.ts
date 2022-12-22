@@ -25,32 +25,32 @@ export const httpGetCategoryList = () => {
 /**
  * @description Category Create
  */
-export const httpSetCategory = (fdata: ReqCategoryCreateInterface) => {
+export const httpSetCategory = (reqData: ReqCategoryCreateInterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
     url: Api.categoryCreate,
-    data: fdata
+    data: reqData
   })
 }
 
 /**
  * @description Category Update
  */
-export const httpCategoryUpdate = (fdata: ReqCategoryUpdateInterface) => {
+export const httpCategoryUpdate = (reqData: ReqCategoryUpdateInterface) => {
   return axiosInstance({
     method: RequestEnum.PUT,
     url: Api.categoryUpdate,
-    data: fdata
+    data: reqData
   })
 }
 
 /**
  * @description Category Delete
  */
-export const httpCategoryDelete = (fdata: ReqCategoryDeleteInterface) => {
+export const httpCategoryDelete = (reqData: ReqCategoryDeleteInterface) => {
   return axiosInstance({
     method: RequestEnum.DELETE,
     url: Api.CategoryDelete,
-    data: fdata
+    data: reqData
   })
 }

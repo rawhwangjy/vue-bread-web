@@ -58,10 +58,10 @@ export const useCategoryStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpCategoryCreate (fdata: ReqCategoryCreateInterface) {
+    async actionHttpCategoryCreate (reqData: ReqCategoryCreateInterface) {
       this.categoryCreate = categoryCreateInit
       try {
-        const res = await httpSetCategory(fdata)
+        const res = await httpSetCategory(reqData)
         if (res.data) {
           this.categoryCreate = res.data
         }
@@ -70,10 +70,10 @@ export const useCategoryStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpCategoryUpdate (fdata: ReqCategoryUpdateInterface) {
+    async actionHttpCategoryUpdate (reqData: ReqCategoryUpdateInterface) {
       this.categoryUpdate = getCategoryUpdateInit
       try {
-        const res = await httpCategoryUpdate(fdata)
+        const res = await httpCategoryUpdate(reqData)
         if (res.data) {
           this.categoryUpdate = res.data
         }
@@ -82,10 +82,10 @@ export const useCategoryStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpCategoryDelete (fdata: ReqCategoryDeleteInterface) {
+    async actionHttpCategoryDelete (reqData: ReqCategoryDeleteInterface) {
       this.categoryDelete = getCategoryDeleteInit
       try {
-        const res = await httpCategoryDelete(fdata)
+        const res = await httpCategoryDelete(reqData)
         if (res.data) {
           this.categoryDelete = res.data
         }

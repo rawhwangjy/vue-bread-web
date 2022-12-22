@@ -86,10 +86,10 @@ export const useBoardStore = defineStore({
     }
   }),
   actions: {
-    async actionHttpGetBoardList (fdata: ReqBoardListInterface) {
+    async actionHttpGetBoardList (reqData: ReqBoardListInterface) {
       this.getBoardList = []
       try {
-        const res = await httpGetBoardList(fdata)
+        const res = await httpGetBoardList(reqData)
         if (res.data) {
           this.getBoardList = res.data
         }
@@ -98,10 +98,10 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpGetBoard (fdata: ReqBoardDetailInterface) {
+    async actionHttpGetBoard (reqData: ReqBoardDetailInterface) {
       this.getBoardDetail = getBoardDetailInit
       try {
-        const res = await httpGetBoard(fdata)
+        const res = await httpGetBoard(reqData)
         if (res.data) {
           this.getBoardDetail = res.data
         }
@@ -110,10 +110,10 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardCreate (fdata: ReqBoardCreateInterface) {
+    async actionHttpBoardCreate (reqData: ReqBoardCreateInterface) {
       this.boardCreate = boardCreateInit
       try {
-        const res = await httpSetBoard(fdata)
+        const res = await httpSetBoard(reqData)
         if (res.data) {
           this.boardCreate = res.data
         }
@@ -122,10 +122,10 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardUpdate (fdata: ReqBoardUpdateInterface) {
+    async actionHttpBoardUpdate (reqData: ReqBoardUpdateInterface) {
       this.boardUpdate = boardUpdateInit
       try {
-        const res = await httpBoardUpdate(fdata)
+        const res = await httpBoardUpdate(reqData)
         if (res.data) {
           this.boardUpdate = res.data
         }
@@ -134,10 +134,10 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardDelete (fdata: ReqBoardDeleteInterface) {
+    async actionHttpBoardDelete (reqData: ReqBoardDeleteInterface) {
       this.boardDelete = getBoardDeleteInit
       try {
-        const res = await httpBoardDelete(fdata)
+        const res = await httpBoardDelete(reqData)
         if (res.data) {
           this.boardDelete = res.data
         }
@@ -146,10 +146,10 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardListDelete (fdata: ReqBoardListDeleteInterface) {
+    async actionHttpBoardListDelete (reqData: ReqBoardListDeleteInterface) {
       this.boardListDelete = getBoardListDeleteInit
       try {
-        const res = await httpBoardListDelete(fdata)
+        const res = await httpBoardListDelete(reqData)
         if (res.data) {
           this.boardListDelete = res.data
         }

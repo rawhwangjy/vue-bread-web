@@ -20,65 +20,65 @@ enum Api {
 /**
  * @description Board List
  */
-export const httpGetBoardList = (fdata: ReqBoardListInterface) => {
+export const httpGetBoardList = (reqData: ReqBoardListInterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
     url: Api.getBoardList,
-    data: fdata
+    data: reqData
   })
 }
 
 /**
  * @description Board View
  */
-export const httpGetBoard = (fdata: ReqBoardDetailInterface) => {
+export const httpGetBoard = (reqData: ReqBoardDetailInterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
     url: Api.getBoardDetail,
-    data: fdata
+    data: reqData
   })
 }
 
 /**
  * @description Board Create
  */
-export const httpSetBoard = (fdata: ReqBoardCreateInterface) => {
+export const httpSetBoard = (reqData: ReqBoardCreateInterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
     url: Api.boardCreate,
-    data: fdata
+    data: reqData
   })
 }
 
 /**
  * @description Board Update Create
  */
-export const httpBoardUpdate = (fdata: ReqBoardUpdateInterface) => {
+export const httpBoardUpdate = (reqData: ReqBoardUpdateInterface) => {
   return axiosInstance({
     method: RequestEnum.PUT,
     url: Api.boardUpdate,
-    data: fdata
+    data: reqData
   })
 }
 
 /**
  * @description Board Update Create
  */
-export const httpBoardDelete = (fdata: ReqBoardDeleteInterface) => {
+export const httpBoardDelete = (reqData: ReqBoardDeleteInterface) => {
   return axiosInstance({
     method: RequestEnum.DELETE,
     url: Api.boardDelete,
-    data: fdata
+    data: reqData
   })
 }
 
 /**
  * @description Board Update Create
  */
-export const httpBoardListDelete = (fdata: ReqBoardListDeleteInterface) => {
+export const httpBoardListDelete = (reqData: ReqBoardListDeleteInterface) => {
   return axiosInstance({
     method: RequestEnum.DELETE,
     url: Api.boardListDelete,
-    data: fdata
+    data: reqData
   })
 }
