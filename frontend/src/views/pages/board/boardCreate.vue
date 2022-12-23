@@ -41,6 +41,19 @@
             />
           </dd>
         </div>
+        <div>
+          <dt>파일 업로드</dt>
+          <dd>
+            <input
+              type="file"
+              multiple="true"
+              id="fileUpload"
+              @change="uploadFile"
+            />
+            <img :src="testImg">
+            <div id="target"></div>
+          </dd>
+        </div>
       </dl>
     </div>
     <button @click="boardCreate" class="btn lg dark">글쓰기</button>
@@ -70,6 +83,7 @@ export default defineComponent({
     const categoryStore = useCategoryStore()
 
     // init data
+    const testImg = ref()
     const currentCategory = ref('')
     const categoryList = ref<ResCategoryListInterface[]>([])
     const boardDetail = ref<ResBoardCreateInterface>({
@@ -108,6 +122,26 @@ export default defineComponent({
         path: `/board/${currentCategory.value}`
       })
     }
+    function uploadFile (event: Event) {
+      const target = event?.target as HTMLInputElement
+      const files = target.files
+      if (files) {
+        [].forEach.call(files, readAndPreview)
+      }
+    }
+    function readAndPreview (file: File) {
+      const preview = document.querySelector('#target')
+      const fileReader = new FileReader()
+      fileReader.onload = function () {
+        const img = new Image()
+        img.title = file.name
+        img.src = String(this.result)
+        if (preview) {
+          preview.appendChild(img)
+        }
+      }
+      fileReader.readAsDataURL(file)
+    }
 
     function back () {
       window.history.back()
@@ -123,7 +157,9 @@ export default defineComponent({
       categoryList,
       boardDetail,
       boardCreate,
-      back
+      uploadFile,
+      back,
+      testImg
     }
   }
 })
