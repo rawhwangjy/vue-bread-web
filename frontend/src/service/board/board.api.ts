@@ -42,11 +42,19 @@ export const httpGetBoard = (reqData: ReqBoardDetailInterface) => {
 /**
  * @description Board Create
  */
-export const httpSetBoard = (reqData: ReqBoardCreateInterface) => {
+export const httpSetBoard = (reqData: FormData) => {
+  // formData 잘 들어온다.
+  // api 잘 찌른다.
+  // headers 잘 들어간다.
+  console.log('httpSetBoard', reqData)
+  // for (const pair of reqData.file.entries()) {
+  //   console.log('httpSetBoard pair', pair)
+  // }
   return axiosInstance({
     method: RequestEnum.POST,
     url: Api.boardCreate,
-    data: reqData
+    data: reqData,
+    headers: { 'Content-Type': 'multipart/form-data' }
   })
 }
 

@@ -83,4 +83,15 @@ header {
     }
 }
 .board-wrap {
+    .board-list {
+        .board-img {
+            display: block;
+            width: 200px;
+            height: auto;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
 }

@@ -6,7 +6,7 @@
         <div>
           <dt>카테고리</dt>
           <dd>
-            <input type="text" name="" id="" v-model="categoryDetail.category">
+            <input type="text" name="" id="" v-model="category.category">
           </dd>
         </div>
       </dl>
@@ -20,7 +20,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useCategoryStore } from '@/store/category/category.module'
-import { ResCategoryCreateInterface } from '@/service/category/interface/categoryCreate.interface'
+import { ReqCategoryCreateInterface } from '@/service/category/interface/categoryCreate.interface'
 
 export default defineComponent({
   name: 'boardCreate',
@@ -33,17 +33,17 @@ export default defineComponent({
     const categoryStore = useCategoryStore()
 
     // init data
-    const categoryDetail = ref<ResCategoryCreateInterface>({
+    const category = ref<ReqCategoryCreateInterface>({
       category: ''
     })
 
     // api
     async function categoryCreate () {
-      if (categoryDetail.value.category === '') {
+      if (category.value.category === '') {
         alert('카테고리를 입력해 주세요.')
         return false
       }
-      await categoryStore.actionHttpCategoryCreate(categoryDetail.value)
+      await categoryStore.actionHttpCategoryCreate(category.value)
       alert('카테고리 등록이 완료되었습니다.')
       router.push({
         path: '/board/category'
@@ -61,7 +61,7 @@ export default defineComponent({
     return {
       route,
       categoryCreate,
-      categoryDetail,
+      category,
       back
     }
   }

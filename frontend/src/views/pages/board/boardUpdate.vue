@@ -56,7 +56,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
-import { ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ReqBoardUpdateInterface, ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import Checkbox from '@/components/Checkbox.vue'
 
 export default defineComponent({
@@ -87,7 +87,7 @@ export default defineComponent({
       categoryList.value = await categoryStore.actionHttpGetCategoryList()
     }
     async function getBoardDetail () {
-      const targetBoard = {
+      const targetBoard: ReqBoardUpdateInterface = {
         id: Number(route.params.id)
       }
       const result = await boardStore.actionHttpGetBoard(targetBoard)

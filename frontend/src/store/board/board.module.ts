@@ -30,14 +30,10 @@ export const boardDetailInit = {
   category: '',
   title: '',
   content: '',
-  agree: false
+  agree: false,
+  fileList: []
 }
-export const boardCreateInit = {
-  categoryId: 0,
-  title: '',
-  content: '',
-  agree: false
-}
+export const boardCreateInit = { }
 export const boardUpdateInit = {
   id: 0,
   categoryId: 0,
@@ -55,7 +51,7 @@ export const boardListDeleteInit = {
 export const useBoardStore = defineStore({
   id: 'board',
   state: (): boardState => ({
-    // 초기값
+    // Res에 대한 초기값
     // 스토어가 생성될 때의 초기값
     boardList: [],
     boardDetail: {
@@ -63,14 +59,10 @@ export const useBoardStore = defineStore({
       category: '',
       title: '',
       content: '',
-      agree: false
+      agree: false,
+      fileList: []
     },
-    boardCreate: {
-      categoryId: 0,
-      title: '',
-      content: '',
-      agree: false
-    },
+    boardCreate: { },
     boardUpdate: {
       id: 0,
       categoryId: 0,
@@ -110,7 +102,7 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardCreate (reqData: ReqBoardCreateInterface) {
+    async actionHttpBoardCreate (reqData: FormData) {
       this.boardCreate = boardCreateInit
       try {
         const res = await httpSetBoard(reqData)
