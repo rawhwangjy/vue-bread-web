@@ -44,7 +44,7 @@
           </dd>
         </div>
         fileList
-        <div v-if="mountedImg">
+        <div v-if="curServerImg">
           <span
             v-for="(item, index) in boardDetail.fileList"
             :key="`file${index}`"
@@ -113,9 +113,9 @@ export default defineComponent({
       title: '',
       content: '',
       agree: false,
-      fileList: []
+      fileList: null
     })
-    const mountedImg = ref(false)
+    const curServerImg = ref(false)
     const previews = ref<string[]>([])
 
     // api
@@ -130,10 +130,9 @@ export default defineComponent({
       result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       boardDetail.value = result[0]
 
-      console.log('result[0].fileList', result[0].fileList)
       // fileList 가공 후 재할당
       if (result[0].fileList !== '') {
-        mountedImg.value = true
+        curServerImg.value = true
         const target = result[0].fileList.split(',')
         boardDetail.value.fileList = []
         for (let i = 0; i < target.length; i++) {
@@ -145,7 +144,7 @@ export default defineComponent({
       const { files } = event?.target as HTMLInputElement
       if (files) {
         boardDetail.value.fileList = files
-        mountedImg.value = false
+        curServerImg.value = false
         previews.value = []
         previewImg(event)
       }
@@ -159,7 +158,6 @@ export default defineComponent({
 
           reader.addEventListener('load', () => {
             return previews.value.push(String(reader.result))
-            // return console.log(String(reader.result))
           })
         }
       }
@@ -177,6 +175,19 @@ export default defineComponent({
       if (boardDetail.value.content === '') {
         alert('내용을 입력해 주세요.')
         return false
+      }
+
+      const formData = new FormData()
+      formData.append('categoryId', String(boardDetail.value.categoryId))
+      formData.append('title', boardDetail.value.title)
+      formData.append('content', boardDetail.value.content)
+      formData.append('agree', String(boardDetail.value.agree))
+      if (boardDetail.value.fileList !== null) {
+        for (let i = 0; i < boardDetail.value.fileList.length; i++) {
+          formData.append('fileList', boardDetail.value.fileList[i])
+        }
+      } else {
+        formData.append('fileList', '')
       }
       await boardStore.actionHttpBoardUpdate(boardDetail.value)
       categoryList.value.filter((item) => {
@@ -206,7 +217,7 @@ export default defineComponent({
       boardDetail,
       boardUpdate,
       uploadFile,
-      mountedImg,
+      curServerImg,
       previews,
       back
     }

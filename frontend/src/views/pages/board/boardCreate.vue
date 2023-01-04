@@ -151,9 +151,9 @@ export default defineComponent({
       formData.append('content', boardDetail.value.content)
       formData.append('agree', String(boardDetail.value.agree))
       if (boardDetail.value.fileList !== null) {
-        Array.from(boardDetail.value.fileList).forEach((file) => {
-          formData.append('fileList', file)
-        })
+        for (let i = 0; i < boardDetail.value.fileList.length; i++) {
+          formData.append('fileList', boardDetail.value.fileList[i])
+        }
       } else {
         formData.append('fileList', '')
       }

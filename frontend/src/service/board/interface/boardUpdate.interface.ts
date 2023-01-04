@@ -12,5 +12,5 @@ export interface ResBoardUpdateInterface {
   title: string,
   content: string,
   agree: boolean | number,
-  fileList: Array<string> | FileList
+  fileList: Array<string> | FileList | null
 }
