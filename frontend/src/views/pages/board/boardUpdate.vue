@@ -39,7 +39,7 @@
               label="동의합니다."
               value="html5"
               name="skills"
-              :checked="boardDetail.agree"
+              :checked="boardDetail.agree === true"
             />
           </dd>
         </div>
@@ -129,9 +129,11 @@ export default defineComponent({
       const result = await boardStore.actionHttpGetBoard(targetBoard)
       result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       boardDetail.value = result[0]
+      console.log('boardDetail.agree', boardDetail.value.agree)
 
       // fileList 가공 후 재할당
-      if (result[0].fileList !== '') {
+      // if (result[0].fileList !== '') {
+      if (result[0].fileList !== null) {
         curServerImg.value = true
         const target = result[0].fileList.split(',')
         boardDetail.value.fileList = []

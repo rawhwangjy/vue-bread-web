@@ -16,7 +16,7 @@
             'active': index === current
           }"
         >
-          <button type="button" class="tab">
+          <button type="button" class="tab" @click="changeSwiper(index)">
             <span>{{ tabArray[index] }}</span>
           </button>
         </li>
@@ -73,7 +73,7 @@
             'active': index === current
           }"
         >
-          <button type="button" class="indicator">
+          <button type="button" class="indicator" @click="changeSwiper(index)">
             <span class="sr-only">{{ slot }}</span>
           </button>
         </li>
@@ -98,7 +98,8 @@ export default defineComponent({
       default: () => ({})
     }
   },
-  setup (props) {
+  emits: ['update'],
+  setup (props, { emit }) {
     const SWIPERROOT = ref<HTMLElement | null>(null)
     const initProps = reactive({
       slideLength: 0,
@@ -184,7 +185,8 @@ export default defineComponent({
         timer.value = setInterval(autoplay, initParams.autoplay.delay)
       }
       if (initParams.pagination) {
-        swiperDom.pagination?.querySelectorAll('button').forEach((item: any, index: number) => {
+        // any => Element
+        swiperDom.pagination?.querySelectorAll('button').forEach((item: Element, index: number) => {
           item.addEventListener('click', () => {
             moveTo(index)
             if (initParams.autoplay.delay) {
@@ -195,7 +197,8 @@ export default defineComponent({
         })
       }
       if (initParams.tab) {
-        swiperDom.tab?.querySelectorAll('button').forEach((item: any, index: number) => {
+        // any => Element
+        swiperDom.tab?.querySelectorAll('button').forEach((item: Element, index: number) => {
           item.addEventListener('click', () => {
             moveTo(index)
             if (initParams.autoplay.delay) {
@@ -224,7 +227,8 @@ export default defineComponent({
             }
           } else {
             for (let i = 0; i < initProps.slideLength; i++) {
-              tabType?.forEach((item: any, index: number) => {
+              // any => string
+              tabType?.forEach((item: string, index: number) => {
                 if (initProps.slideLength === tabType?.length) {
                   tabArray.push(item)
                 } else {
@@ -247,7 +251,8 @@ export default defineComponent({
       }
       if (swiperDom.slides) {
         const slidesHeight: number[] = []
-        swiperDom.slides.forEach((slide: any, index: number) => {
+        // any => Element
+        swiperDom.slides.forEach((slide: Element, index: number) => {
           slidesHeight.push(slide.clientHeight)
           // touch events
           slide.addEventListener('touchstart', touchStart(index))
@@ -439,6 +444,9 @@ export default defineComponent({
         }
       }
     }
+    function changeSwiper (target: number) {
+      emit('update', target)
+    }
     return {
       swiperHeight,
       SWIPERROOT,
@@ -462,7 +470,8 @@ export default defineComponent({
       touchEnd,
       animation,
       setPositionByIndex,
-      setSliderPosition
+      setSliderPosition,
+      changeSwiper
     }
   }
 })

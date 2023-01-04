@@ -69,6 +69,38 @@
         }
     }
 }
+.radio-button-type {
+    display: flex;
+    ul {
+        display: flex;
+        li {
+            + li {
+                margin-left: 10px;
+            }
+        } 
+    }
+    .radio-wrap {
+        + .radio-wrap {
+            margin-left: 10px;
+        }
+        input {
+            + label {
+                &::before, &::after {
+                    display: none;
+                }
+                border: 1px solid commons.$disabled-border;
+                padding: 10px;
+            }
+            &:checked {
+                + label {
+                    border-color: commons.$primary;
+                    background-color: commons.$primary;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
 // tab
 .tab-wrap {
     display: flex;
@@ -115,12 +147,15 @@
         }
     }
     .tab-panels {
+        width: 100%;
+        display: flex;
         .tab-panel {
-            display: none;
+            visibility: hidden;
+            min-width: 100%;
             padding: 20px 30px 40px;
             word-break: break-word;
             &.active {
-                display: block;
+                visibility: visible;
             }
         }
     }
@@ -140,6 +175,12 @@
             word-break: break-all;
             cursor: grab;
             touch-action: pan-x;
+            &.grabbing {
+                -webkit-user-select:none;
+                -moz-user-select:none;
+                -ms-user-select:none;
+                user-select:none
+            }
             &.vertical {
                 flex-wrap: wrap;
                 touch-action: pan-y;
@@ -173,9 +214,9 @@
                     height: 100%;
                 }
                 &.active {
-                    border-bottom: 1px solid red;
+                    border-bottom: 2px solid commons.$primary;
                     button {
-                        color: red;
+                        color: commons.$primary;
                     }
                 }
             }
@@ -276,7 +317,7 @@
     .content {
         display: flex;
         flex: 1;
-        padding: 40px 20px;
+        padding: 40px 20px 20px;
         &.center {
             justify-content: center;
         }
@@ -309,13 +350,18 @@
             box-shadow: 1px 5px 10px commons.colorToRgba(commons.$gray8, .1);
         }
         .content {
+            font-size: 13px;
             &.center {
                 text-align: center;
+            }
+            &.right {
+                text-align: right;
             }
         }
         .btn-area {
             .btn-close {
                 height: 36px;
+                padding: 0 10px;
             }
         }
     }

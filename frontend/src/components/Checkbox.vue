@@ -6,7 +6,7 @@
       class="form-checkbox-input"
       :value="value"
       :name="name"
-      :checked="isChecked"
+      :checked="checked"
       :disabled="disabled"
       @change="updatedInput"
     >
@@ -42,6 +42,10 @@ export default defineComponent({
       default: ''
     },
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    checked: {
       type: Boolean,
       default: false
     }

@@ -17,16 +17,16 @@
           class="content"
           :class="contentAlign"
         >
-          @content
+          <slot />
         </div>
         <div
           class="btn-area"
           :class="contentAlign"
         >
-          <button type="button" class="btn-close" @click="closeAlert">닫기</button>
+          <button type="button" class="btn xs light" @click="closeAlert('close')">닫기</button>
         </div>
       </div>
-      <span v-show="bg" class="bg"></span>
+      <span v-show="bg" class="bg" @click="closeAlert('close')"></span>
     </div>
   </teleport>
 </template>
@@ -57,11 +57,10 @@ export default defineComponent({
   },
   emits: ['close'],
   setup (_props, { emit }) {
-    onMounted(() => {
-      // console.log('board2', props.board.images)
-    })
-    function closeAlert () {
-      emit('close')
+    function closeAlert (target: string) {
+      if (target === 'close') {
+        emit('close')
+      }
     }
     return {
       closeAlert

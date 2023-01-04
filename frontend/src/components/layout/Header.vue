@@ -1,34 +1,38 @@
 <template>
   <header>
     <nav>
-      <div class="global-nav-links">
+      <div class="global-nav-wrap">
         <nav>
           <ul>
-            <li>
-              <router-link
-                to="/board/category"
-                class="global-nav-item"
-              >
-                Board 관리
+            <li class="global-nav-item">
+              <router-link to="/guide">
+                guide
               </router-link>
             </li>
-            <li>
+            <li class="global-nav-item">
               <button
                 type="button"
-                class="global-nav-item"
                 @click="onSateSub"
               >Boards</button>
-              <ul
+              <div
                 v-show="stateSub"
-                class="local-nav-link"
+                class="local-nav-wrap"
               >
-                <li
-                  v-for="(item, index) in categoryStore.categoryList"
-                  :key="`select${index}`"
+                <router-link
+                  to="/board/category"
+                  class="local-nav-item"
                 >
-                  <router-link :to="`/board/${item.category}`" class="global-nav-item">{{ item.category }}</router-link>
-                </li>
-              </ul>
+                  Board 관리
+                </router-link>
+                <ul class="local-nav-item">
+                  <li
+                    v-for="(item, index) in categoryStore.categoryList"
+                    :key="`select${index}`"
+                  >
+                    <router-link :to="`/board/${item.category}`" class="global-nav-item">{{ item.category }}</router-link>
+                  </li>
+                </ul>
+              </div>
             </li>
           </ul>
         </nav>

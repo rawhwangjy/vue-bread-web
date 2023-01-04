@@ -24,6 +24,10 @@ export default {
       component: test
     },
     {
+      path: '/guide',
+      component: test
+    },
+    {
       path: '/board/category',
       name: 'categoryList',
       component: categoryList

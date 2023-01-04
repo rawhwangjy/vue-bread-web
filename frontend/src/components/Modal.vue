@@ -7,7 +7,7 @@
         </div>
         <button type="button" @click="closeModal" class="btn-close">
           <span class="sr-only">닫기</span>
-          <font-awesome-icon icon="fa-regular fa-circle-xmark" />
+          <!-- <font-awesome-icon icon="fa-regular fa-circle-xmark" /> -->
         </button>
       </div>
       <!-- <span v-if="winWidth > 1024" class="bg" @click="closeModal"></span> -->
@@ -32,7 +32,7 @@ export default defineComponent({
     }
   },
   emits: ['close'],
-  setup (props, { emit }) {
+  setup (_props, { emit }) {
     onMounted(() => {
       // console.log('board2', props.board.images)
     })

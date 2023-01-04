@@ -3,7 +3,6 @@
 .page-container {
     width: 1000px;
     margin: 0 auto;
-    padding-top: 50px;
 }
 .svg-inline--fa {
     vertical-align: 0;
@@ -41,7 +40,7 @@ header {
             font-weight: bold;
             font-size: 20px;
         }
-        .global-nav-links {
+        .global-nav-wrap {
             display: flex;
             align-items: center;
             height: 100%;
@@ -49,26 +48,27 @@ header {
             nav {
                 > ul {
                     display: flex;
-                    > li {
+                    .global-nav-item {
                         position: relative;
                         > a, button {
                             display: block;
                             padding: 15px;
                             font-size: 18px;
                         }
-                        + li {
+                        + .global-nav-item {
                             margin-left: 20px;
                         }
                     }
                 }
             }
-            .local-nav-link {
+            .local-nav-wrap {
                 position: absolute;
                 top: calc(100% + 3px);
                 width: 100%;
                 padding: 10px 0;
                 background-color: rgba(255, 255, 255, .8);
-                li {
+                .local-nav-item {
+                    display: block;
                     a {
                         display: block;
                         padding: 7px 5px;

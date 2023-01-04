@@ -1,8 +1,14 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import routerCommon from '@/router/routes/common.route'
+import routerIntro from '@/router/routes/intro.route'
+import routerComponents from '@/router/routes/components.route'
+import routerModules from '@/router/routes/modules.route'
+import routerPages from '@/router/routes/pages.route'
 
 const routes: Array<RouteRecordRaw> = [
-  routerCommon
+  routerIntro,
+  routerPages,
+  routerComponents,
+  routerModules
 ]
 
 const router = createRouter({

@@ -1,8 +1,10 @@
 @charset 'UTF-8';
 
 @forward './components/modules/_reset';
+@forward './components/modules/_prism';
 @forward './components/modules/_component';
 @forward './components/modules/_modules';
+@forward './components/_guide';
 @forward './components/_page';
 
 
