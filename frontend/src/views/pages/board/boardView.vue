@@ -5,7 +5,7 @@
       <div>id 는 {{ boardDetail.id }}</div>
       <div>{{ boardDetail.title }}</div>
       <div>{{ boardDetail.agree }}</div>
-      <div v-if="boardDetail.fileList !== null">
+      <div v-if="boardDetail.fileList">
         <span
           v-for="(item, index) in boardDetail.fileList"
           :key="`file${index}`"
@@ -61,7 +61,7 @@ export default defineComponent({
       boardDetail.value = result[0]
 
       // fileList 가공 후 재할당
-      if (result[0].fileList !== null) {
+      if (result[0].fileList !== '') {
         const target = result[0].fileList.split(',')
         boardDetail.value.fileList = []
         for (let i = 0; i < target.length; i++) {

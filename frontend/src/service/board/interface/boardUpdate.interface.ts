@@ -11,5 +11,6 @@ export interface ResBoardUpdateInterface {
   categoryId: number,
   title: string,
   content: string,
-  agree: boolean | number
+  agree: boolean | number,
+  fileList: Array<string> | FileList
 }

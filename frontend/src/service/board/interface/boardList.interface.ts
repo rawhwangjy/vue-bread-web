@@ -10,6 +10,5 @@ export interface ResBoardListInterface {
   id: number,
   category: string,
   title: string,
-  content: string,
-  agree: boolean | number
+  content: string
 }

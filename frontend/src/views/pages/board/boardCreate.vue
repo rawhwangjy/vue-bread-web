@@ -51,6 +51,16 @@
                 name="file"
                 @change="uploadFile"
               />
+              <div>
+                미리보기
+                <span
+                  v-for="(item, index) in previews"
+                  :key="`file${index}`"
+                  class="board-img"
+                >
+                  <img :src="`${item}`" alt="">
+                </span>
+              </div>
             </dd>
           </div>
         </dl>
@@ -68,7 +78,6 @@ import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
 import Checkbox from '@/components/Checkbox.vue'
-import { File } from '@babel/types'
 
 export default defineComponent({
   name: 'boardCreate',
@@ -93,6 +102,7 @@ export default defineComponent({
       agree: false,
       fileList: null
     })
+    const previews = ref<string[]>([])
 
     // api
     async function getCategoryList () {
@@ -102,7 +112,24 @@ export default defineComponent({
       const { files } = event?.target as HTMLInputElement
       if (files) {
         boardDetail.value.fileList = files
+        previews.value = []
+        previewImg(event)
       }
+    }
+    function previewImg (event: Event) {
+      const { files } = event?.target as HTMLInputElement
+      if (files) {
+        for (let i = 0; i < files.length; i++) {
+          const reader: FileReader = new FileReader()
+          reader.readAsDataURL(files[i])
+
+          reader.addEventListener('load', () => {
+            return previews.value.push(String(reader.result))
+            // return console.log(String(reader.result))
+          })
+        }
+      }
+      console.log('arrya', previews.value)
     }
     async function boardCreate () {
       if (boardDetail.value.categoryId === 0) {
@@ -127,6 +154,8 @@ export default defineComponent({
         Array.from(boardDetail.value.fileList).forEach((file) => {
           formData.append('fileList', file)
         })
+      } else {
+        formData.append('fileList', '')
       }
 
       const result = await boardStore.actionHttpBoardCreate(formData)
@@ -158,6 +187,7 @@ export default defineComponent({
       boardDetail,
       boardCreate,
       uploadFile,
+      previews,
       back,
       testImg
     }

@@ -43,6 +43,39 @@
             />
           </dd>
         </div>
+        fileList
+        <div v-if="mountedImg">
+          <span
+            v-for="(item, index) in boardDetail.fileList"
+            :key="`file${index}`"
+            class="board-img"
+          >
+            {{ item }}
+            <img :src="`http://127.0.0.1:3000/upload/${item}`" alt="">
+          </span>
+        </div>
+        <div>
+          <dt>파일 업로드</dt>
+          <dd>
+            <input
+              type="file"
+              id="fileUpload"
+              multiple
+              name="file"
+              @change="uploadFile"
+            />
+            <div>
+              미리보기
+              <span
+                v-for="(item, index) in previews"
+                :key="`file${index}`"
+                class="board-img"
+              >
+                <img :src="`${item}`" alt="">
+              </span>
+            </div>
+          </dd>
+        </div>
       </dl>
     </div>
     <button @click="boardUpdate" class="btn lg dark">수정</button>
@@ -79,8 +112,11 @@ export default defineComponent({
       categoryId: 0,
       title: '',
       content: '',
-      agree: false
+      agree: false,
+      fileList: []
     })
+    const mountedImg = ref(false)
+    const previews = ref<string[]>([])
 
     // api
     async function getCategoryList () {
@@ -93,6 +129,41 @@ export default defineComponent({
       const result = await boardStore.actionHttpGetBoard(targetBoard)
       result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       boardDetail.value = result[0]
+
+      console.log('result[0].fileList', result[0].fileList)
+      // fileList 가공 후 재할당
+      if (result[0].fileList !== '') {
+        mountedImg.value = true
+        const target = result[0].fileList.split(',')
+        boardDetail.value.fileList = []
+        for (let i = 0; i < target.length; i++) {
+          boardDetail.value.fileList.push(target[i])
+        }
+      }
+    }
+    function uploadFile (event: Event) {
+      const { files } = event?.target as HTMLInputElement
+      if (files) {
+        boardDetail.value.fileList = files
+        mountedImg.value = false
+        previews.value = []
+        previewImg(event)
+      }
+    }
+    function previewImg (event: Event) {
+      const { files } = event?.target as HTMLInputElement
+      if (files) {
+        for (let i = 0; i < files.length; i++) {
+          const reader: FileReader = new FileReader()
+          reader.readAsDataURL(files[i])
+
+          reader.addEventListener('load', () => {
+            return previews.value.push(String(reader.result))
+            // return console.log(String(reader.result))
+          })
+        }
+      }
+      console.log('arrya', previews.value)
     }
     async function boardUpdate () {
       if (boardDetail.value.categoryId === 0) {
@@ -134,6 +205,9 @@ export default defineComponent({
       categoryList,
       boardDetail,
       boardUpdate,
+      uploadFile,
+      mountedImg,
+      previews,
       back
     }
   }

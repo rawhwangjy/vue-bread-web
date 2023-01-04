@@ -39,7 +39,8 @@ export const boardUpdateInit = {
   categoryId: 0,
   title: '',
   content: '',
-  agree: false
+  agree: false,
+  fileList: []
 }
 export const boardDeleteInit = {
   id: 0
@@ -68,7 +69,8 @@ export const useBoardStore = defineStore({
       categoryId: 0,
       title: '',
       content: '',
-      agree: false
+      agree: false,
+      fileList: []
     },
     boardDelete: {
       id: 0
