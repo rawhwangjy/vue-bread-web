@@ -51,6 +51,18 @@
         }
     }
 }
+// input="text"
+// input
+input {
+    border: 1px solid commons.$gray8;
+    // &:focus {
+    //     color: red;
+    //     cursor: text;
+    // }
+    &::placeholder {
+        color: commons.$gray8;
+    }
+}
 // input="checkbox"
 .checkbox-wrap {
     @extend %input-reset;

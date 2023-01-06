@@ -29,9 +29,9 @@ img, fieldset {
 fieldset { // bug
     min-width: 0;
 }
-a, button, details, embed, iframe, label, select, textarea {
+a, button, details, embed, iframe, label, select, input, textarea {
     &:focus {
-        outline: 2px solid rgba(#4337ca, .5);
+        outline: 1px solid rgba(#4337ca, .5);
     }
 }
 a {
@@ -71,9 +71,6 @@ input {
         // color: $gray;
         opacity: 1; /* required on iOS */
     }
-}
-input::placeholder {
-    // color: $text5;
 }
 
 input:focus::-webkit-input-placeholder,

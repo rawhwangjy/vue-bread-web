@@ -94,4 +94,10 @@ header {
             }
         }
     }
+    .ql-editor {
+        &.ql-blank::before {
+            font-style: inherit;
+            color: commons.$gray8;
+        }
+    }
 }

@@ -2,8 +2,9 @@
   <div class="board-wrap">
     <h3>{{ route.params.category }} view</h3>
     <div class="board-list">
-      <div>id 는 {{ boardDetail.id }}</div>
-      <div>{{ boardDetail.title }}</div>
+      <div>boardDetail.id {{ boardDetail.id }}</div>
+      <div>boardDetail.title {{ boardDetail.title }}</div>
+      <div>boardDetail.content {{ boardDetail.content }}</div>
       <div>{{ boardDetail.agree }}</div>
       <div v-if="boardDetail.fileList">
         <span

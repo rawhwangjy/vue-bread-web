@@ -21,13 +21,17 @@
           <div>
             <dt>제목</dt>
             <dd>
-              <input type="text" name="" id="" v-model="boardDetail.title">
+              <input type="text" v-model="boardDetail.title" ref="firstFocus" autofocus>
             </dd>
           </div>
           <div>
             <dt>내용</dt>
             <dd>
-              <textarea name="" id="" cols="30" rows="10" v-model="boardDetail.content"></textarea>
+              <quill-editor
+                v-model="editor.content"
+                :options="editor.editorOption"
+                @change="onEditorChange"
+              />
             </dd>
           </div>
           <div>
@@ -71,17 +75,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
+import { quillEditor } from 'vue3-quill'
 import Checkbox from '@/components/Checkbox.vue'
+
+interface vueEditor {
+  quill: object,
+  html: string,
+  text: string
+}
 
 export default defineComponent({
   name: 'boardCreate',
   components: {
+    quillEditor,
     Checkbox
   },
   setup () {
@@ -92,7 +104,6 @@ export default defineComponent({
     const categoryStore = useCategoryStore()
 
     // init data
-    const testImg = ref()
     const currentCategory = ref('')
     const categoryList = ref<ResCategoryListInterface[]>([])
     const boardDetail = ref<ReqBoardCreateInterface>({
@@ -103,6 +114,7 @@ export default defineComponent({
       fileList: null
     })
     const previews = ref<string[]>([])
+    const firstFocus = ref<HTMLInputElement | null>()
 
     // api
     async function getCategoryList () {
@@ -122,14 +134,11 @@ export default defineComponent({
         for (let i = 0; i < files.length; i++) {
           const reader: FileReader = new FileReader()
           reader.readAsDataURL(files[i])
-
           reader.addEventListener('load', () => {
             return previews.value.push(String(reader.result))
-            // return console.log(String(reader.result))
           })
         }
       }
-      console.log('arrya', previews.value)
     }
     async function boardCreate () {
       if (boardDetail.value.categoryId === 0) {
@@ -171,6 +180,18 @@ export default defineComponent({
         path: `/board/${currentCategory.value}/${result.insertId}`
       })
     }
+    // editor
+    const editor = reactive({
+      content: '',
+      _content: '',
+      editorOption: {
+        placeholder: '내용을 입력해 주세요.'
+      }
+    })
+    const onEditorChange = (event: vueEditor) => {
+      editor._content = event.html
+      boardDetail.value.content = event.text
+    }
 
     function back () {
       window.history.back()
@@ -178,6 +199,12 @@ export default defineComponent({
 
     onMounted(() => {
       getCategoryList()
+      // 첫번쨰 인풋 포커스
+      firstFocus.value?.focus()
+
+      firstFocus.value?.addEventListener('selection-change', () => {
+        firstFocus.value?.focus()
+      })
     })
 
     return {
@@ -189,7 +216,9 @@ export default defineComponent({
       uploadFile,
       previews,
       back,
-      testImg
+      editor,
+      onEditorChange,
+      firstFocus
     }
   }
 })

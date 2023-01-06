@@ -21,6 +21,7 @@
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue3-lottie": "^2.3.0",
+    "vue3-quill": "^0.3.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

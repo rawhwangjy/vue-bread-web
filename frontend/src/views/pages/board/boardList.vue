@@ -38,6 +38,7 @@
       </table>
     </div>
     <button @click="boardCreate" class="btn lg dark">글쓰기</button>
+    <span :[aName]="aUrl">AA</span>
   </div>
 </template>
 
@@ -103,6 +104,9 @@ export default defineComponent({
     onMounted(() => {
       getBoardList()
     })
+    function formatDate (data: number) {
+      return data + 1
+    }
 
     watch(
       () => route.params.category,
@@ -111,6 +115,8 @@ export default defineComponent({
         getBoardList()
       }
     )
+    const aName = 'class'
+    const aUrl = null
 
     return {
       boardStore,
@@ -119,7 +125,10 @@ export default defineComponent({
       boardList,
       boardCreate,
       boardUpdate,
-      boardDelete
+      boardDelete,
+      formatDate,
+      aName,
+      aUrl
     }
   }
 })

@@ -22,13 +22,22 @@
         <div>
           <dt>제목</dt>
           <dd>
-            <input type="text" name="" id="" v-model="boardDetail.title">
+            <input type="text" v-model="boardDetail.title" ref="firstFocus">
           </dd>
         </div>
         <div>
           <dt>내용</dt>
           <dd>
-            <textarea name="" id="" cols="30" rows="10" v-model="boardDetail.content"></textarea>
+            <quill-editor
+              v-model="editor.content"
+              :value="editor.content"
+              :options="editor.editorOption"
+              :disabled="editor.disabled"
+              @change="onEditorChange"
+    @ready="onEditorReady($event)"
+            />
+            {{ editor.content }}
+            {{ boardDetail.content }}
           </dd>
         </div>
         <div>
@@ -84,17 +93,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, reactive, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 import { ReqBoardUpdateInterface, ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
+import { quillEditor } from 'vue3-quill'
 import Checkbox from '@/components/Checkbox.vue'
+
+interface vueEditor {
+  quill: object,
+  html: string,
+  text: string
+}
 
 export default defineComponent({
   name: 'boardUpdate',
   components: {
+    quillEditor,
     Checkbox
   },
   setup () {
@@ -117,6 +134,7 @@ export default defineComponent({
     })
     const curServerImg = ref(false)
     const previews = ref<string[]>([])
+    const firstFocus = ref<HTMLInputElement | null>()
 
     // api
     async function getCategoryList () {
@@ -129,11 +147,10 @@ export default defineComponent({
       const result = await boardStore.actionHttpGetBoard(targetBoard)
       result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       boardDetail.value = result[0]
-      console.log('boardDetail.agree', boardDetail.value.agree)
+      editor.content = boardDetail.value.content
 
       // fileList 가공 후 재할당
-      // if (result[0].fileList !== '') {
-      if (result[0].fileList !== null) {
+      if (result[0].fileList !== '') {
         curServerImg.value = true
         const target = result[0].fileList.split(',')
         boardDetail.value.fileList = []
@@ -141,6 +158,10 @@ export default defineComponent({
           boardDetail.value.fileList.push(target[i])
         }
       }
+      // 첫번쨰 인풋 포커스
+      nextTick(() => {
+        firstFocus.value?.focus()
+      })
     }
     function uploadFile (event: Event) {
       const { files } = event?.target as HTMLInputElement
@@ -157,13 +178,11 @@ export default defineComponent({
         for (let i = 0; i < files.length; i++) {
           const reader: FileReader = new FileReader()
           reader.readAsDataURL(files[i])
-
           reader.addEventListener('load', () => {
             return previews.value.push(String(reader.result))
           })
         }
       }
-      console.log('arrya', previews.value)
     }
     async function boardUpdate () {
       if (boardDetail.value.categoryId === 0) {
@@ -203,9 +222,29 @@ export default defineComponent({
         path: `/board/${currentCategory.value}`
       })
     }
+    // editor
+    const editor = reactive({
+      content: '',
+      _content: '',
+      editorOption: {
+        placeholder: '내용을 입력해 주세요.'
+      },
+      disabled: true
+    })
+
+    const onEditorReady = (quill: object) => {
+      console.log('editor ready!', quill)
+    }
+    const onEditorChange = (event: vueEditor) => {
+      editor.disabled = false
+      editor._content = event.html
+      boardDetail.value.content = event.text
+    }
 
     function back () {
-      window.history.back()
+      router.push({
+        path: `/board/${currentCategory.value}`
+      })
     }
 
     onMounted(() => {
@@ -221,7 +260,11 @@ export default defineComponent({
       uploadFile,
       curServerImg,
       previews,
-      back
+      back,
+      editor,
+      onEditorChange,
+      firstFocus,
+      onEditorReady
     }
   }
 })
