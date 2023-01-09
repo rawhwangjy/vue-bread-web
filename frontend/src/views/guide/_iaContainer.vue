@@ -93,71 +93,77 @@ export default defineComponent({
         route.path.includes(item.subNavUrl)
       )
 
-      let index = -1
-      const menus = document.getElementsByClassName('target-a11y')
-      // console.log(menus)
-      for (const [key, value] of Object.entries(menus)) {
-        value.addEventListener('keydown', (e: Event) => {
+      let cIndex = -1
+      const parentsMenu = document.getElementsByClassName('target-a11y')
+      for (const parent of Object.values(parentsMenu)) {
+        parent.addEventListener('keydown', (e: Event) => {
           const e_ = e as KeyboardEvent
-          const target = e.target as HTMLElement
-          const childNodes = target.nextElementSibling?.children
-          // console.log('value', value) // a
-          // console.log('target', target) // a
-          // console.log('childNodes', childNodes) // li 배열 [li, li, li]
+          const pTarget = e.target as HTMLElement
+          // const submenus = value.nextSibling?.childrenMenu // NodeList
+          const childrenMenu = pTarget.nextElementSibling?.children // HTMLCollection
+          const pKeycode = e_.key || e_.keyCode
 
-          const keyTarget = e_.key || e_.keyCode
-
-          if (childNodes !== undefined && childNodes !== null) {
+          if (childrenMenu !== undefined && childrenMenu !== null) {
             // 포커스 초기화
-            for (let i = 0; i < childNodes.length; i++) {
-              const focusTarget = childNodes[i].children[0] as HTMLElement
+            for (let i = 0; i < childrenMenu.length; i++) {
+              const focusTarget = childrenMenu[i].children[0] as HTMLElement
               focusTarget.blur()
             }
-            // index -1일 경우 진행 X
-            if (index < -1) {
-              return false
-            }
-            if (keyTarget === 'ArrowLeft' || keyTarget === 37) {
-              // 방향키 왼쪽
-              if (index === 0) {
-                const focusTarget = childNodes[index].children[0] as HTMLElement
+            if (pKeycode === 'ArrowRight' || pKeycode === 39) {
+              // right
+              if (cIndex === -1) {
+                cIndex = cIndex + 1
+                const focusTarget = childrenMenu[cIndex].children[0] as HTMLElement
                 focusTarget.focus()
-                return false
               }
-              --index
-              const focusTarget = childNodes[index].children[0] as HTMLElement
-              focusTarget.focus()
-            } else if (keyTarget === 'ArrowRight' || keyTarget === 39) {
-              // 방향키 오른쪽
-              // if (index === childNodes.length - 1) {
-              //   // childNodes[index].children[0].classList.add('focus')
-              //   const focusTarget = childNodes[index].children[0] as HTMLElement
-              //   console.log(focusTarget)
-              //   focusTarget.focus()
-              //   return false
-              // }
-              ++index
-              const focusTarget = childNodes[index].childNodes[0] as HTMLElement
-              focusTarget.focus()
-              console.log('childNodes[index]', focusTarget)
-            } else if (keyTarget === 'Tab' || keyTarget === 9) {
-              index = -1
+            } else if (pKeycode === 'ArrowLeft' || pKeycode === 37) {
+              // left
+              cIndex = -1
+              pTarget.focus()
               return false
-            } else if (keyTarget === 'Enter' || keyTarget === 13) {
-              // 엔터치면
-              if (target.classList.contains('target-a11y')) {
-                navItemClick(Number(key))
-                console.log('enter parent')
-              } else {
-                subNavItemClick(Number(key), index)
-                console.log('enter child')
-              }
-              // console.log('', Number(key), index)
-            } else {
-              return false
+            } else if (pKeycode === 'Tab' || pKeycode === 9) {
+              cIndex = -1
+            } else if ((e_.shiftKey && pKeycode === 'Tab') || (e_.shiftKey && pKeycode === 9)) {
+              cIndex = -1
             }
+            console.log('parent', cIndex)
           }
         })
+        const childrenMenu = parent.nextElementSibling?.children // HTMLCollection
+        if (childrenMenu !== undefined && childrenMenu !== null) {
+          for (const child of Object.values(childrenMenu)) {
+            const childeNodesLiengh = childrenMenu?.length
+            child.addEventListener('keydown', (e: Event) => {
+              const e_ = e as KeyboardEvent
+              const cKeycode = e_.key || e_.keyCode
+              if (cKeycode === 'ArrowRight' || cKeycode === 39) {
+                // right
+                if (cIndex < childeNodesLiengh - 1) {
+                  cIndex = cIndex + 1
+                  const focusTarget = childrenMenu[cIndex].children[0] as HTMLElement
+                  focusTarget.focus()
+                }
+              } else if (cKeycode === 'ArrowLeft' || cKeycode === 37) {
+                // left
+                if (cIndex <= 0) {
+                  cIndex = -1
+                  const focusTarget = child.parentElement?.previousSibling as HTMLElement
+                  focusTarget.focus()
+                  return false
+                }
+                if (cIndex > 0) {
+                  cIndex = cIndex - 1
+                  const focusTarget = childrenMenu[cIndex].children[0] as HTMLElement
+                  focusTarget.focus()
+                }
+              } else if (cKeycode === 'Tab' || cKeycode === 9) {
+                cIndex = -1
+              } else if ((e_.shiftKey && cKeycode === 'Tab') || (e_.shiftKey && cKeycode === 9)) {
+                cIndex = -1
+              }
+            })
+          }
+        }
       }
     })
     const state = reactive({
@@ -174,8 +180,8 @@ export default defineComponent({
     function subNavItemClick (parentIndex: number, currentIndex: number) {
       state.navIndex = parentIndex
       state.subNavIndex = currentIndex
-      console.log('sub / state.navIndex', state.navIndex)
-      console.log('sub / state.subNavIndex', state.subNavIndex)
+      // console.log('sub / state.navIndex', state.navIndex)
+      // console.log('sub / state.subNavIndex', state.subNavIndex)
       router.push({ path: state.guideItems[state.navIndex].subItems[state.subNavIndex].subNavUrl })
     }
     return {
