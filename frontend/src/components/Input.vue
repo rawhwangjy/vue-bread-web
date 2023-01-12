@@ -1,17 +1,44 @@
 <template>
   <div class="input-wrap">
-    <input type="text">
+    <label
+      :for="`ipt${randomString}`"
+      :class="{
+        'sr-only': labelHide
+      }"
+    >
+      <span>{{ label }}</span>
+    </label>
+    <div class="input">
+      <input
+        type="text"
+        :id="`ipt${randomString}`"
+        :value="modelValue"
+        :name="name"
+        :disabled="disabled"
+        @input="onChange"
+        @blur="onBlur"
+        @focus="onFocus"
+      >
+      <button
+        type="button"
+        v-show="isShowDelete"
+        ref="btnDeleteInput"
+        class="btn-delete-input"
+        aria-label="내용 삭제"
+        @click="onClear"
+      >
+        <font-awesome-icon icon="fa-solid fa-circle-xmark" />
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 export default defineComponent({
-  components: {
-
-  },
+  components: { },
   props: {
     modelValue: {
       type: String,
@@ -32,27 +59,55 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false
+    },
+    labelHide: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['update:modelValue', 'change'],
   setup (props, { emit }) {
     const randomString = getRandomId()
-    const isChecked = computed(() => {
-      return props.modelValue === props.value
-    })
+    const isShowDelete = ref(false)
+    const btnDeleteInput = ref<HTMLElement | null>(null)
 
-    function updatedInput (event : Event) {
-      const currentCheck = (event.target as HTMLInputElement).value
-      emit('update:modelValue', currentCheck)
-      emit('change', currentCheck)
+    function onChange (event : Event) {
+      const currentValue = (event.target as HTMLInputElement).value
+      if (currentValue.length === 0) {
+        isShowDelete.value = false
+      } else if (currentValue.length > 0) {
+        isShowDelete.value = true
+      }
+      emit('update:modelValue', currentValue)
+      emit('change', currentValue)
     }
-    onMounted(() => {
-      // console.log('props.modelValue', typeof props.modelValue)
-    })
+    function onBlur (event : Event) {
+      const _event = event as FocusEvent
+      const target = _event.relatedTarget as EventTarget
+      if (target === btnDeleteInput.value) {
+        isShowDelete.value = true
+        return false
+      }
+      isShowDelete.value = false
+    }
+    function onFocus () {
+      if (props.modelValue) {
+        isShowDelete.value = true
+      }
+    }
+    function onClear () {
+      console.log('onClear')
+      emit('update:modelValue', '')
+      isShowDelete.value = false
+    }
     return {
       randomString,
-      isChecked,
-      updatedInput
+      btnDeleteInput,
+      isShowDelete,
+      onChange,
+      onBlur,
+      onFocus,
+      onClear
     }
   }
 })

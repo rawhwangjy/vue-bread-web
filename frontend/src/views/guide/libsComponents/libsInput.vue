@@ -93,11 +93,11 @@
               </tr>
               <tr>
                 <td>
-                  <em class="icon-required required">필수</em>
+                  <em class="icon-required">필수</em>
                 </td>
                 <th scope="row">@change</th>
                 <td>
-                  <span class="type-object">Function</span>
+                  <span class="type-function">Function</span>
                 </td>
                 <td class="td-center">method name</td>
               </tr>
@@ -105,150 +105,32 @@
           </table>
         </div><!-- // .api-box -->
         <div class="lib-box">
-          <h3>Basic <span>default : {{ defaultCheckbox }} / checked : {{ defaultChecked }} / disabled : {{ defaultDisabeld }}</span></h3>
+          <h3>Basic</h3>
           <div class="example">
-            <ul>
-              <li>
-                <Checkbox
-                  v-model="defaultCheckbox"
-                  label="default"
-                  value="default"
-                  name="currentDefault"
-                  @change="changeEvent"
-                />
-              </li>
-              <li>
-                <Checkbox
-                  v-model="defaultChecked"
-                  label="checked"
-                  value="checked"
-                  checked
-                  name="currentChecked"
-                  @change="changeEvent"
-                />
-              </li>
-              <li>
-                <Checkbox
-                  v-model="defaultDisabeld"
-                  label="disabled"
-                  value="disabled"
-                  disabled
-                  name="currentDisabled"
-                  @change="changeEvent"
-                />
-              </li>
-            </ul>
+            <Input
+              v-model="inputText"
+              label="name1"
+              name="currentDefault"
+              @change="changeEvent"
+            />
           </div>
           <div class="code">
 <pre>
   <code class="language-html">
 &lt;template&gt;
-  &lt;!-- default --&gt;
-  &lt;Checkbox
-    v-model=&quot;defaultCheckbox&quot;
-    label=&quot;default&quot;
-    value=&quot;default&quot;
+  &lt;Input
+    v-model=&quot;inputText&quot;
+    label=&quot;name1&quot;
     name=&quot;currentDefault&quot;
     @change=&quot;changeEvent&quot;
   /&gt;
-  &lt;!-- checked --&gt;
-  &lt;Checkbox
-    v-model=&quot;defaultChecked&quot;
-    label=&quot;checked&quot;
-    value=&quot;checked&quot;
-    checked
-    name=&quot;currentChecked&quot;
-    @change=&quot;changeEvent&quot;
-  /&gt;
-  &lt;!-- disabled --&gt;
-  &lt;Checkbox
-    v-model=&quot;defaultDisabeld&quot;
-    label=&quot;disabled&quot;
-    value=&quot;disabled&quot;
-    disabled
-    name=&quot;currentDisabled&quot;
-    @change=&quot;changeEvent&quot;
-  /&gt;
 &lt;/template&gt;
 
 &lt;script&gt;
-  const state = reactive({
-    defaultCheckbox: false,
-    defaultChecked: true,
-    defaultDisabeld: false
-  })
-&lt;/script&gt;
-  </code>
-</pre>
-          </div>
-        </div><!-- // .lib-box -->
-        <div class="lib-box">
-          <h3>Array <span>checked : {{ arrayCheckbox }}</span></h3>
-          <div class="example">
-            <ul>
-              <li>
-                <Checkbox
-                  v-model="arrayCheckbox"
-                  label="name1"
-                  value="name1"
-                  name="arrayCheckbox"
-                  @change="changeEvent"
-                />
-              </li>
-              <li>
-                <Checkbox
-                  v-model="arrayCheckbox"
-                  label="name2"
-                  value="name2"
-                  name="arrayCheckbox"
-                  @change="changeEvent"
-                />
-              </li>
-              <li>
-                <Checkbox
-                  v-model="arrayCheckbox"
-                  label="name3"
-                  value="name3"
-                  name="arrayCheckbox"
-                  @change="changeEvent"
-                />
-              </li>
-            </ul>
-          </div>
-          <div class="code">
-<pre>
-  <code class="language-html">
-&lt;template&gt;
-  &lt;Checkbox
-    v-model=&quot;arrayCheckbox&quot;
-    label=&quot;name1&quot;
-    value=&quot;name1&quot;
-    name=&quot;arrayCheckbox&quot;
-    @change=&quot;changeEvent&quot;
-  /&gt;
-  &lt;Checkbox
-    v-model=&quot;arrayCheckbox&quot;
-    label=&quot;name2&quot;
-    value=&quot;name2&quot;
-    name=&quot;arrayCheckbox&quot;
-    @change=&quot;changeEvent&quot;
-  /&gt;
-  &lt;Checkbox
-    v-model=&quot;arrayCheckbox&quot;
-    label=&quot;name3&quot;
-    value=&quot;name3&quot;
-    name=&quot;arrayCheckbox&quot;
-    @change=&quot;changeEvent&quot;
-  /&gt;
-&lt;/template&gt;
+  const inputText = ref('')
 
-&lt;script&gt;
-  const state = reactive({
-    arrayCheckbox: []
-  })
-
-  function changeEvent (value : boolean | []) {
-    console.log('checked', value)
+  function changeEvent (value : string) {
+    console.log('typing', value)
   }
 &lt;/script&gt;
   </code>
@@ -262,14 +144,14 @@
 
 <script lang="ts">
 import Prism from 'prismjs'
-import { defineComponent, onMounted, reactive, toRefs } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import Checkbox from '@/components/Checkbox.vue'
+import Input from '@/components/Input.vue'
 
 export default defineComponent({
-  name: 'libsCheckbox',
+  name: 'libsRadio',
   components: {
-    Checkbox
+    Input
   },
   setup () {
     const route = useRoute()
@@ -279,18 +161,13 @@ export default defineComponent({
       Prism.highlightAll()
     })
 
-    const state = reactive({
-      defaultCheckbox: false,
-      defaultChecked: true,
-      defaultDisabeld: false,
-      arrayCheckbox: []
-    })
-    function changeEvent (value : boolean | []) {
-      console.log('checked', value)
+    const inputText = ref('')
+    function changeEvent (value : string) {
+      console.log('typing', value)
     }
     return {
       pageTitle,
-      ...toRefs(state),
+      inputText,
       changeEvent
     }
   }

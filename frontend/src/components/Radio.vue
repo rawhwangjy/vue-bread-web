@@ -8,16 +8,21 @@
       :name="name"
       :checked="checked"
       :disabled="disabled"
-      @change="updatedInput"
+      @change="onChange"
     >
-    <label :for="`rdo${randomString}`">
+    <label
+      :for="`rdo${randomString}`"
+      :class="{
+        'sr-only': labelHide
+      }"
+    >
       <span>{{ label }}</span>
     </label>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 export default defineComponent({
@@ -41,11 +46,15 @@ export default defineComponent({
       type: String,
       default: ''
     },
+    checked: {
+      type: Boolean,
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
     },
-    checked: {
+    labelHide: {
       type: Boolean,
       default: false
     }
@@ -57,18 +66,15 @@ export default defineComponent({
       return props.modelValue === props.value
     })
 
-    function updatedInput (event : Event) {
+    function onChange (event : Event) {
       const currentCheck = (event.target as HTMLInputElement).value
       emit('update:modelValue', currentCheck)
       emit('change', currentCheck)
     }
-    onMounted(() => {
-      // console.log('props.modelValue', typeof props.modelValue)
-    })
     return {
       randomString,
       isChecked,
-      updatedInput
+      onChange
     }
   }
 })

@@ -54,10 +54,13 @@ const guideItems = [
     subItems: [
       { subNavTitle: 'Alert', subNavUrl: '/guide/components/alert', desc: '경고창 컴포넌트 라이브러리 사용 방법' },
       { subNavTitle: 'Checkbox', subNavUrl: '/guide/components/checkbox', desc: '체크박스 컴포넌트 라이브러리 사용 방법' },
+      { subNavTitle: 'Input', subNavUrl: '/guide/components/input', desc: '인풋 컴포넌트 라이브러리 사용 방법' },
+      { subNavTitle: 'Modal', subNavUrl: '/guide/components/modal', desc: '모달 컴포넌트 라이브러리 사용 방법' },
       { subNavTitle: 'Radio', subNavUrl: '/guide/components/radio', desc: '라디오 컴포넌트 라이브러리 사용 방법' },
-      { subNavTitle: 'Tab', subNavUrl: '/guide/components/tab', desc: '탭 컴포넌트 라이브러리 사용 방법' },
+      { subNavTitle: 'Select', subNavUrl: '/guide/components/select', desc: '셀렉트 컴포넌트 라이브러리 사용 방법' },
       { subNavTitle: 'Swiper', subNavUrl: '/guide/components/swiper', desc: '스와이퍼 컴포넌트 라이브러리 사용 방법' },
-      { subNavTitle: 'Modal', subNavUrl: '/guide/components/modal', desc: '모달 컴포넌트 라이브러리 사용 방법' }
+      { subNavTitle: 'Tab', subNavUrl: '/guide/components/tab', desc: '탭 컴포넌트 라이브러리 사용 방법' },
+      { subNavTitle: 'Toast', subNavUrl: '/guide/components/toast', desc: '토스트 컴포넌트 라이브러리 사용 방법' }
     ]
   },
   {
@@ -96,11 +99,11 @@ export default defineComponent({
       let cIndex = -1
       const parentsMenu = document.getElementsByClassName('target-a11y')
       for (const parent of Object.values(parentsMenu)) {
+        // 1Depth event
         parent.addEventListener('keydown', (e: Event) => {
           const e_ = e as KeyboardEvent
           const pTarget = e.target as HTMLElement
-          // const submenus = value.nextSibling?.childrenMenu // NodeList
-          const childrenMenu = pTarget.nextElementSibling?.children // HTMLCollection
+          const childrenMenu = pTarget.nextElementSibling?.children
           const pKeycode = e_.key || e_.keyCode
 
           if (childrenMenu !== undefined && childrenMenu !== null) {
@@ -126,10 +129,10 @@ export default defineComponent({
             } else if ((e_.shiftKey && pKeycode === 'Tab') || (e_.shiftKey && pKeycode === 9)) {
               cIndex = -1
             }
-            console.log('parent', cIndex)
           }
         })
-        const childrenMenu = parent.nextElementSibling?.children // HTMLCollection
+        // 2Depth event
+        const childrenMenu = parent.nextElementSibling?.children
         if (childrenMenu !== undefined && childrenMenu !== null) {
           for (const child of Object.values(childrenMenu)) {
             const childeNodesLiengh = childrenMenu?.length

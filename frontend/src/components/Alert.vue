@@ -1,7 +1,8 @@
 <template>
   <teleport to="body">
     <div
-      v-if="state"
+      v-show="state"
+      :id="id"
       class="alert-wrap"
       role="alert"
       aria-live="assertive"
@@ -32,12 +33,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   components: {
   },
   props: {
+    id: {
+      type: String,
+      default: ''
+    },
     state: {
       type: Boolean,
       default: false

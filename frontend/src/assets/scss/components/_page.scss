@@ -7,6 +7,9 @@
 .svg-inline--fa {
     vertical-align: 0;
 }
+body.hidden {
+    overflow-y: hidden;
+}
 body.before-load {
     overflow: hidden;
     .loading-wrap {
@@ -53,7 +56,7 @@ header {
                         > a, button {
                             display: block;
                             padding: 15px;
-                            font-size: 18px;
+                            font-size: commons.$fs-l;
                         }
                         + .global-nav-item {
                             margin-left: 20px;
@@ -72,7 +75,7 @@ header {
                     a {
                         display: block;
                         padding: 7px 5px;
-                        font-size: 13px;
+                        font-size: commons.$fs-s;
                         &:hover {
                             background-color: #ddd;
                         }

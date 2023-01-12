@@ -65,16 +65,6 @@
                 <td>
                   <em class="icon-required">선택</em>
                 </td>
-                <th scope="row">label-hide</th>
-                <td>
-                  <span class="type-boolean">Boolean</span>
-                </td>
-                <td class="td-center">false</td>
-              </tr>
-              <tr>
-                <td>
-                  <em class="icon-required">선택</em>
-                </td>
                 <th scope="row">checked</th>
                 <td>
                   <span class="type-boolean">Boolean</span>
@@ -104,13 +94,23 @@
               </tr>
               <tr>
                 <td>
+                  <em class="icon-required">선택</em>
+                </td>
+                <th scope="row">label-hide</th>
+                <td>
+                  <span class="type-boolean">Boolean</span>
+                </td>
+                <td class="td-center">false</td>
+              </tr>
+              <tr>
+                <td>
                   <em class="icon-required required">필수</em>
                 </td>
                 <th scope="row">@change</th>
                 <td>
                   <span class="type-object">Function</span>
                 </td>
-                <td class="td-center"></td>
+                <td class="td-center">method name</td>
               </tr>
             </tbody>
           </table>
@@ -122,8 +122,8 @@
               <li>
                 <Radio
                   v-model="defaultRadio"
-                  label="name1"
-                  value="name1"
+                  label="default"
+                  value="default"
                   name="currentDefault"
                   @change="changeEvent"
                 />
@@ -267,6 +267,10 @@
   const state = reactive({
     defaultRadio2: ''
   })
+
+  function changeEvent (value : string) {
+    console.log('checked', value)
+  }
 &lt;/script&gt;
   </code>
 </pre>
@@ -291,16 +295,17 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const pageTitle = route.path.replace(/^.*\//, '')
+
     onMounted(() => {
       Prism.highlightAll()
     })
+
     const state = reactive({
       defaultRadio: '',
       defaultRadio2: ''
     })
     function changeEvent (value : string) {
-      console.log('dd', value)
-      // alert(`selected ${value}`)
+      console.log('checked', value)
     }
     return {
       pageTitle,

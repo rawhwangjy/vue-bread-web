@@ -4,7 +4,7 @@
       <div
         v-for="(item, index) in tabData"
         class="tab"
-        :key="`tab${index}`"
+        :key="`t${index}${randomString}`"
 
       >
         <button type="button" @click="showPanel(index)">{{ item }}</button>
@@ -18,7 +18,7 @@
       <div
         class="tab-panel"
         v-for="(slot, index) of Object.keys($slots)"
-        :key="`tab-panel${index}`"
+        :key="`tp${index}${randomString}`"
       >
         <slot :name="slot" />
       </div>
@@ -28,6 +28,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
+import { getRandomId } from '@/utils/common.function'
 
 export default defineComponent({
   components: {
@@ -40,6 +41,7 @@ export default defineComponent({
   },
   emits: ['update'],
   setup (props, { emit }) {
+    const randomString = getRandomId()
     const transform = ref(0)
     const tabs = ref<HTMLDivElement | null>(null)
     const panels = ref<HTMLDivElement | null>(null)
@@ -61,6 +63,7 @@ export default defineComponent({
     }
 
     return {
+      randomString,
       tabs,
       panels,
       showPanel,

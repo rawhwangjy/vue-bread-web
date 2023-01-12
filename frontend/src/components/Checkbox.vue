@@ -8,16 +8,21 @@
       :name="name"
       :checked="checked"
       :disabled="disabled"
-      @change="updatedInput"
+      @change="onChange"
     >
-    <label :for="`chk${randomString}`">
+    <label
+      :for="`chk${randomString}`"
+      :class="{
+        'sr-only': labelHide
+      }"
+    >
       <span>{{ label }}</span>
     </label>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed, ref } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 export default defineComponent({
@@ -41,11 +46,15 @@ export default defineComponent({
       type: String,
       default: ''
     },
+    checked: {
+      type: Boolean,
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
     },
-    checked: {
+    labelHide: {
       type: Boolean,
       default: false
     }
@@ -63,7 +72,7 @@ export default defineComponent({
       return props.modelValue === trueValue.value
     })
 
-    function updatedInput (event : Event) {
+    function onChange (event : Event) {
       const currentCheck = (event.target as HTMLInputElement).checked
       if (props.modelValue instanceof Array) {
         const newValue = [...props.modelValue]
@@ -79,22 +88,10 @@ export default defineComponent({
         emit('change', currentCheck ? trueValue.value : falseValue.value)
       }
     }
-    // function changeType (target: number): boolean {
-    //   let result = false
-    //   if (target === 0) {
-    //     result = false
-    //   } else {
-    //     result = true
-    //   }
-    //   return result
-    // }
-    onMounted(() => {
-      // console.log('props.modelValue', props.modelValue)
-    })
     return {
       randomString,
       isChecked,
-      updatedInput
+      onChange
     }
   }
 })

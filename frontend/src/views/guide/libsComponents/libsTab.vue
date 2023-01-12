@@ -29,7 +29,7 @@
                 <td>
                   <span class="type-object">Array</span>
                 </td>
-                <td class="td-center">&nbsp;</td>
+                <td class="td-center">[]</td>
               </tr>
               <tr>
                 <td>
@@ -39,7 +39,7 @@
                 <td>
                   <span class="type-object">Function</span>
                 </td>
-                <td class="td-center">&nbsp;</td>
+                <td class="td-center">method name</td>
               </tr>
             </tbody>
           </table>
@@ -84,10 +84,6 @@
   function changeTab (index: number) {
     console.log('current', index)
   }
-
-  return {
-    tabData
-  }
 &lt;/script&gt;
   </code>
 </pre>
@@ -112,9 +108,11 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const pageTitle = route.path.replace(/^.*\//, '')
+
     onMounted(() => {
       Prism.highlightAll()
     })
+
     const tabData: Array<string> = ['Tab01', 'Tab02']
     function changeTab (index: number) {
       console.log('current', index)

@@ -5,6 +5,7 @@
       <div class="box">
         <div class="api-box">
           <h3>공통 API</h3>
+          <h4>Button Alert</h4>
           <table class="api-table">
             <colgroup>
               <col class="width20" >
@@ -21,6 +22,55 @@
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td>
+                  <em class="icon-required required">필수</em>
+                </td>
+                <th scope="row">aria-controls</th>
+                <td>
+                  <span class="type-string">String</span>
+                </td>
+                <td class="td-center">Target's ID</td>
+              </tr>
+              <tr>
+                <td>
+                  <em class="icon-required required">필수</em>
+                </td>
+                <th scope="row">@click</th>
+                <td>
+                  <span class="type-object">Function</span>
+                </td>
+                <td class="td-center">method name</td>
+              </tr>
+            </tbody>
+          </table>
+          <h4>Target Alert</h4>
+          <table class="api-table">
+            <colgroup>
+              <col class="width20" >
+              <col class="width25" />
+              <col class="widthAll" />
+              <col class="width20" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">Required</th>
+                <th scope="col">Options</th>
+                <th scope="col">Params</th>
+                <th scope="col">Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <em class="icon-required required">필수</em>
+                </td>
+                <th scope="row">id</th>
+                <td>
+                  <span class="type-string">String</span>
+                </td>
+                <td class="td-center">Button's aria-controls</td>
+              </tr>
               <tr>
                 <td>
                   <em class="icon-required required">필수</em>
@@ -71,7 +121,7 @@
                 <td>
                   <span class="type-object">Function</span>
                 </td>
-                <td class="td-center">&nbsp;</td>
+                <td class="td-center">method name</td>
               </tr>
             </tbody>
           </table>
@@ -79,8 +129,13 @@
         <div class="lib-box">
           <h3>Basic</h3>
           <div class="example">
-            <button type="button" @click="openAlert">팝업 열기</button>
+            <button
+              type="button"
+              aria-controls="targetAlert"
+              @click="openAlert"
+            >팝업 열기</button>
             <Alert
+              id="targetAlert"
               :state="state"
               content-align="center"
               btn-align="center"
@@ -113,10 +168,6 @@
     state.value = !state.value
     console.log(state.value)
   }
-  return {
-    state,
-    openAlert
-  }
 &lt;/script&gt;
   </code>
 </pre>
@@ -141,14 +192,14 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const pageTitle = route.path.replace(/^.*\//, '')
-    const state = ref<boolean>(false)
+
     onMounted(() => {
       Prism.highlightAll()
-      console.log(state.value)
     })
+
+    const state = ref(false)
     function openAlert () {
       state.value = !state.value
-      console.log(state.value)
     }
     return {
       pageTitle,

@@ -42,7 +42,7 @@
                   <span class="type-string">String</span>
                   'dot' | 'bar' | 'custom class' | boolean
                 </td>
-                <td class="td-center">dot</td>
+                <td class="td-center">'dot'</td>
               </tr>
               <tr>
                 <td>
@@ -65,7 +65,7 @@
                 <td>
                     <span class="type-object">Array</span>
                 </td>
-                <td class="td-center">&nbsp;</td>
+                <td class="td-center">[]</td>
               </tr>
               <tr>
                 <td>
@@ -217,9 +217,11 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const pageTitle = route.path.replace(/^.*\//, '')
+
     onMounted(() => {
       Prism.highlightAll()
     })
+
     const options = reactive({
       direction: '',
       tab: 'ttab',

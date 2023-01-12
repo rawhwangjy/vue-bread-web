@@ -3,16 +3,23 @@
     <nav>
       <div class="global-nav-wrap">
         <nav>
-          <ul>
-            <li class="global-nav-item">
+          <ul role="menu">
+            <li
+              class="global-nav-item"
+              role="menuitem"
+            >
               <router-link to="/guide">
                 guide
               </router-link>
             </li>
-            <li class="global-nav-item">
+            <li
+              class="global-nav-item"
+              role="menuitem"
+            >
               <button
                 type="button"
                 @click="onSateSub"
+                :aria-expanded="stateSub"
               >Boards</button>
               <div
                 v-show="stateSub"
@@ -24,10 +31,14 @@
                 >
                   Board 관리
                 </router-link>
-                <ul class="local-nav-item">
+                <ul
+                  class="local-nav-item"
+                  role="menu"
+                >
                   <li
                     v-for="(item, index) in categoryStore.categoryList"
                     :key="`select${index}`"
+                    role="menuitem"
                   >
                     <router-link :to="`/board/${item.category}`" class="global-nav-item">{{ item.category }}</router-link>
                   </li>

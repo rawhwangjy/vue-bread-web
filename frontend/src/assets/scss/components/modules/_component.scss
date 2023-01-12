@@ -36,8 +36,8 @@
             content: '';
             box-sizing: border-box;
             display: block;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             margin-right: .5rem;
             border: 1px solid commons.$grayC;
         }
@@ -46,21 +46,43 @@
             box-sizing: border-box;
             position: absolute;
             display: block;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
         }
     }
 }
 // input="text"
-// input
-input {
-    border: 1px solid commons.$gray8;
-    // &:focus {
-    //     color: red;
-    //     cursor: text;
-    // }
-    &::placeholder {
-        color: commons.$gray8;
+.input-wrap {
+    label {
+        display: inline-flex;
+        padding-bottom: 20px;
+        font-weight: bold;
+        font-size: commons.$fs-m;
+        color: commons.$gray3;
+    }
+    .input {
+        position: relative;
+        input {
+            width: 100%;
+            height: 36px;
+            border: 1px solid commons.$gray8;
+            padding: 0 30px 0 10px;
+            &::placeholder {
+                color: commons.$gray8;
+            }
+        }
+        .btn-delete-input {
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translate3d(0, -50%, 0);
+            .fa-circle-xmark {
+                display: block;
+                font-size: 20px;
+                color: commons.$grayB;
+            }
+        }
     }
 }
 // input="checkbox"
@@ -109,6 +131,45 @@ input {
                     background-color: commons.$primary;
                     color: #fff;
                 }
+            }
+        }
+    }
+}
+// select
+.select-wrap {
+    position: relative;
+    height: 36px;
+    &.active {
+        .selected {
+            border-bottom-color: #fff;
+        }
+        .select {
+            border: 1px solid commons.$gray8;
+            border-top: 0 none;
+        }
+    }
+    .selected {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 36px;
+        padding: 0 10px;
+        border: 1px solid commons.$gray8;
+    }
+    .select {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        .option {
+            button {
+                display: block;
+                width: 100%;
+                height: 36px;
+                padding: 0 10px;
+                text-align: left;
             }
         }
     }
@@ -297,7 +358,6 @@ input {
     }
 }
 
-
 %pop-wrap-reset {
     position: fixed;
     top: 0;
@@ -317,9 +377,6 @@ input {
 }
 %pop-content-reset {
     position: absolute;
-    top: 20%;
-    left: 0;
-    right: 0;
     z-index: 30;
     display: flex;
     flex-direction: column;
@@ -352,17 +409,20 @@ input {
 .alert-wrap {
     @extend %pop-wrap-reset;
     .alert {
+        top: 20%;
+        left: 0;
+        right: 0;
         @extend %pop-content-reset;
         width: 500px;
         border: 1px solid commons.$grayB;
         box-shadow: 1px 5px 10px commons.colorToRgba(commons.$gray8, .2);
-        font-size: 1.5rem;
+        font-size: commons.$fs-m;
         &.no-bg {
             border: 1px solid commons.$gray6;
             box-shadow: 1px 5px 10px commons.colorToRgba(commons.$gray8, .1);
         }
         .content {
-            font-size: 13px;
+            font-size: commons.$fs-s;
             &.center {
                 text-align: center;
             }
@@ -375,6 +435,117 @@ input {
                 height: 36px;
                 padding: 0 10px;
             }
+        }
+    }
+}
+.modal-wrap {
+    @extend %pop-wrap-reset;
+    .modal {
+        top: 10vh;
+        left: 0;
+        right: 0;
+        bottom: 10vh;
+        @extend %pop-content-reset;
+        width: 80%;
+        height: 80vh;
+        border: 1px solid commons.$grayB;
+        border-radius: 3px;
+        box-shadow: 1px 5px 10px commons.colorToRgba(commons.$gray8, .2);
+        font-size: commons.$fs-m;
+        .modal-header {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            padding: 0 40px 0 20px;
+            font-weight: bold;
+            + .modal-content {
+                margin-top: 0;
+            }
+        }
+        .modal-content {
+            flex: 1;
+            margin-top: 40px;
+            padding: 10px 20px 20px;
+        }
+        .modal-footer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            .btn-close-modal {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                font-size: commons.$fs-xl;
+            }
+        }
+    }
+    &.modal-bounce-enter-active {
+        animation: modal 0.5s;
+    }
+    &.modal-bounce-leave-active {
+        animation: modal 0.5s reverse;
+    }
+    @keyframes modal {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+}
+
+// toast
+.toast-wrap {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 36px);
+    height: 44px;
+    margin: 0 18px;
+    border-radius: 5px;
+    background-color: rgba(#000, .8);
+    transform: translate(0, -20px);
+    .toast {
+      line-height: 2.1rem;
+      font-size: commons.$fs-m;
+      text-align: center;
+      color: #fff;
+      white-space: pre-wrap;
+    }
+    &.toast-up-enter-active {
+        animation: toast-in 1s;
+    }
+    &.toast-down-leave-active {
+        animation: toast-out 1s;
+    }
+    @keyframes toast-in {
+        0% {
+            transform: translate(0, 0);
+            opacity: 0;
+        }
+        100% {
+            transform: translate(0, -20px);
+            opacity: 1;
+        }
+    }
+    @keyframes toast-out {
+        0% {
+            transform: translate(0, -20px);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(0, 0);
+            opacity: 0;
         }
     }
 }
