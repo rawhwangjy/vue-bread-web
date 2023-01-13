@@ -10,7 +10,7 @@
             >
               <router-link
                 to="/guide"
-                @click="onSateSub"
+                @click="onHideSub"
               >
                 guide
               </router-link>
@@ -21,7 +21,7 @@
             >
               <button
                 type="button"
-                @click="onSateSub"
+                @click="onShowSub"
                 :aria-expanded="stateSub"
               >Boards</button>
               <div
@@ -86,12 +86,15 @@ export default defineComponent({
     async function getCategoryList () {
       categoryList.value = await categoryStore.actionHttpGetCategoryList()
     }
-    function onSateSub () {
+    function onShowSub () {
       if (stateSub.value) {
         stateSub.value = false
       } else {
         stateSub.value = true
       }
+    }
+    function onHideSub () {
+      stateSub.value = false
     }
 
     onMounted(() => {
@@ -105,7 +108,8 @@ export default defineComponent({
     return {
       categoryStore,
       stateSub,
-      onSateSub
+      onShowSub,
+      onHideSub
     }
   }
 })
