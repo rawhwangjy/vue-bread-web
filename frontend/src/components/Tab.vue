@@ -31,8 +31,8 @@ import { defineComponent, onMounted, ref } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 export default defineComponent({
-  components: {
-  },
+  name: 'Tab',
+  components: { },
   props: {
     tabData: {
       type: Array,

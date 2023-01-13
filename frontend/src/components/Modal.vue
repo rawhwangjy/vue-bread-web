@@ -35,8 +35,8 @@
 import { defineComponent, onMounted, onUpdated, ref } from 'vue'
 
 export default defineComponent({
-  components: {
-  },
+  name: 'Modal',
+  components: { },
   props: {
     state: {
       type: Boolean,

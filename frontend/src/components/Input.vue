@@ -38,6 +38,7 @@ import { defineComponent, ref } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 export default defineComponent({
+  name: 'Input',
   components: { },
   props: {
     modelValue: {

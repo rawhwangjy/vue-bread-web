@@ -85,13 +85,10 @@
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, PropType, reactive, toRefs, ref, computed } from 'vue'
 import { Swiper, DomType } from '@/utils/common.interface'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faChevronLeft, faChevronRight)
 export default defineComponent({
-  components: {
-  },
+  name: 'Swiper',
+  components: { },
   props: {
     options: {
       type: Object as PropType<Swiper>,

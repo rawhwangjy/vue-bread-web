@@ -16,8 +16,8 @@
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  components: {
-  },
+  name: 'Toast',
+  components: { },
   props: {
     message: {
       type: String,

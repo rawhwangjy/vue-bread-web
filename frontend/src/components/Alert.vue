@@ -36,8 +36,8 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  components: {
-  },
+  name: 'Alert',
+  components: { },
   props: {
     id: {
       type: String,

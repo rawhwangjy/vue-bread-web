@@ -8,10 +8,9 @@
 import { defineComponent, onMounted, ref } from 'vue'
 
 export default defineComponent({
-  components: {
-  },
-  props: {
-  },
+  name: 'Test',
+  components: { },
+  props: { },
   setup () {
     const isContentShown = ref(false)
     const open = () => (isContentShown.value = true)

@@ -26,9 +26,8 @@ import { defineComponent, computed } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 export default defineComponent({
-  components: {
-
-  },
+  name: 'Radio',
+  components: { },
   props: {
     modelValue: {
       type: String,

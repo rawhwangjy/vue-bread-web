@@ -26,9 +26,8 @@ import { defineComponent, computed, ref } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 export default defineComponent({
-  components: {
-
-  },
+  name: 'Checkbox',
+  components: { },
   props: {
     modelValue: {
       type: [Boolean, Number, Array],
