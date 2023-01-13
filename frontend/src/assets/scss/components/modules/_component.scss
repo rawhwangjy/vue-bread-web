@@ -512,6 +512,7 @@
     width: calc(100% - 36px);
     height: 44px;
     margin: 0 18px;
+    padding: 0 18px;
     border-radius: 5px;
     background-color: rgba(#000, .8);
     transform: translate(0, -20px);
@@ -521,6 +522,12 @@
       text-align: center;
       color: #fff;
       white-space: pre-wrap;
+    }
+    &.left {
+        justify-content: flex-start;
+    }
+    &.right {
+        justify-content: flex-end;
     }
     &.toast-up-enter-active {
         animation: toast-in 1s;

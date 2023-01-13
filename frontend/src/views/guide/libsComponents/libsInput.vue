@@ -127,8 +127,9 @@
 &lt;/template&gt;
 
 &lt;script&gt;
-  const inputText = ref('')
+  import Input from '@/components/Input.vue'
 
+  const inputText = ref('')
   function changeEvent (value : string) {
     console.log('typing', value)
   }
@@ -149,7 +150,7 @@ import { useRoute } from 'vue-router'
 import Input from '@/components/Input.vue'
 
 export default defineComponent({
-  name: 'libsRadio',
+  name: 'libsInput',
   components: {
     Input
   },

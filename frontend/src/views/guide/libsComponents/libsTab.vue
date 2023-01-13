@@ -79,8 +79,9 @@
 &lt;/template&gt;
 
 &lt;script&gt;
-  const tabData: Array&lt;string&gt; = ['Tab01', 'Tab02']
+  import Tab from '@/components/Tab.vue'
 
+  const tabData: Array&lt;string&gt; = ['Tab01', 'Tab02']
   function changeTab (index: number) {
     console.log('current', index)
   }

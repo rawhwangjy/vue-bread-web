@@ -28,16 +28,16 @@
         <div>
           <dt>내용</dt>
           <dd>
-            <quill-editor
-              v-model="editor.content"
-              :value="editor.content"
-              :options="editor.editorOption"
-              :disabled="editor.disabled"
-              @change="onEditorChange"
-    @ready="onEditorReady($event)"
-            />
-            {{ editor.content }}
-            {{ boardDetail.content }}
+            <div class="editor-wrap">
+              <quill-editor
+                v-model="editor.content"
+                :value="editor.content"
+                :options="editor.editorOption"
+                :disabled="editor.disabled"
+                @change="onEditorChange"
+                @ready="onEditorReady($event)"
+              />
+            </div>
           </dd>
         </div>
         <div>

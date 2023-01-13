@@ -183,9 +183,14 @@
 &lt;/template&gt;
 
 &lt;script&gt;
+  import Radio from '@/components/Radio.vue'
+
   const state = reactive({
     defaultRadio: ''
   })
+  function changeEvent (value : string) {
+    console.log('checked', value)
+  }
 &lt;/script&gt;
   </code>
 </pre>
@@ -264,10 +269,11 @@
 &lt;/template&gt;
 
 &lt;script&gt;
+  import Radio from '@/components/Radio.vue'
+
   const state = reactive({
     defaultRadio2: ''
   })
-
   function changeEvent (value : string) {
     console.log('checked', value)
   }

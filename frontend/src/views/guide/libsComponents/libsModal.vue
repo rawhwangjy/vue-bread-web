@@ -171,8 +171,9 @@
 &lt;/template&gt;
 
 &lt;script&gt;
-  const state = ref(false)
+  import Modal from '@/components/Modal.vue'
 
+  const state = ref(false)
   function openModal () {
     state.value = !state.value
   }
@@ -193,7 +194,7 @@ import { useRoute } from 'vue-router'
 import Modal from '@/components/Modal.vue'
 
 export default defineComponent({
-  name: 'libsCheckbox',
+  name: 'libsModal',
   components: {
     Modal
   },

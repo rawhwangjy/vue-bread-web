@@ -27,11 +27,13 @@
           <div>
             <dt>내용</dt>
             <dd>
-              <quill-editor
-                v-model="editor.content"
-                :options="editor.editorOption"
-                @change="onEditorChange"
-              />
+              <div class="editor-wrap">
+                <quill-editor
+                  v-model="editor.content"
+                  :options="editor.editorOption"
+                  @change="onEditorChange"
+                />
+              </div>
             </dd>
           </div>
           <div>

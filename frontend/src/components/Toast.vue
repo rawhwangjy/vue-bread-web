@@ -3,6 +3,7 @@
     <div
       v-show="state"
       class="toast-wrap"
+      :class="contentAlign"
     >
       <div class="toast">
         {{ message }}
@@ -21,6 +22,10 @@ export default defineComponent({
     message: {
       type: String,
       default: null
+    },
+    contentAlign: {
+      type: String,
+      default: ''
     }
   },
   emits: ['update'],

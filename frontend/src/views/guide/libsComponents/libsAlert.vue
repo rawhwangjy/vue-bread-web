@@ -90,7 +90,7 @@
                   <span class="type-string">String</span>
                   left | center | right
                 </td>
-                <td class="td-center">left</td>
+                <td class="td-center">'left'</td>
               </tr>
               <tr>
                 <td>
@@ -101,7 +101,7 @@
                   <span class="type-string">String</span>
                   left | center | right
                 </td>
-                <td class="td-center">left</td>
+                <td class="td-center">'left'</td>
               </tr>
               <tr>
                 <td>
@@ -163,6 +163,8 @@
 &lt;/template&gt;
 
 &lt;script&gt;
+  import Alert from '@/components/Alert.vue'
+
   const state = ref&lt;boolean&gt;(false)
   function openAlert () {
     state.value = !state.value
@@ -185,7 +187,7 @@ import { useRoute } from 'vue-router'
 import Alert from '@/components/Alert.vue'
 
 export default defineComponent({
-  name: 'libsCheckbox',
+  name: 'libsAlert',
   components: {
     Alert
   },

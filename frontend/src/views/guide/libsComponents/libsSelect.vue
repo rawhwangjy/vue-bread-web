@@ -87,9 +87,10 @@
 &lt;/template&gt;
 
 &lt;script&gt;
+  import Select from '@/components/Select.vue'
+
   const seletedText = ref('')
   const selectData = ['123', '테스트', '데이터']
-
   function changeEvent (value : string) {
     console.log('selected', value)
   }
@@ -110,7 +111,7 @@ import { useRoute } from 'vue-router'
 import Select from '@/components/Select.vue'
 
 export default defineComponent({
-  name: 'libsCheckbox',
+  name: 'libsSelect',
   components: {
     Select
   },

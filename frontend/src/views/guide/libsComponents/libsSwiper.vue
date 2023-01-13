@@ -150,6 +150,8 @@
 &lt;/template&gt;
 
 &lt;script&gt;
+  import Swiper from '@/components/Swiper.vue'
+
   const options = reactive({
     // styled horizontal
     direction: '',

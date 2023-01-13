@@ -38,7 +38,6 @@
       </table>
     </div>
     <button @click="boardCreate" class="btn lg dark">글쓰기</button>
-    <span :[aName]="aUrl">AA</span>
   </div>
 </template>
 
@@ -115,8 +114,6 @@ export default defineComponent({
         getBoardList()
       }
     )
-    const aName = 'class'
-    const aUrl = null
 
     return {
       boardStore,
@@ -126,9 +123,7 @@ export default defineComponent({
       boardCreate,
       boardUpdate,
       boardDelete,
-      formatDate,
-      aName,
-      aUrl
+      formatDate
     }
   }
 })

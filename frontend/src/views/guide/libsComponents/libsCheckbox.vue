@@ -243,10 +243,11 @@
 &lt;/template&gt;
 
 &lt;script&gt;
+  import Checkbox from '@/components/Checkbox.vue'
+
   const state = reactive({
     arrayCheckbox: []
   })
-
   function changeEvent (value : boolean | []) {
     console.log('checked', value)
   }
