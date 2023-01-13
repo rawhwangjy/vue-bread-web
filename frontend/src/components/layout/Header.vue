@@ -8,7 +8,10 @@
               class="global-nav-item"
               role="menuitem"
             >
-              <router-link to="/guide">
+              <router-link
+                to="/guide"
+                @click="onSateSub"
+              >
                 guide
               </router-link>
             </li>
