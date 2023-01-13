@@ -55,6 +55,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useCategoryStore } from '@/store/category/category.module'
+import { ResCategoryDetailInterface } from '@/service/category/interface/categoryDetail.interface'
 
 export default defineComponent({
   name: 'Header',
@@ -76,8 +77,12 @@ export default defineComponent({
 
     // init
     const stateSub = ref(false)
+    const categoryList = ref<ResCategoryDetailInterface[]>([])
 
     // api
+    async function getCategoryList () {
+      categoryList.value = await categoryStore.actionHttpGetCategoryList()
+    }
     function onSateSub () {
       if (stateSub.value) {
         stateSub.value = false
@@ -87,7 +92,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      //
+      if (categoryStore.categoryList.length === 0) {
+        getCategoryList()
+      } else {
+        categoryList.value = categoryStore.categoryList
+      }
     })
 
     return {
