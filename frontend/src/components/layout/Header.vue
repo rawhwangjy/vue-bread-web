@@ -43,7 +43,13 @@
                     :key="`select${index}`"
                     role="menuitem"
                   >
-                    <router-link :to="`/board/${item.category}`" class="global-nav-item">{{ item.category }}</router-link>
+                    <router-link
+                      :to="`/board/${item.category}`"
+                      class="global-nav-item"
+                      @click="stateSub = false"
+                    >
+                      {{ item.category }}
+                    </router-link>
                   </li>
                 </ul>
               </div>
@@ -62,8 +68,7 @@ import { ResCategoryDetailInterface } from '@/service/category/interface/categor
 
 export default defineComponent({
   name: 'Header',
-  components: {
-  },
+  components: { },
   props: {
     scrollTop: {
       type: Boolean,
