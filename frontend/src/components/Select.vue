@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, watch } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 export default defineComponent({
@@ -84,15 +84,20 @@ export default defineComponent({
     const optionItemHeight = ref(0)
 
     onMounted(() => {
-      if (props.initSelected) {
-        selected.value = props.initSelected
-      } else {
-        props.initTitle ? selected.value = props.initTitle : selected.value = '선택해 주세요.'
-      }
       if (commonItem.value) {
         optionItemHeight.value = commonItem.value?.offsetHeight
       }
     })
+    watch(
+      () => props.initSelected,
+      bindSeleted => {
+        if (props.initSelected) {
+          selected.value = bindSeleted
+        } else {
+          props.initTitle ? selected.value = props.initTitle : selected.value = '선택해 주세요.'
+        }
+      }
+    )
 
     function onShowSelectBox () {
       isShowSelect.value = true
