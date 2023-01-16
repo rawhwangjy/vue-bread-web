@@ -4,11 +4,13 @@
       <h3>카테고리 생성</h3>
     </div>
     <div class="board-content">
-      <Input
-        v-model="category.category"
-        label="카테고리 추가"
-        name="currentCategory"
-      />
+      <div class="form-row">
+        <Input
+          v-model="category.category"
+          label="카테고리 추가"
+          name="currentCategory"
+        />
+      </div>
     </div>
     <div class="board-btns side">
       <button class="btn lg light" @click="back">목록</button>

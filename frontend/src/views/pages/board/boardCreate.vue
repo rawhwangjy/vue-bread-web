@@ -1,84 +1,62 @@
 <template>
   <div class="board-wrap">
-    <h3>{{ route.params.category }} register</h3>
+    <div class="board-title">
+      <h3>글 쓰기</h3>
+    </div>
+    <div class="board-content">
+    </div>
     <div class="board-list">
-        <dl>
-          <div>
-            <dt>타입</dt>
-            <dd>
-              <Select
-                v-model="boardDetail.category"
-                initTitle="카테고리를 선택해주세요."
-                :selectData="categoryList"
-              />
-              <!-- <select v-model="boardDetail.categoryId">
-                <option value="0">카테고리를 선택해주세요.</option>
-                <option
-                  v-for="(item, index) in categoryList"
-                  :key="`select${index}`"
-                  :value="item.id"
-                >
-                  {{ item.category }}
-                </option>
-              </select> -->
-            </dd>
-          </div>
-          <div>
-            <dt>제목</dt>
-            <dd>
-              <Input
-                v-model="boardDetail.title"
-                label="name1"
-                name="currentDefault"
-              />
-            </dd>
-          </div>
-          <div>
-            <dt>내용</dt>
-            <dd>
-              <div class="editor-wrap">
-                <quill-editor
-                  v-model="editor.content"
-                  :options="editor.editorOption"
-                  @change="onEditorChange"
-                />
-              </div>
-            </dd>
-          </div>
-          <div>
-            <dt>동의</dt>
-            <dd>
-              <Checkbox
-                v-model="boardDetail.agree"
-                label="동의합니다."
-                value="html5"
-                name="skills"
-              />
-            </dd>
-          </div>
-          <div>
-            <dt>파일 업로드</dt>
-            <dd>
-              <input
-                type="file"
-                id="fileUpload"
-                multiple
-                name="file"
-                @change="uploadFile"
-              />
-              <div>
-                미리보기
-                <span
-                  v-for="(item, index) in previews"
-                  :key="`file${index}`"
-                  class="board-img"
-                >
-                  <img :src="`${item}`" alt="">
-                </span>
-              </div>
-            </dd>
-          </div>
-        </dl>
+      <div class="form-row">
+        <Select
+          v-model="boardDetail.category"
+          initTitle="카테고리를 선택해주세요."
+          :selectData="categoryList"
+        />
+      </div>
+      <div class="form-row">
+        <Input
+          v-model="boardDetail.title"
+          label="제목"
+          label-hide
+        />
+      </div>
+      <div class="form-row">
+        <div class="editor-wrap">
+          <quill-editor
+            v-model="editor.content"
+            :options="editor.editorOption"
+            aria-label="내용"
+            @change="onEditorChange"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <Checkbox
+          v-model="boardDetail.agree"
+          label="동의합니다."
+          value="html5"
+          name="skills"
+        />
+      </div>
+      <div class="form-row">
+        <input
+          type="file"
+          id="fileUpload"
+          multiple
+          name="file"
+          @change="uploadFile"
+        />
+        <div>
+          미리보기
+          <span
+            v-for="(item, index) in previews"
+            :key="`file${index}`"
+            class="board-img"
+          >
+            <img :src="`${item}`" alt="">
+          </span>
+        </div>
+      </div>
     </div>
     <button @click="boardCreate" class="btn lg dark">글쓰기</button>
     <button @click="back" class="btn-home">메인으로</button>

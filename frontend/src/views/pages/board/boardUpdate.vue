@@ -9,18 +9,9 @@
             <Select
               v-model="boardDetail.category"
               initTitle="카테고리를 선택해주세요."
+              :initSelected="boardDetail.category"
               :selectData="categoryList"
             />
-            <!-- <select v-model="boardDetail.categoryId">
-              <option value="0">카테고리를 선택해주세요.</option>
-              <option
-                v-for="(item, index) in categoryList"
-                :key="`select${index}`"
-                :value="item.id"
-              >
-                {{ item.category }}
-              </option>
-            </select> -->
           </dd>
         </div>
         <div>
@@ -170,6 +161,7 @@ export default defineComponent({
           boardDetail.value.fileList.push(target[i])
         }
       }
+      console.log('boardDetail.category', boardDetail.value.category)
       // 첫번쨰 인풋 포커스
       nextTick(() => {
         firstFocus.value?.focus()

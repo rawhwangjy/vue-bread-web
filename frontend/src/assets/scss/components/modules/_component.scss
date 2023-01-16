@@ -157,6 +157,9 @@
         height: 36px;
         padding: 0 10px;
         border: 1px solid commons.$gray8;
+        svg {
+            margin-left: auto;
+        }
     }
     .select {
         position: absolute;
