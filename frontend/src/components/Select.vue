@@ -69,6 +69,10 @@ export default defineComponent({
     initTitle: {
       type: String,
       default: ''
+    },
+    initSelected: {
+      type: String,
+      default: ''
     }
   },
   setup (props, { emit }) {
@@ -80,7 +84,11 @@ export default defineComponent({
     const optionItemHeight = ref(0)
 
     onMounted(() => {
-      props.initTitle ? selected.value = props.initTitle : selected.value = '선택해 주세요.'
+      if (props.initSelected) {
+        selected.value = props.initSelected
+      } else {
+        props.initTitle ? selected.value = props.initTitle : selected.value = '선택해 주세요.'
+      }
       if (commonItem.value) {
         optionItemHeight.value = commonItem.value?.offsetHeight
       }

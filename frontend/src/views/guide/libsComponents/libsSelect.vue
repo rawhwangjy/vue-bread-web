@@ -71,6 +71,7 @@
               v-model="seletedText"
               initTitle="선택해 주세요."
               :selectData="selectData"
+              :initSelected="selectData[1]"
               @change="changeEvent"
             />
           </div>
@@ -82,6 +83,7 @@
     v-model=&quot;seletedText&quot;
     initTitle=&quot;선택해 주세요.&quot;
     :selectData=&quot;selectData&quot;
+    :initSelected=&quot;selectData[1]&quot;
     @change=&quot;changeEvent&quot;
   /&gt;
 &lt;/template&gt;
