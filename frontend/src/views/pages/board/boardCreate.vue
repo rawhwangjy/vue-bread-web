@@ -6,7 +6,12 @@
           <div>
             <dt>타입</dt>
             <dd>
-              <select v-model="boardDetail.categoryId">
+              <Select
+                v-model="boardDetail.category"
+                initTitle="카테고리를 선택해주세요."
+                :selectData="categoryList"
+              />
+              <!-- <select v-model="boardDetail.categoryId">
                 <option value="0">카테고리를 선택해주세요.</option>
                 <option
                   v-for="(item, index) in categoryList"
@@ -15,13 +20,17 @@
                 >
                   {{ item.category }}
                 </option>
-              </select>
+              </select> -->
             </dd>
           </div>
           <div>
             <dt>제목</dt>
             <dd>
-              <input type="text" v-model="boardDetail.title" ref="firstFocus" autofocus>
+              <Input
+                v-model="boardDetail.title"
+                label="name1"
+                name="currentDefault"
+              />
             </dd>
           </div>
           <div>
@@ -84,6 +93,8 @@ import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
 import { quillEditor } from 'vue3-quill'
+import Select from '@/components/Select.vue'
+import Input from '@/components/Input.vue'
 import Checkbox from '@/components/Checkbox.vue'
 
 interface vueEditor {
@@ -96,6 +107,8 @@ export default defineComponent({
   name: 'boardCreate',
   components: {
     quillEditor,
+    Select,
+    Input,
     Checkbox
   },
   setup () {
@@ -107,9 +120,10 @@ export default defineComponent({
 
     // init data
     const currentCategory = ref('')
-    const categoryList = ref<ResCategoryListInterface[]>([])
+    const categoryObject = ref<ResCategoryListInterface[]>([])
+    const categoryList = ref<string[]>([])
     const boardDetail = ref<ReqBoardCreateInterface>({
-      categoryId: 0,
+      category: '',
       title: '',
       content: '',
       agree: false,
@@ -120,7 +134,11 @@ export default defineComponent({
 
     // api
     async function getCategoryList () {
-      categoryList.value = await categoryStore.actionHttpGetCategoryList()
+      const result = await categoryStore.actionHttpGetCategoryList()
+      categoryObject.value = result
+      result.filter((item: ResCategoryListInterface) => {
+        return categoryList.value.push(item.category)
+      })
     }
     function uploadFile (event: Event) {
       const { files } = event?.target as HTMLInputElement
@@ -143,7 +161,7 @@ export default defineComponent({
       }
     }
     async function boardCreate () {
-      if (boardDetail.value.categoryId === 0) {
+      if (boardDetail.value.category === '') {
         alert('카테고리를 선택해 주세요.')
         return false
       }
@@ -157,7 +175,12 @@ export default defineComponent({
       }
 
       const formData = new FormData()
-      formData.append('categoryId', String(boardDetail.value.categoryId))
+      categoryObject.value.filter((item: ResCategoryListInterface) => {
+        if (boardDetail.value.category === item.category) {
+          formData.append('categoryId', String(item.id))
+        }
+        return false
+      })
       formData.append('title', boardDetail.value.title)
       formData.append('content', boardDetail.value.content)
       formData.append('agree', String(boardDetail.value.agree))
@@ -170,13 +193,7 @@ export default defineComponent({
       }
 
       const result = await boardStore.actionHttpBoardCreate(formData)
-      categoryList.value.filter((item) => {
-        if (item.id === boardDetail.value.categoryId) {
-          currentCategory.value = item.category
-        }
-        return false
-      })
-
+      currentCategory.value = boardDetail.value.category
       alert('글 등록이 완료되었습니다.')
       router.push({
         path: `/board/${currentCategory.value}/${result.insertId}`
@@ -197,6 +214,9 @@ export default defineComponent({
 
     function back () {
       window.history.back()
+      router.push({
+        path: `/board/${currentCategory.value}`
+      })
     }
 
     onMounted(() => {

@@ -6,7 +6,12 @@
         <div>
           <dt>타입</dt>
           <dd>
-            <select v-model="boardDetail.categoryId">
+            <Select
+              v-model="boardDetail.category"
+              initTitle="카테고리를 선택해주세요."
+              :selectData="categoryList"
+            />
+            <!-- <select v-model="boardDetail.categoryId">
               <option value="0">카테고리를 선택해주세요.</option>
               <option
                 v-for="(item, index) in categoryList"
@@ -15,8 +20,7 @@
               >
                 {{ item.category }}
               </option>
-            </select>
-
+            </select> -->
           </dd>
         </div>
         <div>
@@ -98,8 +102,10 @@ import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
-import { ReqBoardUpdateInterface, ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ReqBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
+import { ReqBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import { quillEditor } from 'vue3-quill'
+import Select from '@/components/Select.vue'
 import Checkbox from '@/components/Checkbox.vue'
 
 interface vueEditor {
@@ -112,6 +118,7 @@ export default defineComponent({
   name: 'boardUpdate',
   components: {
     quillEditor,
+    Select,
     Checkbox
   },
   setup () {
@@ -122,11 +129,13 @@ export default defineComponent({
     const categoryStore = useCategoryStore()
 
     // init data
-    const currentCategory = ref('')
-    const categoryList = ref<ResCategoryListInterface[]>([])
-    const boardDetail = ref<ResBoardUpdateInterface>({
+    const beforeCategory = route.params.category
+    const afterCategory = ref('')
+    const categoryObject = ref<ResCategoryListInterface[]>([])
+    const categoryList = ref<string[]>([])
+    const boardDetail = ref<ReqBoardUpdateInterface>({
       id: 0,
-      categoryId: 0,
+      category: '',
       title: '',
       content: '',
       agree: false,
@@ -138,17 +147,20 @@ export default defineComponent({
 
     // api
     async function getCategoryList () {
-      categoryList.value = await categoryStore.actionHttpGetCategoryList()
+      const result = await categoryStore.actionHttpGetCategoryList()
+      categoryObject.value = result
+      result.filter((item: ResCategoryListInterface) => {
+        return categoryList.value.push(item.category)
+      })
     }
     async function getBoardDetail () {
-      const targetBoard: ReqBoardUpdateInterface = {
+      const targetBoard: ReqBoardDetailInterface = {
         id: Number(route.params.id)
       }
       const result = await boardStore.actionHttpGetBoard(targetBoard)
       result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       boardDetail.value = result[0]
       editor.content = boardDetail.value.content
-
       // fileList 가공 후 재할당
       if (result[0].fileList !== '') {
         curServerImg.value = true
@@ -185,7 +197,7 @@ export default defineComponent({
       }
     }
     async function boardUpdate () {
-      if (boardDetail.value.categoryId === 0) {
+      if (boardDetail.value.category === '') {
         alert('카테고리를 선택해 주세요.')
         return false
       }
@@ -199,7 +211,13 @@ export default defineComponent({
       }
 
       const formData = new FormData()
-      formData.append('categoryId', String(boardDetail.value.categoryId))
+      categoryObject.value.filter((item: ResCategoryListInterface) => {
+        if (boardDetail.value.category === item.category) {
+          formData.append('categoryId', String(item.id))
+        }
+        return false
+      })
+      formData.append('id', String(boardDetail.value.id))
       formData.append('title', boardDetail.value.title)
       formData.append('content', boardDetail.value.content)
       formData.append('agree', String(boardDetail.value.agree))
@@ -210,16 +228,11 @@ export default defineComponent({
       } else {
         formData.append('fileList', '')
       }
-      await boardStore.actionHttpBoardUpdate(boardDetail.value)
-      categoryList.value.filter((item) => {
-        if (item.id === boardDetail.value.categoryId) {
-          currentCategory.value = item.category
-        }
-        return false
-      })
+      await boardStore.actionHttpBoardUpdate(formData)
+      afterCategory.value = boardDetail.value.category
       alert('글 수정이 완료되었습니다.')
       router.push({
-        path: `/board/${currentCategory.value}`
+        path: `/board/${afterCategory.value}`
       })
     }
     // editor
@@ -243,7 +256,7 @@ export default defineComponent({
 
     function back () {
       router.push({
-        path: `/board/${currentCategory.value}`
+        path: `/board/${beforeCategory}`
       })
     }
 

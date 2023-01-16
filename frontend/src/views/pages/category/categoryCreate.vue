@@ -1,18 +1,19 @@
 <template>
   <div class="board-wrap">
-    <h3>카테고리 추가</h3>
-    <div class="board-list">
-      <dl>
-        <div>
-          <dt>카테고리</dt>
-          <dd>
-            <input type="text" name="" id="" v-model="category.category">
-          </dd>
-        </div>
-      </dl>
+    <div class="board-title">
+      <h3>카테고리 생성</h3>
     </div>
-    <button @click="categoryCreate" class="btn lg dark">글쓰기</button>
-    <button @click="back" class="btn-home">메인으로</button>
+    <div class="board-content">
+      <Input
+        v-model="category.category"
+        label="카테고리 추가"
+        name="currentCategory"
+      />
+    </div>
+    <div class="board-btns side">
+      <button class="btn lg light" @click="back">목록</button>
+      <button class="btn lg dark" @click="categoryCreate">추가</button>
+    </div>
   </div>
 </template>
 
@@ -21,10 +22,12 @@ import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ReqCategoryCreateInterface } from '@/service/category/interface/categoryCreate.interface'
+import Input from '@/components/Input.vue'
 
 export default defineComponent({
   name: 'boardCreate',
   components: {
+    Input
   },
   setup () {
     // router & store
@@ -33,6 +36,7 @@ export default defineComponent({
     const categoryStore = useCategoryStore()
 
     // init data
+    const currentCategory = route.params.category
     const category = ref<ReqCategoryCreateInterface>({
       category: ''
     })
@@ -51,11 +55,14 @@ export default defineComponent({
     }
 
     function back () {
-      window.history.back()
+      router.push({
+        path: '/board/category'
+      })
     }
 
     onMounted(() => {
       // getCategoryList()
+      console.log(currentCategory)
     })
 
     return {

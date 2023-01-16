@@ -3,10 +3,11 @@
 .page-container {
     width: 1000px;
     margin: 0 auto;
+    padding-top: 50px;
 }
-.svg-inline--fa {
-    vertical-align: 0;
-}
+// .svg-inline--fa {
+//     vertical-align: 0;
+// }
 body.hidden {
     overflow-y: hidden;
 }
@@ -86,21 +87,91 @@ header {
     }
 }
 .board-wrap {
-    .board-list {
-        .board-img {
-            display: block;
-            width: 200px;
-            height: auto;
-            img {
-                width: 100%;
+    .board-title {
+        h3 {
+            font-size: commons.$fs-xl;
+            text-align: center;
+        }
+    }
+    .board-content {
+        padding-top: 30px;
+        .board-list {
+            .table {
+                td {
+                    height: 70px;
+                    padding: 0 20px;
+                    .board-title {
+                        display: inline-block;
+                        padding: 10px;
+                    }
+                    .btn-icon {
+                        display: block;
+                        width: 24px;
+                        height: 24px;
+                        font-size: commons.$fs-m;
+                    }
+                }
+            }
+            .category-edit-wrap {
+                display: flex;
+                align-items: center;
+                .editable-area {
+                    .before-edit {
+                        display: flex;
+                        align-items: center;
+                        .category-title {
+                            display: block;
+                            margin-right: 10px;
+                        }
+                    }
+                    .editable {
+                        display: flex;
+                        align-items: center;
+                        margin-right: 10px;
+                    }
+                }
+            }
+            .board-edit-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .board-img {
+                display: block;
+                width: 200px;
                 height: auto;
+                img {
+                    width: 100%;
+                    height: auto;
+                }
             }
         }
     }
-    .ql-editor {
-        &.ql-blank::before {
-            font-style: inherit;
-            color: commons.$gray8;
+    .board-btns {
+        display: flex;
+        padding-top: 30px;
+        justify-content: center;
+        a, button {
+            + a, + button {
+                margin-left: 20px;
+            }
+        }
+        &.left {
+            justify-content: flex-start;
+        }
+        &.right {
+            justify-content: flex-end;
+        }
+        &.side {
+            justify-content: space-between;
+        }
+    }
+    .editor-wrap {
+        .ql-editor {
+            &.ql-blank::before {
+                font-style: inherit;
+                color: commons.$gray8;
+            }
         }
     }
 }

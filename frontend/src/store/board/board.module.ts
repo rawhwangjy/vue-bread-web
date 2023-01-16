@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 import { ReqBoardListInterface, ResBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
-import { ReqBoardCreateInterface, ResBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
+import { ResBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
 import { ReqBoardUpdateInterface, ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import { ReqBoardDeleteInterface, ResBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
 import { ReqBoardListDeleteInterface, ResBoardListDeleteInterface } from '@/service/board/interface/boardListDelete.interface'
@@ -34,14 +34,7 @@ export const boardDetailInit = {
   fileList: []
 }
 export const boardCreateInit = { }
-export const boardUpdateInit = {
-  id: 0,
-  categoryId: 0,
-  title: '',
-  content: '',
-  agree: false,
-  fileList: []
-}
+export const boardUpdateInit = { }
 export const boardDeleteInit = {
   id: 0
 }
@@ -64,14 +57,7 @@ export const useBoardStore = defineStore({
       fileList: []
     },
     boardCreate: { },
-    boardUpdate: {
-      id: 0,
-      categoryId: 0,
-      title: '',
-      content: '',
-      agree: false,
-      fileList: []
-    },
+    boardUpdate: { },
     boardDelete: {
       id: 0
     },
@@ -116,7 +102,7 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardUpdate (reqData: ReqBoardUpdateInterface) {
+    async actionHttpBoardUpdate (reqData: FormData) {
       this.boardUpdate = boardUpdateInit
       try {
         const res = await httpBoardUpdate(reqData)

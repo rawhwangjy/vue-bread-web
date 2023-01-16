@@ -1,50 +1,88 @@
 <template>
   <div class="board-wrap">
-    <div class="board-list">
-      <table class="table vertical">
-        <thead>
-          <tr>
-            <th scope="col">No.</th>
-            <th scope="col">Title</th>
-          </tr>
-        </thead>
-        <tbody v-if="categoryList.length > 0">
-          <tr
-            v-for="(category, index) in categoryList"
-            :key="`category${index}`"
-          >
-            <td>
-              <h4 class="board-title">{{ category.id }}</h4>
-            </td>
-            <td>
-              <div class="editable-area">
-                <span
-                  v-show="categoryDetail.id !== category.id"
-                  @click="changeUI(category)"
-                >
-                  <span>{{ category.category }}</span>
-                  <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
-                </span>
-                <!-- v-if="categoryDetail.id !== 0" -->
-                <span v-if="categoryDetail.id === category.id">
-                  <input type="text" name="" id="" v-model="categoryDetail.category" >
-                  <button type="button" @click="categoryUpdate(categoryDetail)">완료</button>
-                </span>
-              </div>
-              <button type="button" @click="categoryDelete(category.id)">
-                <font-awesome-icon icon="fa-solid fa-trash" aria-label="삭제" />
-              </button>
-            </td>
-          </tr>
-        </tbody>
-        <tbody v-else>
-          <tr>
-            <td colspan="2">Data 없음</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="board-title">
+      <h3>카테고리 관리</h3>
     </div>
-    <button @click="categoryCreate" class="btn lg dark">글쓰기</button>
+    <div class="board-content">
+      <div class="board-list">
+        <table class="table vertical">
+          <colgroup>
+            <col class="width10" >
+            <col class="widthAll" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Title</th>
+            </tr>
+          </thead>
+          <tbody v-if="categoryList.length > 0">
+            <tr
+              v-for="(category, index) in categoryList"
+              :key="`category${index}`"
+            >
+              <td class="txt-center">{{ category.id }}</td>
+              <td>
+                <div class="category-edit-wrap">
+                  <div class="editable-area">
+                    <!-- before EDIT -->
+                    <span
+                      v-show="categoryDetail.id !== category.id"
+                      class="before-edit"
+                    >
+                      <span class="category-title">{{ category.category }}</span>
+                      <button
+                        type="button"
+                        class="btn-icon"
+                        @click="onEditText(category)"
+                      >
+                        <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
+                      </button>
+                    </span>
+                    <!-- // before EDIT -->
+                    <!-- clicked EDIT -->
+                    <span
+                      v-show="categoryDetail.id === category.id"
+                      class="editable"
+                    >
+                      <Input
+                        v-model="categoryDetail.category"
+                        label="카테고리 수정 내용 입력"
+                        label-hide
+                        name="currentCategory"
+                      />
+                      <button
+                        type="button"
+                        class="btn md primary"
+                        @click="categoryUpdate(categoryDetail)"
+                      >완료</button>
+                    </span>
+                    <!-- // clicked EDIT -->
+                  </div>
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    @click="categoryDelete(category.id)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-trash" aria-label="삭제" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr>
+              <td colspan="2">
+                <p class="no-data">카테고리가 없습니다.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="board-btns right">
+      <button @click="categoryCreate" class="btn lg dark">카테고리 추가</button>
+    </div>
   </div>
 </template>
 
@@ -56,10 +94,12 @@ import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
 import { ResCategoryDetailInterface } from '@/service/category/interface/categoryDetail.interface'
 import { ResCategoryUpdateInterface } from '@/service/category/interface/categoryUpdate.interface'
+import Input from '@/components/Input.vue'
 
 export default defineComponent({
   name: 'boardList',
   components: {
+    Input
   },
   setup () {
     // router & store
@@ -105,7 +145,7 @@ export default defineComponent({
         path: '/board/category/register'
       })
     }
-    function changeUI (target: ResCategoryUpdateInterface) {
+    function onEditText (target: ResCategoryUpdateInterface) {
       categoryDetail.value.id = target.id
       categoryDetail.value.category = target.category
     }
@@ -119,7 +159,7 @@ export default defineComponent({
       getCategoryList,
       categoryList,
       categoryCreate,
-      changeUI,
+      onEditText,
       categoryUpdate,
       categoryDetail,
       categoryDelete

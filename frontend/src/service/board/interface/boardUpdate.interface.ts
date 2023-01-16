@@ -3,14 +3,12 @@
  * BoardUpdateInterface Request, Response
  */
 export interface ReqBoardUpdateInterface {
-  id: number
-}
-
-export interface ResBoardUpdateInterface {
   id: number,
-  categoryId: number,
+  category: string,
   title: string,
   content: string,
   agree: boolean | number,
   fileList: Array<string> | FileList | null
 }
+
+export type ResBoardUpdateInterface = Record<string, never>

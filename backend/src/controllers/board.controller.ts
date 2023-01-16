@@ -9,6 +9,7 @@ const app = express()
 // board register
 router.post('/:category/register', upload.array('fileList'), async (req, res) => {
   try {
+    console.log('board register', req.body)
     const board = {
       categoryId: Number(req.body.categoryId),
       title: req.body.title,
@@ -24,12 +25,12 @@ router.post('/:category/register', upload.array('fileList'), async (req, res) =>
       })
     }
     const sql = `
-    INSERT INTO admin_t_boards
-    SET categoryId = ${board.categoryId}, 
-      title = '${board.title}', 
-      content = '${board.content}', 
-      agree = ${board.agree},
-      fileList = '${board.fileList}'`
+      INSERT INTO admin_t_boards
+      SET categoryId = ${board.categoryId}, 
+        title = '${board.title}', 
+        content = '${board.content}', 
+        agree = ${board.agree},
+        fileList = '${board.fileList}'`
     res.send(await serverReq.db(sql))
   } catch (err) {
     console.log('errrre')
@@ -73,17 +74,40 @@ router.post('/:category/:id', async (req, res) => {
   }
 })
 // board update
-router.put('/:category/update/:id', async (req, res) => {
+router.put('/:category/update/:id', upload.array('fileList'), async (req, res) => {
   try {
     console.log('board update', req.body)
+    const board = {
+      categoryId: Number(req.body.categoryId),
+      title: req.body.title,
+      content: req.body.content,
+      agree: Boolean(req.body.agree),
+      fileList: Array()
+    }
+    if (req.files) {
+      [req.files].forEach(file => { 
+        for (const value of Object.values(file)) {
+          board.fileList.push(value.filename)
+        }
+      })
+    }
     const sql = `
       UPDATE admin_t_boards
-      SET id = ${req.body.id}, 
-        categoryId = ${req.body.categoryId}, 
-        title = '${req.body.title}', 
-        content = '${req.body.content}', 
-        agree = ${req.body.agree}
+      SET id = ${req.body.id},
+        categoryId = ${board.categoryId}, 
+        title = '${board.title}', 
+        content = '${board.content}', 
+        agree = ${board.agree},
+        fileList = '${board.fileList}'
       WHERE id = ${req.body.id}`
+    // const sql = `
+    //   UPDATE admin_t_boards
+    //   SET id = ${req.body.id}, 
+    //     categoryId = ${req.body.categoryId}, 
+    //     title = '${req.body.title}', 
+    //     content = '${req.body.content}', 
+    //     agree = ${req.body.agree}
+    //   WHERE id = ${req.body.id}`
     res.send(await serverReq.db(sql))
   } catch (err) {
     res.status(500).send({

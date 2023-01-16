@@ -1,43 +1,71 @@
 <template>
   <div class="board-wrap">
-    <div class="board-list">
-      <table class="table vertical">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Category</th>
-            <th scope="col">Title</th>
-            <th scope="col">btns</th>
-          </tr>
-        </thead>
-        <tbody v-if="boardList.length > 0">
-          <tr
-            v-for="(board, index) in boardList"
-            :key="`board${index}`"
-          >
-            <td>
-              <h4 class="board-title">{{ board.id }}</h4>
-            </td>
-            <td>{{ board.category }}</td>
-            <td>
-              <a href="javascript:;" @click="getBoardDetail(board.id)">
-                {{ board.title }}
-              </a>
-            </td>
-            <td>
-              <button type="button" @click="boardUpdate(board.id)">수정</button>
-              <button type="button" @click="boardDelete(board.id)">삭제</button>
-            </td>
-          </tr>
-        </tbody>
-        <tbody v-else>
-          <tr>
-            <td colspan="3">Data 없음</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="board-title">
+      <h3>{{ targetCategory.category.toUpperCase() }}</h3>
     </div>
-    <button @click="boardCreate" class="btn lg dark">글쓰기</button>
+    <div class="board-content">
+      <div class="board-list">
+        <table class="table vertical">
+          <colgroup>
+            <col class="width10" >
+            <col class="widthAll" />
+            <col class="width20" >
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Title</th>
+              <th scope="col">btns</th>
+            </tr>
+          </thead>
+          <tbody v-if="boardList.length > 0">
+            <tr
+              v-for="(board, index) in boardList"
+              :key="`board${index}`"
+            >
+              <td>{{ board.id }}</td>
+              <td>
+                <a
+                  href="javascript:;"
+                  class="board-title"
+                  @click="getBoardDetail(board.id)"
+                >
+                  {{ board.title }}
+                </a>
+              </td>
+              <td>
+                <div class="board-edit-wrap">
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    @click="boardUpdate(board.id)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    @click="boardDelete(board.id)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-trash" aria-label="삭제" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr>
+              <td colspan="3">
+                <p class="no-data">게시글이 없습니다.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="board-btns right">
+      <button @click="boardCreate" class="btn lg dark">글쓰기</button>
+    </div>
   </div>
 </template>
 
@@ -117,6 +145,7 @@ export default defineComponent({
 
     return {
       boardStore,
+      targetCategory,
       getBoardList,
       getBoardDetail,
       boardList,
