@@ -118,26 +118,28 @@ export default defineComponent({
         return categoryList.value.push(item.category)
       })
     }
-    function uploadFile (event: Event) {
-      const { files } = event?.target as HTMLInputElement
-      if (files) {
-        boardDetail.value.fileList = files
-        previews.value = []
-        previewImg(event)
-      }
+    function uploadFile (value: FileList) {
+      console.log('parent', value)
+      // const { files } = event?.target as HTMLInputElement
+      // console.log('value', value)
+      // if (value) {
+      //   boardDetail.value.fileList = value
+      //   previews.value = []
+      //   previewImg(value)
+      // }
     }
-    function previewImg (event: Event) {
-      const { files } = event?.target as HTMLInputElement
-      if (files) {
-        for (let i = 0; i < files.length; i++) {
-          const reader: FileReader = new FileReader()
-          reader.readAsDataURL(files[i])
-          reader.addEventListener('load', () => {
-            return previews.value.push(String(reader.result))
-          })
-        }
-      }
-    }
+    // function previewImg (files: FileList) {
+    //   // const { files } = event?.target as HTMLInputElement
+    //   if (files) {
+    //     for (let i = 0; i < files.length; i++) {
+    //       const reader: FileReader = new FileReader()
+    //       reader.readAsDataURL(files[i])
+    //       reader.addEventListener('load', () => {
+    //         return previews.value.push(String(reader.result))
+    //       })
+    //     }
+    //   }
+    // }
     async function boardCreate () {
       if (boardDetail.value.category === '') {
         alert('카테고리를 선택해 주세요.')

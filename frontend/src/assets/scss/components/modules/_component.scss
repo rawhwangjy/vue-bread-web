@@ -53,34 +53,80 @@
 }
 // input="text"
 .input-wrap {
-    label {
-        display: inline-flex;
-        padding-bottom: 15px;
-        font-weight: bold;
-        font-size: commons.$fs-m;
-        color: commons.$gray6;
-    }
-    .input {
-        position: relative;
-        input {
-            width: 100%;
-            height: 36px;
-            border: 1px solid commons.$gray8;
-            padding: 0 30px 0 10px;
-            &::placeholder {
-                color: commons.$gray8;
+    .input-area {
+        label {
+            display: inline-flex;
+            padding-bottom: 15px;
+            font-weight: bold;
+            font-size: commons.$fs-m;
+            color: commons.$gray6;
+        }
+        .input {
+            position: relative;
+            input {
+                width: 100%;
+                height: 36px;
+                border: 1px solid commons.$gray8;
+                padding: 0 30px 0 10px;
+                color: commons.$main-font;
+                &::placeholder {
+                    color: commons.$gray8;
+                }
+            }
+            .btn-delete-input {
+                display: block;
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translate3d(0, -50%, 0);
+                .fa-circle-xmark {
+                    display: block;
+                    font-size: 20px;
+                    color: commons.$grayB;
+                }
             }
         }
-        .btn-delete-input {
-            display: block;
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translate3d(0, -50%, 0);
-            .fa-circle-xmark {
+    }
+    &.files {
+        .input-area {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            label {
                 display: block;
-                font-size: 20px;
-                color: commons.$grayB;
+                height: 36px;
+                padding: 10px 20px;
+                margin-left: 10px;
+                background-color: commons.$primary;
+                color: #fff;
+                cursor: pointer;
+            }
+            .input {
+                flex: 1;
+                .file-name {
+                    display: block;
+                    width: 100%;
+                    height: 36px;
+                    padding: 0 10px;
+                    border: 1px solid commons.$gray8;
+                    border: 1px solid #dddddd;
+                    color: commons.$main-font;
+                }
+                input {
+                    @include commons.sr-only;
+                }
+            }
+        }
+        .preview-area {
+            margin-top: 10px;
+            .img-wrap {
+                display: block;
+                width: 20rem;
+                height: 20rem;
+                img {
+                    width: 100%;
+                    height: auto;
+                }
             }
         }
     }
