@@ -84,6 +84,9 @@ export default defineComponent({
     const optionItemHeight = ref(0)
 
     onMounted(() => {
+      if (props.initSelected) {
+        selected.value = props.initSelected
+      }
       if (!props.initSelected) {
         props.initTitle ? selected.value = props.initTitle : selected.value = '선택해 주세요.'
       }
@@ -94,9 +97,7 @@ export default defineComponent({
     watch(
       () => props.initSelected,
       bindSeleted => {
-        if (props.initSelected) {
-          selected.value = bindSeleted
-        }
+        selected.value = bindSeleted
       }
     )
 
