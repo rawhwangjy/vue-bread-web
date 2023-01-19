@@ -37,10 +37,9 @@
             :name="name"
             :disabled="disabled"
             multiple
-            @change="onUpload"
-            @input="onChange"
             @blur="onBlur"
             @focus="onFocus"
+            @change="onUpload"
           >
         </slot>
         <button
@@ -65,9 +64,21 @@
         :key="`uploadImg${index}`"
         class="upload-img"
       >
-        <span class="img-title">{{ item.title }}</span>
-        <span class="img-wrap">
-          <img :src="`${item.url}`" />
+        <span class="img-title">
+          <span class="title">{{ item.title }}</span>
+          <span>{{ item.format }}</span>
+        </span>
+        <span
+          class="img-wrap"
+          :class="{
+            'width-full': item.width >= item.height,
+            'height-full': item.width < item.height
+          }"
+        >
+          <img
+            :src="`${item.url}`"
+            ref="imgRef"
+          />
         </span>
       </div>
     </div>
@@ -75,12 +86,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onUpdated, ref } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 interface uploadImg {
   title: string,
-  url: string
+  url: string,
+  format: string,
+  width: number,
+  height: number
 }
 
 export default defineComponent({
@@ -127,6 +141,7 @@ export default defineComponent({
     const btnDeleteInput = ref<HTMLElement | null>(null)
     const selectFiles = ref('')
     const previews = ref<uploadImg[]>([])
+    const imgRef = ref<HTMLImageElement | null>(null)
 
     function onChange (event : Event) {
       const currentValue = (event.target as HTMLInputElement).value
@@ -158,26 +173,45 @@ export default defineComponent({
     }
     function onUpload (event: Event) {
       const { files } = event?.target as HTMLInputElement
-      console.log('value', files)
+      // console.log('files', files)
+      previews.value = []
       if (files) {
         for (let i = 0; i < files.length; i++) {
           const reader: FileReader = new FileReader()
-          console.log('previews.value[i]', previews.value)
-          const obj: uploadImg = {
-            title: '',
-            url: ''
-          }
           reader.addEventListener('load', () => {
-            obj.title = files[i].name
+            const obj: uploadImg = {
+              title: '',
+              url: '',
+              format: '',
+              width: 0,
+              height: 0
+            }
+            obj.title = String(files[i].name.replace(/^.*\/|\.[^.]*$/g, ''))
+            obj.format = String(files[i].name.match(/^.*\/|\.[^.]*$/g))
             obj.url = String(reader.result)
             previews.value.push(obj)
             return false
           })
           reader.readAsDataURL(files[i])
         }
-        console.log('previews', previews.value)
       }
+      emit('update:modelValue', files)
+      emit('change', files)
     }
+    onUpdated(() => {
+      if (imgRef.value) {
+        for (const [key, value] of Object.entries(imgRef.value)) {
+          value.addEventListener('load', () => {
+            // 시점의 문제
+            // 조건이 구체적인 것이 좋아
+            // 엘리먼트에 사용 가능한 이벤트를 찾자
+            previews.value[Number(key)].width = value.naturalWidth
+            previews.value[Number(key)].height = value.naturalHeight
+            return false
+          })
+        }
+      }
+    })
     return {
       randomString,
       btnDeleteInput,
@@ -188,7 +222,8 @@ export default defineComponent({
       onClear,
       selectFiles,
       onUpload,
-      previews
+      previews,
+      imgRef
     }
   }
 })

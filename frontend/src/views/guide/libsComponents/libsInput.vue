@@ -227,7 +227,7 @@
               preview
               label="name1"
               name="currentDefault"
-              @change="changeEvent"
+              @change="changeFile"
             />
           </div>
           <div class="code">
@@ -235,19 +235,19 @@
   <code class="language-html">
 &lt;template&gt;
   &lt;Input
-    v-model=&quot;inputText&quot;
+    files
+    preview
     label=&quot;name1&quot;
     name=&quot;currentDefault&quot;
-    @change=&quot;changeEvent&quot;
+    @change=&quot;changeFile&quot;
   /&gt;
 &lt;/template&gt;
 
 &lt;script&gt;
   import Input from '@/components/Input.vue'
 
-  const inputText = ref('')
-  function changeEvent (value : string) {
-    console.log('typing', value)
+  function changeFile (value : FileList) {
+    console.log('parent input', value)
   }
 &lt;/script&gt;
   </code>
@@ -282,10 +282,14 @@ export default defineComponent({
     function changeEvent (value : string) {
       console.log('parent input', value)
     }
+    function changeFile (value : FileList) {
+      console.log('parent input', value)
+    }
     return {
       pageTitle,
       inputText,
-      changeEvent
+      changeEvent,
+      changeFile
     }
   }
 })
