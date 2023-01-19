@@ -131,10 +131,50 @@ header {
                     }
                 }
             }
-            .board-edit-wrap {
+            .list-btns-wrap {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+            }
+        }
+        .board-form {
+            .form-row {
+                display: flex;
+                .select-wrap {
+                    width: 30%;
+                    + .input-wrap {
+                        margin-left: 10px;
+                    }
+                }
+                .input-wrap {
+                    flex: 1;
+                }
+                .editor-wrap {
+                    flex: 1;
+                    .ql-snow {
+                        border-color: commons.$gray8;
+                    }
+                    .ql-toolbar {
+                        &:focus {
+                            outline: 1px solid red;
+                        }
+                    }
+                    .ql-container {
+                        height: auto;
+                        .ql-editor {
+                            &.ql-blank::before { // placeholder
+                                font-style: inherit;
+                                color: commons.$gray8;
+                            }
+                            &:focus {
+                                outline: 1px solid rgba(#4337ca, .5);
+                            }
+                        }
+                    }
+                }
+                + .form-row {
+                    margin-top: 10px;
+                }
             }
             .board-img {
                 display: block;
@@ -164,14 +204,6 @@ header {
         }
         &.side {
             justify-content: space-between;
-        }
-    }
-    .editor-wrap {
-        .ql-editor {
-            &.ql-blank::before {
-                font-style: inherit;
-                color: commons.$gray8;
-            }
         }
     }
 }

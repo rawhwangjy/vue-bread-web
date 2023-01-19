@@ -4,62 +4,52 @@
       <h3>글 쓰기</h3>
     </div>
     <div class="board-content">
-    </div>
-    <div class="board-list">
-      <div class="form-row">
-        <Select
-          v-model="boardDetail.category"
-          initTitle="카테고리를 선택해주세요."
-          :selectData="categoryList"
-        />
-      </div>
-      <div class="form-row">
-        <Input
-          v-model="boardDetail.title"
-          label="제목"
-          label-hide
-        />
-      </div>
-      <div class="form-row">
-        <div class="editor-wrap">
-          <quill-editor
-            v-model="editor.content"
-            :options="editor.editorOption"
-            aria-label="내용"
-            @change="onEditorChange"
+      <div class="board-form">
+        <div class="form-row">
+          <Select
+            v-model="boardDetail.category"
+            initTitle="카테고리를 선택해주세요."
+            :selectData="categoryList"
+          />
+          <Input
+            v-model="boardDetail.title"
+            label="제목"
+            label-hide
+          />
+        </div>
+        <div class="form-row">
+          <div class="editor-wrap">
+            <quill-editor
+              v-model="editor.content"
+              :options="editor.editorOption"
+              aria-label="내용"
+              @change="onEditorChange"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <Input
+            files
+            preview
+            label="name1"
+            name="currentDefault"
+            @change="changeFile"
+          />
+        </div>
+        <div class="form-row">
+          <Checkbox
+            v-model="boardDetail.agree"
+            label="동의합니다."
+            value="html5"
+            name="skills"
           />
         </div>
       </div>
-      <div class="form-row">
-        <Checkbox
-          v-model="boardDetail.agree"
-          label="동의합니다."
-          value="html5"
-          name="skills"
-        />
-      </div>
-      <div class="form-row">
-        <input
-          type="file"
-          id="fileUpload"
-          multiple
-          name="file"
-          @change="uploadFile"
-        />
-        <div>
-          미리보기
-          <span
-            v-for="(item, index) in previews"
-            :key="`file${index}`"
-            class="board-img"
-          >
-            <img :src="`${item}`" alt="">
-          </span>
-        </div>
-      </div>
     </div>
-    <button @click="boardCreate" class="btn lg dark">글쓰기</button>
-    <button @click="back" class="btn-home">메인으로</button>
+    <div class="board-btns side">
+      <button class="btn lg light" @click="back">목록</button>
+      <button class="btn lg dark" @click="boardCreate">저장</button>
+    </div>
   </div>
 </template>
 
@@ -107,7 +97,7 @@ export default defineComponent({
       agree: false,
       fileList: null
     })
-    const previews = ref<string[]>([])
+    // const previews = ref<string[]>([])
     const firstFocus = ref<HTMLInputElement | null>()
 
     // api
@@ -118,28 +108,9 @@ export default defineComponent({
         return categoryList.value.push(item.category)
       })
     }
-    function uploadFile (value: FileList) {
-      console.log('parent', value)
-      // const { files } = event?.target as HTMLInputElement
-      // console.log('value', value)
-      // if (value) {
-      //   boardDetail.value.fileList = value
-      //   previews.value = []
-      //   previewImg(value)
-      // }
+    function changeFile (value : FileList) {
+      boardDetail.value.fileList = value
     }
-    // function previewImg (files: FileList) {
-    //   // const { files } = event?.target as HTMLInputElement
-    //   if (files) {
-    //     for (let i = 0; i < files.length; i++) {
-    //       const reader: FileReader = new FileReader()
-    //       reader.readAsDataURL(files[i])
-    //       reader.addEventListener('load', () => {
-    //         return previews.value.push(String(reader.result))
-    //       })
-    //     }
-    //   }
-    // }
     async function boardCreate () {
       if (boardDetail.value.category === '') {
         alert('카테고리를 선택해 주세요.')
@@ -184,7 +155,19 @@ export default defineComponent({
       content: '',
       _content: '',
       editorOption: {
-        placeholder: '내용을 입력해 주세요.'
+        placeholder: '내용을 입력해 주세요.',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ size: ['small', false, 'large', 'huge'] }],
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{ color: [] }, { background: [] }],
+            [{ font: [] }],
+            [{ align: [] }],
+            ['link', 'image']
+          ]
+        }
       }
     })
     const onEditorChange = (event: vueEditor) => {
@@ -215,12 +198,11 @@ export default defineComponent({
       categoryList,
       boardDetail,
       boardCreate,
-      uploadFile,
-      previews,
       back,
       editor,
       onEditorChange,
-      firstFocus
+      firstFocus,
+      changeFile
     }
   }
 })

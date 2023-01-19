@@ -1,86 +1,65 @@
 <template>
   <div class="board-wrap">
-    <h3>{{ route.params.category }} update</h3>
-    <div class="board-list">
-      <dl>
-        <div>
-          <dt>타입</dt>
-          <dd>
-            <Select
-              v-model="boardDetail.category"
-              initTitle="카테고리를 선택해주세요."
-              :initSelected="boardDetail.category"
-              :selectData="categoryList"
+    <div class="board-title">
+      <h3>글 수정</h3>
+    </div>
+    <div class="board-content">
+      <div class="board-form">
+        <div class="form-row">
+          <Select
+            v-model="boardDetail.category"
+            initTitle="카테고리를 선택해주세요."
+            :initSelected="boardDetail.category"
+            :selectData="categoryList"
+          />
+          <Input
+            v-model="boardDetail.title"
+            label="제목"
+            label-hide
+            ref="firstFocus"
+          />
+        </div>
+        <div class="form-row">
+          <div class="editor-wrap">
+            <quill-editor
+              v-model="editor.content"
+              :value="editor.content"
+              :options="editor.editorOption"
+              :disabled="editor.disabled"
+              @change="onEditorChange"
+              @ready="onEditorReady($event)"
             />
-          </dd>
+          </div>
         </div>
-        <div>
-          <dt>제목</dt>
-          <dd>
-            <input type="text" v-model="boardDetail.title" ref="firstFocus">
-          </dd>
+        <div class="form-row">
+          <div v-if="curServerImg">
+            <span
+              v-for="(item, index) in boardDetail.fileList"
+              :key="`file${index}`"
+              class="board-img"
+            >
+              {{ item }}
+              <img :src="`http://127.0.0.1:3000/upload/${item}`" alt="">
+            </span>
+          </div>
+          <Input
+            files
+            preview
+            label="name1"
+            name="currentDefault"
+            @change="changeFile"
+          />
         </div>
-        <div>
-          <dt>내용</dt>
-          <dd>
-            <div class="editor-wrap">
-              <quill-editor
-                v-model="editor.content"
-                :value="editor.content"
-                :options="editor.editorOption"
-                :disabled="editor.disabled"
-                @change="onEditorChange"
-                @ready="onEditorReady($event)"
-              />
-            </div>
-          </dd>
+        <div class="form-row">
+          <Checkbox
+            v-model="boardDetail.agree"
+            label="동의합니다."
+            value="html5"
+            name="skills"
+            :checked="boardDetail.agree === true"
+          />
         </div>
-        <div>
-          <dt>동의</dt>
-          <dd>
-            <Checkbox
-              v-model="boardDetail.agree"
-              label="동의합니다."
-              value="html5"
-              name="skills"
-              :checked="boardDetail.agree === true"
-            />
-          </dd>
-        </div>
-        fileList
-        <div v-if="curServerImg">
-          <span
-            v-for="(item, index) in boardDetail.fileList"
-            :key="`file${index}`"
-            class="board-img"
-          >
-            {{ item }}
-            <img :src="`http://127.0.0.1:3000/upload/${item}`" alt="">
-          </span>
-        </div>
-        <div>
-          <dt>파일 업로드</dt>
-          <dd>
-            <input
-              type="file"
-              id="fileUpload"
-              multiple
-              name="file"
-              @change="uploadFile"
-            />
-            <div>
-              미리보기
-              <span
-                v-for="(item, index) in previews"
-                :key="`file${index}`"
-                class="board-img"
-              >
-                <img :src="`${item}`" alt="">
-              </span>
-            </div>
-          </dd>
-        </div>
-      </dl>
+      </div>
     </div>
     <button @click="boardUpdate" class="btn lg dark">수정</button>
     <button @click="back" class="btn-home">메인으로</button>
@@ -97,6 +76,7 @@ import { ReqBoardDetailInterface } from '@/service/board/interface/boardDetail.i
 import { ReqBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import { quillEditor } from 'vue3-quill'
 import Select from '@/components/Select.vue'
+import Input from '@/components/Input.vue'
 import Checkbox from '@/components/Checkbox.vue'
 
 interface vueEditor {
@@ -110,6 +90,7 @@ export default defineComponent({
   components: {
     quillEditor,
     Select,
+    Input,
     Checkbox
   },
   setup () {
@@ -133,7 +114,7 @@ export default defineComponent({
       fileList: null
     })
     const curServerImg = ref(false)
-    const previews = ref<string[]>([])
+    // const previews = ref<string[]>([])
     const firstFocus = ref<HTMLInputElement | null>()
 
     // api
@@ -143,6 +124,9 @@ export default defineComponent({
       result.filter((item: ResCategoryListInterface) => {
         return categoryList.value.push(item.category)
       })
+    }
+    function changeFile (value : FileList) {
+      boardDetail.value.fileList = value
     }
     async function getBoardDetail () {
       const targetBoard: ReqBoardDetailInterface = {
@@ -161,32 +145,10 @@ export default defineComponent({
           boardDetail.value.fileList.push(target[i])
         }
       }
-      console.log('boardDetail.category', boardDetail.value.category)
       // 첫번쨰 인풋 포커스
       nextTick(() => {
         firstFocus.value?.focus()
       })
-    }
-    function uploadFile (event: Event) {
-      const { files } = event?.target as HTMLInputElement
-      if (files) {
-        boardDetail.value.fileList = files
-        curServerImg.value = false
-        previews.value = []
-        previewImg(event)
-      }
-    }
-    function previewImg (event: Event) {
-      const { files } = event?.target as HTMLInputElement
-      if (files) {
-        for (let i = 0; i < files.length; i++) {
-          const reader: FileReader = new FileReader()
-          reader.readAsDataURL(files[i])
-          reader.addEventListener('load', () => {
-            return previews.value.push(String(reader.result))
-          })
-        }
-      }
     }
     async function boardUpdate () {
       if (boardDetail.value.category === '') {
@@ -232,7 +194,19 @@ export default defineComponent({
       content: '',
       _content: '',
       editorOption: {
-        placeholder: '내용을 입력해 주세요.'
+        placeholder: '내용을 입력해 주세요.',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ size: ['small', false, 'large', 'huge'] }],
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{ color: [] }, { background: [] }],
+            [{ font: [] }],
+            [{ align: [] }],
+            ['link', 'image']
+          ]
+        }
       },
       disabled: true
     })
@@ -262,14 +236,13 @@ export default defineComponent({
       categoryList,
       boardDetail,
       boardUpdate,
-      uploadFile,
       curServerImg,
-      previews,
       back,
       editor,
       onEditorChange,
       firstFocus,
-      onEditorReady
+      onEditorReady,
+      changeFile
     }
   }
 })

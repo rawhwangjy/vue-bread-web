@@ -34,7 +34,7 @@
                 </a>
               </td>
               <td>
-                <div class="board-edit-wrap">
+                <div class="list-btns-wrap">
                   <button
                     type="button"
                     class="btn-icon"
