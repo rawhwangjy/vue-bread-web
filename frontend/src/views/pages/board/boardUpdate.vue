@@ -27,26 +27,16 @@
               :options="editor.editorOption"
               :disabled="editor.disabled"
               @change="onEditorChange"
-              @ready="onEditorReady($event)"
             />
           </div>
         </div>
         <div class="form-row">
-          <div v-if="curServerImg">
-            <span
-              v-for="(item, index) in boardDetail.fileList"
-              :key="`file${index}`"
-              class="board-img"
-            >
-              {{ item }}
-              <img :src="`http://127.0.0.1:3000/upload/${item}`" alt="">
-            </span>
-          </div>
           <Input
             files
             preview
             label="name1"
             name="currentDefault"
+            :init-data="previews"
             @change="changeFile"
           />
         </div>
@@ -113,9 +103,8 @@ export default defineComponent({
       agree: false,
       fileList: null
     })
-    const curServerImg = ref(false)
-    // const previews = ref<string[]>([])
-    const firstFocus = ref<HTMLInputElement | null>()
+    const previews = ref<string[]>([])
+    // const firstFocus = ref<HTMLInputElement | null>()
 
     // api
     async function getCategoryList () {
@@ -138,17 +127,18 @@ export default defineComponent({
       editor.content = boardDetail.value.content
       // fileList 가공 후 재할당
       if (result[0].fileList !== '') {
-        curServerImg.value = true
         const target = result[0].fileList.split(',')
         boardDetail.value.fileList = []
         for (let i = 0; i < target.length; i++) {
           boardDetail.value.fileList.push(target[i])
         }
+        previews.value = boardDetail.value.fileList
+        console.log('prev', Array.isArray(previews.value))
       }
       // 첫번쨰 인풋 포커스
-      nextTick(() => {
-        firstFocus.value?.focus()
-      })
+      // nextTick(() => {
+      //   firstFocus.value?.focus()
+      // })
     }
     async function boardUpdate () {
       if (boardDetail.value.category === '') {
@@ -210,10 +200,6 @@ export default defineComponent({
       },
       disabled: true
     })
-
-    const onEditorReady = (quill: object) => {
-      console.log('editor ready!', quill)
-    }
     const onEditorChange = (event: vueEditor) => {
       editor.disabled = false
       editor._content = event.html
@@ -236,13 +222,12 @@ export default defineComponent({
       categoryList,
       boardDetail,
       boardUpdate,
-      curServerImg,
       back,
       editor,
       onEditorChange,
-      firstFocus,
-      onEditorReady,
-      changeFile
+      // firstFocus,
+      changeFile,
+      previews
     }
   }
 })

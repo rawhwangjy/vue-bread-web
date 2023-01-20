@@ -210,6 +210,16 @@
                 <td>
                   <em class="icon-required">선택</em>
                 </td>
+                <th scope="row">init-data</th>
+                <td>
+                  <span class="type-object">&lt;string&gt;[]</span>
+                </td>
+                <td class="td-center"></td>
+              </tr>
+              <tr>
+                <td>
+                  <em class="icon-required">선택</em>
+                </td>
                 <th scope="row">@change</th>
                 <td>
                   <span class="type-function">Function</span>

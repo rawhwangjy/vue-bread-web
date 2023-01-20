@@ -84,6 +84,10 @@
             :src="`${item.url}`"
             ref="imgRef"
           />
+          <!-- <img
+            :src="`http://127.0.0.1:3000/upload/${item.url}`"
+            ref="imgRef"
+          /> -->
         </span>
       </div>
     </div>
@@ -91,7 +95,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onUpdated, ref } from 'vue'
+import { defineComponent, onUpdated, ref, watch, PropType } from 'vue'
 import { getRandomId } from '@/utils/common.function'
 
 interface uploadImg {
@@ -137,6 +141,10 @@ export default defineComponent({
     preview: {
       type: Boolean,
       default: false
+    },
+    initData: {
+      type: Array as PropType<string[]>,
+      default: () => []
     }
   },
   emits: ['update:modelValue', 'change'],
@@ -146,6 +154,26 @@ export default defineComponent({
     const btnDeleteInput = ref<HTMLElement | null>(null)
     const previews = ref<uploadImg[]>([])
     const imgRef = ref<HTMLImageElement | null>(null)
+
+    watch(
+      () => props.initData,
+      bindData => {
+        for (let i = 0; i < bindData.length; i++) {
+          const obj: uploadImg = {
+            title: '',
+            url: '',
+            format: '',
+            width: 0,
+            height: 0
+          }
+          const target = `http://127.0.0.1:3000/upload/${bindData[i]}`
+          obj.title = String(bindData[0].replace(/^.*\/|\.[^.]*$/g, ''))
+          obj.format = String(bindData[0].match(/^.*\/|\.[^.]*$/g))
+          obj.url = String(target)
+          previews.value.push(obj)
+        }
+      }
+    )
 
     function onChange (event : Event) {
       const currentValue = (event.target as HTMLInputElement).value
@@ -177,7 +205,7 @@ export default defineComponent({
     }
     function onUpload (event: Event) {
       const { files } = event?.target as HTMLInputElement
-      // console.log('files', files)
+      console.log('files', files)
       previews.value = []
       if (files) {
         for (let i = 0; i < files.length; i++) {
