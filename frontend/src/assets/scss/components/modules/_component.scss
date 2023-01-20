@@ -104,13 +104,24 @@
             .input {
                 flex: 1;
                 .file-name {
-                    display: block;
+                    display: flex;
+                    align-items: center;
                     width: 100%;
                     height: 36px;
                     padding: 0 10px;
                     border: 1px solid commons.$gray8;
-                    border: 1px solid #dddddd;
                     color: commons.$main-font;
+                    span {
+                        &::after {
+                            content: ',';
+                            padding-right: 5px;
+                        }
+                        &:last-child {
+                            &::after {
+                                display: none;
+                            }
+                        }
+                    }
                 }
                 input {
                     @include commons.sr-only;
@@ -124,8 +135,6 @@
             .upload-img {
                 width: calc(100% / 4);
                 padding: 10px;
-                + .upload-img {
-                }
                 .img-title {
                     display: flex;
                     width: 100%;
@@ -251,6 +260,9 @@
                 height: 36px;
                 padding: 0 10px;
                 text-align: left;
+                &:hover {
+                    background-color: commons.$primary-light;
+                }
             }
         }
     }

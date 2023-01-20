@@ -30,7 +30,12 @@
           >
         </slot>
         <slot v-if="files">
-          <span class="file-name">{{ selectFiles }}</span>
+          <span class="file-name">
+            <span
+              v-for="(item, index) in previews"
+              :key="`uploadImg${index}`"
+            >{{ item.title }}{{ item.format }}</span>
+          </span>
           <input
             type="file"
             :id="`ipt${randomString}`"
@@ -139,7 +144,6 @@ export default defineComponent({
     const randomString = getRandomId()
     const isShowDelete = ref(false)
     const btnDeleteInput = ref<HTMLElement | null>(null)
-    const selectFiles = ref('')
     const previews = ref<uploadImg[]>([])
     const imgRef = ref<HTMLImageElement | null>(null)
 
@@ -220,7 +224,6 @@ export default defineComponent({
       onBlur,
       onFocus,
       onClear,
-      selectFiles,
       onUpload,
       previews,
       imgRef
