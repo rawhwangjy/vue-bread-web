@@ -25,7 +25,7 @@ router.post('/:category/register', upload.array('fileList'), async (req, res) =>
       })
     }
     const sql = `
-      INSERT INTO admin_t_boards
+      INSERT INTO t_boards
       SET categoryId = ${board.categoryId}, 
         title = '${board.title}', 
         content = '${board.content}', 
@@ -45,8 +45,8 @@ router.post('/:category/boardList', async (req, res) => {
     console.log('board list', req.body)
     const sql = `
       SELECT a.id, a.title, a.content, a.agree, b.category
-      FROM admin_t_boards AS a
-        INNER JOIN admin_t_board_config AS b
+      FROM t_boards AS a
+        INNER JOIN t_board_config AS b
         ON a.categoryId = b.id
       WHERE b.category = '${req.body.category}'`
     res.send(await serverReq.db(sql))
@@ -62,8 +62,8 @@ router.post('/:category/:id', async (req, res) => {
     console.log('board detail', req.body)
     const sql = `
       SELECT a.id, a.categoryId, a.title, a.content, a.agree, a.fileList, b.category
-      FROM admin_t_boards as a
-        INNER JOIN admin_t_board_config as b
+      FROM t_boards as a
+        INNER JOIN t_board_config as b
         ON a.categoryId = b.id
       WHERE a.id = ${req.body.id}` // '' 하는 게 맞나? => 형에 너무 유연한디
     res.send(await serverReq.db(sql))
@@ -92,7 +92,7 @@ router.put('/:category/update/:id', upload.array('fileList'), async (req, res) =
       })
     }
     const sql = `
-      UPDATE admin_t_boards
+      UPDATE t_boards
       SET id = ${req.body.id},
         categoryId = ${board.categoryId}, 
         title = '${board.title}', 
@@ -101,7 +101,7 @@ router.put('/:category/update/:id', upload.array('fileList'), async (req, res) =
         fileList = '${board.fileList}'
       WHERE id = ${req.body.id}`
     // const sql = `
-    //   UPDATE admin_t_boards
+    //   UPDATE t_boards
     //   SET id = ${req.body.id}, 
     //     categoryId = ${req.body.categoryId}, 
     //     title = '${req.body.title}', 
@@ -119,7 +119,7 @@ router.put('/:category/update/:id', upload.array('fileList'), async (req, res) =
 router.delete('/delete/:id', async (req, res) => {
   try {
     console.log('board delete', req.body)
-    const sql = `DELETE FROM admin_t_boards WHERE id = ${req.body.id}`
+    const sql = `DELETE FROM t_boards WHERE id = ${req.body.id}`
     res.send(await serverReq.db(sql))
   } catch (err) {
     res.status(500).send({
@@ -131,7 +131,7 @@ router.delete('/delete/:id', async (req, res) => {
 router.delete('/deleteList/:id', async (req, res) => {
   try {
     console.log('boardList delete', req.body)
-    const sql = `DELETE FROM admin_t_boards WHERE categoryId = ${req.body.id}`
+    const sql = `DELETE FROM t_boards WHERE categoryId = ${req.body.id}`
     res.send(await serverReq.db(sql))
   } catch (err) {
     res.status(500).send({

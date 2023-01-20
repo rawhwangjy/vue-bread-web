@@ -6,7 +6,7 @@ import serverReq from '../db'
 router.post('/categoryList', async (req, res) => {
   try {
     console.log('category list', req.body)
-    const sql = `SELECT * FROM admin_t_board_config`
+    const sql = `SELECT * FROM t_board_config`
     res.send(await serverReq.db(sql, req.body))
   } catch (err) {
     res.status(500).send({
@@ -18,7 +18,7 @@ router.post('/categoryList', async (req, res) => {
 router.post('/register', async (req, res) => {
   try {
     console.log('category register', req.body)
-    const sql = `INSERT INTO admin_t_board_config SET ?`
+    const sql = `INSERT INTO t_board_config SET ?`
     res.send(await serverReq.db(sql, req.body))
   } catch (err) {
     res.status(500).send({
@@ -30,7 +30,7 @@ router.post('/register', async (req, res) => {
 router.put('/update/:id', async (req, res) => {
   try {
     console.log('category update', req.body)
-    const sql = `UPDATE admin_t_board_config SET ? WHERE id = ${req.body.id}`
+    const sql = `UPDATE t_board_config SET ? WHERE id = ${req.body.id}`
     res.send(await serverReq.db(sql, req.body))
   } catch (err) {
     res.status(500).send({
@@ -42,7 +42,7 @@ router.put('/update/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
   try {
     console.log('category delete', req.body)
-    const sql = `DELETE FROM admin_t_board_config WHERE id = ${req.body.id}`
+    const sql = `DELETE FROM t_board_config WHERE id = ${req.body.id}`
     res.send(await serverReq.db(sql, req.body))
   } catch (err) {
     res.status(500).send({
