@@ -128,11 +128,11 @@
                 }
             }
         }
-        .preview-area, .init-data-area {
+        .preview-wrap {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            .upload-img {
+            .img-wrap {
                 width: calc(100% / 4);
                 padding: 10px;
                 .img-title {
@@ -147,7 +147,7 @@
                         white-space: nowrap;
                     }
                 }
-                .img-wrap {
+                .img-area {
                     display: flex;
                     align-items: center;
                     justify-content: center;

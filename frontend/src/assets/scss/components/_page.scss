@@ -137,7 +137,7 @@ header {
                 align-items: center;
             }
         }
-        .board-form {
+        .board-form, .board-view {
             .form-row {
                 display: flex;
                 .select-wrap {
@@ -172,17 +172,22 @@ header {
                         }
                     }
                 }
+                .preview-wrap {
+                    display: flex;
+                    align-items: center;
+                    .img-wrap {
+                        .img-area {
+                            display: block;
+                            width: 300px;
+                            img {
+                                width: 100%;
+                                height: auto;
+                            }
+                        }
+                    }
+                }
                 + .form-row {
                     margin-top: 10px;
-                }
-            }
-            .board-img {
-                display: block;
-                width: 200px;
-                height: auto;
-                img {
-                    width: 100%;
-                    height: auto;
                 }
             }
         }

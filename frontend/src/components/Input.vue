@@ -62,19 +62,15 @@
     </div>
     <div
       v-if="preview"
-      class="preview-area"
+      class="preview-wrap"
     >
       <div
         v-for="(item, index) in previews"
         :key="`uploadImg${index}`"
-        class="upload-img"
+        class="img-wrap"
       >
-        <span class="img-title">
-          <span class="title">{{ item.title }}</span>
-          <span>{{ item.format }}</span>
-        </span>
         <span
-          class="img-wrap"
+          class="img-area"
           :class="{
             'width-full': item.width >= item.height,
             'height-full': item.width < item.height
@@ -84,10 +80,10 @@
             :src="`${item.url}`"
             ref="imgRef"
           />
-          <!-- <img
-            :src="`http://127.0.0.1:3000/upload/${item.url}`"
-            ref="imgRef"
-          /> -->
+        </span>
+        <span class="img-title">
+          <span class="title">{{ item.title }}</span>
+          <span>{{ item.format }}</span>
         </span>
       </div>
     </div>

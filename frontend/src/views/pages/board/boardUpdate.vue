@@ -4,7 +4,7 @@
       <h3>글 수정</h3>
     </div>
     <div class="board-content">
-      <div class="board-form">
+      <div class="board-view">
         <div class="form-row">
           <Select
             v-model="boardDetail.category"
@@ -51,8 +51,10 @@
         </div>
       </div>
     </div>
-    <button @click="boardUpdate" class="btn lg dark">수정</button>
-    <button @click="back" class="btn-home">메인으로</button>
+    <div class="board-btns side">
+      <button class="btn lg light" @click="back">목록</button>
+      <button class="btn lg dark" @click="boardUpdate">수정</button>
+    </div>
   </div>
 </template>
 
@@ -133,7 +135,6 @@ export default defineComponent({
           boardDetail.value.fileList.push(target[i])
         }
         previews.value = boardDetail.value.fileList
-        console.log('prev', Array.isArray(previews.value))
       }
       // 첫번쨰 인풋 포커스
       // nextTick(() => {

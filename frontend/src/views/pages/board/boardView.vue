@@ -1,27 +1,39 @@
 <template>
   <div class="board-wrap">
-    <h3>{{ route.params.category }} view</h3>
-    <div class="board-list">
-      <div>boardDetail.id {{ boardDetail.id }}</div>
-      <div>boardDetail.title {{ boardDetail.title }}</div>
-      <div>boardDetail.content {{ boardDetail.content }}</div>
-      <div>{{ boardDetail.agree }}</div>
-      <div v-if="boardDetail.fileList">
-        <span
-          v-for="(item, index) in boardDetail.fileList"
-          :key="`file${index}`"
-          class="board-img"
-        >
-          {{ item }}
-          <img :src="`http://127.0.0.1:3000/upload/${item}`" alt="">
-        </span>
+    <div class="board-title">
+      <h3>{{ boardDetail.title }}</h3>
+    </div>
+    <div class="board-content">
+      <div class="board-form">
+        <div class="form-row">
+          {{ boardDetail.content }}
+        </div>
+        <div class="form-row">
+          <div class="preview-wrap">
+            <div
+              v-if="boardDetail.fileList"
+              class="img-wrap"
+            >
+              <span
+                v-for="(item, index) in boardDetail.fileList"
+                :key="`uploadImg${index}`"
+                class="img-area"
+              >
+                <img :src="`${item}`" />
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="board-btns side">
+      <button class="btn lg light" @click="back">목록</button>
+      <!-- <button class="btn lg dark" @click="boardUpdate">수정</button> -->
     </div>
     <!-- <div class="btn-wrap">
       <button type="button" @click="goToUpdate(board.id)">수정</button>
       <button type="button" @click="requestApiHttpDelBoard(board)">삭제</button>
     </div> -->
-    <button @click="back" class="btn-home">메인으로</button>
   </div>
 </template>
 
@@ -66,7 +78,8 @@ export default defineComponent({
         const target = result[0].fileList.split(',')
         boardDetail.value.fileList = []
         for (let i = 0; i < target.length; i++) {
-          boardDetail.value.fileList.push(target[i])
+          const targetUrl = `http://127.0.0.1:3000/upload/${target[i]}`
+          boardDetail.value.fileList.push(targetUrl)
         }
       }
     }
