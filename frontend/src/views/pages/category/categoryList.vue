@@ -29,12 +29,12 @@
                     <span
                       v-show="categoryDetail.id !== category.id"
                       class="before-edit"
+                      @click="onEditText(category)"
                     >
                       <span class="category-title">{{ category.category }}</span>
                       <button
                         type="button"
                         class="btn-icon"
-                        @click="onEditText(category)"
                       >
                         <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
                       </button>
