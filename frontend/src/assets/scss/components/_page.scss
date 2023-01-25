@@ -3,7 +3,7 @@
 .page-container {
     width: 1000px;
     margin: 0 auto;
-    padding: 0 50px;
+    padding: 50px;
 }
 // .svg-inline--fa {
 //     vertical-align: 0;
@@ -70,16 +70,23 @@ header {
                 top: calc(100% + 3px);
                 width: 100%;
                 padding: 10px 0;
+                border: 1px solid commons.$grayB;
                 background-color: rgba(255, 255, 255, .8);
-                .local-nav-item {
+                a.local-nav-item {
                     display: block;
-                    a {
-                        display: block;
-                        padding: 7px 5px;
-                        font-size: commons.$fs-s;
-                        &:hover {
-                            background-color: #ddd;
-                        }
+                    padding: 7px 5px;
+                    font-size: commons.$fs-s;
+                    &:hover {
+                        background-color: #ddd;
+                    }
+                }
+                a.local-nav-sub-item {
+                    display: block;
+                    padding: 7px 5px 7px 15px;
+                    font-size: commons.$fs-s;
+                    word-break: break-word;
+                    &:hover {
+                        background-color: #ddd;
                     }
                 }
             }

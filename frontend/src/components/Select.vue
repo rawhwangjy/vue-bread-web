@@ -4,6 +4,7 @@
     :class="{
       'active': isShowSelect
     }"
+    v-click-outside="onClickOutside"
   >
     <button
       type="button"
@@ -82,6 +83,7 @@ export default defineComponent({
     const height = ref(0)
     const commonItem = ref<HTMLElement | null>(null)
     const optionItemHeight = ref(0)
+    const borderWidth = ref(2)
 
     onMounted(() => {
       if (props.initSelected) {
@@ -103,7 +105,7 @@ export default defineComponent({
 
     function onShowSelectBox () {
       isShowSelect.value = true
-      height.value = optionItemHeight.value * props.selectData.length
+      height.value = (optionItemHeight.value * props.selectData.length) + borderWidth.value
     }
     function onSelect (event: Event) {
       const currentSelect = (event.target as HTMLSelectElement).innerText
@@ -113,6 +115,9 @@ export default defineComponent({
       height.value = 0
       isShowSelect.value = false
     }
+    function onClickOutside () {
+      isShowSelect.value = false
+    }
     return {
       randomString,
       selected,
@@ -120,7 +125,8 @@ export default defineComponent({
       commonItem,
       height,
       onShowSelectBox,
-      onSelect
+      onSelect,
+      onClickOutside
     }
   }
 })

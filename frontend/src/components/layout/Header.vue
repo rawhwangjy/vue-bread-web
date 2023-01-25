@@ -3,7 +3,10 @@
     <nav>
       <div class="global-nav-wrap">
         <nav>
-          <ul role="menu">
+          <ul
+            role="menu"
+            v-click-outside="onClickOutside"
+          >
             <li
               class="global-nav-item"
               role="menuitem"
@@ -45,7 +48,7 @@
                   >
                     <router-link
                       :to="`/board/${item.category}`"
-                      class="global-nav-item"
+                      class="local-nav-sub-item"
                       @click="stateSub = false"
                     >
                       {{ item.category }}
@@ -101,6 +104,9 @@ export default defineComponent({
     function onHideSub () {
       stateSub.value = false
     }
+    function onClickOutside () {
+      stateSub.value = false
+    }
 
     onMounted(() => {
       if (categoryStore.categoryList.length === 0) {
@@ -114,7 +120,8 @@ export default defineComponent({
       categoryStore,
       stateSub,
       onShowSub,
-      onHideSub
+      onHideSub,
+      onClickOutside
     }
   }
 })
