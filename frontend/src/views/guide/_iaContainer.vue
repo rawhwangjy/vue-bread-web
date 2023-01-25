@@ -134,7 +134,7 @@ export default defineComponent({
         // 2Depth event
         const childrenMenu = parent.nextElementSibling?.children
         if (childrenMenu !== undefined && childrenMenu !== null) {
-          for (const child of Object.values(childrenMenu)) {
+          for (const [index, child] of Object.entries(childrenMenu)) {
             const childeNodesLiengh = childrenMenu?.length
             child.addEventListener('keydown', (e: Event) => {
               const e_ = e as KeyboardEvent
@@ -164,6 +164,9 @@ export default defineComponent({
               } else if ((e_.shiftKey && cKeycode === 'Tab') || (e_.shiftKey && cKeycode === 9)) {
                 cIndex = -1
               }
+            })
+            child.addEventListener('click', () => {
+              cIndex = Number(index)
             })
           }
         }
