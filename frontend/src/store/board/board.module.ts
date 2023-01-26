@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { ReqBoardListInterface, ResBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
 import { ResBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
-import { ReqBoardUpdateInterface, ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
+import { ResBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import { ReqBoardDeleteInterface, ResBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
 import { ReqBoardListDeleteInterface, ResBoardListDeleteInterface } from '@/service/board/interface/boardListDelete.interface'
 
