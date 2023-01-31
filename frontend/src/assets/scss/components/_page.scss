@@ -205,3 +205,100 @@ header {
         }
     }
 }
+// 프로젝트
+#showScene2 #scrollSection2 .sticky-element {
+	display: block;
+}
+.btn-project-create {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#scrollSection2 {
+    .sticky-element {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        padding-left: 200px;
+        &::-webkit-scrollbar {
+            background-color: transparent;
+        }
+    }
+    .project-list { // ul
+        display: inline-flex;
+        padding-right: 130px;
+        li {
+            width: 360px;
+            margin: 0 10px;
+            border-radius: 16px;
+            .btn-project {
+                overflow: hidden;
+                display: block;
+                width: 100%;
+                border: 1px solid #dadee1;
+                border-radius: 16px;
+            }
+            .project-list-item {
+                padding-top: 40px;
+                .device {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    min-height: 300px;
+                    padding-bottom: 40px;
+                    .pc, .mobile {
+                        overflow: hidden;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: auto;
+                        img {
+                            width: 100%;
+                            height: auto;
+                            border: 1px solid #ddd;
+                        }
+                    }
+                    .pc {
+                        width: 70%;
+                    }
+                    .mobile {
+                        width: 35%;
+                    }
+                    &.both {
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        .pc {
+                            transform: translate(-5%, 0px);
+                            flex: 1;
+                        }
+                        .mobile {
+                            position: absolute;
+                            top: 16%;
+                            right: 10%;
+                        }
+                    }
+                }
+                .summary {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 25px 20px 60px;
+                    background-color: #f0f1f2;
+                    text-align: left;
+                    h2 {
+                        font-weight: bold;
+                        font-size: 28px;
+                    }
+                    .introduce {
+                        font-size: 20px
+                    }
+                }
+            }
+        }
+    }
+}

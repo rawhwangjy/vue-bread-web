@@ -3,8 +3,6 @@ import { RequestEnum } from '@/utils/common.constants'
 
 import { ReqBoardListInterface } from '@/service/board/interface/boardList.interface'
 import { ReqBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
-import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
-import { ReqBoardUpdateInterface } from '@/service/board/interface/boardUpdate.interface'
 import { ReqBoardDeleteInterface } from '@/service/board/interface/boardDelete.interface'
 import { ReqBoardListDeleteInterface } from '@/service/board/interface/boardListDelete.interface'
 

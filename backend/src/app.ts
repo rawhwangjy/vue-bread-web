@@ -2,7 +2,7 @@ import express from 'express'
 import session from 'express-session'
 import categoryController from './controllers/category.controller'
 import boardController from './controllers/board.controller'
-import path from 'path'
+import projectController from './controllers/project.controller'
 
 const app = express()
 // app.use(express.static('upload'));
@@ -27,7 +27,8 @@ app.use(express.json({
 
 app.use('/api/board/category', categoryController)
 app.use('/api/board', boardController)
+app.use('/api/project', projectController)
 
 app.listen('3000', () => {
-  console.log('Server started. port 3000! bread-geed')
+  console.log('Server started. port 3000! bread-gee')
 })

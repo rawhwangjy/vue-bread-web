@@ -8,6 +8,11 @@ const boardView = () => import(/* webpackChunkName: "pages" */ '@/views/pages/bo
 const boardCreate = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardCreate.vue')
 const boardUpdate = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardUpdate.vue')
 
+const projectList = () => import(/* webpackChunkName: "pages" */ '@/views/pages/project/projectList.vue')
+const projectView = () => import(/* webpackChunkName: "pages" */ '@/views/pages/project/projectView.vue')
+const projectCreate = () => import(/* webpackChunkName: "pages" */ '@/views/pages/project/projectCreate.vue')
+const projectUpdate = () => import(/* webpackChunkName: "pages" */ '@/views/pages/project/projectUpdate.vue')
+
 const test = () => import(/* webpackChunkName: "pages" */ '@/views/pages/test.vue')
 
 export default {
@@ -54,6 +59,24 @@ export default {
     {
       path: '/board/:category/update/:id',
       component: boardUpdate
+    },
+    {
+      path: '/project',
+      name: 'projectList',
+      component: projectList
+    },
+    {
+      path: '/project/:id',
+      name: 'projectView',
+      component: projectView
+    },
+    {
+      path: '/project/register',
+      component: projectCreate
+    },
+    {
+      path: '/project/update/:id',
+      component: projectUpdate
     }
   ]
 }
