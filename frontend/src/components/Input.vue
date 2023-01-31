@@ -201,7 +201,6 @@ export default defineComponent({
     }
     function onUpload (event: Event) {
       const { files } = event?.target as HTMLInputElement
-      console.log('files', files)
       previews.value = []
       if (files) {
         for (let i = 0; i < files.length; i++) {
