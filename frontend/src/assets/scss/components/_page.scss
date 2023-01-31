@@ -302,3 +302,103 @@ header {
         }
     }
 }
+
+.project-wrap {
+    .project-title {
+        h3 {
+            font-size: commons.$fs-xl;
+            text-align: center;
+        }
+    }
+    .project-content {
+        padding-top: 30px;
+        .project-list {
+            .table {
+                td {
+                    height: 70px;
+                    padding: 0 20px;
+                    .project-title {
+                        display: inline-block;
+                        padding: 10px;
+                    }
+                    .btn-icon {
+                        display: block;
+                        width: 24px;
+                        height: 24px;
+                        font-size: commons.$fs-m;
+                    }
+                }
+            }
+        }
+        .project-form, .project-view {
+            .form-row {
+                h4 {
+                    display: inline-flex;
+                    padding-bottom: 15px;
+                    font-weight: bold;
+                    font-size: commons.$fs-m;
+                    color: commons.$gray6;
+                }
+                .select-wrap {
+                    width: 30%;
+                    + .input-wrap {
+                        margin-left: 10px;
+                    }
+                }
+                .input-wrap {
+                }
+                .editor-wrap {
+                    .ql-snow {
+                        border-color: commons.$gray8;
+                    }
+                    .ql-toolbar {
+                        &:focus {
+                            outline: 1px solid red;
+                        }
+                    }
+                    .ql-container {
+                        height: auto;
+                        .ql-editor {
+                            &.ql-blank::before { // placeholder
+                                font-style: inherit;
+                                color: commons.$gray8;
+                            }
+                            &:focus {
+                                outline: 1px solid rgba(#4337ca, .5);
+                            }
+                        }
+                    }
+                }
+                + .form-row {
+                    margin-top: 20px;
+                }
+                .check-list {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(20%, auto));
+                    row-gap: 10px;
+                    padding: 20px;
+                    background-color: rgba(#4337ca, .05);
+                }
+            }
+        }
+    }
+    .project-btns {
+        display: flex;
+        padding-top: 30px;
+        justify-content: center;
+        a, button {
+            + a, + button {
+                margin-left: 20px;
+            }
+        }
+        &.left {
+            justify-content: flex-start;
+        }
+        &.right {
+            justify-content: flex-end;
+        }
+        &.side {
+            justify-content: space-between;
+        }
+    }
+}

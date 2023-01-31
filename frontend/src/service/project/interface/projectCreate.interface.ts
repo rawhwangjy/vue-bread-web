@@ -6,15 +6,17 @@ export interface ReqProjectCreateInterface {
   title: string,
   introduce: string,
   type: {
-    mo: boolean,
-    pc: boolean,
-    all: boolean
+    mobile: boolean,
+    pc: boolean
   },
   date: {
     startDate: number,
     endDate: number
   },
-  fileList: FileList | null,
+  fileList: {
+    mobile: FileList | null,
+    pc: FileList | null
+  },
   skills: {
     html4: boolean,
     html5: boolean,

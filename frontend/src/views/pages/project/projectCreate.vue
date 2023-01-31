@@ -9,30 +9,37 @@
           <Input
             v-model="projectDetail.title"
             label="제목"
-            label-hide
           />
         </div>
         <div class="form-row">
+          <h4>내용</h4>
           <div class="editor-wrap">
             <quill-editor
               v-model="editor.content"
               :options="editor.editorOption"
-              aria-label="내용"
               @change="onEditorChange"
             />
           </div>
         </div>
         <div class="form-row">
-          <Input
-            files
-            preview
-            label="name1"
-            name="currentDefault"
-            @change="changeFile"
-          />
+          <h4>타입</h4>
+          <div class="check-list">
+            <template
+              v-for="(project, index) in projectDetail.type"
+              :key="`type${index}`"
+            >
+              <Checkbox
+                v-model="projectDetail.type[index]"
+                :label="`${index}`"
+                :value="`${index}`"
+                :name="`${index}`"
+              />
+            </template>
+          </div>
         </div>
         <div class="form-row">
-          <div class="skill-list">
+          <h4>사용 스킬</h4>
+          <div class="check-list">
             <template
               v-for="(project, index) in projectDetail.skills"
               :key="`skill${index}`"
@@ -45,6 +52,26 @@
               />
             </template>
           </div>
+        </div>
+        <div class="form-row" v-show="projectDetail.type.pc">
+          <h4>프로젝트 이미지 pc</h4>
+          <Input
+            files
+            preview
+            label="name1"
+            name="currentDefault"
+            @change="changeFile('pc', $event)"
+          />
+        </div>
+        <div class="form-row" v-show="projectDetail.type.mobile">
+          <h4>프로젝트 이미지 mobile</h4>
+          <Input
+            files
+            preview
+            label="name2"
+            name="currentDefault"
+            @change="changeFile('mobile', $event)"
+          />
         </div>
       </div>
     </div>
@@ -88,11 +115,13 @@ export default defineComponent({
       title: '',
       introduce: '',
       type: {
-        mo: false,
-        pc: false,
-        all: false
+        mobile: false,
+        pc: false
       },
-      fileList: null,
+      fileList: {
+        mobile: null,
+        pc: null
+      },
       date: {
         startDate: 0,
         endDate: 0
@@ -121,8 +150,15 @@ export default defineComponent({
     const firstFocus = ref<HTMLInputElement | null>()
 
     // api
-    function changeFile (value : FileList) {
-      projectDetail.value.fileList = value
+    function changeFile (target: string, value : FileList) {
+      // projectDetail.value.fileList = value
+      console.log('target', target)
+      console.log('value', value)
+      if (target === 'pc') {
+        projectDetail.value.fileList.pc = value
+      } else if (target === 'mobile') {
+        projectDetail.value.fileList.mobile = value
+      }
     }
     async function projectCreate () {
       if (projectDetail.value.title === '') {
@@ -137,15 +173,24 @@ export default defineComponent({
       const formData = new FormData()
       formData.append('title', projectDetail.value.title)
       formData.append('introduce', projectDetail.value.introduce)
+      // type
+      for (const [key, value] of Object.entries(projectDetail.value.type)) {
+        formData.append(key, String(value))
+      }
+      // skills
       for (const [key, value] of Object.entries(projectDetail.value.skills)) {
         formData.append(key, String(value))
       }
-      if (projectDetail.value.fileList !== null) {
-        for (let i = 0; i < projectDetail.value.fileList.length; i++) {
-          formData.append('fileList', projectDetail.value.fileList[i])
+      // fileList
+      if (projectDetail.value.fileList.mobile !== null) {
+        for (let i = 0; i < projectDetail.value.fileList.mobile.length; i++) {
+          formData.append('fileListMobile', projectDetail.value.fileList.mobile[i])
         }
-      } else {
-        formData.append('fileList', '')
+      }
+      if (projectDetail.value.fileList.pc !== null) {
+        for (let i = 0; i < projectDetail.value.fileList.pc.length; i++) {
+          formData.append('fileListPc', projectDetail.value.fileList.pc[i])
+        }
       }
 
       const result = await projectStore.actionHttpProjectCreate(formData)

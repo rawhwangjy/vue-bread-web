@@ -7,15 +7,17 @@ export interface ReqProjectUpdateInterface {
   title: string,
   introduce: string,
   type: {
-    mo: boolean,
-    pc: boolean,
-    all: boolean
+    mobile: boolean,
+    pc: boolean
   },
   date: {
     startDate: number,
     endDate: number
   },
-  fileList: FileList,
+  fileList: {
+    mobile: FileList,
+    pc: FileList
+  },
   skills: {
     html4: boolean,
     html5: boolean,

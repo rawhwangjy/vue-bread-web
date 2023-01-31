@@ -11,11 +11,13 @@ export interface ResProjectDetailInterface {
   title: string,
   introduce: string,
   type: {
-    mo: boolean,
-    pc: boolean,
-    all: boolean
+    mobile: boolean,
+    pc: boolean
   },
-  fileList: Array<string>
+  fileList: {
+    mobile: Array<string>,
+    pc: Array<string>
+  },
   date: {
     startDate: number,
     endDate: number

@@ -27,15 +27,17 @@ export const projectDetailInit = {
   title: '',
   introduce: '',
   type: {
-    mo: false,
-    pc: false,
-    all: false
+    mobile: false,
+    pc: false
   },
   date: {
     startDate: 0,
     endDate: 0
   },
-  fileList: [],
+  fileList: {
+    mobile: [],
+    pc: []
+  },
   skills: {
     html4: false,
     html5: false,
@@ -76,15 +78,17 @@ export const useProjectStore = defineStore({
       title: '',
       introduce: '',
       type: {
-        mo: false,
-        pc: false,
-        all: false
+        mobile: false,
+        pc: false
       },
       date: {
         startDate: 0,
         endDate: 0
       },
-      fileList: [],
+      fileList: {
+        mobile: [],
+        pc: []
+      },
       skills: {
         html4: false,
         html5: false,

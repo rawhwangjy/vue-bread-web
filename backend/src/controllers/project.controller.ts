@@ -4,22 +4,24 @@ import serverReq from '../db'
 import { upload } from '../upload'
 
 // project register
-router.post('/register', upload.array('fileList'), async (req, res) => {
+router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileListMobile'}]), async (req, res) => {
   try {
     console.log('project register', req.body)
     const project = {
       title: req.body.title,
       introduce: req.body.introduce,
       type: {
-        mo: req.body.mo,
-        pc: req.body.pc,
-        all: req.body.all
+        mobile: req.body.mobile,
+        pc: req.body.pc
       },
       date: {
         startDate: req.body.startDate,
         endDate: req.body.endDate
       },
-      fileList: Array(),
+      fileList: {
+        mobile: Array(),
+        pc: Array()
+      },
       skills: {
         html4: req.body.html4,
         html5: req.body.html5,
@@ -41,19 +43,39 @@ router.post('/register', upload.array('fileList'), async (req, res) => {
       }
     }
     if (req.files) {
-      [req.files].forEach(file => {
-        for (const value of Object.values(file)) {
-          project.fileList.push(value.filename)
+      for (const [key, value] of Object.entries(req.files)) {
+        if (key === 'fileListMobile') {
+          value.filter((item: Object) => {
+            for (const [mobileKey, mobileValue] of Object.entries(item)) {
+              if (mobileKey === 'originalname') {
+                project.fileList.mobile.push(mobileValue)
+              }
+            }
+          })
         }
-      })
+        if (key === 'fileListPc') {
+          value.filter((item: Object) => {
+            for (const [pcKey, pcValue] of Object.entries(item)) {
+              if (pcKey === 'originalname') {
+                project.fileList.pc.push(pcValue)
+              }
+            }
+          })
+        }
+      }
     }
+    console.log('project', project.fileList)
     const sql = `
       INSERT INTO t_projects
       SET title = '${project.title}',
         introduce = '${project.introduce}',
 
+        typeMobile = ${project.type.mobile},
+        typePc = ${project.type.pc},
 
-        fileList = '${project.fileList}',
+
+        fileListMobile = '${project.fileList.mobile}',
+        fileListPc = '${project.fileList.pc}',
 
         html4 = ${project.skills.html4},
         html5 = ${project.skills.html5},

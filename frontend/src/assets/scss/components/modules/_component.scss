@@ -32,14 +32,19 @@
         display: flex;
         align-items: center;
         cursor: pointer;
+        span {
+            display: block;
+            padding: 0 5px;
+            line-height: 18px;
+        }
         &::before {
             content: '';
             box-sizing: border-box;
             display: block;
             width: 18px;
             height: 18px;
-            margin-right: .5rem;
             border: 1px solid commons.$grayC;
+            background-color: commons.$white;
         }
         &::after {
             content: '';
@@ -94,6 +99,7 @@
             flex-direction: row-reverse;
             label {
                 display: block;
+                width: 90px;
                 height: 36px;
                 padding: 10px 20px;
                 margin-left: 10px;
@@ -104,13 +110,16 @@
             .input {
                 flex: 1;
                 .file-name {
+                    overflow-x: auto;
                     display: flex;
                     align-items: center;
-                    width: 100%;
+                    width: 800px;
                     height: 36px;
                     padding: 0 10px;
                     border: 1px solid commons.$gray8;
                     color: commons.$main-font;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                     span {
                         &::after {
                             content: ',';
@@ -129,16 +138,16 @@
             }
         }
         .preview-wrap {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(calc(25% - 20px), auto));
+            gap: 10px;
+            width: calc(100% - 100px);
+            margin-top: 10px;
             .img-wrap {
-                width: calc(100% / 4);
-                padding: 10px;
                 .img-title {
                     display: flex;
                     width: 100%;
-                    padding-bottom: 10px;
+                    margin-top: 5px;
                     .title {
                         overflow: hidden;
                         display: block;
