@@ -3,9 +3,6 @@ const router = express.Router()
 import serverReq from '../db'
 import { upload } from '../upload'
 
-
-const app = express()
-
 // board register
 router.post('/:category/register', upload.array('fileList'), async (req, res) => {
   try {
