@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import Header from '@/components/layout/Header.vue'
+import Header from '@/views/layout/Header.vue'
 import { Vue3Lottie } from 'vue3-lottie'
 import loadingData from '@/utils/lottie/loading.json'
 
