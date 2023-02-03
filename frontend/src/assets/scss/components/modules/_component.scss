@@ -230,6 +230,50 @@
         }
     }
 }
+// date picker
+.date-wrap {
+    width: 140px;
+    .dp__input {
+        height: 36px;
+        border: 1px solid commons.$gray8;
+        font-size: commons.$fs-s;
+    }
+}
+#dp-menu-date {
+    min-width: 220px;
+    height: 240px;
+    font-size: commons.$fs-s;
+    .dp__arrow_top {
+        + div {
+            height: 200px;
+            .dp__instance_calendar{
+                height: 100%;
+            }
+        }
+    }
+    .dp__overlay_container>.dp__overlay_row {
+        flex: 0;
+    }
+    .dp__overlay_cell_active {
+        background-color: commons.$primary;
+    }
+    .dp__select {
+        color: commons.$primary;
+    }
+    .dp__selection_preview {
+        width: 30%;
+        font-size: commons.$fs-s;
+        color: commons.$primary;
+    }
+    .dp__action_buttons {
+        width: 70%;
+    }
+    .dp__calendar {
+        > div {
+            height: 165px !important;
+        }
+    }
+}
 // select
 .select-wrap {
     position: relative;

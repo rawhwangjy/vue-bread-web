@@ -37,7 +37,7 @@
             label="name1"
             name="currentDefault"
             :init-data="previews"
-            @change="changeFile"
+            @change="onChangeFile"
           />
         </div>
         <div class="form-row">
@@ -116,7 +116,7 @@ export default defineComponent({
         return categoryList.value.push(item.category)
       })
     }
-    function changeFile (value : FileList) {
+    function onChangeFile (value : FileList) {
       boardDetail.value.fileList = value
     }
     async function getBoardDetail () {
@@ -227,7 +227,7 @@ export default defineComponent({
       editor,
       onEditorChange,
       // firstFocus,
-      changeFile,
+      onChangeFile,
       previews
     }
   }

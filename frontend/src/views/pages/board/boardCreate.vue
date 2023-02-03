@@ -5,7 +5,7 @@
     </div>
     <div class="board-content">
       <div class="board-form">
-        <div class="form-row">
+        <div class="form-row flex">
           <Select
             v-model="boardDetail.category"
             initTitle="카테고리를 선택해주세요."
@@ -33,7 +33,7 @@
             preview
             label="name1"
             name="currentDefault"
-            @change="changeFile"
+            @change="onChangeFile"
           />
         </div>
         <div class="form-row">
@@ -108,7 +108,7 @@ export default defineComponent({
         return categoryList.value.push(item.category)
       })
     }
-    function changeFile (value : FileList) {
+    function onChangeFile (value : FileList) {
       boardDetail.value.fileList = value
     }
     async function boardCreate () {
@@ -202,7 +202,7 @@ export default defineComponent({
       editor,
       onEditorChange,
       firstFocus,
-      changeFile
+      onChangeFile
     }
   }
 })

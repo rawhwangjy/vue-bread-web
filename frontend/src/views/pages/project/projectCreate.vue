@@ -5,11 +5,39 @@
     </div>
     <div class="project-content">
       <div class="project-form">
-        <div class="form-row">
+        <div class="form-row flex">
           <Input
             v-model="projectDetail.title"
             label="제목"
           />
+          <div class="date-wrap">
+            <h4>시작일</h4>
+            <Datepicker
+              v-model="startDate"
+              :format="dateFormat(startDate)"
+              month-picker
+              uid="date"
+              locale="kr"
+              select-text="시작일 선택"
+              cancel-text="취소"
+              @update:modelValue="handleDate('start', $event)"
+              :clearable="false"
+            />
+          </div>
+          <div class="date-wrap">
+            <h4>종료일</h4>
+            <Datepicker
+              v-model="endDate"
+              :format="dateFormat(endDate)"
+              month-picker
+              uid="date"
+              locale="kr"
+              select-text="종료일 선택"
+              cancel-text="취소"
+              @update:modelValue="handleDate('end', $event)"
+              :clearable="false"
+            />
+          </div>
         </div>
         <div class="form-row">
           <h4>내용</h4>
@@ -60,7 +88,7 @@
             preview
             label="name1"
             name="currentDefault"
-            @change="changeFile('pc', $event)"
+            @change="onChangeFile('pc', $event)"
           />
         </div>
         <div class="form-row" v-show="projectDetail.type.mobile">
@@ -70,7 +98,7 @@
             preview
             label="name2"
             name="currentDefault"
-            @change="changeFile('mobile', $event)"
+            @change="onChangeFile('mobile', $event)"
           />
         </div>
       </div>
@@ -83,7 +111,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive } from 'vue'
+import { defineComponent, onMounted, ref, reactive, toRefs } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
 import { ReqProjectCreateInterface } from '@/service/project/interface/projectCreate.interface'
@@ -95,6 +123,10 @@ interface vueEditor {
   quill: object,
   html: string,
   text: string
+}
+interface dateFormat {
+  year: number,
+  month: number
 }
 
 export default defineComponent({
@@ -111,6 +143,23 @@ export default defineComponent({
     const projectStore = useProjectStore()
 
     // init data
+    const thisYear = new Date().getFullYear()
+    const thisMonth = new Date().getMonth() + 1
+    const dateInit = reactive({
+      startDate: {
+        year: thisYear,
+        month: thisMonth
+      },
+      endDate: {
+        year: thisYear,
+        month: thisMonth
+      }
+    })
+    const dateFormat = (date: dateFormat) => {
+      const year = date.year
+      const month = date.month
+      return `${year}-${month < 10 ? '0' + month : month}`
+    }
     const projectDetail = ref<ReqProjectCreateInterface>({
       title: '',
       introduce: '',
@@ -123,8 +172,14 @@ export default defineComponent({
         pc: null
       },
       date: {
-        startDate: 0,
-        endDate: 0
+        startDate: {
+          year: 0,
+          month: 0
+        },
+        endDate: {
+          year: 0,
+          month: 0
+        }
       },
       skills: {
         html4: false,
@@ -150,10 +205,7 @@ export default defineComponent({
     const firstFocus = ref<HTMLInputElement | null>()
 
     // api
-    function changeFile (target: string, value : FileList) {
-      // projectDetail.value.fileList = value
-      console.log('target', target)
-      console.log('value', value)
+    function onChangeFile (target: string, value : FileList) {
       if (target === 'pc') {
         projectDetail.value.fileList.pc = value
       } else if (target === 'mobile') {
@@ -173,6 +225,11 @@ export default defineComponent({
       const formData = new FormData()
       formData.append('title', projectDetail.value.title)
       formData.append('introduce', projectDetail.value.introduce)
+      formData.append('startYear', String(projectDetail.value.date.startDate.year))
+      formData.append('startMonth', String(projectDetail.value.date.startDate.year))
+      formData.append('endYear', String(projectDetail.value.date.endDate.month))
+      formData.append('endMonth', String(projectDetail.value.date.endDate.month))
+
       // type
       for (const [key, value] of Object.entries(projectDetail.value.type)) {
         formData.append(key, String(value))
@@ -239,16 +296,56 @@ export default defineComponent({
         firstFocus.value?.focus()
       })
     })
+    function handleDate (standard: string, date: dateFormat) {
+      if (standard === 'start') {
+        if (
+          date.year < dateInit.endDate.year ||
+          (dateInit.endDate.year === date.year && dateInit.endDate.month < date.month + 1)
+        ) {
+          alert('시작일은 종료일보다 이전입니다.')
+          dateInit.startDate.year = thisYear
+          dateInit.startDate.month = thisMonth
+        } else {
+          dateInit.startDate.year = date.year
+          dateInit.startDate.month = date.month + 1
+        }
+        projectDetail.value.date.startDate = date
+      } else {
+        if (
+          dateInit.startDate.year > date.year ||
+          (dateInit.startDate.year === date.year && dateInit.startDate.month > date.month + 1)
+        ) {
+          alert('종료일은 시작일보다 이전입니다.')
+          dateInit.endDate.year = thisYear
+          dateInit.endDate.month = thisMonth
+        } else if (dateInit.startDate.year === date.year && thisMonth < date.month + 1) {
+          alert('종료일은 최대 이번달입니다.')
+          dateInit.endDate.year = thisYear
+          dateInit.endDate.month = thisMonth
+        } else {
+          dateInit.endDate.year = date.year
+          dateInit.endDate.month = date.month + 1
+        }
+        projectDetail.value.date.endDate = date
+      }
+    }
+    const alertFn = () => {
+      alert('Value cleared')
+    }
 
     return {
       route,
+      editor,
       projectDetail,
       projectCreate,
       back,
-      editor,
       onEditorChange,
       firstFocus,
-      changeFile
+      onChangeFile,
+      ...toRefs(dateInit),
+      dateFormat,
+      handleDate,
+      alertFn
     }
   }
 })

@@ -10,8 +10,14 @@ export interface ReqProjectCreateInterface {
     pc: boolean
   },
   date: {
-    startDate: number,
-    endDate: number
+    startDate: {
+      year: number,
+      month: number
+    },
+    endDate: {
+      year: number,
+      month: number
+    }
   },
   fileList: {
     mobile: FileList | null,

@@ -237,7 +237,7 @@
               preview
               label="name1"
               name="currentDefault"
-              @change="changeFile"
+              @change="onChangeFile"
             />
           </div>
           <div class="code">
@@ -249,14 +249,14 @@
     preview
     label=&quot;name1&quot;
     name=&quot;currentDefault&quot;
-    @change=&quot;changeFile&quot;
+    @change=&quot;onChangeFile&quot;
   /&gt;
 &lt;/template&gt;
 
 &lt;script&gt;
   import Input from '@/components/Input.vue'
 
-  function changeFile (value : FileList) {
+  function onChangeFile (value : FileList) {
     console.log('parent input', value)
   }
 &lt;/script&gt;
@@ -292,14 +292,14 @@ export default defineComponent({
     function changeEvent (value : string) {
       console.log('parent input', value)
     }
-    function changeFile (value : FileList) {
+    function onChangeFile (value : FileList) {
       console.log('parent input', value)
     }
     return {
       pageTitle,
       inputText,
       changeEvent,
-      changeFile
+      onChangeFile
     }
   }
 })
