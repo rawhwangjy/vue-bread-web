@@ -33,22 +33,19 @@
                     <strong>미디어쿼리를 이용하여 분기 처리</strong>
                 </li>
                 <li>
-                  <strong>차세대웹기술지원센터(KISA 지원) 해상도 데이터 기반 분기점 지정</strong>
+                  <strong><a href="https://www.koreahtml5.kr/front/stats/browser/browserUseStats.do" target="_blank" title="새창열림">차세대 웹 기술 지원센터(KISA 산하)</a> 해상도 데이터 기반 분기점 지정</strong>
                 </li>
                 <li>
-                  <em>Mobile 대응 : Mobile 최저 해상도 ~ Tablet 최저 해상도 이전</em>
+                  <em>Mobile : </em>
                   <span>360px ~ 767px</span>
                 </li>
                 <li>
-                  <em>Tablet 대응 : Tablet 최저 해상도 ~ PC 최저 해상도 이전</em>
+                  <em>Tablet : </em>
                   <span>768px ~ 1279px</span>
                 </li>
                 <li>
-                  <em>PC 대응 : PC 최저 해상도 ~ PC 최대 해상도</em>
+                  <em>PC : </em>
                   <span>1280px ~ 2560px</span>
-                </li>
-                <li>
-                  <a href="https://www.koreahtml5.kr/front/stats/browser/browserUseStats.do" target="_blank" title="새창열림">차세대 웹 기술 지원센터</a>
                 </li>
               </ul>
             </li>
