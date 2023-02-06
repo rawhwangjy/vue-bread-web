@@ -16,11 +16,10 @@ enum Api {
 /**
  * @description Project List
  */
-export const httpGetProjectList = (reqData: ReqProjectListInterface) => {
+export const httpGetProjectList = () => {
   return axiosInstance({
     method: RequestEnum.POST,
-    url: Api.getProjectList,
-    data: reqData
+    url: Api.getProjectList
   })
 }
 

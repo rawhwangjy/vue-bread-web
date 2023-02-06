@@ -1,7 +1,7 @@
 <template>
   <div class="project-wrap">
     <div class="project-title">
-      <h3>글 쓰기</h3>
+      <h3>프로젝트 등록</h3>
     </div>
     <div class="project-content">
       <div class="project-form">
@@ -13,8 +13,8 @@
           <div class="date-wrap">
             <h4>시작일</h4>
             <Datepicker
-              v-model="startDate"
-              :format="dateFormat(startDate)"
+              v-model="projectDetail.date.startDate"
+              :format="dateFormat(projectDetail.date.startDate)"
               month-picker
               uid="date"
               locale="kr"
@@ -27,8 +27,8 @@
           <div class="date-wrap">
             <h4>종료일</h4>
             <Datepicker
-              v-model="endDate"
-              :format="dateFormat(endDate)"
+              v-model="projectDetail.date.endDate"
+              :format="dateFormat(projectDetail.date.endDate)"
               month-picker
               uid="date"
               locale="kr"
@@ -118,6 +118,7 @@ import { ReqProjectCreateInterface } from '@/service/project/interface/projectCr
 import { quillEditor } from 'vue3-quill'
 import Input from '@/components/Input.vue'
 import Checkbox from '@/components/Checkbox.vue'
+import { Console } from 'console'
 
 interface vueEditor {
   quill: object,
@@ -145,16 +146,16 @@ export default defineComponent({
     // init data
     const thisYear = new Date().getFullYear()
     const thisMonth = new Date().getMonth() + 1
-    const dateInit = reactive({
-      startDate: {
-        year: thisYear,
-        month: thisMonth
-      },
-      endDate: {
-        year: thisYear,
-        month: thisMonth
-      }
-    })
+    // const dateInit = reactive({
+    //   startDate: {
+    //     year: thisYear,
+    //     month: thisMonth
+    //   },
+    //   endDate: {
+    //     year: thisYear,
+    //     month: thisMonth
+    //   }
+    // })
     const dateFormat = (date: dateFormat) => {
       const year = date.year
       const month = date.month
@@ -173,12 +174,12 @@ export default defineComponent({
       },
       date: {
         startDate: {
-          year: 0,
-          month: 0
+          year: thisYear,
+          month: thisMonth
         },
         endDate: {
-          year: 0,
-          month: 0
+          year: thisYear,
+          month: thisMonth
         }
       },
       skills: {
@@ -231,12 +232,25 @@ export default defineComponent({
       formData.append('endMonth', String(projectDetail.value.date.endDate.month))
 
       // type
-      for (const [key, value] of Object.entries(projectDetail.value.type)) {
-        formData.append(key, String(value))
+      if (projectDetail.value.type.mobile === false && projectDetail.value.type.pc === false) {
+        alert('프로젝트 타입 선택해 주세요.')
+        return false
+      } else {
+        for (const [key, value] of Object.entries(projectDetail.value.type)) {
+          formData.append(key, String(value))
+        }
       }
       // skills
+      let skillResults = 0
       for (const [key, value] of Object.entries(projectDetail.value.skills)) {
+        if (value !== false) {
+          skillResults++
+        }
         formData.append(key, String(value))
+      }
+      if (skillResults === 0) {
+        alert('사용 스킬을 선택해 주세요.')
+        return false
       }
       // fileList
       if (projectDetail.value.fileList.mobile !== null) {
@@ -249,6 +263,7 @@ export default defineComponent({
           formData.append('fileListPc', projectDetail.value.fileList.pc[i])
         }
       }
+      console.log('dd', projectDetail.value)
 
       const result = await projectStore.actionHttpProjectCreate(formData)
       alert('글 등록이 완료되었습니다.')
@@ -299,34 +314,32 @@ export default defineComponent({
     function handleDate (standard: string, date: dateFormat) {
       if (standard === 'start') {
         if (
-          date.year < dateInit.endDate.year ||
-          (dateInit.endDate.year === date.year && dateInit.endDate.month < date.month + 1)
+          date.year < projectDetail.value.date.endDate.year ||
+          (projectDetail.value.date.endDate.year === date.year && projectDetail.value.date.endDate.month < date.month + 1)
         ) {
           alert('시작일은 종료일보다 이전입니다.')
-          dateInit.startDate.year = thisYear
-          dateInit.startDate.month = thisMonth
+          projectDetail.value.date.startDate.year = thisYear
+          projectDetail.value.date.startDate.month = thisMonth
         } else {
-          dateInit.startDate.year = date.year
-          dateInit.startDate.month = date.month + 1
+          projectDetail.value.date.startDate.year = date.year
+          projectDetail.value.date.startDate.month = date.month + 1
         }
-        projectDetail.value.date.startDate = date
       } else {
         if (
-          dateInit.startDate.year > date.year ||
-          (dateInit.startDate.year === date.year && dateInit.startDate.month > date.month + 1)
+          projectDetail.value.date.startDate.year > date.year ||
+          (projectDetail.value.date.startDate.year === date.year && projectDetail.value.date.startDate.month > date.month + 1)
         ) {
           alert('종료일은 시작일보다 이전입니다.')
-          dateInit.endDate.year = thisYear
-          dateInit.endDate.month = thisMonth
-        } else if (dateInit.startDate.year === date.year && thisMonth < date.month + 1) {
+          projectDetail.value.date.endDate.year = thisYear
+          projectDetail.value.date.endDate.month = thisMonth
+        } else if (projectDetail.value.date.startDate.year === date.year && thisMonth < date.month + 1) {
           alert('종료일은 최대 이번달입니다.')
-          dateInit.endDate.year = thisYear
-          dateInit.endDate.month = thisMonth
+          projectDetail.value.date.endDate.year = thisYear
+          projectDetail.value.date.endDate.month = thisMonth
         } else {
-          dateInit.endDate.year = date.year
-          dateInit.endDate.month = date.month + 1
+          projectDetail.value.date.endDate.year = date.year
+          projectDetail.value.date.endDate.month = date.month + 1
         }
-        projectDetail.value.date.endDate = date
       }
     }
     const alertFn = () => {
@@ -342,7 +355,6 @@ export default defineComponent({
       onEditorChange,
       firstFocus,
       onChangeFile,
-      ...toRefs(dateInit),
       dateFormat,
       handleDate,
       alertFn

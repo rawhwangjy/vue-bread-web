@@ -25,7 +25,9 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useProjectStore } from '@/store/project/project.module'
 import project from '@/views/pages/project/components/project.vue'
+import { ResProjectListInterface } from '@/service/project/interface/projectList.interface'
 
 interface SceneObject {
   objs?: {
@@ -53,6 +55,7 @@ export default defineComponent({
     // router & store
     const router = useRouter()
     const route = useRoute()
+    const projectStore = useProjectStore()
 
     // init data
 
@@ -160,6 +163,14 @@ export default defineComponent({
     //     target.style.transition = 'transform .3s ease-out'
     //   }
     // }
+
+    // init data
+    const currentCategory = route.params.category
+    const boardList = ref<ResProjectListInterface[]>([])
+    // api
+    async function getBoardList () {
+      boardList.value = await projectStore.actionHttpGetProjectList()
+    }
 
     onMounted(() => {
       console.log('projects')

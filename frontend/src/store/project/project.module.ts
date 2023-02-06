@@ -116,10 +116,10 @@ export const useProjectStore = defineStore({
     }
   }),
   actions: {
-    async actionHttpGetProjectList (reqData: ReqProjectListInterface) {
+    async actionHttpGetProjectList () {
       this.projectList = []
       try {
-        const res = await httpGetProjectList(reqData)
+        const res = await httpGetProjectList()
         if (res.data) {
           this.projectList = res.data
         }
