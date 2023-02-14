@@ -15,8 +15,14 @@ router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileList
         pc: req.body.pc
       },
       date: {
-        startDate: req.body.startDate,
-        endDate: req.body.endDate
+        startDate: {
+          year: req.body.startYear,
+          month: req.body.startMonth
+        },
+        endDate: {
+          year: req.body.endYear,
+          month: req.body.endMonth
+        }
       },
       fileList: {
         mobile: Array(),
@@ -73,6 +79,10 @@ router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileList
         typeMobile = ${project.type.mobile},
         typePc = ${project.type.pc},
 
+        startYear = '${project.date.startDate.year}',
+        startMonth  = '${project.date.startDate.month}',
+        endYear = '${project.date.endDate.year}',
+        endMonth  = '${project.date.endDate.month}',
 
         fileListMobile = '${project.fileList.mobile}',
         fileListPc = '${project.fileList.pc}',

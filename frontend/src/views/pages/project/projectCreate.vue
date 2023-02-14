@@ -111,14 +111,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive, toRefs } from 'vue'
+import { defineComponent, onMounted, ref, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
 import { ReqProjectCreateInterface } from '@/service/project/interface/projectCreate.interface'
 import { quillEditor } from 'vue3-quill'
 import Input from '@/components/Input.vue'
 import Checkbox from '@/components/Checkbox.vue'
-import { Console } from 'console'
 
 interface vueEditor {
   quill: object,
@@ -145,20 +144,10 @@ export default defineComponent({
 
     // init data
     const thisYear = new Date().getFullYear()
-    const thisMonth = new Date().getMonth() + 1
-    // const dateInit = reactive({
-    //   startDate: {
-    //     year: thisYear,
-    //     month: thisMonth
-    //   },
-    //   endDate: {
-    //     year: thisYear,
-    //     month: thisMonth
-    //   }
-    // })
+    const thisMonth = new Date().getMonth()
     const dateFormat = (date: dateFormat) => {
       const year = date.year
-      const month = date.month
+      const month = date.month + 1
       return `${year}-${month < 10 ? '0' + month : month}`
     }
     const projectDetail = ref<ReqProjectCreateInterface>({
@@ -227,9 +216,9 @@ export default defineComponent({
       formData.append('title', projectDetail.value.title)
       formData.append('introduce', projectDetail.value.introduce)
       formData.append('startYear', String(projectDetail.value.date.startDate.year))
-      formData.append('startMonth', String(projectDetail.value.date.startDate.year))
-      formData.append('endYear', String(projectDetail.value.date.endDate.month))
-      formData.append('endMonth', String(projectDetail.value.date.endDate.month))
+      formData.append('startMonth', String(projectDetail.value.date.startDate.month + 1))
+      formData.append('endYear', String(projectDetail.value.date.endDate.year))
+      formData.append('endMonth', String(projectDetail.value.date.endDate.month + 1))
 
       // type
       if (projectDetail.value.type.mobile === false && projectDetail.value.type.pc === false) {
@@ -313,34 +302,37 @@ export default defineComponent({
     })
     function handleDate (standard: string, date: dateFormat) {
       if (standard === 'start') {
+        console.log('선택한 날짜', date)
+        // projectDetail.value.date => 오늘 날짜 이거나 / 과거 선택한 날짜
         if (
-          date.year < projectDetail.value.date.endDate.year ||
-          (projectDetail.value.date.endDate.year === date.year && projectDetail.value.date.endDate.month < date.month + 1)
+          date.year > projectDetail.value.date.endDate.year ||
+          (date.year === projectDetail.value.date.endDate.year && date.month > projectDetail.value.date.endDate.month)
         ) {
           alert('시작일은 종료일보다 이전입니다.')
           projectDetail.value.date.startDate.year = thisYear
           projectDetail.value.date.startDate.month = thisMonth
         } else {
           projectDetail.value.date.startDate.year = date.year
-          projectDetail.value.date.startDate.month = date.month + 1
+          projectDetail.value.date.startDate.month = date.month
         }
-      } else {
+      } else if (standard === 'end') {
         if (
-          projectDetail.value.date.startDate.year > date.year ||
-          (projectDetail.value.date.startDate.year === date.year && projectDetail.value.date.startDate.month > date.month + 1)
+          date.year < projectDetail.value.date.startDate.year ||
+          (date.year === projectDetail.value.date.startDate.year && date.month < projectDetail.value.date.startDate.month)
         ) {
-          alert('종료일은 시작일보다 이전입니다.')
+          alert('종료일은 시작일보다 이후입니다.')
           projectDetail.value.date.endDate.year = thisYear
           projectDetail.value.date.endDate.month = thisMonth
-        } else if (projectDetail.value.date.startDate.year === date.year && thisMonth < date.month + 1) {
+        } else if (projectDetail.value.date.endDate.year === thisYear && date.month > thisMonth) {
           alert('종료일은 최대 이번달입니다.')
           projectDetail.value.date.endDate.year = thisYear
           projectDetail.value.date.endDate.month = thisMonth
         } else {
           projectDetail.value.date.endDate.year = date.year
-          projectDetail.value.date.endDate.month = date.month + 1
+          projectDetail.value.date.endDate.month = date.month
         }
       }
+      console.log('handleDate', projectDetail.value.date)
     }
     const alertFn = () => {
       alert('Value cleared')
