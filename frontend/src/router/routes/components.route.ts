@@ -1,4 +1,5 @@
 const container = () => import(/* webpackChunkName: "guide" */ '@/views/guide/_iaContainer.vue')
+const addList = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsComponents/libsAddList.vue')
 const alert = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsComponents/libsAlert.vue')
 const checkbox = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsComponents/libsCheckbox.vue')
 const input = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsComponents/libsInput.vue')
@@ -13,6 +14,10 @@ export default {
   path: '/guide/components/alert',
   component: container,
   children: [
+    {
+      path: '/guide/components/addList',
+      component: addList
+    },
     {
       path: '/guide/components/alert',
       component: alert
