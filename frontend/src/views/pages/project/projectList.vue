@@ -3,7 +3,15 @@
     <section class="main-section" id="scrollSection2" ref="mainSection">
       <h2 class="sr-only">Lorem Ipsum</h2>
       <div class="sticky-element" ref="scrollX">
-        <project />
+        <slot v-for="(project, index) in projectList" :key="`project${index}`">
+          <a
+            href="javascript:;"
+            class="board-title"
+            @click="getProjectDetail(project.id)"
+          >
+            <project :data="project" />
+          </a>
+        </slot>
         <!-- <ul class="project-list">
           <li
             v-for="(project, index) in projects"
@@ -47,7 +55,7 @@ interface SceneInfo extends SceneObject {
   }
 }
 export default defineComponent({
-  name: 'boardList',
+  name: 'projectList',
   components: {
     project
   },
@@ -166,10 +174,10 @@ export default defineComponent({
 
     // init data
     const currentCategory = route.params.category
-    const boardList = ref<ResProjectListInterface[]>([])
+    const projectList = ref<ResProjectListInterface[]>([])
     // api
-    async function getBoardList () {
-      boardList.value = await projectStore.actionHttpGetProjectList()
+    async function getProjectList () {
+      projectList.value = await projectStore.actionHttpGetProjectList()
     }
 
     onMounted(() => {
@@ -180,6 +188,7 @@ export default defineComponent({
           scrollX: scrollX.value
         }
       }
+      getProjectList()
       Object.assign(sceneInfo, refHTML)
       // 페이지마다 resize를 걸면, 겹칠 수 있다.
       setLayout(sceneInfo)
@@ -192,6 +201,12 @@ export default defineComponent({
         playAnimation()
       })
     })
+    function getProjectDetail (targetId: number) {
+      const id = targetId
+      router.push({
+        path: `/project/${id}`
+      })
+    }
 
     return {
       projectCreate,
@@ -202,7 +217,9 @@ export default defineComponent({
       scrollX,
       playAnimation,
       calcValues,
-      modalValue
+      modalValue,
+      projectList,
+      getProjectDetail
       // openModal,
       // closeModal,
       // focusIn,

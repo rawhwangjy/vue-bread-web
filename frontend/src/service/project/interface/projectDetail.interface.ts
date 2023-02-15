@@ -10,17 +10,27 @@ export interface ResProjectDetailInterface {
   id: number,
   title: string,
   introduce: string,
+  role: string,
+  company: string,
+  orderCompany: string,
+  jobs: Array<string>,
   type: {
     mobile: boolean,
     pc: boolean
   },
+  date: {
+    startDate: {
+      year: number,
+      month: number
+    },
+    endDate: {
+      year: number,
+      month: number
+    }
+  },
   fileList: {
     mobile: Array<string>,
     pc: Array<string>
-  },
-  date: {
-    startDate: number,
-    endDate: number
   },
   skills: {
     html4: boolean,

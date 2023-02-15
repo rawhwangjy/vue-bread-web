@@ -10,6 +10,10 @@ router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileList
     const project = {
       title: req.body.title,
       introduce: req.body.introduce,
+      role: req.body.role,
+      company: req.body.company,
+      orderCompany: req.body.orderCompany,
+      jobs: req.body.jobs,
       type: {
         mobile: req.body.mobile,
         pc: req.body.pc
@@ -74,36 +78,40 @@ router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileList
     const sql = `
       INSERT INTO t_projects
       SET title = '${project.title}',
-        introduce = '${project.introduce}',
+      introduce = '${project.introduce}',
+      role = '${project.role}',
+      company = '${project.company}',
+      orderCompany = '${project.orderCompany}',
+      jobs = '${project.jobs}',
 
-        typeMobile = ${project.type.mobile},
-        typePc = ${project.type.pc},
+      typeMobile = ${project.type.mobile},
+      typePc = ${project.type.pc},
 
-        startYear = '${project.date.startDate.year}',
-        startMonth  = '${project.date.startDate.month}',
-        endYear = '${project.date.endDate.year}',
-        endMonth  = '${project.date.endDate.month}',
+      startYear = '${project.date.startDate.year}',
+      startMonth  = '${project.date.startDate.month}',
+      endYear = '${project.date.endDate.year}',
+      endMonth  = '${project.date.endDate.month}',
 
-        fileListMobile = '${project.fileList.mobile}',
-        fileListPc = '${project.fileList.pc}',
+      fileListMobile = '${project.fileList.mobile}',
+      fileListPc = '${project.fileList.pc}',
 
-        html4 = ${project.skills.html4},
-        html5 = ${project.skills.html5},
-        css2 = ${project.skills.css2},
-        css3 = ${project.skills.css3},
-        sass = ${project.skills.sass},
-        photoshop = ${project.skills.photoshop},
-        sketch = ${project.skills.sketch},
-        zeplin = ${project.skills.zeplin},
-        javascript = ${project.skills.javascript},
-        typescript = ${project.skills.typescript},
-        vue2 = ${project.skills.vue2},
-        vue3 = ${project.skills.vue3},
-        jquery = ${project.skills.jquery},
-        git = ${project.skills.git},
-        eclipse = ${project.skills.eclipse},
-        node = ${project.skills.node},
-        npm = ${project.skills.npm}
+      html4 = ${project.skills.html4},
+      html5 = ${project.skills.html5},
+      css2 = ${project.skills.css2},
+      css3 = ${project.skills.css3},
+      sass = ${project.skills.sass},
+      photoshop = ${project.skills.photoshop},
+      sketch = ${project.skills.sketch},
+      zeplin = ${project.skills.zeplin},
+      javascript = ${project.skills.javascript},
+      typescript = ${project.skills.typescript},
+      vue2 = ${project.skills.vue2},
+      vue3 = ${project.skills.vue3},
+      jquery = ${project.skills.jquery},
+      git = ${project.skills.git},
+      eclipse = ${project.skills.eclipse},
+      node = ${project.skills.node},
+      npm = ${project.skills.npm}
     `
     res.send(await serverReq.db(sql))
   } catch (err) {
@@ -114,39 +122,34 @@ router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileList
   }
 })
 // // board list
-// router.post('/:category/boardList', async (req, res) => {
-//   try {
-//     console.log('board list', req.body)
-//     const sql = `
-//       SELECT a.id, a.title, a.content, a.agree, b.category
-//       FROM t_projects AS a
-//         INNER JOIN t_board_config AS b
-//         ON a.categoryId = b.id
-//       WHERE b.category = '${req.body.category}'`
-//     res.send(await serverReq.db(sql))
-//   } catch (err) {
-//     res.status(500).send({
-//       error: err
-//     })
-//   }
-// })
-// // board detail
-// router.post('/:category/:id', async (req, res) => {
-//   try {
-//     console.log('board detail', req.body)
-//     const sql = `
-//       SELECT a.id, a.categoryId, a.title, a.content, a.agree, a.fileList, b.category
-//       FROM t_projects as a
-//         INNER JOIN t_board_config as b
-//         ON a.categoryId = b.id
-//       WHERE a.id = ${req.body.id}` // '' 하는 게 맞나? => 형에 너무 유연한디
-//     res.send(await serverReq.db(sql))
-//   } catch (err) {
-//     res.status(500).send({
-//       error: err
-//     })
-//   }
-// })
+router.post('/projectList', async (req, res) => {
+  try {
+    console.log('board list', req.body)
+    const sql = `
+      SELECT id, title, introduce, startYear, startMonth, endYear, endMonth
+      FROM t_projects`
+    res.send(await serverReq.db(sql))
+  } catch (err) {
+    res.status(500).send({
+      error: err
+    })
+  }
+})
+// board detail
+router.post('/:id', async (req, res) => {
+  try {
+    console.log('board detail', req.body)
+    const sql = `
+      SELECT id, title, introduce, startYear, startMonth, endYear, endMonth
+      FROM t_projects
+      WHERE id = ${req.body.id}` // '' 하는 게 맞나? => 형에 너무 유연한디
+    res.send(await serverReq.db(sql))
+  } catch (err) {
+    res.status(500).send({
+      error: err
+    })
+  }
+})
 // // board update
 // router.put('/:category/update/:id', upload.array('fileList'), async (req, res) => {
 //   try {

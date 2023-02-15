@@ -26,13 +26,23 @@ export const projectDetailInit = {
   id: 0,
   title: '',
   introduce: '',
+  role: '',
+  company: '',
+  orderCompany: '',
+  jobs: [],
   type: {
     mobile: false,
     pc: false
   },
   date: {
-    startDate: 0,
-    endDate: 0
+    startDate: {
+      year: 0,
+      month: 0
+    },
+    endDate: {
+      year: 0,
+      month: 0
+    }
   },
   fileList: {
     mobile: [],
@@ -77,13 +87,23 @@ export const useProjectStore = defineStore({
       id: 0,
       title: '',
       introduce: '',
+      role: '',
+      company: '',
+      orderCompany: '',
+      jobs: [],
       type: {
         mobile: false,
         pc: false
       },
       date: {
-        startDate: 0,
-        endDate: 0
+        startDate: {
+          year: 0,
+          month: 0
+        },
+        endDate: {
+          year: 0,
+          month: 0
+        }
       },
       fileList: {
         mobile: [],

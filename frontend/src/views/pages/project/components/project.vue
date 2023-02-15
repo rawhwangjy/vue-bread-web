@@ -1,6 +1,6 @@
 <template>
   <div class="project">
-    <div class="title"></div>
+    <span class="title">{{ data.title }}</span>
   </div>
 </template>
 
@@ -11,14 +11,14 @@ export default defineComponent({
   components: {
   },
   props: {
-    item: {
+    data: {
       type: Object,
       default: null
     }
   },
-  setup () {
+  setup (props) {
     onMounted(() => {
-      // console.log('pc url')
+      console.log('item', props.data)
     })
     return {
     }

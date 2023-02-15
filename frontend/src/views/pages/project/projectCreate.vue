@@ -8,10 +8,10 @@
         <div class="form-row flex">
           <Input
             v-model="projectDetail.title"
-            label="제목"
+            label="프로젝트명"
           />
           <div class="date-wrap">
-            <h4>시작일</h4>
+            <h4>투입 시작일</h4>
             <Datepicker
               v-model="projectDetail.date.startDate"
               :format="dateFormat(projectDetail.date.startDate)"
@@ -25,7 +25,7 @@
             />
           </div>
           <div class="date-wrap">
-            <h4>종료일</h4>
+            <h4>투입 종료일</h4>
             <Datepicker
               v-model="projectDetail.date.endDate"
               :format="dateFormat(projectDetail.date.endDate)"
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="form-row">
-          <h4>내용</h4>
+          <h4>프로젝트 소개</h4>
           <div class="editor-wrap">
             <quill-editor
               v-model="editor.content"
@@ -48,6 +48,30 @@
               @change="onEditorChange"
             />
           </div>
+        </div>
+        <div class="form-row flex">
+          <Input
+            v-model="projectDetail.role"
+            label="담당 역할"
+          />
+          <Input
+            v-model="projectDetail.company"
+            label="소속 회사"
+          />
+          <Input
+            v-model="projectDetail.orderCompany"
+            label="발주처"
+          />
+        </div>
+        <div class="form-row">
+          <h4>주요 업무</h4>
+          <AddList
+            v-model="projectDetail.jobs"
+            list-class="dot-list"
+            btn-text="등록"
+            no-data-text="등록된 리스트가 없습니다."
+            @change="onAddChange"
+          />
         </div>
         <div class="form-row">
           <h4>타입</h4>
@@ -86,8 +110,7 @@
           <Input
             files
             preview
-            label="name1"
-            name="currentDefault"
+            label="추가"
             @change="onChangeFile('pc', $event)"
           />
         </div>
@@ -96,8 +119,7 @@
           <Input
             files
             preview
-            label="name2"
-            name="currentDefault"
+            label="추가"
             @change="onChangeFile('mobile', $event)"
           />
         </div>
@@ -118,6 +140,7 @@ import { ReqProjectCreateInterface } from '@/service/project/interface/projectCr
 import { quillEditor } from 'vue3-quill'
 import Input from '@/components/Input.vue'
 import Checkbox from '@/components/Checkbox.vue'
+import AddList from '@/components/AddList.vue'
 
 interface vueEditor {
   quill: object,
@@ -134,7 +157,8 @@ export default defineComponent({
   components: {
     quillEditor,
     Input,
-    Checkbox
+    Checkbox,
+    AddList
   },
   setup () {
     // router & store
@@ -153,6 +177,10 @@ export default defineComponent({
     const projectDetail = ref<ReqProjectCreateInterface>({
       title: '',
       introduce: '',
+      role: '',
+      company: '',
+      orderCompany: '',
+      jobs: [],
       type: {
         mobile: false,
         pc: false
@@ -203,30 +231,40 @@ export default defineComponent({
       }
     }
     async function projectCreate () {
-      if (projectDetail.value.title === '') {
-        alert('제목을 입력해 주세요.')
-        return false
-      }
-      if (projectDetail.value.introduce === '') {
-        alert('내용을 입력해 주세요.')
-        return false
-      }
+      // if (projectDetail.value.title === '') {
+      //   alert('제목을 입력해 주세요.')
+      //   return false
+      // }
+      // if (projectDetail.value.introduce === '') {
+      //   alert('내용을 입력해 주세요.')
+      //   return false
+      // }
 
       const formData = new FormData()
       formData.append('title', projectDetail.value.title)
       formData.append('introduce', projectDetail.value.introduce)
-      formData.append('startYear', String(projectDetail.value.date.startDate.year))
-      formData.append('startMonth', String(projectDetail.value.date.startDate.month + 1))
-      formData.append('endYear', String(projectDetail.value.date.endDate.year))
-      formData.append('endMonth', String(projectDetail.value.date.endDate.month + 1))
+      formData.append('role', projectDetail.value.role)
+      formData.append('company', projectDetail.value.company)
+      formData.append('orderCompany', projectDetail.value.orderCompany)
 
+      formData.append('startYear', JSON.stringify(projectDetail.value.date.startDate.year))
+      formData.append('startMonth', JSON.stringify(projectDetail.value.date.startDate.month + 1))
+      formData.append('endYear', JSON.stringify(projectDetail.value.date.endDate.year))
+      formData.append('endMonth', JSON.stringify(projectDetail.value.date.endDate.month + 1))
+
+      // jobs
+      if (projectDetail.value.jobs.length === 0) {
+        alert('주요 업무를 입력해 주세요.')
+        return false
+      }
+      formData.append('jobs', JSON.stringify(projectDetail.value.jobs))
       // type
       if (projectDetail.value.type.mobile === false && projectDetail.value.type.pc === false) {
         alert('프로젝트 타입 선택해 주세요.')
         return false
       } else {
         for (const [key, value] of Object.entries(projectDetail.value.type)) {
-          formData.append(key, String(value))
+          formData.append(key, JSON.stringify(value))
         }
       }
       // skills
@@ -235,7 +273,7 @@ export default defineComponent({
         if (value !== false) {
           skillResults++
         }
-        formData.append(key, String(value))
+        formData.append(key, JSON.stringify(value))
       }
       if (skillResults === 0) {
         alert('사용 스킬을 선택해 주세요.')
@@ -252,7 +290,6 @@ export default defineComponent({
           formData.append('fileListPc', projectDetail.value.fileList.pc[i])
         }
       }
-      console.log('dd', projectDetail.value)
 
       const result = await projectStore.actionHttpProjectCreate(formData)
       alert('글 등록이 완료되었습니다.')
@@ -283,6 +320,10 @@ export default defineComponent({
     const onEditorChange = (event: vueEditor) => {
       editor._content = event.html
       projectDetail.value.introduce = event.text
+    }
+    // add list
+    function onAddChange (value: string[]) {
+      projectDetail.value.jobs = value
     }
 
     function back () {
@@ -349,7 +390,8 @@ export default defineComponent({
       onChangeFile,
       dateFormat,
       handleDate,
-      alertFn
+      alertFn,
+      onAddChange
     }
   }
 })

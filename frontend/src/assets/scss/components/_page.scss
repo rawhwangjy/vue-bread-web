@@ -252,7 +252,10 @@
                 &.flex {
                     display: flex;
                     .input-wrap {
-                        width: 70%;
+                        flex: 1;
+                        + .input-wrap {
+                            margin-left: 10px;
+                        }
                     }
                 }
                 h4 {

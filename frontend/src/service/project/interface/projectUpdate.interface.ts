@@ -6,6 +6,10 @@ export interface ReqProjectUpdateInterface {
   id: number,
   title: string,
   introduce: string,
+  role: string,
+  company: string,
+  orderCompany: string,
+  jobs: Array<string>,
   type: {
     mobile: boolean,
     pc: boolean
