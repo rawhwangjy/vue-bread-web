@@ -100,6 +100,8 @@
 &lt;/template&gt;
 
 &lt;script&gt;
+  import AddList from '@/components/AddList.vue'
+
   const stringArray = ref&lt;string[]&gt;([])
   function onAddChange (value: string[]) {
     stringArray.value = value
