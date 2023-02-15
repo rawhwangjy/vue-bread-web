@@ -90,11 +90,20 @@
 <pre>
   <code class="language-html">
 &lt;template&gt;
-
+  &lt;AddList
+    v-model=&quot;stringArray&quot;
+    list-class=&quot;dot-list&quot;
+    btn-text=&quot;등록&quot;
+    no-data-text=&quot;등록된 리스트가 없습니다.&quot;
+    @change=&quot;onAddChange&quot;
+  /&gt;
 &lt;/template&gt;
 
 &lt;script&gt;
-
+  const stringArray = ref&lt;string[]&gt;([])
+  function onAddChange (value: string[]) {
+    stringArray.value = value
+  }
 &lt;/script&gt;
   </code>
 </pre>
@@ -123,11 +132,11 @@ export default defineComponent({
     onMounted(() => {
       Prism.highlightAll()
     })
+
     const stringArray = ref<string[]>([])
     function onAddChange (value: string[]) {
       stringArray.value = value
     }
-
     return {
       pageTitle,
       stringArray,
