@@ -52,6 +52,7 @@ const guideItems = [
     navUrl: '/guide/components',
     navDesc: '컴포넌트 라이브러리',
     subItems: [
+      { subNavTitle: 'AddList', subNavUrl: '/guide/components/addList', desc: '리스트 등록 컴포넌트 라이브러리 사용 방법' },
       { subNavTitle: 'Alert', subNavUrl: '/guide/components/alert', desc: '경고창 컴포넌트 라이브러리 사용 방법' },
       { subNavTitle: 'Checkbox', subNavUrl: '/guide/components/checkbox', desc: '체크박스 컴포넌트 라이브러리 사용 방법' },
       { subNavTitle: 'Input', subNavUrl: '/guide/components/input', desc: '인풋 컴포넌트 라이브러리 사용 방법' },

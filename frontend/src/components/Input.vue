@@ -2,11 +2,13 @@
   <div
     class="input-wrap"
     :class="{
-      'files': files
+      'files': files,
+      'add-list': addList
     }"
   >
     <div class="input-area">
       <label
+        v-if="!addList"
         :for="`ipt${randomString}`"
         :class="{
           'sr-only': labelHide
@@ -59,6 +61,15 @@
           <font-awesome-icon icon="fa-solid fa-circle-xmark" />
         </button>
       </div>
+      <slot v-if="addList">
+        <button
+          type="button"
+          class="btn-add-list"
+          @click="onAddItem"
+        >
+          <span>{{ addList }}</span>
+        </button>
+      </slot>
     </div>
     <div
       v-if="preview"
@@ -138,12 +149,16 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    addList: {
+      type: String,
+      default: ''
+    },
     initData: {
       type: Array as PropType<string[]>,
       default: () => []
     }
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'change', 'click'],
   setup (props, { emit }) {
     const randomString = getRandomId()
     const isShowDelete = ref(false)
@@ -171,6 +186,12 @@ export default defineComponent({
       }
     )
 
+    function onAddItem () {
+      const currentValue = props.modelValue
+      emit('update:modelValue', currentValue)
+      emit('click', currentValue)
+      onClear()
+    }
     function onChange (event : Event) {
       const currentValue = (event.target as HTMLInputElement).value
       if (currentValue.length === 0) {
@@ -249,7 +270,8 @@ export default defineComponent({
       onClear,
       onUpload,
       previews,
-      imgRef
+      imgRef,
+      onAddItem
     }
   }
 })

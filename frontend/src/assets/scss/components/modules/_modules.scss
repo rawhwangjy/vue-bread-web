@@ -105,6 +105,10 @@ header {
     li {
         display: flex;
         align-items: center;
+        padding-top: 20px;
+        &:first-child {
+            padding-top: 0;
+        }
         &::before {
             content: '';
             display: block;

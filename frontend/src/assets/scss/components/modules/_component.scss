@@ -56,6 +56,56 @@
         }
     }
 }
+// input="checkbox"
+.checkbox-wrap {
+    @extend %input-reset;
+    label {
+        &::before, &::after {
+            border-radius: 3px;
+        }
+    }
+}
+// input="radio"
+.radio-wrap {
+    @extend %input-reset;
+    label {
+        &::before, &::after {
+            border-radius: 50%;
+        }
+    }
+}
+.radio-button-type {
+    display: flex;
+    ul {
+        display: flex;
+        li {
+            + li {
+                margin-left: 10px;
+            }
+        } 
+    }
+    .radio-wrap {
+        + .radio-wrap {
+            margin-left: 10px;
+        }
+        input {
+            + label {
+                &::before, &::after {
+                    display: none;
+                }
+                border: 1px solid commons.$disabled-border;
+                padding: 10px;
+            }
+            &:checked {
+                + label {
+                    border-color: commons.$primary;
+                    background-color: commons.$primary;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
 // input="text"
 .input-wrap {
     .input-area {
@@ -179,54 +229,36 @@
             }
         }
     }
-}
-// input="checkbox"
-.checkbox-wrap {
-    @extend %input-reset;
-    label {
-        &::before, &::after {
-            border-radius: 3px;
-        }
-    }
-}
-// input="radio"
-.radio-wrap {
-    @extend %input-reset;
-    label {
-        &::before, &::after {
-            border-radius: 50%;
-        }
-    }
-}
-.radio-button-type {
-    display: flex;
-    ul {
-        display: flex;
-        li {
-            + li {
+    &.add-list {
+        .input-area {
+            display: flex;
+            .input {
+                flex: 1;
+            }
+            .btn-add-list {
+                display: block;
+                width: 90px;
+                height: 36px;
+                padding: 10px 20px;
                 margin-left: 10px;
+                background-color: commons.$primary;
+                color: #fff;
+                cursor: pointer;
             }
-        } 
-    }
-    .radio-wrap {
-        + .radio-wrap {
-            margin-left: 10px;
         }
-        input {
-            + label {
-                &::before, &::after {
-                    display: none;
-                }
-                border: 1px solid commons.$disabled-border;
-                padding: 10px;
-            }
-            &:checked {
-                + label {
-                    border-color: commons.$primary;
-                    background-color: commons.$primary;
-                    color: #fff;
-                }
-            }
+    }
+}
+// register list
+.add-list-wrap {
+    .reault-list {
+        min-height: 36px;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: rgba(#4337ca, .05);
+        .text-wrap {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
         }
     }
 }
