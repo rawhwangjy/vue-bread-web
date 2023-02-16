@@ -195,6 +195,10 @@
       delay: 2000
     }
   })
+
+  function changeSwiper (index: number) {
+    console.log('current', index)
+  }
 &lt;/script&gt;
   </code>
 </pre>
