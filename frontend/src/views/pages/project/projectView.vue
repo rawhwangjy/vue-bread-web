@@ -3,29 +3,23 @@
     <div class="project-title">
       <h3>{{ projectDetail.title }}</h3>
     </div>
-    <div class="project-content">
-      <div class="project-form">
-        <div class="form-row">
-          {{ projectDetail.introduce }}
-        </div>
-        <div class="form-row">
-          <div class="preview-wrap">
-            <div
-              v-if="projectDetail.fileList"
-              class="img-wrap"
-            >
-              <span
-                v-for="(item, index) in projectDetail.fileList"
-                :key="`uploadImg${index}`"
-                class="img-area"
-              >
-                <img :src="`${item}`" />
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Swiper
+        :options="options"
+        @slide-change="changeSwiper"
+      >
+      <!-- <template
+        v-for="(item, index) in projectDetail.fileList.mobile"
+        :key="`ss${index}`"
+        v-slot:[`slide${index}`]
+      >
+        <span
+          :key="`projectImg${index}`"
+          class="img-area"
+        >
+          <img :src="`${item}`" />
+        </span>
+      </template> -->
+    </Swiper>
     <div class="project-btns side">
       <button class="btn lg light" @click="back">목록</button>
       <!-- <button class="btn lg dark" @click="projectUpdate">수정</button> -->
@@ -38,14 +32,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, reactive, toRefs } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
 import { ReqProjectDetailInterface, ResProjectDetailInterface } from '@/service/project/interface/projectDetail.interface'
+import Swiper from '@/components/Swiper.vue'
 
 export default defineComponent({
   name: 'projectView',
   components: {
+    Swiper
   },
   setup () {
     // router & store
@@ -108,8 +104,26 @@ export default defineComponent({
         id: Number(route.params.id)
       }
       const result = await projectStore.actionHttpGetProject(targetProject)
-      // result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
       projectDetail.value = result[0]
+      projectDetail.value.jobs = JSON.parse(result[0].jobs)
+      console.log('!!', projectDetail.value.fileList)
+      // fileList 가공 후 재할당
+      // if (result[0].fileList.mobile !== '') {
+      //   const target = result[0].fileList.mobile.split(',')
+      //   projectDetail.value.fileList.mobile = []
+      //   for (let i = 0; i < target.length; i++) {
+      //     const targetUrl = `http://127.0.0.1:3000/upload/${target[i]}`
+      //     projectDetail.value.fileList.mobile.push(targetUrl)
+      //   }
+      // }
+      // if (result[0].fileList.pc !== '') {
+      //   const target = result[0].fileList.pc.split(',')
+      //   projectDetail.value.fileList.pc = []
+      //   for (let i = 0; i < target.length; i++) {
+      //     const targetUrl = `http://127.0.0.1:3000/upload/${target[i]}`
+      //     projectDetail.value.fileList.pc.push(targetUrl)
+      //   }
+      // }
 
       // fileList 가공 후 재할당
       // if (result[0].fileList !== '') {
@@ -125,18 +139,27 @@ export default defineComponent({
 
     function back () {
       router.push({
-        path: `/project/${currentCategory}`
+        path: '/project'
       })
     }
 
     onMounted(() => {
       getProjectDetail()
     })
+    const options = reactive({
+      pagination: 'dot',
+      navigation: true
+    })
+    function changeSwiper (index: number) {
+      console.log('current', index)
+    }
 
     return {
       route,
       projectDetail,
-      back
+      back,
+      options,
+      changeSwiper
     }
   }
 })

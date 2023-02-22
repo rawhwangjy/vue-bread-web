@@ -186,7 +186,7 @@ export default defineComponent({
         pc: false
       },
       fileList: {
-        mobile: null,
+        mobile: [],
         pc: null
       },
       date: {
@@ -223,11 +223,29 @@ export default defineComponent({
     const firstFocus = ref<HTMLInputElement | null>()
 
     // api
-    function onChangeFile (target: string, value : FileList) {
+    function onChangeFile (target: string, files : FileList) {
       if (target === 'pc') {
-        projectDetail.value.fileList.pc = value
+        projectDetail.value.fileList.pc = files
       } else if (target === 'mobile') {
-        projectDetail.value.fileList.mobile = value
+        for (const [key, value] of Object.entries(files)) {
+          console.log('key', key)
+          console.log('value', value)
+          console.log('22', typeof projectDetail.value.fileList.mobile)
+          Array.from(projectDetail.value.fileList.mobile).push(value.name)
+          // if (projectDetail.value.fileList.mobile === []) {
+          //   projectDetail.value.fileList.mobile.push(value)
+          // }
+          // Array.from(value).filter((item: Object) => {
+          //   return console.log('item', item)
+          //   // for (const [mobileKey, mobileValue] of Object.entries(item)) {
+          //   //   if (mobileKey === 'name') {
+          //   //     project.fileList.mobile.push(mobileValue)
+          //   //   }
+          //   // }
+          // })
+        }
+        // projectDetail.value.fileList.mobile = value
+        // console.log('mobile', value)
       }
     }
     async function projectCreate () {

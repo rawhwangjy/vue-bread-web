@@ -24,7 +24,7 @@ export interface ReqProjectCreateInterface {
     }
   },
   fileList: {
-    mobile: FileList | null,
+    mobile: FileList | [],
     pc: FileList | null
   },
   skills: {

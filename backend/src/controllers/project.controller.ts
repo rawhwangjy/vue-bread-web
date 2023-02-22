@@ -57,7 +57,7 @@ router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileList
         if (key === 'fileListMobile') {
           value.filter((item: Object) => {
             for (const [mobileKey, mobileValue] of Object.entries(item)) {
-              if (mobileKey === 'originalname') {
+              if (mobileKey === 'filename') {
                 project.fileList.mobile.push(mobileValue)
               }
             }
@@ -66,7 +66,7 @@ router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileList
         if (key === 'fileListPc') {
           value.filter((item: Object) => {
             for (const [pcKey, pcValue] of Object.entries(item)) {
-              if (pcKey === 'originalname') {
+              if (pcKey === 'filename') {
                 project.fileList.pc.push(pcValue)
               }
             }
@@ -140,7 +140,7 @@ router.post('/:id', async (req, res) => {
   try {
     console.log('board detail', req.body)
     const sql = `
-      SELECT id, title, introduce, startYear, startMonth, endYear, endMonth
+      SELECT *
       FROM t_projects
       WHERE id = ${req.body.id}` // '' 하는 게 맞나? => 형에 너무 유연한디
     res.send(await serverReq.db(sql))
