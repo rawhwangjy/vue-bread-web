@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
-import serverReq from '../db'
-import { upload } from '../upload'
+import serverReq from '../../db'
+import { upload } from '../../upload'
 
 // board register
 router.post('/:category/register', upload.array('fileList'), async (req, res) => {

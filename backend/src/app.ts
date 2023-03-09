@@ -1,8 +1,8 @@
 import express from 'express'
 import session from 'express-session'
-import categoryController from './controllers/category.controller'
-import boardController from './controllers/board.controller'
-import projectController from './controllers/project.controller'
+import categoryController from './views/controllers/categoryController'
+import boardController from './views/controllers/boardController'
+import projectController from './views/controllers/projectController'
 
 const app = express()
 // app.use(express.static('upload'));

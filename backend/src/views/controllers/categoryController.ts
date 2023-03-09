@@ -1,6 +1,6 @@
 import express from 'express'
 const router = express.Router()
-import serverReq from '../db'
+import serverReq from '../../db'
 
 // category list
 router.post('/categoryList', async (req, res) => {

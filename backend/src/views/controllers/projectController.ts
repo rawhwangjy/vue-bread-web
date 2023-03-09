@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
-import serverReq from '../db'
-import { upload } from '../upload'
+import serverReq from '../../db'
+import { upload } from '../../upload'
 
 // project register
 router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileListMobile'}]), async (req, res) => {
@@ -121,7 +121,7 @@ router.post('/register', upload.fields([{ name: 'fileListPc'}, { name: 'fileList
     })
   }
 })
-// // board list
+// // project list
 router.post('/projectList', async (req, res) => {
   try {
     console.log('board list', req.body)
@@ -135,7 +135,7 @@ router.post('/projectList', async (req, res) => {
     })
   }
 })
-// board detail
+// project detail
 router.post('/:id', async (req, res) => {
   try {
     console.log('board detail', req.body)
