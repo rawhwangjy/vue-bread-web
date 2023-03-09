@@ -9,3 +9,8 @@ export enum RequestEnum {
   UPDATE = 'UPDATE',
   DELETE = 'DELETE'
 }
+
+/**
+ * @description: ENV
+ */
+export const API_URL = process.env.VUE_APP_API_URL

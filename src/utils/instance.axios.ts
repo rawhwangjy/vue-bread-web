@@ -1,10 +1,15 @@
 import axios, { AxiosInstance } from 'axios'
+import { API_URL } from '@/utils/common.constants'
+import { logger } from '@/utils/instance.logger'
 
 function createInstance () {
+  logger.debug('CREATE AXIOS INSTANCE')
   const instance: AxiosInstance = axios.create({
     timeout: 5000,
-    baseURL: '/api'
+    baseURL: API_URL
   })
+  console.log('API_URL', API_URL)
+  console.log('process.env.VUE_APP_API_URL', process.env.VUE_APP_API_URL)
   return setInterceptors(instance)
 }
 
