@@ -112,7 +112,7 @@ export default defineComponent({
       //   const target = result[0].fileList.mobile.split(',')
       //   projectDetail.value.fileList.mobile = []
       //   for (let i = 0; i < target.length; i++) {
-      //     const targetUrl = `http://127.0.0.1:3000/upload/${target[i]}`
+      //     const targetUrl = `http://127.0.0.1:8001/upload/${target[i]}`
       //     projectDetail.value.fileList.mobile.push(targetUrl)
       //   }
       // }
@@ -120,7 +120,7 @@ export default defineComponent({
       //   const target = result[0].fileList.pc.split(',')
       //   projectDetail.value.fileList.pc = []
       //   for (let i = 0; i < target.length; i++) {
-      //     const targetUrl = `http://127.0.0.1:3000/upload/${target[i]}`
+      //     const targetUrl = `http://127.0.0.1:8001/upload/${target[i]}`
       //     projectDetail.value.fileList.pc.push(targetUrl)
       //   }
       // }
@@ -130,7 +130,7 @@ export default defineComponent({
       //   const target = result[0].fileList.split(',')
       //   projectDetail.value.fileList = []
       //   for (let i = 0; i < target.length; i++) {
-      //     const targetUrl = `http://127.0.0.1:3000/upload/${target[i]}`
+      //     const targetUrl = `http://127.0.0.1:8001/upload/${target[i]}`
       //     projectDetail.value.fileList.push(targetUrl)
       //   }
       // }

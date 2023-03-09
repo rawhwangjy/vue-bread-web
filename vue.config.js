@@ -1,6 +1,6 @@
 const { defineConfig } = require('@vue/cli-service')
 // import { defineConfig } from '@vue/cli-service'
-const target = 'http://127.0.0.1:3000/'
+const target = 'http://127.0.0.1:8001/'
 
 module.exports = defineConfig({
   devServer: {

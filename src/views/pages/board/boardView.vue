@@ -78,7 +78,7 @@ export default defineComponent({
         const target = result[0].fileList.split(',')
         boardDetail.value.fileList = []
         for (let i = 0; i < target.length; i++) {
-          const targetUrl = `http://127.0.0.1:3000/upload/${target[i]}`
+          const targetUrl = `http://127.0.0.1:8001/upload/${target[i]}`
           boardDetail.value.fileList.push(targetUrl)
         }
       }

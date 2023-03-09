@@ -231,7 +231,7 @@ export default defineComponent({
           console.log('key', key)
           console.log('value', value)
           console.log('22', typeof projectDetail.value.fileList.mobile)
-          Array.from(projectDetail.value.fileList.mobile).push(value.name)
+          // Array.from(projectDetail.value.fileList.mobile).push(value.name)
           // if (projectDetail.value.fileList.mobile === []) {
           //   projectDetail.value.fileList.mobile.push(value)
           // }
