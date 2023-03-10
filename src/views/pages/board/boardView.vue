@@ -42,6 +42,7 @@ import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
+import { API_URL } from '@/utils/common.constants'
 
 export default defineComponent({
   name: 'boardView',
@@ -60,7 +61,7 @@ export default defineComponent({
       category: '',
       title: '',
       content: '',
-      agree: false,
+      showHide: false,
       fileList: []
     })
 
@@ -69,8 +70,8 @@ export default defineComponent({
       const targetBoard: ReqBoardDetailInterface = {
         id: Number(route.params.id)
       }
-      const result = await boardStore.actionHttpGetBoard(targetBoard)
-      result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
+      const result = await boardStore.actionHttpBoardDetail(targetBoard)
+      result[0].showHide === 1 ? result[0].showHide = true : result[0].showHide = false
       boardDetail.value = result[0]
 
       // fileList 가공 후 재할당
@@ -78,7 +79,7 @@ export default defineComponent({
         const target = result[0].fileList.split(',')
         boardDetail.value.fileList = []
         for (let i = 0; i < target.length; i++) {
-          const targetUrl = `http://127.0.0.1:8001/upload/${target[i]}`
+          const targetUrl = `${API_URL}/upload/${target[i]}`
           boardDetail.value.fileList.push(targetUrl)
         }
       }

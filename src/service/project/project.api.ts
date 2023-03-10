@@ -8,7 +8,7 @@ import { ReqProjectDeleteInterface } from '@/service/project/interface/projectDe
 enum Api {
   getProjectList = '/project/projectList',
   getProjectDetail = '/project/:id',
-  projectCreate = '/project/register',
+  projectCreate = '/project/create',
   projectUpdate = '/project/update/:id',
   projectDelete = '/project/delete/:id'
 }

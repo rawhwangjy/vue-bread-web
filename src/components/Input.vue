@@ -104,6 +104,7 @@
 <script lang="ts">
 import { defineComponent, onUpdated, ref, watch, PropType } from 'vue'
 import { getRandomId } from '@/utils/common.function'
+import { API_URL } from '@/utils/common.constants'
 
 interface uploadImg {
   title: string,
@@ -177,7 +178,7 @@ export default defineComponent({
             width: 0,
             height: 0
           }
-          const target = `http://127.0.0.1:8001/upload/${bindData[i]}`
+          const target = `${API_URL}/upload/${bindData[i]}`
           obj.title = String(bindData[0].replace(/^.*\/|\.[^.]*$/g, ''))
           obj.format = String(bindData[0].match(/^.*\/|\.[^.]*$/g))
           obj.url = String(target)

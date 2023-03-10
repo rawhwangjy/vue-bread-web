@@ -1,13 +1,17 @@
 /**
- * @description: board register
+ * @description: board create
  * CreateBoardInterface Request
  */
-export interface ReqBoardCreateInterface {
+
+export interface BoardCreateModel {
   category: string,
   title: string,
   content: string,
-  agree: boolean | number,
+  showHide: boolean,
   fileList: FileList | null
+}
+export interface ReqBoardCreateInterface {
+  data: BoardCreateModel
 }
 
 export type ResBoardCreateInterface = Record<string, never>

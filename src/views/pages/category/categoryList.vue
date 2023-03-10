@@ -142,7 +142,7 @@ export default defineComponent({
     // route
     function categoryCreate () {
       router.push({
-        path: '/board/category/register'
+        path: '/board/category/create'
       })
     }
     function onEditText (target: ResCategoryUpdateInterface) {

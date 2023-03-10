@@ -38,7 +38,7 @@
         </div>
         <div class="form-row">
           <Checkbox
-            v-model="boardDetail.agree"
+            v-model="boardDetail.showHide"
             label="동의합니다."
             value="html5"
             name="skills"
@@ -59,11 +59,12 @@ import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
-import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
+import { BoardCreateModel, ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
 import { quillEditor } from 'vue3-quill'
 import Select from '@/components/Select.vue'
 import Input from '@/components/Input.vue'
 import Checkbox from '@/components/Checkbox.vue'
+import { logger } from '@/utils/instance.logger'
 
 interface vueEditor {
   quill: object,
@@ -90,18 +91,17 @@ export default defineComponent({
     const currentCategory = ref('')
     const categoryObject = ref<ResCategoryListInterface[]>([])
     const categoryList = ref<string[]>([])
-    const boardDetail = ref<ReqBoardCreateInterface>({
+    const boardDetail = ref<BoardCreateModel>({
       category: '',
       title: '',
       content: '',
-      agree: false,
+      showHide: false,
       fileList: null
     })
-    // const previews = ref<string[]>([])
-    const firstFocus = ref<HTMLInputElement | null>()
+    // const firstFocus = ref<HTMLInputElement | null>()
 
     // api
-    async function getCategoryList () {
+    async function reqCategoryList () {
       const result = await categoryStore.actionHttpGetCategoryList()
       categoryObject.value = result
       result.filter((item: ResCategoryListInterface) => {
@@ -129,12 +129,13 @@ export default defineComponent({
       categoryObject.value.filter((item: ResCategoryListInterface) => {
         if (boardDetail.value.category === item.category) {
           formData.append('categoryId', String(item.id))
+          console.log('item.id', item.id)
         }
         return false
       })
       formData.append('title', boardDetail.value.title)
       formData.append('content', boardDetail.value.content)
-      formData.append('agree', String(boardDetail.value.agree))
+      formData.append('showHide', String(boardDetail.value.showHide))
       if (boardDetail.value.fileList !== null) {
         for (let i = 0; i < boardDetail.value.fileList.length; i++) {
           formData.append('fileList', boardDetail.value.fileList[i])
@@ -145,6 +146,7 @@ export default defineComponent({
 
       const result = await boardStore.actionHttpBoardCreate(formData)
       currentCategory.value = boardDetail.value.category
+      console.log('currentCategory.value', currentCategory.value)
       alert('글 등록이 완료되었습니다.')
       router.push({
         path: `/board/${currentCategory.value}/${result.insertId}`
@@ -183,25 +185,25 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      getCategoryList()
+      logger.info('BOARD CREATE VIEW')
+      reqCategoryList()
       // 첫번쨰 인풋 포커스
-      firstFocus.value?.focus()
+      // firstFocus.value?.focus()
 
-      firstFocus.value?.addEventListener('selection-change', () => {
-        firstFocus.value?.focus()
-      })
+      // firstFocus.value?.addEventListener('selection-change', () => {
+      //   firstFocus.value?.focus()
+      // })
     })
 
     return {
       route,
-      getCategoryList,
       categoryList,
       boardDetail,
       boardCreate,
       back,
       editor,
       onEditorChange,
-      firstFocus,
+      // firstFocus,
       onChangeFile
     }
   }

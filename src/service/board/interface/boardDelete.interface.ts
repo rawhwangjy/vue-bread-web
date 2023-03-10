@@ -6,6 +6,4 @@ export interface ReqBoardDeleteInterface {
   id: number
 }
 
-export interface ResBoardDeleteInterface {
-  id: number
-}
+export type ResBoardDeleteInterface = Record<string, never>

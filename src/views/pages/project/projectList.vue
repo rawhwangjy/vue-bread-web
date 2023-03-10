@@ -69,7 +69,7 @@ export default defineComponent({
 
     function projectCreate () {
       router.push({
-        path: '/project/register'
+        path: '/project/create'
       })
     }
     /**

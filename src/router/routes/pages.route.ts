@@ -38,7 +38,7 @@ export default {
       component: categoryList
     },
     {
-      path: '/board/category/register',
+      path: '/board/category/create',
       name: 'categoryCreate',
       component: categoryCreate
     },
@@ -53,7 +53,7 @@ export default {
       component: boardView
     },
     {
-      path: '/board/:category/register',
+      path: '/board/:category/create',
       component: boardCreate
     },
     {
@@ -71,7 +71,7 @@ export default {
       component: projectView
     },
     {
-      path: '/project/register',
+      path: '/project/create',
       component: projectCreate
     },
     {

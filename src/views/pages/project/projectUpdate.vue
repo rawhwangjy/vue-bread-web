@@ -42,11 +42,11 @@
         </div>
         <div class="form-row">
           <Checkbox
-            v-model="boardDetail.agree"
+            v-model="boardDetail.showHide"
             label="동의합니다."
             value="html5"
             name="skills"
-            :checked="boardDetail.agree === true"
+            :checked="boardDetail.showHide === true"
           />
         </div>
       </div>
@@ -102,7 +102,7 @@ export default defineComponent({
       category: '',
       title: '',
       content: '',
-      agree: false,
+      showHide: false,
       fileList: null
     })
     const previews = ref<string[]>([])
@@ -123,8 +123,8 @@ export default defineComponent({
       const targetBoard: ReqBoardDetailInterface = {
         id: Number(route.params.id)
       }
-      const result = await boardStore.actionHttpGetBoard(targetBoard)
-      result[0].agree === 1 ? result[0].agree = true : result[0].agree = false
+      const result = await boardStore.actionHttpBoardDetail(targetBoard)
+      result[0].showHide === 1 ? result[0].showHide = true : result[0].showHide = false
       boardDetail.value = result[0]
       editor.content = boardDetail.value.content
       // fileList 가공 후 재할당
@@ -165,7 +165,7 @@ export default defineComponent({
       formData.append('id', String(boardDetail.value.id))
       formData.append('title', boardDetail.value.title)
       formData.append('content', boardDetail.value.content)
-      formData.append('agree', String(boardDetail.value.agree))
+      formData.append('showHide', String(boardDetail.value.showHide))
       if (boardDetail.value.fileList !== null) {
         for (let i = 0; i < boardDetail.value.fileList.length; i++) {
           formData.append('fileList', boardDetail.value.fileList[i])

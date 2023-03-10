@@ -12,3 +12,15 @@ export function getRandomId (): string {
   }
   return randomstring
 }
+
+/**
+ * Replacement Category Name <> Category Id
+ * @returns {string}
+ */
+
+// export function replaceCatrgoey (value: string | number): string | number {
+//   if () {
+//     //
+//   }
+//   return 1
+// }

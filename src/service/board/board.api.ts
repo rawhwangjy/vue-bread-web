@@ -9,7 +9,7 @@ import { ReqBoardListDeleteInterface } from '@/service/board/interface/boardList
 enum Api {
   getBoardList = '/board/:category/boardList',
   getBoardDetail = '/board/:category/:id',
-  boardCreate = '/board/:category/register',
+  boardCreate = '/board/:category/create',
   boardUpdate = '/board/:category/update/:id',
   boardDelete = '/board/delete/:id',
   boardListDelete = '/board/deleteList/:id'

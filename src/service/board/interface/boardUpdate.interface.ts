@@ -7,7 +7,7 @@ export interface ReqBoardUpdateInterface {
   category: string,
   title: string,
   content: string,
-  agree: boolean | number,
+  showHide: boolean | number,
   fileList: Array<string> | FileList | null
 }
 

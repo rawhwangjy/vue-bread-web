@@ -17,69 +17,64 @@ import {
 } from '@/service/board/board.api'
 
 interface boardState {
-  boardList: ResBoardListInterface[],
-  boardDetail: ResBoardDetailInterface,
   boardCreate: ResBoardCreateInterface,
+  boardDetail: ResBoardDetailInterface,
   boardUpdate: ResBoardUpdateInterface,
   boardDelete: ResBoardDeleteInterface,
+  boardList: ResBoardListInterface[],
   boardListDelete: ResBoardListDeleteInterface
 }
 
+export const boardCreateInit = { }
 export const boardDetailInit = {
   id: 0,
   category: '',
   title: '',
   content: '',
-  agree: false,
+  showHide: false,
   fileList: []
 }
-export const boardCreateInit = { }
 export const boardUpdateInit = { }
-export const boardDeleteInit = {
-  id: 0
-}
-export const boardListDeleteInit = {
-  id: 0
-}
+export const boardDeleteInit = { }
+export const boardListInit = []
+export const boardListDeleteInit = { }
 
 export const useBoardStore = defineStore({
   id: 'board',
   state: (): boardState => ({
     // Res에 대한 초기값
     // 스토어가 생성될 때의 초기값
-    boardList: [],
+    boardCreate: { },
     boardDetail: {
       id: 0,
       category: '',
       title: '',
       content: '',
-      agree: false,
+      showHide: false,
       fileList: []
     },
-    boardCreate: { },
     boardUpdate: { },
-    boardDelete: {
-      id: 0
-    },
-    boardListDelete: {
-      id: 0
-    }
+    boardDelete: { },
+    boardList: [],
+    boardListDelete: { }
   }),
   actions: {
-    async actionHttpGetBoardList (reqData: ReqBoardListInterface) {
-      this.boardList = []
+    async actionHttpBoardCreate (reqData: FormData) {
+      this.boardCreate = boardCreateInit
       try {
-        const res = await httpGetBoardList(reqData)
-        if (res.data) {
-          this.boardList = res.data
-        }
+        const res = await httpSetBoard(reqData)
+        console.log('item.id', reqData)
+        // if (res.data) {
+        //   this.boardCreate = res.data
+        // }
         return res.data
       } catch (error) {
         return Promise.reject(error)
       }
     },
-    async actionHttpGetBoard (reqData: ReqBoardDetailInterface) {
+    async actionHttpBoardDetail (reqData: ReqBoardDetailInterface) {
       this.boardDetail = boardDetailInit
+      console.log('cc', reqData)
       try {
         const res = await httpGetBoard(reqData)
         if (res.data) {
@@ -90,25 +85,13 @@ export const useBoardStore = defineStore({
         return Promise.reject(error)
       }
     },
-    async actionHttpBoardCreate (reqData: FormData) {
-      this.boardCreate = boardCreateInit
-      try {
-        const res = await httpSetBoard(reqData)
-        if (res.data) {
-          this.boardCreate = res.data
-        }
-        return res.data
-      } catch (error) {
-        return Promise.reject(error)
-      }
-    },
     async actionHttpBoardUpdate (reqData: FormData) {
       this.boardUpdate = boardUpdateInit
       try {
         const res = await httpBoardUpdate(reqData)
-        if (res.data) {
-          this.boardUpdate = res.data
-        }
+        // if (res.data) {
+        //   this.boardUpdate = res.data
+        // }
         return res.data
       } catch (error) {
         return Promise.reject(error)
@@ -118,8 +101,20 @@ export const useBoardStore = defineStore({
       this.boardDelete = boardDeleteInit
       try {
         const res = await httpBoardDelete(reqData)
+        // if (res.data) {
+        //   this.boardDelete = res.data
+        // }
+        return res.data
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
+    async actionHttpBoardList (reqData: ReqBoardListInterface) {
+      this.boardList = boardListInit
+      try {
+        const res = await httpGetBoardList(reqData)
         if (res.data) {
-          this.boardDelete = res.data
+          this.boardList = res.data
         }
         return res.data
       } catch (error) {
@@ -130,9 +125,9 @@ export const useBoardStore = defineStore({
       this.boardListDelete = boardListDeleteInit
       try {
         const res = await httpBoardListDelete(reqData)
-        if (res.data) {
-          this.boardListDelete = res.data
-        }
+        // if (res.data) {
+        //   this.boardListDelete = res.data
+        // }
         return res.data
       } catch (error) {
         return Promise.reject(error)

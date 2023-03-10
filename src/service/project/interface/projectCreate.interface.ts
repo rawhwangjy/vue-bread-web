@@ -1,5 +1,5 @@
 /**
- * @description: project register
+ * @description: project create
  * CreateProjectInterface Request
  */
 export interface ReqProjectCreateInterface {

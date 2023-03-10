@@ -74,6 +74,7 @@ import { defineComponent, onMounted, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { ResBoardListInterface } from '@/service/board/interface/boardList.interface'
+import { logger } from '@/utils/instance.logger'
 
 export default defineComponent({
   name: 'boardList',
@@ -94,7 +95,7 @@ export default defineComponent({
 
     // api
     async function getBoardList () {
-      boardList.value = await boardStore.actionHttpGetBoardList(targetCategory)
+      boardList.value = await boardStore.actionHttpBoardList(targetCategory)
     }
 
     // route
@@ -118,7 +119,7 @@ export default defineComponent({
     }
     function boardCreate () {
       router.push({
-        path: `/board/${currentCategory}/register`
+        path: `/board/${currentCategory}/create`
       })
     }
     function boardUpdate (targetId: number) {
@@ -130,6 +131,7 @@ export default defineComponent({
 
     onMounted(() => {
       getBoardList()
+      logger.info('BOARD CREATE')
     })
     function formatDate (data: number) {
       return data + 1

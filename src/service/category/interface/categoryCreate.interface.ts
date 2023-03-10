@@ -1,5 +1,5 @@
 /**
- * @description: category register
+ * @description: category create
  * CreateCategoryInterface Request
  */
 export interface ReqCategoryCreateInterface {

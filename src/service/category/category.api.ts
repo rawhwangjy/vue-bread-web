@@ -7,7 +7,7 @@ import { ReqCategoryDeleteInterface } from '@/service/category/interface/categor
 
 enum Api {
   categoryList = '/board/category/categoryList',
-  categoryCreate = '/board/category/register',
+  categoryCreate = '/board/category/create',
   categoryUpdate = '/board/category/update/:id',
   CategoryDelete = '/board/category/delete/:id'
 }
