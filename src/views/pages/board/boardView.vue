@@ -79,7 +79,7 @@ export default defineComponent({
         const target = result[0].fileList.split(',')
         boardDetail.value.fileList = []
         for (let i = 0; i < target.length; i++) {
-          const targetUrl = `${API_URL}/upload/${target[i]}`
+          const targetUrl = `${API_URL}/views/upload/${target[i]}`
           boardDetail.value.fileList.push(targetUrl)
         }
       }
