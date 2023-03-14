@@ -74,7 +74,6 @@ export const useBoardStore = defineStore({
     },
     async actionHttpBoardDetail (reqData: ReqBoardDetailInterface) {
       this.boardDetail = boardDetailInit
-      console.log('cc', reqData)
       try {
         const res = await httpGetBoard(reqData)
         if (res.data) {

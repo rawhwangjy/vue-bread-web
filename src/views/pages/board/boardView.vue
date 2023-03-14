@@ -9,20 +9,7 @@
           {{ boardDetail.content }}
         </div>
         <div class="form-row">
-          <div class="preview-wrap">
-            <div
-              v-if="boardDetail.fileList"
-              class="img-wrap"
-            >
-              <span
-                v-for="(item, index) in boardDetail.fileList"
-                :key="`uploadImg${index}`"
-                class="img-area"
-              >
-                <img :src="`${item}`" />
-              </span>
-            </div>
-          </div>
+          <Preview :file-list="boardDetail.fileList"/>
         </div>
       </div>
     </div>
@@ -42,11 +29,13 @@ import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { ReqBoardDetailInterface, ResBoardDetailInterface } from '@/service/board/interface/boardDetail.interface'
+import Preview from '@/components/Preview.vue'
 import { API_URL } from '@/utils/common.constants'
 
 export default defineComponent({
   name: 'boardView',
   components: {
+    Preview
   },
   setup () {
     // router & store
