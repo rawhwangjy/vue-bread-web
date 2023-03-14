@@ -276,6 +276,46 @@
                         }
                     }
                 }
+                .preview-wrap {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(calc(25% - 20px), auto));
+                    gap: 10px;
+                    width: calc(100% - 100px);
+                    .img-wrap {
+                        .img-title {
+                            display: flex;
+                            width: 100%;
+                            margin-top: 5px;
+                            .title {
+                                overflow: hidden;
+                                display: block;
+                                max-width: calc(100% - 20px);
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                            }
+                        }
+                        .img-area {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 100%;
+                            height: 200px;
+                            border: .1rem solid commons.$grayC;
+                            &.width-full {
+                                img {
+                                    width: 100%;
+                                    height: auto;
+                                }
+                            }
+                            &.height-full {
+                                img {
+                                    width: auto;
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             .code {
                 margin-top: 30px;

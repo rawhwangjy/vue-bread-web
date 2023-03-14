@@ -8,6 +8,7 @@ const radio = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsCo
 const select = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsComponents/libsSelect.vue')
 const swiper = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsComponents/libsSwiper.vue')
 const tab = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsComponents/libsTab.vue')
+const upload = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsComponents/libsUpload.vue')
 const toast = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsComponents/libsToast.vue')
 
 export default {
@@ -49,6 +50,10 @@ export default {
     {
       path: '/guide/components/tab',
       component: tab
+    },
+    {
+      path: '/guide/components/upload',
+      component: upload
     },
     {
       path: '/guide/components/toast',

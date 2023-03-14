@@ -61,6 +61,7 @@ const guideItems = [
       { subNavTitle: 'Select', subNavUrl: '/guide/components/select', desc: '셀렉트 컴포넌트 라이브러리 사용 방법' },
       { subNavTitle: 'Swiper', subNavUrl: '/guide/components/swiper', desc: '스와이퍼 컴포넌트 라이브러리 사용 방법' },
       { subNavTitle: 'Tab', subNavUrl: '/guide/components/tab', desc: '탭 컴포넌트 라이브러리 사용 방법' },
+      { subNavTitle: 'Upload', subNavUrl: '/guide/components/upload', desc: '업로드 컴포넌트 라이브러리 사용 방법' },
       { subNavTitle: 'Toast', subNavUrl: '/guide/components/toast', desc: '토스트 컴포넌트 라이브러리 사용 방법' }
     ]
   },
