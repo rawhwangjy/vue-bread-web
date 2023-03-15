@@ -1,10 +1,10 @@
 <template>
   <div class="guide-body">
-    <h2 class="guide-title">SPEC</h2>
+    <h2 class="guide-title">{{ pageTitle }}</h2>
     <div class="guide-content">
       <div class="box">
         <div class="static-list">
-          <ul>
+          <!-- <ul>
             <li>
               <h3>타겟 디바이스</h3>
               <span>Mobile, Tablet, PC</span>
@@ -70,7 +70,7 @@
                 </li>
               </ul>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div><!-- // box -->
     </div><!-- // guide-content -->
@@ -81,14 +81,22 @@
 // import Prism from 'prismjs'
 // import 'prismjs/themes/prism.css'
 import { defineComponent, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
-  name: 'RuleCode',
+  name: 'Specificaion',
   components: {},
   setup () {
+    const route = useRoute()
+    const pageTitle = route.path.replace(/^.*\//, '')
+
     onMounted(() => {
       // Prism.highlightAll()
     })
+
+    return {
+      pageTitle
+    }
   }
 })
 </script>
