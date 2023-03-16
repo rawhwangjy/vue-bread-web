@@ -64,6 +64,14 @@
           </ul>
         </nav>
       </div>
+      <div class="login-wrap">
+        <router-link
+          :to="loginData.navUrl"
+          :title="loginData.navDesc"
+        >
+          {{ loginData.navTitle }}
+        </router-link>
+      </div>
     </nav>
   </header>
 </template>
@@ -118,6 +126,11 @@ export default defineComponent({
     function onClickOutside () {
       stateSub.value = false
     }
+    const loginData = ref({
+      navTitle: '로그인',
+      navUrl: '/login',
+      navDesc: '화면 이동'
+    })
     const navItems = ref([
       {
         navTitle: '가이드',
@@ -153,6 +166,7 @@ export default defineComponent({
 
     return {
       categoryStore,
+      loginData,
       navItems,
       stateSub,
       onShowSub,
