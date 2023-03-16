@@ -17,7 +17,7 @@ enum LOG_LEVEL {
 const LOG_LEVEL_STYLE = {
   [LOG_LEVEL.TRACE]: 'color: #b238d9',
   [LOG_LEVEL.DEBUG]: 'color: #51a2cf',
-  [LOG_LEVEL.INFO]: 'color: #384ed9',
+  [LOG_LEVEL.INFO]: 'color: #2624ff',
   [LOG_LEVEL.WARN]: 'color: #d9d938',
   [LOG_LEVEL.ERROR]: 'color: #c71f16'
 }

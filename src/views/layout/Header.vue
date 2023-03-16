@@ -128,7 +128,7 @@ export default defineComponent({
     }
     const loginData = ref({
       navTitle: '로그인',
-      navUrl: '/login',
+      navUrl: '/signin',
       navDesc: '화면 이동'
     })
     const navItems = ref([
