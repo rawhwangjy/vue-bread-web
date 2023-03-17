@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrap">
-    로그인 화면
+    로그인 완료
   </div>
 </template>
 

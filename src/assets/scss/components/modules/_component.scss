@@ -235,17 +235,25 @@
             .input {
                 flex: 1;
             }
-            .btn-add-list {
-                display: block;
-                width: 90px;
-                height: 36px;
-                padding: 10px 20px;
-                margin-left: 10px;
-                background-color: commons.$primary;
-                color: #fff;
-                cursor: pointer;
+        }
+    }
+    &.type-btn {
+        .input-area {
+            display: flex;
+            .input {
+                flex: 1;
             }
         }
+    }
+    .btn-input {
+        display: block;
+        min-width: 90px;
+        height: 36px;
+        padding: 10px 20px;
+        margin-left: 10px;
+        background-color: commons.$primary;
+        color: #fff;
+        cursor: pointer;
     }
 }
 // create list

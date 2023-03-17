@@ -64,7 +64,7 @@
           </ul>
         </nav>
       </div>
-      <div class="login-wrap">
+      <div class="login-btn-wrap">
         <router-link
           :to="loginData.navUrl"
           :title="loginData.navDesc"

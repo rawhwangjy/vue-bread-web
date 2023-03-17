@@ -59,7 +59,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryListInterface } from '@/service/category/interface/categoryList.interface'
-import { BoardCreateModel, ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
+import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.interface'
 import { quillEditor } from 'vue3-quill'
 import Select from '@/components/Select.vue'
 import Input from '@/components/Input.vue'
@@ -91,7 +91,7 @@ export default defineComponent({
     const currentCategory = ref('')
     const categoryObject = ref<ResCategoryListInterface[]>([])
     const categoryList = ref<string[]>([])
-    const boardDetail = ref<BoardCreateModel>({
+    const boardDetail = ref<ReqBoardCreateInterface>({
       category: '',
       title: '',
       content: '',

@@ -2,6 +2,7 @@
   <div
     class="input-wrap"
     :class="{
+      'type-btn': btn,
       'files': files,
       'add-list': addList
     }"
@@ -60,11 +61,20 @@
         >
           <font-awesome-icon icon="fa-solid fa-circle-xmark" />
         </button>
+        <slot v-if="btn">
+          <button
+            type="button"
+            class="btn-input"
+            @click="onCheckId"
+          >
+            <span>{{ btnText }}</span>
+          </button>
+        </slot>
       </div>
       <slot v-if="addList">
         <button
           type="button"
-          class="btn-add-list"
+          class="btn-input"
           @click="onAddItem"
         >
           <span>{{ addList }}</span>
@@ -142,6 +152,14 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    btn: {
+      type: Boolean,
+      default: false
+    },
+    btnText: {
+      type: String,
+      default: ''
+    },
     files: {
       type: Boolean,
       default: false
@@ -192,6 +210,12 @@ export default defineComponent({
       emit('update:modelValue', currentValue)
       emit('click', currentValue)
       onClear()
+    }
+
+    function onCheckId () {
+      const currentValue = props.modelValue
+      emit('update:modelValue', currentValue)
+      emit('click', currentValue)
     }
     function onChange (event : Event) {
       const currentValue = (event.target as HTMLInputElement).value
@@ -272,6 +296,7 @@ export default defineComponent({
       onUpload,
       previews,
       imgRef,
+      onCheckId,
       onAddItem
     }
   }

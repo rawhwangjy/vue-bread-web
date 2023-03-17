@@ -3,15 +3,12 @@
  * CreateBoardInterface Request
  */
 
-export interface BoardCreateModel {
+export interface ReqBoardCreateInterface {
   category: string,
   title: string,
   content: string,
   showHide: boolean,
   fileList: FileList | null
-}
-export interface ReqBoardCreateInterface {
-  data: BoardCreateModel
 }
 
 export type ResBoardCreateInterface = Record<string, never>

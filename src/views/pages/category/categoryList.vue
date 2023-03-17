@@ -118,6 +118,7 @@ export default defineComponent({
     async function getCategoryList () {
       const result = await categoryStore.actionHttpGetCategoryList()
       categoryList.value = result
+      console.log('result', result)
     }
     async function categoryUpdate (target: ResCategoryUpdateInterface) {
       await categoryStore.actionHttpCategoryUpdate(target)

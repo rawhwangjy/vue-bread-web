@@ -6,7 +6,7 @@ import routerModules from '@/router/routes/modules.route'
 import routerCategory from '@/router/routes/pages.category.route'
 import routerBoard from '@/router/routes/pages.board.route'
 import routerProject from '@/router/routes/pages.project.route'
-import routerSignup from '@/router/routes/pages.signup.route'
+import routerMember from '@/router/routes/pages.member.route'
 
 const container = () => import(/* webpackChunkName: "pages" */ '@/views/pages/_pageContainer.vue')
 
@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
   routerCategory,
   routerBoard,
   routerProject,
-  routerSignup
+  routerMember
 ]
 
 const router = createRouter({

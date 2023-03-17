@@ -5,7 +5,7 @@
       <div class="box">
         <div class="api-box">
           <h3>공통 API</h3>
-          <h4>Button Alert</h4>
+          <h4>Basic</h4>
           <table class="api-table">
             <colgroup>
               <col class="width20" >
