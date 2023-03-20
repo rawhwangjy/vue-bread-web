@@ -20,7 +20,10 @@ export const checkIdInit = {
   state: ''
 }
 export const signupInit = { }
-export const signinInit = { }
+export const signinInit = {
+  state: '',
+  accessToken: ''
+}
 
 export const useMemberStore = defineStore({
   id: 'member',
@@ -29,7 +32,10 @@ export const useMemberStore = defineStore({
       state: ''
     },
     signup: { },
-    signin: { }
+    signin: {
+      state: '',
+      accessToken: ''
+    }
   }),
   actions: {
     async actionHttpCheckId (reqData: ReqMemberCheckIdInterface) {

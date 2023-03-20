@@ -9,7 +9,7 @@
         />
       </div>
     </div>
-    <Header />
+    <!-- <Header /> -->
     <!-- view -->
     <router-view />
   </div>
@@ -17,14 +17,14 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import Header from '@/views/layout/Header.vue'
+// import Header from '@/views/layout/Header.vue'
 import { Vue3Lottie } from 'vue3-lottie'
 import loadingData from '@/utils/lottie/loading.json'
 
 export default defineComponent({
   name: 'MainContainer',
   components: {
-    Header,
+    // Header,
     Vue3Lottie
   },
   setup () {

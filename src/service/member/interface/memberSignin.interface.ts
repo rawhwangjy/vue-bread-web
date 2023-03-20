@@ -7,4 +7,7 @@ export interface ReqMemberSigninInterface {
   userPw: string,
 }
 
-export type ResMemberSigninInterface = Record<string, never>
+export interface ResMemberSigninInterface {
+  state: string,
+  accessToken: string
+}

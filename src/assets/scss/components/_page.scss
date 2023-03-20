@@ -1,9 +1,7 @@
 @use 'commons';
 
 .page-container {
-    width: 1000px;
     margin: 0 auto;
-    padding: 50px;
 }
 // .svg-inline--fa {
 //     vertical-align: 0;
@@ -168,6 +166,7 @@
             font-size: commons.$fs-xl;
             text-align: center;
         }
+        padding-bottom: 30px;
     }
     .login-content {
         width: 500px;

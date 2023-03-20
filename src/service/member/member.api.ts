@@ -6,7 +6,7 @@ import { ReqMemberCreateInterface } from '@/service/member/interface/memberCreat
 import { ReqMemberSigninInterface } from '@/service/member/interface/memberSignin.interface'
 
 enum Api {
-  checkId = '/member/signup/checkId',
+  checkId = '/member/signup/:id',
   setMemberAccount = '/member/signup',
   signin = '/member/signin'
 }

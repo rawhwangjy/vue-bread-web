@@ -120,11 +120,15 @@ export default defineComponent({
         alert('이름을 입력해 주세요.')
         return false
       }
-      const result = await memberStore.actionHttpSetUser(user)
+      const reqData = {
+        userId: user.userId,
+        userPw: user.userPw,
+        userName: user.userName
+      }
+      const result = await memberStore.actionHttpSetUser(reqData)
+      console.log('rr', result)
 
-      // 유효성 검사
-
-      if (result.insertId) {
+      if (result.state === 'Y') {
         alert('회원가입 완료')
         router.push({
           path: '/signup/complete'
