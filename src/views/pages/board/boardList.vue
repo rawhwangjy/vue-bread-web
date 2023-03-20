@@ -64,7 +64,7 @@
       </div>
     </div>
     <div class="board-btns right">
-      <button @click="boardCreate" class="btn lg dark">글쓰기</button>
+      <button type="button" class="btn lg dark" @click="boardCreate">글쓰기</button>
     </div>
   </div>
 </template>

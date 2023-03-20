@@ -81,7 +81,7 @@
       </div>
     </div>
     <div class="board-btns right">
-      <button @click="categoryCreate" class="btn lg dark">카테고리 추가</button>
+      <button type="button" class="btn lg dark" @click="categoryCreate">카테고리 추가</button>
     </div>
   </div>
 </template>

@@ -13,8 +13,8 @@
       </div>
     </div>
     <div class="board-btns side">
-      <button class="btn lg light" @click="back">목록</button>
-      <button class="btn lg dark" @click="categoryCreate">추가</button>
+      <button type="button" class="btn lg light" @click="back">목록</button>
+      <button type="button" class="btn lg dark" @click="categoryCreate">추가</button>
     </div>
   </div>
 </template>
