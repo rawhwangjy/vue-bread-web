@@ -2,21 +2,25 @@ import { defineStore } from 'pinia'
 
 import { ReqMemberCheckIdInterface, ResMemberCheckIdInterface } from '@/service/member/interface/memberCheckId.interface'
 import { ReqMemberCreateInterface, ResMemberCreateInterface } from '@/service/member/interface/memberCreate.interface'
+import { ReqMemberSigninInterface, ResMemberSigninInterface } from '@/service/member/interface/memberSignin.interface'
 
 import {
   httpCheckId,
-  httpSetMemberAccount
+  httpSetMemberAccount,
+  httpMemberSignin
 } from '@/service/member/member.api'
 
 interface memberState {
   checkId: ResMemberCheckIdInterface,
-  signup: ResMemberCreateInterface
+  signup: ResMemberCreateInterface,
+  signin: ResMemberSigninInterface
 }
 
 export const checkIdInit = {
   state: ''
 }
 export const signupInit = { }
+export const signinInit = { }
 
 export const useMemberStore = defineStore({
   id: 'member',
@@ -24,7 +28,8 @@ export const useMemberStore = defineStore({
     checkId: {
       state: ''
     },
-    signup: { }
+    signup: { },
+    signin: { }
   }),
   actions: {
     async actionHttpCheckId (reqData: ReqMemberCheckIdInterface) {
@@ -43,6 +48,18 @@ export const useMemberStore = defineStore({
       this.signup = signupInit
       try {
         const res = await httpSetMemberAccount(reqData)
+        if (res.data) {
+          this.signup = res.data
+        }
+        return res.data
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
+    async actionHttpSignin (reqData: ReqMemberSigninInterface) {
+      this.signin = signinInit
+      try {
+        const res = await httpMemberSignin(reqData)
         if (res.data) {
           this.signup = res.data
         }

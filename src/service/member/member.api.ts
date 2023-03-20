@@ -3,14 +3,16 @@ import { RequestEnum } from '@/utils/common.constants'
 
 import { ReqMemberCheckIdInterface } from '@/service/member/interface/memberCheckId.interface'
 import { ReqMemberCreateInterface } from '@/service/member/interface/memberCreate.interface'
+import { ReqMemberSigninInterface } from '@/service/member/interface/memberSignin.interface'
 
 enum Api {
   checkId = '/member/signup/checkId',
-  setMemberAccount = '/member/signup'
+  setMemberAccount = '/member/signup',
+  signin = '/member/signin'
 }
 
 /**
- * @description Signup
+ * @description Check ID
  */
 export const httpCheckId = (reqData: ReqMemberCheckIdInterface) => {
   return axiosInstance({
@@ -27,6 +29,17 @@ export const httpSetMemberAccount = (reqData: ReqMemberCreateInterface) => {
   return axiosInstance({
     method: RequestEnum.POST,
     url: Api.setMemberAccount,
+    data: reqData
+  })
+}
+
+/**
+ * @description Signin
+ */
+export const httpMemberSignin = (reqData: ReqMemberSigninInterface) => {
+  return axiosInstance({
+    method: RequestEnum.POST,
+    url: Api.signin,
     data: reqData
   })
 }

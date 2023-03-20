@@ -2,27 +2,33 @@
   <div class="login-wrap">
     <div class="login">
       <Input
-        v-model="inputText"
+        v-model="userId"
         label="아이디"
         name="currentDefault"
       />
       <Input
-        v-model="inputText"
+        v-model="userPw"
         label="비밀번호"
         name="currentDefault"
       />
-      <button type="button" class="btn xl primary">로그인</button>
+      <button type="button" class="btn xl primary" @click="onSignin">로그인</button>
     </div>
     <div class="board-btns right">
-      <button @click="onSignup" class="btn lg dark">회원가입</button>
+      <button type="button" class="btn lg dark" @click="onSignup">회원가입</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useMemberStore } from '@/store/member/member.module'
 import Input from '@/components/Input.vue'
+
+interface MemberModel {
+  userId: string,
+  userPw: string
+}
 
 export default defineComponent({
   name: '',
@@ -33,15 +39,23 @@ export default defineComponent({
     // router & store
     const router = useRouter()
     const route = useRoute()
+    const memberStore = useMemberStore()
 
-    const inputText = ref('')
+    const user = reactive<MemberModel>({
+      userId: '',
+      userPw: ''
+    })
+    async function onSignin () {
+      const result = await memberStore.actionHttpSignin(user)
+    }
     function onSignup () {
       router.push({
         path: '/signup'
       })
     }
     return {
-      inputText,
+      ...toRefs(user),
+      onSignin,
       onSignup
     }
   }
