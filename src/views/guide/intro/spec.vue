@@ -1,16 +1,18 @@
 <template>
+  <Header />
   <div class="guide-body">
-    <h2 class="guide-title">{{ pageTitle }}</h2>
-    <div class="guide-content">
+    <GuideNav />
+    <div class="guide-content spec">
+      <h2 class="guide-title">{{ pageTitle }}</h2>
       <div class="box">
         <div class="static-list">
-          <!-- <ul>
+          <ul>
             <li>
-              <h3>타겟 디바이스</h3>
+              <h3 class="sub-title">타겟 디바이스</h3>
               <span>Mobile, Tablet, PC</span>
             </li>
             <li>
-              <h3>최적화 해상도</h3>
+              <h3 class="sub-title">최적화 해상도</h3>
               <ul class="dot-list">
                 <li>
                   <em>Mobile</em>
@@ -27,7 +29,7 @@
               </ul>
             </li>
             <li>
-              <h3>분기 처리 정보</h3>
+              <h3 class="sub-title">분기 처리 정보</h3>
               <ul class="dot-list">
                 <li>
                     <strong>미디어쿼리를 이용하여 분기 처리</strong>
@@ -50,7 +52,7 @@
               </ul>
             </li>
             <li>
-              <h3>환경 및 사용 기술</h3>
+              <h3 class="sub-title">환경 및 사용 기술</h3>
               <ul class="dot-list">
                 <li>
                   <em>개발 환경</em>
@@ -70,7 +72,7 @@
                 </li>
               </ul>
             </li>
-          </ul> -->
+          </ul>
         </div>
       </div><!-- // box -->
     </div><!-- // guide-content -->
@@ -81,11 +83,16 @@
 // import Prism from 'prismjs'
 // import 'prismjs/themes/prism.css'
 import { defineComponent, onMounted } from 'vue'
+import Header from '@/views/layout/Header.vue'
+import GuideNav from '@/views/layout/GuideNav.vue'
 import { useRoute } from 'vue-router'
 
 export default defineComponent({
   name: 'Specificaion',
-  components: {},
+  components: {
+    Header,
+    GuideNav
+  },
   setup () {
     const route = useRoute()
     const pageTitle = route.path.replace(/^.*\//, '')

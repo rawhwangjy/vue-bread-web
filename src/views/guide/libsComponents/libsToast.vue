@@ -1,7 +1,9 @@
 <template>
+  <Header />
   <div class="guide-body">
-    <h2 class="guide-title">{{ pageTitle }}</h2>
+    <GuideNav />
     <div class="guide-content">
+      <h2 class="guide-title">{{ pageTitle }}</h2>
       <div class="box">
         <div class="api-box">
           <h3>공통 API</h3>
@@ -169,12 +171,16 @@
 <script lang="ts">
 import Prism from 'prismjs'
 import { defineComponent, onMounted, ref } from 'vue'
+import Header from '@/views/layout/Header.vue'
+import GuideNav from '@/views/layout/GuideNav.vue'
 import { useRoute } from 'vue-router'
 import Toast from '@/components/Toast.vue'
 
 export default defineComponent({
   name: 'libsToast',
   components: {
+    Header,
+    GuideNav,
     Toast
   },
   setup () {

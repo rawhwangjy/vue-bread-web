@@ -1,7 +1,9 @@
 <template>
+  <Header />
   <div class="guide-body">
-    <h2 class="guide-title">{{ pageTitle }}</h2>
+    <GuideNav />
     <div class="guide-content">
+      <h2 class="guide-title">{{ pageTitle }}</h2>
       <div class="box">
         <Test ref="modal" />
         <button @click="openModal">Open from parent</button>
@@ -13,12 +15,16 @@
 <script lang="ts">
 import Prism from 'prismjs'
 import { defineComponent, onMounted, ref } from 'vue'
+import Header from '@/views/layout/Header.vue'
+import GuideNav from '@/views/layout/GuideNav.vue'
 import { useRoute } from 'vue-router'
 import Test from '@/components/Test.vue'
 
 export default defineComponent({
   name: 'libsTest',
   components: {
+    Header,
+    GuideNav,
     Test
   },
   setup () {

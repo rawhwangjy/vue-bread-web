@@ -1,7 +1,9 @@
 <template>
+  <Header />
   <div class="guide-body">
-    <h2 class="guide-title">{{ pageTitle }}</h2>
+    <GuideNav />
     <div class="guide-content">
+      <h2 class="guide-title">{{ pageTitle }}</h2>
       <div class="box">
         <div class="api-box">
           <h3>Create FILE API</h3>
@@ -191,6 +193,8 @@
 <script lang="ts">
 import Prism from 'prismjs'
 import { defineComponent, onMounted, ref } from 'vue'
+import Header from '@/views/layout/Header.vue'
+import GuideNav from '@/views/layout/GuideNav.vue'
 import { useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import Input from '@/components/Input.vue'
@@ -201,6 +205,8 @@ import { API_URL } from '@/utils/common.constants'
 export default defineComponent({
   name: 'libsUpload',
   components: {
+    Header,
+    GuideNav,
     Input,
     Preview
   },

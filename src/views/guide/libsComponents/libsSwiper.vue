@@ -1,7 +1,9 @@
 <template>
+  <Header />
   <div class="guide-body">
-    <h2 class="guide-title">{{ pageTitle }}</h2>
+    <GuideNav />
     <div class="guide-content">
+      <h2 class="guide-title">{{ pageTitle }}</h2>
       <div class="box">
         <div class="api-box">
           <h3>공통 API</h3>
@@ -212,12 +214,16 @@
 <script lang="ts">
 import Prism from 'prismjs'
 import { defineComponent, onMounted, reactive } from 'vue'
+import Header from '@/views/layout/Header.vue'
+import GuideNav from '@/views/layout/GuideNav.vue'
 import { useRoute } from 'vue-router'
 import Swiper from '@/components/Swiper.vue'
 
 export default defineComponent({
   name: 'libsSwiper',
   components: {
+    Header,
+    GuideNav,
     Swiper
   },
   setup () {
