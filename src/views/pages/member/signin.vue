@@ -1,30 +1,32 @@
 <template>
   <Header />
-  <div class="login-wrap">
-    <div class="login-title">
-      <h3>로그인</h3>
-    </div>
-    <div class="login-content">
-      <div class="login-form">
-        <div class="form-row">
-          <Input
-            v-model="userId"
-            label="아이디"
-            name="currentDefault"
-          />
-        </div>
-        <div class="form-row">
-          <Input
-            v-model="userPw"
-            label="비밀번호"
-            name="currentDefault"
-          />
+  <div class="content" id="content">
+    <div class="login-wrap">
+      <div class="login-title">
+        <h3>로그인</h3>
+      </div>
+      <div class="login-content">
+        <div class="login-form">
+          <div class="form-row">
+            <Input
+              v-model="userId"
+              label="아이디"
+              name="currentDefault"
+            />
+          </div>
+          <div class="form-row">
+            <Input
+              v-model="userPw"
+              label="비밀번호"
+              name="currentDefault"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="login-btns side">
-      <button type="button" class="btn xl primary" @click="onSignin">로그인</button>
-      <button type="button" class="btn lg dark" @click="onSignup">회원가입</button>
+      <div class="login-btns side">
+        <button type="button" class="btn xl primary" @click="onSignin">로그인</button>
+        <button type="button" class="btn lg dark" @click="onSignup">회원가입</button>
+      </div>
     </div>
   </div>
 </template>

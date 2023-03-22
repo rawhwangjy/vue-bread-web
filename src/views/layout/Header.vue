@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header id="header">
     <nav>
       <div class="global-nav-wrap">
         <nav>
