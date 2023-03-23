@@ -1,26 +1,25 @@
 <template>
   <Header />
-  <div class="content" id="content">
-    <div class="project-wrap">
+  <div class="content-body project" id="content-body">
       <div class="project-title">
         <h3>{{ projectDetail.title }}</h3>
       </div>
         <Swiper
+          v-if="projectDetail.fileListMobile.length !== 0"
           :options="options"
           @slide-change="changeSwiper"
         >
-        <!-- <template
-          v-for="(item, index) in projectDetail.fileList.mobile"
+        <template
+          v-for="(item, index) in projectDetail.fileListMobile"
           :key="`ss${index}`"
-          v-slot:[`slide${index}`]
+          #[`slide${index+1}`]
         >
           <span
-            :key="`projectImg${index}`"
             class="img-area"
           >
             <img :src="`${item}`" />
           </span>
-        </template> -->
+        </template>
       </Swiper>
       <div class="project-btns side">
         <button class="btn lg light" @click="back">목록</button>
@@ -30,17 +29,17 @@
         <button type="button" @click="goToUpdate(project.id)">수정</button>
         <button type="button" @click="requestApiHttpDelProject(project)">삭제</button>
       </div> -->
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive } from 'vue'
+import { defineComponent, onMounted, ref, reactive, nextTick } from 'vue'
 import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
 import { ReqProjectDetailInterface, ResProjectDetailInterface } from '@/service/project/interface/projectDetail.interface'
 import Swiper from '@/components/Swiper.vue'
+import { API_URL } from '@/utils/common.constants'
 
 export default defineComponent({
   name: 'projectView',
@@ -78,10 +77,8 @@ export default defineComponent({
           month: 0
         }
       },
-      fileList: {
-        mobile: [],
-        pc: []
-      },
+      fileListMobile: [],
+      fileListPc: [],
       skills: {
         html4: false,
         html5: false,
@@ -111,35 +108,28 @@ export default defineComponent({
       const result = await projectStore.actionHttpGetProject(targetProject)
       projectDetail.value = result[0]
       projectDetail.value.jobs = JSON.parse(result[0].jobs)
-      console.log('!!', projectDetail.value.fileList)
+      // projectDetail.value.fileList.mobile = result[0].fileListMobile
+      // projectDetail.value.fileList.pc = result[0].fileListPc
+      console.log('!!', projectDetail.value)
       // fileList 가공 후 재할당
-      // if (result[0].fileList.mobile !== '') {
-      //   const target = result[0].fileList.mobile.split(',')
-      //   projectDetail.value.fileList.mobile = []
-      //   for (let i = 0; i < target.length; i++) {
-      //     const targetUrl = `http://127.0.0.1:8001/upload/${target[i]}`
-      //     projectDetail.value.fileList.mobile.push(targetUrl)
-      //   }
-      // }
-      // if (result[0].fileList.pc !== '') {
-      //   const target = result[0].fileList.pc.split(',')
-      //   projectDetail.value.fileList.pc = []
-      //   for (let i = 0; i < target.length; i++) {
-      //     const targetUrl = `http://127.0.0.1:8001/upload/${target[i]}`
-      //     projectDetail.value.fileList.pc.push(targetUrl)
-      //   }
-      // }
-
-      // fileList 가공 후 재할당
-      // if (result[0].fileList !== '') {
-      //   const target = result[0].fileList.split(',')
-      //   projectDetail.value.fileList = []
-      //   for (let i = 0; i < target.length; i++) {
-      //     const targetUrl = `http://127.0.0.1:8001/upload/${target[i]}`
-      //     projectDetail.value.fileList.push(targetUrl)
-      //   }
-      // }
-      console.log('ddd', result)
+      if (result[0].fileListMobile !== '') {
+        const target = result[0].fileListMobile.split(',')
+        projectDetail.value.fileListMobile = []
+        for (let i = 0; i < target.length; i++) {
+          const targetUrl = `${API_URL}/views/upload/${target[i]}`
+          projectDetail.value.fileListMobile.push(targetUrl)
+        }
+      }
+      if (result[0].fileListPc !== '') {
+        const target = result[0].fileListPc.split(',')
+        projectDetail.value.fileListPc = []
+        for (let i = 0; i < target.length; i++) {
+          const targetUrl = `${API_URL}/views/upload/${target[i]}`
+          projectDetail.value.fileListPc.push(targetUrl)
+        }
+      }
+      // console.log('fileList.mobile', projectDetail.value.fileListMobile)
+      // console.log('fileList.pc', projectDetail.value.fileListPc)
     }
 
     function back () {
@@ -150,6 +140,10 @@ export default defineComponent({
 
     onMounted(() => {
       getProjectDetail()
+      // nextTick(() => {
+      //   options.pagination = 'dot'
+      //   options.navigation = true
+      // })
     })
     const options = reactive({
       pagination: 'dot',
@@ -158,13 +152,17 @@ export default defineComponent({
     function changeSwiper (index: number) {
       console.log('current', index)
     }
+    function onTouch () {
+      console.log('ddd')
+    }
 
     return {
       route,
       projectDetail,
       back,
       options,
-      changeSwiper
+      changeSwiper,
+      onTouch
     }
   }
 })
