@@ -28,10 +28,8 @@ export interface ResProjectDetailInterface {
       month: number
     }
   },
-  fileList: {
-    mobile: Array<string>,
-    pc: Array<string>
-  },
+  fileListMobile: Array<string>,
+  fileListPc: Array<string>,
   skills: {
     html4: boolean,
     html5: boolean,

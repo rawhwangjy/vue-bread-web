@@ -44,10 +44,8 @@ export const projectDetailInit = {
       month: 0
     }
   },
-  fileList: {
-    mobile: [],
-    pc: []
-  },
+  fileListMobile: [],
+  fileListPc: [],
   skills: {
     html4: false,
     html5: false,
@@ -105,10 +103,8 @@ export const useProjectStore = defineStore({
           month: 0
         }
       },
-      fileList: {
-        mobile: [],
-        pc: []
-      },
+      fileListMobile: [],
+      fileListPc: [],
       skills: {
         html4: false,
         html5: false,

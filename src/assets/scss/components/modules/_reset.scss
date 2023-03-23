@@ -1,14 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
 
 html {
+    overflow: hidden;
+    height: 100%;
     font-size: 62.5%;
     font-family: 'Noto Sans KR', 'SF Pro KR','SF Pro Text', 'SF Pro Icons', 'Apple Gothic', 'HY Gulim', 
     'MalgunGothic', 'HY Dotum', 'Lexi Gulim', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     -webkit-text-size-adjust:none;
 }
 body {
+    height: 100%;
     overflow-x: hidden;
 	line-height: 1;
+}
+#app, .wrapper {
+    height: 100%;
 }
 body, div, p, span, a, h1, h2, h3, h4, h5, h6, ul, ol, li, 
 dl, dt, dd, table, th, td, form, fieldset, legend, 

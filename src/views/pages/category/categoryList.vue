@@ -1,90 +1,88 @@
 <template>
   <Header />
-  <div class="content" id="content">
-    <div class="board-wrap">
-      <div class="board-title">
-        <h3>카테고리 관리</h3>
-      </div>
-      <div class="board-content">
-        <div class="board-list">
-          <table class="table vertical">
-            <colgroup>
-              <col class="width10" >
-              <col class="widthAll" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th scope="col">No.</th>
-                <th scope="col">Title</th>
-              </tr>
-            </thead>
-            <tbody v-if="categoryList.length > 0">
-              <tr
-                v-for="(category, index) in categoryList"
-                :key="`category${index}`"
-              >
-                <td class="txt-center">{{ category.id }}</td>
-                <td>
-                  <div class="category-edit-wrap">
-                    <div class="editable-area">
-                      <!-- before EDIT -->
-                      <span
-                        v-show="categoryDetail.id !== category.id"
-                        class="before-edit"
-                        @click="onEditText(category)"
-                      >
-                        <span class="category-title">{{ category.category }}</span>
-                        <button
-                          type="button"
-                          class="btn-icon"
-                        >
-                          <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
-                        </button>
-                      </span>
-                      <!-- // before EDIT -->
-                      <!-- clicked EDIT -->
-                      <span
-                        v-show="categoryDetail.id === category.id"
-                        class="editable"
-                      >
-                        <Input
-                          v-model="categoryDetail.category"
-                          label="카테고리 수정 내용 입력"
-                          label-hide
-                          name="currentCategory"
-                        />
-                        <button
-                          type="button"
-                          class="btn md primary"
-                          @click="categoryUpdate(categoryDetail)"
-                        >완료</button>
-                      </span>
-                      <!-- // clicked EDIT -->
-                    </div>
-                    <button
-                      type="button"
-                      class="btn-icon"
-                      @click="categoryDelete(category.id)"
+  <div class="content board" id="content-body">
+    <div class="board-title">
+      <h3>카테고리 관리</h3>
+    </div>
+    <div class="board-content">
+      <div class="board-list">
+        <table class="table vertical">
+          <colgroup>
+            <col class="width10" >
+            <col class="widthAll" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Title</th>
+            </tr>
+          </thead>
+          <tbody v-if="categoryList.length > 0">
+            <tr
+              v-for="(category, index) in categoryList"
+              :key="`category${index}`"
+            >
+              <td class="txt-center">{{ category.id }}</td>
+              <td>
+                <div class="category-edit-wrap">
+                  <div class="editable-area">
+                    <!-- before EDIT -->
+                    <span
+                      v-show="categoryDetail.id !== category.id"
+                      class="before-edit"
+                      @click="onEditText(category)"
                     >
-                      <font-awesome-icon icon="fa-solid fa-trash" aria-label="삭제" />
-                    </button>
+                      <span class="category-title">{{ category.category }}</span>
+                      <button
+                        type="button"
+                        class="btn-icon"
+                      >
+                        <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
+                      </button>
+                    </span>
+                    <!-- // before EDIT -->
+                    <!-- clicked EDIT -->
+                    <span
+                      v-show="categoryDetail.id === category.id"
+                      class="editable"
+                    >
+                      <Input
+                        v-model="categoryDetail.category"
+                        label="카테고리 수정 내용 입력"
+                        label-hide
+                        name="currentCategory"
+                      />
+                      <button
+                        type="button"
+                        class="btn md primary"
+                        @click="categoryUpdate(categoryDetail)"
+                      >완료</button>
+                    </span>
+                    <!-- // clicked EDIT -->
                   </div>
-                </td>
-              </tr>
-            </tbody>
-            <tbody v-else>
-              <tr>
-                <td colspan="2">
-                  <p class="no-data">카테고리가 없습니다.</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    @click="categoryDelete(category.id)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-trash" aria-label="삭제" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr>
+              <td colspan="2">
+                <p class="no-data">카테고리가 없습니다.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="board-btns right">
-        <button type="button" class="btn lg dark" @click="categoryCreate">카테고리 추가</button>
-      </div>
+    </div>
+    <div class="board-btns right">
+      <button type="button" class="btn lg dark" @click="categoryCreate">카테고리 추가</button>
     </div>
   </div>
 </template>

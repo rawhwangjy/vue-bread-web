@@ -1,73 +1,71 @@
 <template>
   <Header />
-  <div class="content" id="content">
-    <div class="board-wrap">
-      <div class="board-title">
-        <h3>{{ targetCategory.category.toUpperCase() }}</h3>
-      </div>
-      <div class="board-content">
-        <div class="board-list">
-          <table class="table vertical">
-            <colgroup>
-              <col class="width10" >
-              <col class="widthAll" />
-              <col class="width20" >
-            </colgroup>
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Title</th>
-                <th scope="col">btns</th>
-              </tr>
-            </thead>
-            <tbody v-if="boardList.length > 0">
-              <tr
-                v-for="(board, index) in boardList"
-                :key="`board${index}`"
-              >
-                <td>{{ board.id }}</td>
-                <td>
-                  <a
-                    href="javascript:;"
-                    class="board-title"
-                    @click="getBoardDetail(board.id)"
+  <div class="content board" id="content-body">
+    <div class="board-title">
+      <h3>{{ targetCategory.category.toUpperCase() }}</h3>
+    </div>
+    <div class="board-content">
+      <div class="board-list">
+        <table class="table vertical">
+          <colgroup>
+            <col class="width10" >
+            <col class="widthAll" />
+            <col class="width20" >
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Title</th>
+              <th scope="col">btns</th>
+            </tr>
+          </thead>
+          <tbody v-if="boardList.length > 0">
+            <tr
+              v-for="(board, index) in boardList"
+              :key="`board${index}`"
+            >
+              <td>{{ board.id }}</td>
+              <td>
+                <a
+                  href="javascript:;"
+                  class="board-title"
+                  @click="getBoardDetail(board.id)"
+                >
+                  {{ board.title }}
+                </a>
+              </td>
+              <td>
+                <div class="list-btns-wrap">
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    @click="boardUpdate(board.id)"
                   >
-                    {{ board.title }}
-                  </a>
-                </td>
-                <td>
-                  <div class="list-btns-wrap">
-                    <button
-                      type="button"
-                      class="btn-icon"
-                      @click="boardUpdate(board.id)"
-                    >
-                      <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
-                    </button>
-                    <button
-                      type="button"
-                      class="btn-icon"
-                      @click="boardDelete(board.id)"
-                    >
-                      <font-awesome-icon icon="fa-solid fa-trash" aria-label="삭제" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-            <tbody v-else>
-              <tr>
-                <td colspan="3">
-                  <p class="no-data">게시글이 없습니다.</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                    <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    @click="boardDelete(board.id)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-trash" aria-label="삭제" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr>
+              <td colspan="3">
+                <p class="no-data">게시글이 없습니다.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="board-btns right">
-        <button type="button" class="btn lg dark" @click="boardCreate">글쓰기</button>
-      </div>
+    </div>
+    <div class="board-btns right">
+      <button type="button" class="btn lg dark" @click="boardCreate">글쓰기</button>
     </div>
   </div>
 </template>

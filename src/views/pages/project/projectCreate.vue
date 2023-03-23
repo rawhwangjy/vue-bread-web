@@ -1,136 +1,134 @@
 <template>
   <Header />
-  <div class="content" id="content">
-    <div class="project-wrap">
-      <div class="project-title">
-        <h3>프로젝트 등록</h3>
-      </div>
-      <div class="project-content">
-        <div class="project-form">
-          <div class="form-row flex">
-            <Input
-              v-model="projectDetail.title"
-              label="프로젝트명"
-            />
-            <div class="date-wrap">
-              <h4>투입 시작일</h4>
-              <Datepicker
-                v-model="projectDetail.date.startDate"
-                :format="dateFormat(projectDetail.date.startDate)"
-                month-picker
-                uid="date"
-                locale="kr"
-                select-text="시작일 선택"
-                cancel-text="취소"
-                @update:modelValue="handleDate('start', $event)"
-                :clearable="false"
-              />
-            </div>
-            <div class="date-wrap">
-              <h4>투입 종료일</h4>
-              <Datepicker
-                v-model="projectDetail.date.endDate"
-                :format="dateFormat(projectDetail.date.endDate)"
-                month-picker
-                uid="date"
-                locale="kr"
-                select-text="종료일 선택"
-                cancel-text="취소"
-                @update:modelValue="handleDate('end', $event)"
-                :clearable="false"
-              />
-            </div>
-          </div>
-          <div class="form-row">
-            <h4>프로젝트 소개</h4>
-            <div class="editor-wrap">
-              <quill-editor
-                v-model="editor.content"
-                :options="editor.editorOption"
-                @change="onEditorChange"
-              />
-            </div>
-          </div>
-          <div class="form-row flex">
-            <Input
-              v-model="projectDetail.role"
-              label="담당 역할"
-            />
-            <Input
-              v-model="projectDetail.company"
-              label="소속 회사"
-            />
-            <Input
-              v-model="projectDetail.orderCompany"
-              label="발주처"
+  <div class="content project" id="content-body">
+    <div class="project-title">
+      <h3>프로젝트 등록</h3>
+    </div>
+    <div class="project-content">
+      <div class="project-form">
+        <div class="form-row flex">
+          <Input
+            v-model="projectDetail.title"
+            label="프로젝트명"
+          />
+          <div class="date-wrap">
+            <h4>투입 시작일</h4>
+            <Datepicker
+              v-model="projectDetail.date.startDate"
+              :format="dateFormat(projectDetail.date.startDate)"
+              month-picker
+              uid="date"
+              locale="kr"
+              select-text="시작일 선택"
+              cancel-text="취소"
+              @update:modelValue="handleDate('start', $event)"
+              :clearable="false"
             />
           </div>
-          <div class="form-row">
-            <h4>주요 업무</h4>
-            <AddList
-              v-model="projectDetail.jobs"
-              list-class="dot-list"
-              btn-text="등록"
-              no-data-text="등록된 리스트가 없습니다."
-              @change="onAddChange"
-            />
-          </div>
-          <div class="form-row">
-            <h4>타입</h4>
-            <div class="check-list">
-              <template
-                v-for="(project, index) in projectDetail.type"
-                :key="`type${index}`"
-              >
-                <Checkbox
-                  v-model="projectDetail.type[index]"
-                  :label="`${index}`"
-                  :value="`${index}`"
-                  :name="`${index}`"
-                />
-              </template>
-            </div>
-          </div>
-          <div class="form-row">
-            <h4>사용 스킬</h4>
-            <div class="check-list">
-              <template
-                v-for="(project, index) in projectDetail.skills"
-                :key="`skill${index}`"
-              >
-                <Checkbox
-                  v-model="projectDetail.skills[index]"
-                  :label="`${index}`"
-                  :value="`${index}`"
-                  :name="`${index}`"
-                />
-              </template>
-            </div>
-          </div>
-          <div class="form-row" v-show="projectDetail.type.pc">
-            <h4>프로젝트 이미지 pc</h4>
-            <Input
-              files
-              preview
-              label="추가"
-              @change="onChangeFile('pc', $event)"
-            />
-          </div>
-          <div class="form-row" v-show="projectDetail.type.mobile">
-            <h4>프로젝트 이미지 mobile</h4>
-            <Input
-              files
-              preview
-              label="추가"
-              @change="onChangeFile('mobile', $event)"
+          <div class="date-wrap">
+            <h4>투입 종료일</h4>
+            <Datepicker
+              v-model="projectDetail.date.endDate"
+              :format="dateFormat(projectDetail.date.endDate)"
+              month-picker
+              uid="date"
+              locale="kr"
+              select-text="종료일 선택"
+              cancel-text="취소"
+              @update:modelValue="handleDate('end', $event)"
+              :clearable="false"
             />
           </div>
         </div>
+        <div class="form-row">
+          <h4>프로젝트 소개</h4>
+          <div class="editor-wrap">
+            <quill-editor
+              v-model="editor.content"
+              :options="editor.editorOption"
+              @change="onEditorChange"
+            />
+          </div>
+        </div>
+        <div class="form-row flex">
+          <Input
+            v-model="projectDetail.role"
+            label="담당 역할"
+          />
+          <Input
+            v-model="projectDetail.company"
+            label="소속 회사"
+          />
+          <Input
+            v-model="projectDetail.orderCompany"
+            label="발주처"
+          />
+        </div>
+        <div class="form-row">
+          <h4>주요 업무</h4>
+          <AddList
+            v-model="projectDetail.jobs"
+            list-class="dot-list"
+            btn-text="등록"
+            no-data-text="등록된 리스트가 없습니다."
+            @change="onAddChange"
+          />
+        </div>
+        <div class="form-row">
+          <h4>타입</h4>
+          <div class="check-list">
+            <template
+              v-for="(project, index) in projectDetail.type"
+              :key="`type${index}`"
+            >
+              <Checkbox
+                v-model="projectDetail.type[index]"
+                :label="`${index}`"
+                :value="`${index}`"
+                :name="`${index}`"
+              />
+            </template>
+          </div>
+        </div>
+        <div class="form-row">
+          <h4>사용 스킬</h4>
+          <div class="check-list">
+            <template
+              v-for="(project, index) in projectDetail.skills"
+              :key="`skill${index}`"
+            >
+              <Checkbox
+                v-model="projectDetail.skills[index]"
+                :label="`${index}`"
+                :value="`${index}`"
+                :name="`${index}`"
+              />
+            </template>
+          </div>
+        </div>
+        <div class="form-row" v-show="projectDetail.type.pc">
+          <h4>프로젝트 이미지 pc</h4>
+          <Input
+            files
+            preview
+            label="추가"
+            @change="onChangeFile('pc', $event)"
+          />
+        </div>
+        <div class="form-row" v-show="projectDetail.type.mobile">
+          <h4>프로젝트 이미지 mobile</h4>
+          <Input
+            files
+            preview
+            label="추가"
+            @change="onChangeFile('mobile', $event)"
+          />
+        </div>
       </div>
-      <div class="project-btns side">
-        <button class="btn lg light" @click="back">목록</button>
-        <button class="btn lg dark" @click="projectCreate">저장</button>
-      </div>
+    </div>
+    <div class="project-btns side">
+      <button class="btn lg light" @click="back">목록</button>
+      <button class="btn lg dark" @click="projectCreate">저장</button>
     </div>
   </div>
 </template>

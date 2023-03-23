@@ -1,35 +1,33 @@
 <template>
   <Header />
-  <div class="content" id="content">
-    <div class="project-wrap">
-      <section class="main-section" id="scrollSection2" ref="mainSection">
-        <h2 class="sr-only">Lorem Ipsum</h2>
-        <div class="sticky-element" ref="scrollX">
-          <slot v-for="(project, index) in projectList" :key="`project${index}`">
-            <a
-              href="javascript:;"
-              class="board-title"
-              @click="getProjectDetail(project.id)"
-            >
-              <project :data="project" />
-            </a>
-          </slot>
-          <!-- <ul class="project-list">
-            <li
-              v-for="(project, index) in projects"
-              :key="`project${index}`"
-              @mouseover="focusIn"
-              @mouseout="focusOut"
-            >
-              <button type="button" class="btn-project" @click="openModal(project)">
-                <project :item="project" />
-              </button>
-            </li>
-          </ul> -->
-        </div>
-      </section>
-      <button @click="projectCreate" class="btn lg dark btn-project-create">글쓰기</button>
-    </div>
+  <div class="content project" id="content-body">
+    <section class="main-section" id="scrollSection2" ref="mainSection">
+      <h2 class="sr-only">Lorem Ipsum</h2>
+      <div class="sticky-element" ref="scrollX">
+        <slot v-for="(project, index) in projectList" :key="`project${index}`">
+          <a
+            href="javascript:;"
+            class="board-title"
+            @click="getProjectDetail(project.id)"
+          >
+            <project :data="project" />
+          </a>
+        </slot>
+        <!-- <ul class="project-list">
+          <li
+            v-for="(project, index) in projects"
+            :key="`project${index}`"
+            @mouseover="focusIn"
+            @mouseout="focusOut"
+          >
+            <button type="button" class="btn-project" @click="openModal(project)">
+              <project :item="project" />
+            </button>
+          </li>
+        </ul> -->
+      </div>
+    </section>
+    <button @click="projectCreate" class="btn lg dark btn-project-create">글쓰기</button>
   </div>
 </template>
 

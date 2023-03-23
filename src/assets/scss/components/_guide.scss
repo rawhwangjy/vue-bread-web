@@ -13,7 +13,8 @@
 .guide-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
+    // min-height: 100vh;
 }
 .guide-nav {
     width: 250px;
@@ -53,7 +54,7 @@
     }
 }
 .guide-body {
-    overflow-y: auto;
+    overflow: hidden;
     display: flex;
     height: calc(100% - 54px);
     .guide-title {
@@ -75,8 +76,11 @@
         }
     }
     .guide-content {
+        overflow-y: auto;
         flex: 1;
         padding: 30px 50px;
+        margin-left: -1px;
+        border-left: 1px solid commons.$main-border;
         .box {
             margin-bottom: 30px;
             padding-bottom: 30px;
