@@ -1,38 +1,42 @@
 <template>
-  <div class="project-wrap">
-    <div class="project-title">
-      <h3>{{ projectDetail.title }}</h3>
-    </div>
-      <Swiper
-        :options="options"
-        @slide-change="changeSwiper"
-      >
-      <!-- <template
-        v-for="(item, index) in projectDetail.fileList.mobile"
-        :key="`ss${index}`"
-        v-slot:[`slide${index}`]
-      >
-        <span
-          :key="`projectImg${index}`"
-          class="img-area"
+  <Header />
+  <div class="content" id="content">
+    <div class="project-wrap">
+      <div class="project-title">
+        <h3>{{ projectDetail.title }}</h3>
+      </div>
+        <Swiper
+          :options="options"
+          @slide-change="changeSwiper"
         >
-          <img :src="`${item}`" />
-        </span>
-      </template> -->
-    </Swiper>
-    <div class="project-btns side">
-      <button class="btn lg light" @click="back">목록</button>
-      <!-- <button class="btn lg dark" @click="projectUpdate">수정</button> -->
+        <!-- <template
+          v-for="(item, index) in projectDetail.fileList.mobile"
+          :key="`ss${index}`"
+          v-slot:[`slide${index}`]
+        >
+          <span
+            :key="`projectImg${index}`"
+            class="img-area"
+          >
+            <img :src="`${item}`" />
+          </span>
+        </template> -->
+      </Swiper>
+      <div class="project-btns side">
+        <button class="btn lg light" @click="back">목록</button>
+        <!-- <button class="btn lg dark" @click="projectUpdate">수정</button> -->
+      </div>
+      <!-- <div class="btn-wrap">
+        <button type="button" @click="goToUpdate(project.id)">수정</button>
+        <button type="button" @click="requestApiHttpDelProject(project)">삭제</button>
+      </div> -->
     </div>
-    <!-- <div class="btn-wrap">
-      <button type="button" @click="goToUpdate(project.id)">수정</button>
-      <button type="button" @click="requestApiHttpDelProject(project)">삭제</button>
-    </div> -->
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive, toRefs } from 'vue'
+import { defineComponent, onMounted, ref, reactive } from 'vue'
+import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
 import { ReqProjectDetailInterface, ResProjectDetailInterface } from '@/service/project/interface/projectDetail.interface'
@@ -41,6 +45,7 @@ import Swiper from '@/components/Swiper.vue'
 export default defineComponent({
   name: 'projectView',
   components: {
+    Header,
     Swiper
   },
   setup () {

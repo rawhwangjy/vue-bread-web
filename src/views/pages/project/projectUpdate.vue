@@ -1,65 +1,69 @@
 <template>
-  <div class="board-wrap">
-    <div class="board-title">
-      <h3>글 수정</h3>
-    </div>
-    <div class="board-content">
-      <div class="board-view">
-        <div class="form-row">
-          <Select
-            v-model="boardDetail.category"
-            initTitle="카테고리를 선택해주세요."
-            :initSelected="boardDetail.category"
-            :selectData="categoryList"
-          />
-          <Input
-            v-model="boardDetail.title"
-            label="제목"
-            label-hide
-            ref="firstFocus"
-          />
-        </div>
-        <div class="form-row">
-          <div class="editor-wrap">
-            <quill-editor
-              v-model="editor.content"
-              :value="editor.content"
-              :options="editor.editorOption"
-              :disabled="editor.disabled"
-              @change="onEditorChange"
+  <Header />
+  <div class="content" id="content">
+    <div class="board-wrap">
+      <div class="board-title">
+        <h3>글 수정</h3>
+      </div>
+      <div class="board-content">
+        <div class="board-view">
+          <div class="form-row">
+            <Select
+              v-model="boardDetail.category"
+              initTitle="카테고리를 선택해주세요."
+              :initSelected="boardDetail.category"
+              :selectData="categoryList"
+            />
+            <Input
+              v-model="boardDetail.title"
+              label="제목"
+              label-hide
+              ref="firstFocus"
+            />
+          </div>
+          <div class="form-row">
+            <div class="editor-wrap">
+              <quill-editor
+                v-model="editor.content"
+                :value="editor.content"
+                :options="editor.editorOption"
+                :disabled="editor.disabled"
+                @change="onEditorChange"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <Input
+              files
+              preview
+              label="name1"
+              name="currentDefault"
+              :init-data="previews"
+              @change="onChangeFile"
+            />
+          </div>
+          <div class="form-row">
+            <Checkbox
+              v-model="boardDetail.showHide"
+              label="동의합니다."
+              value="html5"
+              name="skills"
+              :checked="boardDetail.showHide === true"
             />
           </div>
         </div>
-        <div class="form-row">
-          <Input
-            files
-            preview
-            label="name1"
-            name="currentDefault"
-            :init-data="previews"
-            @change="onChangeFile"
-          />
-        </div>
-        <div class="form-row">
-          <Checkbox
-            v-model="boardDetail.showHide"
-            label="동의합니다."
-            value="html5"
-            name="skills"
-            :checked="boardDetail.showHide === true"
-          />
-        </div>
       </div>
-    </div>
-    <div class="board-btns side">
-      <button class="btn lg light" @click="back">목록</button>
-      <button class="btn lg dark" @click="boardUpdate">수정</button>
+      <div class="board-btns side">
+        <button class="btn lg light" @click="back">목록</button>
+        <button class="btn lg dark" @click="boardUpdate">수정</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive, nextTick } from 'vue'
+import { defineComponent, onMounted, ref, reactive } from 'vue'
+import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useBoardStore } from '@/store/board/board.module'
 import { useCategoryStore } from '@/store/category/category.module'
@@ -80,6 +84,7 @@ interface vueEditor {
 export default defineComponent({
   name: 'boardUpdate',
   components: {
+    Header,
     quillEditor,
     Select,
     Input,

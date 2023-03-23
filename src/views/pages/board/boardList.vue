@@ -136,7 +136,7 @@ export default defineComponent({
 
     onMounted(() => {
       getBoardList()
-      logger.info('BOARD CREATE')
+      logger.info('BOARD List')
       console.log('A')
     })
     function formatDate (data: number) {
