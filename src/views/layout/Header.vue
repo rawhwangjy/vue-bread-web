@@ -64,14 +64,14 @@
           </ul>
         </nav>
       </div>
-      <div class="login-btn-wrap">
+      <!-- <div class="login-btn-wrap">
         <router-link
           :to="loginData.navUrl"
           :title="loginData.navDesc"
         >
           {{ loginData.navTitle }}
         </router-link>
-      </div>
+      </div> -->
     </nav>
   </header>
 </template>
@@ -153,16 +153,19 @@ export default defineComponent({
       }
     ])
     onMounted(() => {
-      if (categoryStore.categoryList.length === 0) {
-        getCategoryList()
-      }
+      getCategoryList()
+      // if (categoryStore.categoryList.length === 0) {
+      //   getCategoryList()
+      // }
+      // 같은 페이지 => watch
+      // 페이지 이동 => 다시 그리니까, watch 사용 x
     })
-    watch(
-      () => categoryStore.categoryList,
-      newValue => {
-        categoryList.value = newValue
-      }
-    )
+    // watch(
+    //   () => categoryStore.categoryList,
+    //   newValue => {
+    //     categoryList.value = newValue
+    //   }
+    // )
 
     return {
       categoryStore,
