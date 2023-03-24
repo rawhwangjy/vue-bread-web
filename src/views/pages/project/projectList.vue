@@ -17,11 +17,11 @@
           <div class="date-area">
             <span class="date">
               <span aria-label="시작년도">{{ project.startYear }}.</span>
-              <span aria-label="시작월">{{ project.startMonth }}</span> ~
-            </span>
+              <span aria-label="시작월">{{ project.startMonth }}</span>
+            </span> ~
             <span class="date">
               <span aria-label="종료년도">{{ project.endYear }}.</span>
-              <span aria-label="종료월">{{ project.endMonth }}</span> ~
+              <span aria-label="종료월">{{ project.endMonth }}</span>
             </span>
           </div>
         </button>
