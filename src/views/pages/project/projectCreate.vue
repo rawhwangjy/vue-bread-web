@@ -1,21 +1,21 @@
 <template>
   <Header />
-  <div class="content project" id="content-body">
+  <div class="content-body project" id="content-body">
     <div class="project-title">
-      <h3>프로젝트 등록</h3>
+      <h3 class="main-title">프로젝트 등록</h3>
     </div>
-    <div class="project-content">
-      <div class="project-form">
+    <div class="content-area">
+      <div class="form-area">
         <div class="form-row flex">
           <Input
-            v-model="projectDetail.title"
+            v-model="title"
             label="프로젝트명"
           />
           <div class="date-wrap">
             <h4>투입 시작일</h4>
+              <!-- :format="dateFormat(start)" -->
             <Datepicker
-              v-model="projectDetail.date.startDate"
-              :format="dateFormat(projectDetail.date.startDate)"
+              v-model="startDate"
               month-picker
               uid="date"
               locale="kr"
@@ -23,13 +23,13 @@
               cancel-text="취소"
               @update:modelValue="handleDate('start', $event)"
               :clearable="false"
+              :max-date="new Date()"
             />
           </div>
           <div class="date-wrap">
             <h4>투입 종료일</h4>
             <Datepicker
-              v-model="projectDetail.date.endDate"
-              :format="dateFormat(projectDetail.date.endDate)"
+              v-model="endDate"
               month-picker
               uid="date"
               locale="kr"
@@ -52,22 +52,22 @@
         </div>
         <div class="form-row flex">
           <Input
-            v-model="projectDetail.role"
+            v-model="role"
             label="담당 역할"
           />
           <Input
-            v-model="projectDetail.company"
+            v-model="company"
             label="소속 회사"
           />
           <Input
-            v-model="projectDetail.orderCompany"
+            v-model="orderCompany"
             label="발주처"
           />
         </div>
         <div class="form-row">
           <h4>주요 업무</h4>
           <AddList
-            v-model="projectDetail.jobs"
+            v-model="jobs"
             list-class="dot-list"
             btn-text="등록"
             no-data-text="등록된 리스트가 없습니다."
@@ -78,11 +78,11 @@
           <h4>타입</h4>
           <div class="check-list">
             <template
-              v-for="(project, index) in projectDetail.type"
+              v-for="(project, index) in type"
               :key="`type${index}`"
             >
               <Checkbox
-                v-model="projectDetail.type[index]"
+                v-model="type[index]"
                 :label="`${index}`"
                 :value="`${index}`"
                 :name="`${index}`"
@@ -94,11 +94,11 @@
           <h4>사용 스킬</h4>
           <div class="check-list">
             <template
-              v-for="(project, index) in projectDetail.skills"
+              v-for="(project, index) in skills"
               :key="`skill${index}`"
             >
               <Checkbox
-                v-model="projectDetail.skills[index]"
+                v-model="skills[index]"
                 :label="`${index}`"
                 :value="`${index}`"
                 :name="`${index}`"
@@ -106,7 +106,7 @@
             </template>
           </div>
         </div>
-        <div class="form-row" v-show="projectDetail.type.pc">
+        <div class="form-row" v-show="type.pc">
           <h4>프로젝트 이미지 pc</h4>
           <Input
             files
@@ -115,7 +115,7 @@
             @change="onChangeFile('pc', $event)"
           />
         </div>
-        <div class="form-row" v-show="projectDetail.type.mobile">
+        <div class="form-row" v-show="type.mobile">
           <h4>프로젝트 이미지 mobile</h4>
           <Input
             files
@@ -126,7 +126,7 @@
         </div>
       </div>
     </div>
-    <div class="project-btns side">
+    <div class="footer-area side">
       <button class="btn lg light" @click="back">목록</button>
       <button class="btn lg dark" @click="projectCreate">저장</button>
     </div>
@@ -134,7 +134,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive } from 'vue'
+import { defineComponent, onMounted, ref, reactive, toRefs } from 'vue'
 import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
@@ -149,9 +149,20 @@ interface vueEditor {
   html: string,
   text: string
 }
-interface dateFormat {
+interface DateFormat {
   year: number,
   month: number
+}
+
+interface Date {
+  startDate: {
+    year: number,
+    month: number
+  },
+  endDate: {
+    year: number,
+    month: number
+  }
 }
 
 export default defineComponent({
@@ -172,12 +183,22 @@ export default defineComponent({
     // init data
     const thisYear = new Date().getFullYear()
     const thisMonth = new Date().getMonth()
-    const dateFormat = (date: dateFormat) => {
-      const year = date.year
-      const month = date.month + 1
+    const date = reactive<Date>({
+      startDate: {
+        year: thisYear,
+        month: thisMonth
+      },
+      endDate: {
+        year: thisYear,
+        month: thisMonth
+      }
+    })
+    const dateFormat = (selectYear: number, selectMonth: number) => {
+      const year = selectYear
+      const month = selectMonth + 1
       return `${year}-${month < 10 ? '0' + month : month}`
     }
-    const projectDetail = ref<ReqProjectCreateInterface>({
+    const projectDetail = reactive<ReqProjectCreateInterface>({
       title: '',
       introduce: '',
       role: '',
@@ -189,19 +210,13 @@ export default defineComponent({
         pc: false
       },
       fileList: {
-        mobile: [],
+        mobile: null,
         pc: null
       },
-      date: {
-        startDate: {
-          year: thisYear,
-          month: thisMonth
-        },
-        endDate: {
-          year: thisYear,
-          month: thisMonth
-        }
-      },
+      startYear: date.startDate.year,
+      startMonth: date.startDate.month,
+      endYear: date.endDate.year,
+      endMonth: date.endDate.month,
       skills: {
         html4: false,
         html5: false,
@@ -228,15 +243,15 @@ export default defineComponent({
     // api
     function onChangeFile (target: string, files : FileList) {
       if (target === 'pc') {
-        projectDetail.value.fileList.pc = files
+        projectDetail.fileList.pc = files
       } else if (target === 'mobile') {
         for (const [key, value] of Object.entries(files)) {
           console.log('key', key)
           console.log('value', value)
-          console.log('22', typeof projectDetail.value.fileList.mobile)
-          // Array.from(projectDetail.value.fileList.mobile).push(value.name)
-          // if (projectDetail.value.fileList.mobile === []) {
-          //   projectDetail.value.fileList.mobile.push(value)
+          console.log('22', typeof projectDetail.fileList.mobile)
+          // Array.from(projectDetail.fileList.mobile).push(value.name)
+          // if (projectDetail.fileList.mobile === []) {
+          //   projectDetail.fileList.mobile.push(value)
           // }
           // Array.from(value).filter((item: Object) => {
           //   return console.log('item', item)
@@ -247,50 +262,50 @@ export default defineComponent({
           //   // }
           // })
         }
-        // projectDetail.value.fileList.mobile = value
+        // projectDetail.fileList.mobile = value
         // console.log('mobile', value)
       }
     }
     async function projectCreate () {
-      // if (projectDetail.value.title === '') {
+      // if (projectDetail.title === '') {
       //   alert('제목을 입력해 주세요.')
       //   return false
       // }
-      // if (projectDetail.value.introduce === '') {
+      // if (projectDetail.introduce === '') {
       //   alert('내용을 입력해 주세요.')
       //   return false
       // }
 
       const formData = new FormData()
-      formData.append('title', projectDetail.value.title)
-      formData.append('introduce', projectDetail.value.introduce)
-      formData.append('role', projectDetail.value.role)
-      formData.append('company', projectDetail.value.company)
-      formData.append('orderCompany', projectDetail.value.orderCompany)
+      formData.append('title', projectDetail.title)
+      formData.append('introduce', projectDetail.introduce)
+      formData.append('role', projectDetail.role)
+      formData.append('company', projectDetail.company)
+      formData.append('orderCompany', projectDetail.orderCompany)
 
-      formData.append('startYear', JSON.stringify(projectDetail.value.date.startDate.year))
-      formData.append('startMonth', JSON.stringify(projectDetail.value.date.startDate.month + 1))
-      formData.append('endYear', JSON.stringify(projectDetail.value.date.endDate.year))
-      formData.append('endMonth', JSON.stringify(projectDetail.value.date.endDate.month + 1))
+      formData.append('startYear', JSON.stringify(projectDetail.startYear))
+      formData.append('startMonth', JSON.stringify(projectDetail.startMonth + 1))
+      formData.append('endYear', JSON.stringify(projectDetail.endYear))
+      formData.append('endMonth', JSON.stringify(projectDetail.endMonth + 1))
 
       // jobs
-      if (projectDetail.value.jobs.length === 0) {
+      if (projectDetail.jobs.length === 0) {
         alert('주요 업무를 입력해 주세요.')
         return false
       }
-      formData.append('jobs', JSON.stringify(projectDetail.value.jobs))
+      formData.append('jobs', JSON.stringify(projectDetail.jobs))
       // type
-      if (projectDetail.value.type.mobile === false && projectDetail.value.type.pc === false) {
+      if (projectDetail.type.mobile === false && projectDetail.type.pc === false) {
         alert('프로젝트 타입 선택해 주세요.')
         return false
       } else {
-        for (const [key, value] of Object.entries(projectDetail.value.type)) {
+        for (const [key, value] of Object.entries(projectDetail.type)) {
           formData.append(key, JSON.stringify(value))
         }
       }
       // skills
       let skillResults = 0
-      for (const [key, value] of Object.entries(projectDetail.value.skills)) {
+      for (const [key, value] of Object.entries(projectDetail.skills)) {
         if (value !== false) {
           skillResults++
         }
@@ -301,14 +316,14 @@ export default defineComponent({
         return false
       }
       // fileList
-      if (projectDetail.value.fileList.mobile !== null) {
-        for (let i = 0; i < projectDetail.value.fileList.mobile.length; i++) {
-          formData.append('fileListMobile', projectDetail.value.fileList.mobile[i])
+      if (projectDetail.fileList.mobile !== null) {
+        for (let i = 0; i < projectDetail.fileList.mobile.length; i++) {
+          formData.append('fileListMobile', projectDetail.fileList.mobile[i])
         }
       }
-      if (projectDetail.value.fileList.pc !== null) {
-        for (let i = 0; i < projectDetail.value.fileList.pc.length; i++) {
-          formData.append('fileListPc', projectDetail.value.fileList.pc[i])
+      if (projectDetail.fileList.pc !== null) {
+        for (let i = 0; i < projectDetail.fileList.pc.length; i++) {
+          formData.append('fileListPc', projectDetail.fileList.pc[i])
         }
       }
 
@@ -340,11 +355,11 @@ export default defineComponent({
     })
     const onEditorChange = (event: vueEditor) => {
       editor._content = event.html
-      projectDetail.value.introduce = event.text
+      projectDetail.introduce = event.text
     }
     // add list
     function onAddChange (value: string[]) {
-      projectDetail.value.jobs = value
+      projectDetail.jobs = value
     }
 
     function back () {
@@ -362,48 +377,45 @@ export default defineComponent({
         firstFocus.value?.focus()
       })
     })
-    function handleDate (standard: string, date: dateFormat) {
+    function handleDate (standard: string, selectDate: DateFormat) {
       if (standard === 'start') {
-        console.log('선택한 날짜', date)
-        // projectDetail.value.date => 오늘 날짜 이거나 / 과거 선택한 날짜
+        console.log('선택한 날짜', selectDate)
         if (
-          date.year > projectDetail.value.date.endDate.year ||
-          (date.year === projectDetail.value.date.endDate.year && date.month > projectDetail.value.date.endDate.month)
+          selectDate.year > date.endDate.year ||
+          (selectDate.year === date.endDate.year && selectDate.month > date.endDate.month)
         ) {
           alert('시작일은 종료일보다 이전입니다.')
-          projectDetail.value.date.startDate.year = thisYear
-          projectDetail.value.date.startDate.month = thisMonth
+          date.startDate.year = thisYear
+          date.startDate.month = thisMonth
         } else {
-          projectDetail.value.date.startDate.year = date.year
-          projectDetail.value.date.startDate.month = date.month
+          date.startDate.year = selectDate.year
+          date.startDate.month = selectDate.month
         }
       } else if (standard === 'end') {
         if (
-          date.year < projectDetail.value.date.startDate.year ||
-          (date.year === projectDetail.value.date.startDate.year && date.month < projectDetail.value.date.startDate.month)
+          selectDate.year < date.startDate.year ||
+          (selectDate.year === date.startDate.year && selectDate.month < date.startDate.month)
         ) {
           alert('종료일은 시작일보다 이후입니다.')
-          projectDetail.value.date.endDate.year = thisYear
-          projectDetail.value.date.endDate.month = thisMonth
-        } else if (projectDetail.value.date.endDate.year === thisYear && date.month > thisMonth) {
-          alert('종료일은 최대 이번달입니다.')
-          projectDetail.value.date.endDate.year = thisYear
-          projectDetail.value.date.endDate.month = thisMonth
+          date.endDate.year = thisYear
+          date.endDate.month = thisMonth
+        } else if (date.endDate.year === thisYear && selectDate.month > thisMonth) {
+          alert('종료일은 최대 이번 달입니다.')
+          date.endDate.year = thisYear
+          date.endDate.month = thisMonth
         } else {
-          projectDetail.value.date.endDate.year = date.year
-          projectDetail.value.date.endDate.month = date.month
+          date.endDate.year = selectDate.year
+          date.endDate.month = selectDate.month
         }
       }
-      console.log('handleDate', projectDetail.value.date)
-    }
-    const alertFn = () => {
-      alert('Value cleared')
     }
 
     return {
       route,
       editor,
-      projectDetail,
+      ...toRefs(projectDetail),
+      ...toRefs(date),
+      date,
       projectCreate,
       back,
       onEditorChange,
@@ -411,7 +423,6 @@ export default defineComponent({
       onChangeFile,
       dateFormat,
       handleDate,
-      alertFn,
       onAddChange
     }
   }

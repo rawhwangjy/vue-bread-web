@@ -19,8 +19,8 @@ export interface ReqProjectUpdateInterface {
     endDate: number
   },
   fileList: {
-    mobile: FileList,
-    pc: FileList
+    mobile: Array<string>,
+    pc: Array<string>
   },
   skills: {
     html4: boolean,

@@ -5,6 +5,7 @@ import { ReqMemberCheckIdInterface } from '@/service/member/interface/memberChec
 import { ReqMemberCreateInterface } from '@/service/member/interface/memberCreate.interface'
 import { ReqMemberSigninInterface } from '@/service/member/interface/memberSignin.interface'
 
+const token = localStorage.getItem('jwt-token') || null
 enum Api {
   checkId = '/member/signup/:id',
   setMemberAccount = '/member/signup',
@@ -36,8 +37,13 @@ export const httpSetMemberAccount = (reqData: ReqMemberCreateInterface) => {
 /**
  * @description Signin
  */
+console.log('token', token)
 export const httpMemberSignin = (reqData: ReqMemberSigninInterface) => {
   return axiosInstance({
+    // headers: {
+    //   'content-type': 'text/json',
+    //   'x-access-token': token
+    // },
     method: RequestEnum.POST,
     url: Api.signin,
     data: reqData

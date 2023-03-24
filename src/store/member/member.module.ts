@@ -68,6 +68,9 @@ export const useMemberStore = defineStore({
         const res = await httpMemberSignin(reqData)
         if (res.data) {
           this.signup = res.data
+          if (res.data.accessToken) {
+            localStorage.setItem('jst-token', res.data.accessToken)
+          }
         }
         return res.data
       } catch (error) {

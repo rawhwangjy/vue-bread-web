@@ -1,11 +1,11 @@
 <template>
   <Header />
-  <div class="content board" id="content-body">
-    <div class="board-title">
-      <h3>카테고리 관리</h3>
+  <div class="content-body board" id="content-body">
+    <div class="title-area">
+      <h3 class="main-title">카테고리 관리</h3>
     </div>
-    <div class="board-content">
-      <div class="board-list">
+    <div class="content-area">
+      <div class="data-table-area">
         <table class="table vertical">
           <colgroup>
             <col class="width10" >
@@ -24,7 +24,7 @@
             >
               <td class="txt-center">{{ category.id }}</td>
               <td>
-                <div class="category-edit-wrap">
+                <div class="edit-btns-wrap">
                   <div class="editable-area">
                     <!-- before EDIT -->
                     <span
@@ -81,7 +81,7 @@
         </table>
       </div>
     </div>
-    <div class="board-btns right">
+    <div class="footer-area right">
       <button type="button" class="btn lg dark" @click="categoryCreate">카테고리 추가</button>
     </div>
   </div>

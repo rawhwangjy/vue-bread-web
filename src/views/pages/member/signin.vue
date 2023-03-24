@@ -1,11 +1,11 @@
 <template>
   <Header />
-  <div class="content login" id="content-body">
-    <div class="login-title">
-      <h3>로그인</h3>
+  <div class="content-body login" id="content-body">
+    <div class="title-area">
+      <h3 class="main-title">로그인</h3>
     </div>
-    <div class="login-content">
-      <div class="login-form">
+    <div class="content-area">
+      <div class="form-area">
         <div class="form-row">
           <Input
             v-model="userId"
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="login-btns side">
+    <div class="footer-area side">
       <button type="button" class="btn xl primary" @click="onSignin">로그인</button>
       <button type="button" class="btn lg dark" @click="onSignup">회원가입</button>
     </div>
@@ -69,12 +69,11 @@ export default defineComponent({
       const result = await memberStore.actionHttpSignin(user)
       if (result.state === 'Y') {
         alert('로그인 완료')
-        console.log('로그인 완료', result.accessToken)
-        // router.push({
-        //   path: '/'
-        // })
+        router.push({
+          path: '/project'
+        })
       } else {
-        console.log('아이디 확인해 주세요.')
+        alert('아이디, 비밀번호를 확인해 주세요.')
       }
     }
     function onSignup () {

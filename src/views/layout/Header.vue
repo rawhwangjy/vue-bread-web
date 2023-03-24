@@ -64,14 +64,22 @@
           </ul>
         </nav>
       </div>
-      <!-- <div class="login-btn-wrap">
+      <div class="login-btn-wrap">
         <router-link
+          v-if="isLogin"
           :to="loginData.navUrl"
           :title="loginData.navDesc"
         >
           {{ loginData.navTitle }}
         </router-link>
-      </div> -->
+        <router-link
+          v-else
+          :to="logoutData.navUrl"
+          :title="logoutData.navDesc"
+        >
+          {{ logoutData.navTitle }}
+        </router-link>
+      </div>
     </nav>
   </header>
 </template>
@@ -131,6 +139,12 @@ export default defineComponent({
       navUrl: '/signin',
       navDesc: '화면 이동'
     })
+    const logoutData = ref({
+      navTitle: '로그아웃',
+      navUrl: '/',
+      navDesc: '화면 이동'
+    })
+    const isLogin = ref<string | null>(localStorage.getItem('jwt-token'))
     const navItems = ref([
       {
         navTitle: '가이드',
@@ -170,6 +184,8 @@ export default defineComponent({
     return {
       categoryStore,
       loginData,
+      logoutData,
+      isLogin,
       navItems,
       stateSub,
       onShowSub,

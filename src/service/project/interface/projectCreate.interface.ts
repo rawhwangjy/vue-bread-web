@@ -13,18 +13,12 @@ export interface ReqProjectCreateInterface {
     mobile: boolean,
     pc: boolean
   },
-  date: {
-    startDate: {
-      year: number,
-      month: number
-    },
-    endDate: {
-      year: number,
-      month: number
-    }
-  },
+  startYear: number,
+  startMonth: number,
+  endYear: number,
+  endMonth: number,
   fileList: {
-    mobile: FileList | [],
+    mobile: FileList | null,
     pc: FileList | null
   },
   skills: {

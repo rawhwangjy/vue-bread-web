@@ -18,18 +18,16 @@ export interface ResProjectDetailInterface {
     mobile: boolean,
     pc: boolean
   },
-  date: {
-    startDate: {
-      year: number,
-      month: number
-    },
-    endDate: {
-      year: number,
-      month: number
-    }
+  startYear: number,
+  startMonth: number,
+  endYear: number,
+  endMonth: number,
+  // fileListMobile: Array<string>,
+  // fileListPc: Array<string>,
+  fileList: {
+    mobile: Array<string>,
+    pc: Array<string>
   },
-  fileListMobile: Array<string>,
-  fileListPc: Array<string>,
   skills: {
     html4: boolean,
     html5: boolean,

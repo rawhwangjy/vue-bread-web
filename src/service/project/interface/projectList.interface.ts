@@ -9,10 +9,11 @@ export interface ReqProjectListInterface {
 export interface ResProjectListInterface {
   id: number,
   title: string,
-  content: string,
+  introduce: string,
+  role: string,
   type: string,
-  date: {
-    startDate: number,
-    endDate: number
-  }
+  startYear: number,
+  startMonth: number,
+  endYear: number,
+  endMonth: number
 }

@@ -1,11 +1,11 @@
 <template>
   <Header />
-  <div class="content login" id="content-body">
-    <div class="login-title">
-      <h3>회원가입</h3>
+  <div class="content-body login" id="content-body">
+    <div class="title-area">
+      <h3 class="main-title">회원가입</h3>
     </div>
-    <div class="login-content">
-      <div class="login-form">
+    <div class="content-area">
+      <div class="form-area">
         <div class="form-row id-check">
           <Input
             v-model="userId"
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-    <div class="login-btns side">
+    <div class="footer-area side">
       <button class="btn lg light" @click="back">목록</button>
       <button class="btn lg dark" @click="onRegistUser">회원가입</button>
     </div>

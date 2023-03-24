@@ -1,6 +1,6 @@
 <template>
   <div id="test" class="blue">
-    <h3>안녕</h3>
+    <h3 class="main-title">안녕</h3>
   </div>
 </template>
 

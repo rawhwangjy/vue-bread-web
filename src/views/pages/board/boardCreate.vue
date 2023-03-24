@@ -1,11 +1,11 @@
 <template>
   <Header />
-  <div class="content board" id="content-body">
-    <div class="board-title">
-      <h3>글 쓰기</h3>
+  <div class="content-body board" id="content-body">
+    <div class="title-area">
+      <h3 class="main-title">글 쓰기</h3>
     </div>
-    <div class="board-content">
-      <div class="board-form">
+    <div class="content-area">
+      <div class="form-area">
         <div class="form-row flex">
           <Select
             v-model="boardDetail.category"
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="board-btns side">
+    <div class="footer-area side">
       <button type="button" class="btn lg light" @click="back">목록</button>
       <button type="button" class="btn lg dark" @click="boardCreate">저장</button>
     </div>
