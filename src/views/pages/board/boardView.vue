@@ -12,11 +12,11 @@
         </colgroup>
         <tbody>
           <tr>
-            <th scope="row">프로젝트명</th>
+            <th scope="row">제목</th>
             <td>{{ boardDetail.title }}</td>
           </tr>
           <tr>
-            <th scope="row">프로젝트 내용</th>
+            <th scope="row">내용</th>
             <td>{{ boardDetail.content }}</td>
           </tr>
           <tr>
