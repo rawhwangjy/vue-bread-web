@@ -266,3 +266,42 @@ a.btn {
         text-align: center;
     }
 }
+.table-view {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    width: 100%;
+    tbody {
+        tr {
+            &:first-child {
+                th, td {
+                    border-top: 2px solid #999;
+                }
+            }
+            &:last-child {
+                th, td {
+                    border-bottom: 1px solid #ccc;
+                }
+            }
+        }
+        th {
+            background-color: rgba(#4337ca, .05);
+        }
+        th, td {
+            border-top: 1px solid #ccc;
+            padding: 20px 5px;
+        }
+    }
+    .txt-left {
+        text-align: left;
+    }
+    .txt-center {
+        text-align: center;
+    }
+    .txt-right {
+        text-align: right;
+    }
+    .no-data {
+        text-align: center;
+    }  
+}

@@ -40,16 +40,6 @@
             />
           </div>
         </div>
-        <div class="form-row">
-          <h4>프로젝트 소개</h4>
-          <div class="editor-wrap">
-            <quill-editor
-              v-model="editor.content"
-              :options="editor.editorOption"
-              @change="onEditorChange"
-            />
-          </div>
-        </div>
         <div class="form-row flex">
           <Input
             v-model="role"
@@ -63,6 +53,16 @@
             v-model="orderCompany"
             label="발주처"
           />
+        </div>
+        <div class="form-row">
+          <h4>프로젝트 내용</h4>
+          <div class="editor-wrap">
+            <quill-editor
+              v-model="editor.content"
+              :options="editor.editorOption"
+              @change="onEditorChange"
+            />
+          </div>
         </div>
         <div class="form-row">
           <h4>주요 업무</h4>

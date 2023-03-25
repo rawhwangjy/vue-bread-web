@@ -6,25 +6,30 @@
     </div>
     <div class="content-area">
       <div class="project-list">
-        <button
+        <div
           v-for="(project, index) in projectList"
           :key="`project${index}`"
-          type="button"
           class="project-wrap"
-          @click="getProjectDetail(project.id)"
         >
-          <h4>{{ project.title }}</h4>
-          <div class="date-area">
-            <span class="date">
-              <span aria-label="시작년도">{{ project.startYear }}.</span>
-              <span aria-label="시작월">{{ project.startMonth }}</span>
-            </span> ~
-            <span class="date">
-              <span aria-label="종료년도">{{ project.endYear }}.</span>
-              <span aria-label="종료월">{{ project.endMonth }}</span>
-            </span>
-          </div>
-        </button>
+          <button
+            type="button"
+            @click="getProjectDetail(project.id)"
+          >
+            <h4>{{ project.title }}</h4>
+            <div class="date-area">
+              <span class="date">
+                <span aria-label="시작년도">{{ project.startYear }}.</span>
+                <span aria-label="시작월">{{ project.startMonth }}</span>
+              </span> ~
+              <span class="date">
+                <span aria-label="종료년도">{{ project.endYear }}.</span>
+                <span aria-label="종료월">{{ project.endMonth }}</span>
+              </span>
+            </div>
+            <span class="introce">{{ project.introduce }}</span>
+            <span class="type">{{ project.type }}</span>
+          </button>
+        </div>
       </div>
     </div>
     <div class="footer-area right">

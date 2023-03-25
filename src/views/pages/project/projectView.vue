@@ -5,6 +5,59 @@
         <h3 class="main-title">{{ projectDetail.title }}</h3>
       </div>
       <div class="content-area">
+        <table class="table-view">
+          <colgroup>
+            <col style="width: 10%">
+            <col style="width: 10%">
+            <col style="width: 10%">
+            <col style="width: 10%">
+            <col style="width: 10%">
+            <col style="width: 10%">
+            <col style="width: 10%">
+            <col style="width: 10%">
+            <col style="width: 10%">
+            <col style="width: 10%">
+          </colgroup>
+          <tbody>
+            <tr>
+              <th scope="row">프로젝트명</th>
+              <td colspan="5">{{ projectDetail.title }}</td>
+              <th scope="row">투입일</th>
+              <td class="txt-center">{{ projectDetail.startYear }}.{{ projectDetail.startMonth }}</td>
+              <th scope="row">종료일</th>
+              <td class="txt-center">{{ projectDetail.endYear }}.{{ projectDetail.endMonth }}</td>
+            </tr>
+            <tr>
+              <th scope="row">담당 역할</th>
+              <td colspan="3">{{ projectDetail.role }}</td>
+              <th scope="row">소속회사</th>
+              <td colspan="2">{{ projectDetail.company }}</td>
+              <th scope="row">발주처</th>
+              <td colspan="2">{{ projectDetail.orderCompany }}</td>
+            </tr>
+            <tr>
+              <th scope="row">프로젝트<br>내용</th>
+              <td colspan="9">{{ projectDetail.introduce }}</td>
+            </tr>
+            <tr>
+              <th scope="row">주요 업무</th>
+              <td colspan="9">
+                <ul>
+                  <li
+                    v-for="(item, index) in projectDetail.jobs"
+                    :key="`jobs${index}`"
+                  >{{ item }}</li>
+                </ul>
+              </td>
+            </tr>
+            <!-- <tr>
+              <th scope="row">프로젝트 타입</th>
+              <td colspan="9">
+                <span>{{ projectDetail.typeMobile }}</span>
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
         <Swiper
           v-if="projectDetail.fileList.mobile.length !== 0"
           :options="options"
@@ -13,7 +66,7 @@
           <template
             v-for="(item, index) in projectDetail.fileList.mobile"
             :key="`ss${index}`"
-            #[`slide${index+1}`]
+            v-slot:[`slide${index+1}`]
           >
             <span
               class="img-area"
@@ -35,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive } from 'vue'
+import { defineComponent, onMounted, ref, reactive, toRefs } from 'vue'
 import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
@@ -108,26 +161,28 @@ export default defineComponent({
       projectDetail.value.jobs = JSON.parse(result[0].jobs)
       // projectDetail.value.fileList.mobile = result[0].fileListMobile
       // projectDetail.value.fileList.pc = result[0].fileListPc
-      console.log('!!', projectDetail.value)
+      console.log('결과', result[0])
       // fileList 가공 후 재할당
-      if (result[0].fileListMobile !== '' && projectDetail.value.fileList.mobile !== null) {
-        const target = result[0].fileListMobile.split(',')
-        for (let i = 0; i < target.length; i++) {
-          const targetUrl = `${API_URL}/views/upload/${target[i]}`
-          projectDetail.value.fileList.mobile = []
-          projectDetail.value.fileList.mobile.push(targetUrl)
-        }
+      if (result[0].fileListMobile !== '') {
+        const target = result[0].fileListMobile
+        console.log('ㅠㅠㅠtarget', target)
+        console.log('ㅠㅠㅠtarget2', JSON.parse(target))
+        // const target = result[0].fileListMobile.split(',')
+        // for (let i = 0; i < target.length; i++) {
+        //   const targetUrl = `${API_URL}/views/upload/${target[i]}`
+        //   projectDetail.value.fileList.mobile.push(targetUrl)
+        //   console.log('dd', i)
+        // }
       }
-      if (result[0].fileListPc !== '') {
-        const target = result[0].fileListPc.split(',')
-        projectDetail.value.fileList.pc = []
-        for (let i = 0; i < target.length; i++) {
-          const targetUrl = `${API_URL}/views/upload/${target[i]}`
-          projectDetail.value.fileList.pc.push(targetUrl)
-        }
-      }
+      // if (result[0].fileListPc !== '') {
+      //   const target = result[0].fileListPc.split(',')
+      //   for (let i = 0; i < target.length; i++) {
+      //     const targetUrl = `${API_URL}/views/upload/${target[i]}`
+      //     projectDetail.value.fileList.pc.push(targetUrl)
+      //   }
+      // }
       // console.log('fileList.mobile', projectDetail.value.fileListMobile)
-      // console.log('fileList.pc', projectDetail.value.fileListPc)
+      // console.log('fileList.pc', projectDetail.value.value.fileListPc)
     }
 
     function back () {

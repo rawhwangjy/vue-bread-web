@@ -64,7 +64,7 @@
           </ul>
         </nav>
       </div>
-      <div class="login-btn-wrap">
+      <div class="login-btn-wrap" style="display: none;">
         <router-link
           v-if="isLogin"
           :to="loginData.navUrl"
