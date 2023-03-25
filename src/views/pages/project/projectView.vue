@@ -1,9 +1,10 @@
 <template>
   <Header />
   <div class="content-body project" id="content-body">
-      <div class="project-title">
+      <!-- <div class="project-title">
+        {{ projectDetail }}
         <h3 class="main-title">{{ projectDetail.title }}</h3>
-      </div>
+      </div> -->
       <div class="content-area">
         <table class="table-view">
           <colgroup>
@@ -58,7 +59,7 @@
             </tr> -->
           </tbody>
         </table>
-        <Swiper
+        <!-- <Swiper
           v-if="projectDetail.fileList.mobile.length !== 0"
           :options="options"
           @slide-change="changeSwiper"
@@ -66,7 +67,7 @@
           <template
             v-for="(item, index) in projectDetail.fileList.mobile"
             :key="`ss${index}`"
-            v-slot:[`slide${index+1}`]
+            #[`slide${index+1}`]
           >
             <span
               class="img-area"
@@ -74,7 +75,7 @@
               <img :src="`${item}`" />
             </span>
           </template>
-        </Swiper>
+        </Swiper> -->
       </div>
       <div class="footer-area side">
         <button class="btn lg light" @click="back">목록</button>
@@ -93,14 +94,14 @@ import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
 import { ReqProjectDetailInterface, ResProjectDetailInterface } from '@/service/project/interface/projectDetail.interface'
-import Swiper from '@/components/Swiper.vue'
+// import Swiper from '@/components/Swiper.vue'
 import { API_URL } from '@/utils/common.constants'
 
 export default defineComponent({
   name: 'projectView',
   components: {
-    Header,
-    Swiper
+    Header
+    // Swiper
   },
   setup () {
     // router & store
@@ -158,22 +159,32 @@ export default defineComponent({
       }
       const result = await projectStore.actionHttpGetProject(targetProject)
       projectDetail.value = result[0]
-      projectDetail.value.jobs = JSON.parse(result[0].jobs)
+      // projectDetail.value.jobs = JSON.parse(result[0].jobs)
+      // console.log('vvv', JSON.parse(result[0].jobs))
+      // JSON.parse(result[0].jobs).filter((item: string) => {
+      //   return projectDetail.value.jobs.push(item)
+      // })
+
       // projectDetail.value.fileList.mobile = result[0].fileListMobile
       // projectDetail.value.fileList.pc = result[0].fileListPc
       console.log('결과', result[0])
+      // console.log('결과 result[0].jobs', JSON.parse(result[0].jobs))
+      // if (result[0].fileListMobile !== '') {
+      //   console.log('for문', [result[0].fileListMobile])
+      // }
+
       // fileList 가공 후 재할당
-      if (result[0].fileListMobile !== '') {
-        const target = result[0].fileListMobile
-        console.log('ㅠㅠㅠtarget', target)
-        console.log('ㅠㅠㅠtarget2', JSON.parse(target))
-        // const target = result[0].fileListMobile.split(',')
-        // for (let i = 0; i < target.length; i++) {
-        //   const targetUrl = `${API_URL}/views/upload/${target[i]}`
-        //   projectDetail.value.fileList.mobile.push(targetUrl)
-        //   console.log('dd', i)
-        // }
-      }
+      // if (result[0].fileListMobile !== '') {
+      //   const target = result[0].fileListMobile
+      //   console.log('ㅠㅠㅠtarget', target)
+      //   // console.log('ㅠㅠㅠtarget2', JSON.parse(target))
+      //   // const target = result[0].fileListMobile.split(',')
+      //   for (let i = 0; i < target.length; i++) {
+      //     const targetUrl = `${API_URL}/views/upload/${target[i]}`
+      //     projectDetail.value.fileList.mobile.push(targetUrl)
+      //     console.log('dd', i)
+      //   }
+      // }
       // if (result[0].fileListPc !== '') {
       //   const target = result[0].fileListPc.split(',')
       //   for (let i = 0; i < target.length; i++) {

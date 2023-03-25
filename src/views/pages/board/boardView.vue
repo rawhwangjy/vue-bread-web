@@ -5,23 +5,33 @@
       <h3 class="main-title">{{ boardDetail.title }}</h3>
     </div>
     <div class="content-area">
-      <div class="form-area">
-        <div class="form-row">
-          {{ boardDetail.content }}
-        </div>
-        <div class="form-row">
-          <Preview :file-list="boardDetail.fileList"/>
-        </div>
-      </div>
+      <table class="table-view">
+        <colgroup>
+          <col style="width: 20%">
+          <col style="width: 80%">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row">프로젝트명</th>
+            <td>{{ boardDetail.title }}</td>
+          </tr>
+          <tr>
+            <th scope="row">프로젝트 내용</th>
+            <td>{{ boardDetail.content }}</td>
+          </tr>
+          <tr>
+            <th scope="row">첨부파일</th>
+            <td>
+              <Preview :file-list="boardDetail.fileList"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="footer-area side">
       <button type="button" class="btn lg light" @click="back">목록</button>
       <!-- <button class="btn lg dark" @click="boardUpdate">수정</button> -->
     </div>
-    <!-- <div class="btn-wrap">
-      <button type="button" @click="goToUpdate(board.id)">수정</button>
-      <button type="button" @click="requestApiHttpDelBoard(board)">삭제</button>
-    </div> -->
   </div>
 </template>
 
@@ -65,6 +75,7 @@ export default defineComponent({
       const result = await boardStore.actionHttpBoardDetail(targetBoard)
       result[0].showHide === 1 ? result[0].showHide = true : result[0].showHide = false
       boardDetail.value = result[0]
+      console.log('board', boardDetail.value)
 
       // fileList 가공 후 재할당
       if (result[0].fileList !== '') {
