@@ -1,36 +1,55 @@
 <template>
   <nav class="guide-nav">
-    <ul>
-      <li
-        v-for="(item, index) in guideItems"
-        :key="index"
-        :class="{
-          'active': navIndex === index
-        }"
+    <button
+      v-if="windowWidth < 768"
+      class="btn-mo-guide-nav"
+      @click="onShowMo"
+    >
+      <span>가이드 메뉴 열기</span>
+    </button>
+    <div
+      class="guide-wrap"
+      v-show="windowWidth < 768 ? isMoShow : true"
+    >
+      <ul>
+        <li
+          v-for="(item, index) in guideItems"
+          :key="index"
+          :class="{
+            'active': navIndex === index
+          }"
+        >
+          <a href="javascript:;" @enter="navItemClick(index)" @click="navItemClick(index)" :title="item.navDesc" role="region" tabindex="0" class="target-a11y">
+            {{ item.navTitle }}
+          </a>
+          <ul>
+            <li
+              v-for="(subitem, subindex) in item.subItems"
+              :key="subindex"
+              :class="{
+                'active': navIndex === index && subNavIndex === subindex
+              }"
+            >
+              <a href="javascript:;" @enter="subNavItemClick(index, subindex)" @click="subNavItemClick(index, subindex)" :title="subitem.desc" tabindex="-1">
+                {{ subitem.subNavTitle }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <button
+        v-if="windowWidth < 768"
+        class="btn-mo-guide-close"
+        @click="onHideMo"
       >
-        <a href="javascript:;" @enter="navItemClick(index)" @click="navItemClick(index)" :title="item.navDesc" role="region" tabindex="0" class="target-a11y">
-          {{ item.navTitle }}
-        </a>
-        <ul>
-          <li
-            v-for="(subitem, subindex) in item.subItems"
-            :key="subindex"
-            :class="{
-              'active': navIndex === index && subNavIndex === subindex
-            }"
-          >
-            <a href="javascript:;" @enter="subNavItemClick(index, subindex)" @click="subNavItemClick(index, subindex)" :title="subitem.desc" tabindex="-1">
-              {{ subitem.subNavTitle }}
-            </a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+        <font-awesome-icon icon="fa-solid fa-xmark" aria-label="메뉴 닫기" />
+      </button>
+    </div>
   </nav>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from 'vue'
+import { defineComponent, onMounted, reactive, toRefs, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const guideItems = [
@@ -86,7 +105,28 @@ export default defineComponent({
   setup () {
     const router = useRouter()
     const route = useRoute()
+    // 화면 사이즈 체크
+    const windowWidth = ref(window.innerWidth)
+    function checkSize () {
+      console.log('사이즈', windowWidth)
+      window.addEventListener('resize', () => {
+        windowWidth.value = window.innerWidth
+      })
+    }
+    function onHideMo () {
+      isMoShow.value = false
+    }
+    // 모바일 네비
+    const isMoShow = ref(false)
+    function onShowMo () {
+      if (isMoShow.value) {
+        isMoShow.value = false
+      } else {
+        isMoShow.value = true
+      }
+    }
     onMounted(() => {
+      checkSize()
       state.navIndex = guideItems.findIndex((item) =>
         route.path.includes(item.navUrl)
       )
@@ -190,6 +230,10 @@ export default defineComponent({
       router.push({ path: state.guideItems[state.navIndex].subItems[state.subNavIndex].subNavUrl })
     }
     return {
+      windowWidth,
+      isMoShow,
+      onShowMo,
+      onHideMo,
       navItemClick,
       subNavItemClick,
       ...toRefs(state)

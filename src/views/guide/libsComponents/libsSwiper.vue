@@ -7,105 +7,107 @@
       <div class="box">
         <div class="api-box">
           <h3>공통 API</h3>
-          <table class="api-table">
-            <colgroup>
-              <col class="width15" >
-              <col class="width15" >
-              <col class="width20" />
-              <col class="widthAll" />
-              <col class="width20" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th scope="col">Required</th>
-                <th scope="col" colspan="2">Options</th>
-                <th scope="col">Params</th>
-                <th scope="col">Default</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <em class="icon-required">선택</em>
-                </td>
-                <th scope="row" colspan="2">direction</th>
-                <td>
-                  <span class="type-string">String</span>
-                  'horizontal' | 'vertical'
-                </td>
-                <td class="td-center">horizontal</td>
-              </tr>
-              <tr>
-                <td>
-                  <em class="icon-required">선택</em>
-                </td>
-                <th scope="row" colspan="2">pagination</th>
-                <td>
-                  <span class="type-string">String</span>
-                  'dot' | 'bar' | 'custom class' | boolean
-                </td>
-                <td class="td-center">'dot'</td>
-              </tr>
-              <tr>
-                <td>
-                  <em class="icon-required">선택</em>
-                </td>
-                <th scope="row" colspan="2">navigation</th>
-                <td>
-                  <span class="type-boolean">Boolean</span>
-                  <span class="type-string">String</span>
-                  'custom class'
-                </td>
-                <td class="td-center">false</td>
-              </tr>
-              <tr>
-                <td>
-                  <em class="icon-required">선택</em>
-                </td>
-                <th scope="row" rowspan="2">tab</th>
-                <th scope="row">data</th>
-                <td>
-                    <span class="type-object">Array</span>
-                </td>
-                <td class="td-center">[]</td>
-              </tr>
-              <tr>
-                <td>
-                  <em class="icon-required">선택</em>
-                </td>
-                <th scope="row">customClass</th>
-                <td>
-                  <span class="type-string">String</span>
-                </td>
-                <td class="td-center"></td>
-              </tr>
-              <tr>
-                <td>
-                  <em class="icon-required">선택</em>
-                </td>
-                <th scope="row" rowspan="2">autoplay</th>
-                <th scope="row">default</th>
-                <td>
+          <div class="scroll-wrap">
+            <table class="api-table">
+              <colgroup>
+                <col class="width15" >
+                <col class="width15" >
+                <col class="width20" />
+                <col class="widthAll" />
+                <col class="width20" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">Required</th>
+                  <th scope="col" colspan="2">Options</th>
+                  <th scope="col">Params</th>
+                  <th scope="col">Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <em class="icon-required">선택</em>
+                  </td>
+                  <th scope="row" colspan="2">direction</th>
+                  <td>
+                    <span class="type-string">String</span>
+                    'horizontal' | 'vertical'
+                  </td>
+                  <td class="td-center">horizontal</td>
+                </tr>
+                <tr>
+                  <td>
+                    <em class="icon-required">선택</em>
+                  </td>
+                  <th scope="row" colspan="2">pagination</th>
+                  <td>
+                    <span class="type-string">String</span>
+                    'dot' | 'bar' | 'custom class' | boolean
+                  </td>
+                  <td class="td-center">'dot'</td>
+                </tr>
+                <tr>
+                  <td>
+                    <em class="icon-required">선택</em>
+                  </td>
+                  <th scope="row" colspan="2">navigation</th>
+                  <td>
                     <span class="type-boolean">Boolean</span>
-                </td>
-                <td class="td-center">
-                  false<br>
-                  (true => 1500)
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <em class="icon-required">선택</em>
-                </td>
-                <th scope="row">delay</th>
-                <td>
-                  <span class="type-object">AutoplayOptions</span>
-                  <span class="type-number">- Number</span>
-                </td>
-                <td class="td-center">&nbsp;</td>
-              </tr>
-            </tbody>
-          </table>
+                    <span class="type-string">String</span>
+                    'custom class'
+                  </td>
+                  <td class="td-center">false</td>
+                </tr>
+                <tr>
+                  <td>
+                    <em class="icon-required">선택</em>
+                  </td>
+                  <th scope="row" rowspan="2">tab</th>
+                  <th scope="row">data</th>
+                  <td>
+                      <span class="type-object">Array</span>
+                  </td>
+                  <td class="td-center">[]</td>
+                </tr>
+                <tr>
+                  <td>
+                    <em class="icon-required">선택</em>
+                  </td>
+                  <th scope="row">customClass</th>
+                  <td>
+                    <span class="type-string">String</span>
+                  </td>
+                  <td class="td-center"></td>
+                </tr>
+                <tr>
+                  <td>
+                    <em class="icon-required">선택</em>
+                  </td>
+                  <th scope="row" rowspan="2">autoplay</th>
+                  <th scope="row">default</th>
+                  <td>
+                      <span class="type-boolean">Boolean</span>
+                  </td>
+                  <td class="td-center">
+                    false<br>
+                    (true => 1500)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <em class="icon-required">선택</em>
+                  </td>
+                  <th scope="row">delay</th>
+                  <td>
+                    <span class="type-object">AutoplayOptions</span>
+                    <span class="type-number">- Number</span>
+                  </td>
+                  <td class="td-center">&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div><!-- // .api-box -->
         <div class="lib-box">
           <h3>Basic</h3>

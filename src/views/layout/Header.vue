@@ -1,6 +1,25 @@
 <template>
-  <header id="header">
-    <nav>
+  <header
+    id="header"
+    :class="{
+      'mobile': windowWidth < 768
+    }"
+  >
+    <h1>
+      <img
+        src="~@/assets/images/visual/logo.jpeg"
+      >
+    </h1>
+    <button
+      v-if="windowWidth < 768"
+      class="btn-mo-nav"
+      @click="onShowMo"
+    >
+      <font-awesome-icon icon="fa-solid fa-bars" aria-label="메뉴 열기" />
+    </button>
+    <nav
+      v-show="windowWidth < 768 ? isMoShow : true"
+    >
       <div class="global-nav-wrap">
         <nav>
           <ul
@@ -37,7 +56,7 @@
                   <span>{{ item.navTitle }}</span>
                 </button>
                 <div
-                  v-show="stateSub"
+                  v-show="windowWidth < 768 ? true : stateSub"
                   class="local-nav-wrap"
                 >
                   <ul
@@ -80,6 +99,13 @@
           {{ logoutData.navTitle }}
         </router-link>
       </div>
+      <button
+        v-if="windowWidth < 768"
+        class="btn-mo-close"
+        @click="onHideMo"
+      >
+        <font-awesome-icon icon="fa-solid fa-xmark" aria-label="메뉴 닫기" />
+      </button>
     </nav>
   </header>
 </template>
@@ -147,7 +173,7 @@ export default defineComponent({
     const isLogin = ref<string | null>(localStorage.getItem('jwt-token'))
     const navItems = ref([
       {
-        navTitle: '가이드',
+        navTitle: '사이트 가이드',
         navUrl: '/guide',
         navDesc: '화면 이동'
       },
@@ -166,8 +192,29 @@ export default defineComponent({
         subItems: categoryList
       }
     ])
+    // 모바일 네비
+    const isMoShow = ref(false)
+    function onShowMo () {
+      if (isMoShow.value) {
+        isMoShow.value = false
+      } else {
+        isMoShow.value = true
+      }
+    }
+    function onHideMo () {
+      isMoShow.value = false
+    }
+    // 화면 사이즈 체크
+    const windowWidth = ref(window.innerWidth)
+    function checkSize () {
+      console.log('사이즈', windowWidth)
+      window.addEventListener('resize', () => {
+        windowWidth.value = window.innerWidth
+      })
+    }
     onMounted(() => {
       getCategoryList()
+      checkSize()
       // if (categoryStore.categoryList.length === 0) {
       //   getCategoryList()
       // }
@@ -190,7 +237,11 @@ export default defineComponent({
       stateSub,
       onShowSub,
       onHideSub,
-      onClickOutside
+      onClickOutside,
+      windowWidth,
+      isMoShow,
+      onShowMo,
+      onHideMo
     }
   }
 })

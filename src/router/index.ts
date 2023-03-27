@@ -9,6 +9,7 @@ import routerProject from '@/router/routes/pages.project.route'
 import routerMember from '@/router/routes/pages.member.route'
 
 const container = () => import(/* webpackChunkName: "pages" */ '@/views/pages/_pageContainer.vue')
+const main = () => import(/* webpackChunkName: "pages" */ '@/views/pages/main.vue')
 const projectList = () => import(/* webpackChunkName: "pages" */ '@/views/pages/project/projectList.vue')
 
 const routes: Array<RouteRecordRaw> = [

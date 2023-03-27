@@ -31,3 +31,20 @@ export interface DomType {
     btnNext?: HTMLElement | null
   }
 }
+export interface SceneObject {
+  objs?: {
+    [key: string]: HTMLElement | null
+  }
+}
+export interface SceneInfo extends SceneObject {
+  id: number
+  // type: string
+  heightNum: number
+  scrollHeight: number
+  // values?: {
+  //     [key: string]: [number, number, {start: number, end: number}]
+  // }
+  values?: {
+      [key: string]: [number, number, {start: number, end: number}]
+  }
+}

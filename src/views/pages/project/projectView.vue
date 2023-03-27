@@ -5,6 +5,7 @@
         {{ projectDetail }}
         <h3 class="main-title">{{ projectDetail.title }}</h3>
       </div> -->
+      텍스트로 된 정보는 다 넣기
       <div class="content-area">
         <table class="table-view">
           <colgroup>
