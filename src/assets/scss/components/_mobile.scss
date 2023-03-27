@@ -57,6 +57,12 @@
     .content-body {
         width: 100%;
         padding: 3rem 2rem;
+        &.project {
+            .project-list {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+        }
     }
     .guide-body {
         position: relative;
@@ -77,8 +83,24 @@
                     }
                 }
             }
+            .lib-box {
+                .example {
+                    > ul.flex-box {
+                        > li {
+                            + li {
+                                padding-left: .5rem;
+                            }
+                        }
+                    }
+                }
+            }
             .scroll-wrap {
                 overflow-x: auto;
+            }
+            &.accessibility {
+                .img-wrap {
+                    width: 100%;
+                }
             }
         }
         .btn-mo-guide-nav {
@@ -146,4 +168,28 @@
             }
         }
     }
+    // 컴포넌트
+
+.btn {
+    &.xs {
+        // padding: 8px 10px;
+        padding: .2rem .2rem;
+    }
+    &.sm {
+        // padding: 10px 12px;
+        padding: .2rem .3rem;
+    }
+    &.md {
+        // padding: 12px 15px;
+        padding: .3rem .4rem;
+    }
+    &.lg {
+        // padding: 13px 20px;
+        padding: .4rem .5rem;
+    }
+    &.xl {
+        // padding: 14px 24px;
+        padding: .5rem .6rem;
+    }
+}
 }
