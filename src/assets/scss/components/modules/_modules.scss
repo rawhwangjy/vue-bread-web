@@ -39,7 +39,7 @@ body.before-load {
 .dot-list {
     li {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         padding-top: 20px;
         &:first-child {
             padding-top: 0;
@@ -49,6 +49,7 @@ body.before-load {
             display: block;
             width: 4px;
             height: 4px;
+            margin-top: 4px;
             margin-right: 5px;
             border-radius: 50%;
             background-color: commons.$gray3;

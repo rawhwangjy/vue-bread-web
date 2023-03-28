@@ -49,7 +49,7 @@
       </div>
     </div>
     <div
-      v-if="initParams.navigation"
+      v-if="initParams.navigation && Object.keys($slots).length > 1"
       class="navigation-wrap"
       :class="navCustomClass"
       :style="btnNavTop"
@@ -390,8 +390,11 @@ export default defineComponent({
 
     function setSliderPosition () {
       if (swiperDom.swiper) {
+        // initParams.direction === 'horizontal'
+        //   ? swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}px; transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
+        //   : swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px; transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
         initParams.direction === 'horizontal'
-          ? swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}px; transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
+          ? swiperDom.swiper.style.cssText = `transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
           : swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px; transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
       }
     }

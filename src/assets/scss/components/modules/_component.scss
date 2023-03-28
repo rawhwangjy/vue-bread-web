@@ -366,7 +366,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
     width: 100%;
     .tabs {
         display: flex;
@@ -410,10 +410,10 @@
     .tab-panels {
         width: 100%;
         display: flex;
+        flex: 1;
         .tab-panel {
             visibility: hidden;
             min-width: 100%;
-            padding: 20px 30px 40px;
             word-break: break-word;
             &.active {
                 visibility: visible;
@@ -425,16 +425,19 @@
 .swiper-component {
     overflow: hidden;
     position: relative;
+    height: 100%;
     .swiper-wrap {
         overflow: hidden;
+        height: calc(100% - 10px);
         .swiper {
             display: flex;
+            height: 100%;
             scrollbar-width: none;
             transform: translateX(0);
             will-change: transform;
             transition: transform 0.3s ease-out;
             word-break: break-all;
-            cursor: grab;
+            // cursor: grab;
             touch-action: pan-x;
             &.grabbing {
                 -webkit-user-select:none;
@@ -449,7 +452,8 @@
             .slide {
                 min-width: 100%;
                 min-height: 60px;
-                padding: 20px 30px;
+                padding: 20px;
+                height: 100%;
             }
         }
     }
@@ -523,7 +527,9 @@
     }
     .navigation-wrap {
         position: absolute;
+        top: 50%;
         width: 100%;
+        transform: translate(0px, -50%);
         button {
             position: absolute;
             display: flex;
