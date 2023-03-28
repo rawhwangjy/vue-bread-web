@@ -23,10 +23,8 @@ export interface ReqProjectCreateInterface {
       month: number
     }
   },
-  fileList: {
-    mobile: FileList | null,
-    pc: FileList | null
-  },
+  fileListMobile: FileList | null,
+  fileListPc: FileList | null,
   skills: {
     html4: boolean,
     html5: boolean,

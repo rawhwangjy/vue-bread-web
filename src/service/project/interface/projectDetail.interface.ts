@@ -14,20 +14,18 @@ export interface ResProjectDetailInterface {
   company: string,
   orderCompany: string,
   jobs: Array<string>,
-  type: {
-    mobile: boolean,
-    pc: boolean
-  },
+  typeMobile: boolean,
+  typePc: boolean,
   startYear: number,
   startMonth: number,
   endYear: number,
   endMonth: number,
-  // fileListMobile: Array<string>,
-  // fileListPc: Array<string>,
-  fileList: {
-    mobile: Array<string>,
-    pc: Array<string>
-  },
+  fileListMobile: Array<string>,
+  fileListPc: Array<string>,
+  // fileList: {
+  //   mobile: Array<string>,
+  //   pc: Array<string>
+  // },
   skills: {
     html4: boolean,
     html5: boolean,

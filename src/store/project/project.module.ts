@@ -30,18 +30,14 @@ export const projectDetailInit = {
   company: '',
   orderCompany: '',
   jobs: [],
-  type: {
-    mobile: false,
-    pc: false
-  },
+  typeMobile: false,
+  typePc: false,
   startYear: 0,
   startMonth: 0,
   endYear: 0,
   endMonth: 0,
-  fileList: {
-    mobile: [],
-    pc: []
-  },
+  fileListMobile: [],
+  fileListPc: [],
   skills: {
     html4: false,
     html5: false,
@@ -85,18 +81,14 @@ export const useProjectStore = defineStore({
       company: '',
       orderCompany: '',
       jobs: [],
-      type: {
-        mobile: false,
-        pc: false
-      },
+      typeMobile: false,
+      typePc: false,
       startYear: 0,
       startMonth: 0,
       endYear: 0,
       endMonth: 0,
-      fileList: {
-        mobile: [],
-        pc: []
-      },
+      fileListMobile: [],
+      fileListPc: [],
       skills: {
         html4: false,
         html5: false,
