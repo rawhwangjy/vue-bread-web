@@ -1,7 +1,7 @@
 <template>
   <Header />
   <div class="content-body project" id="content-body">
-    <div class="project-title">
+    <div class="title-area">
       <h3 class="main-title">프로젝트 등록</h3>
     </div>
     <div class="content-area">

@@ -27,9 +27,9 @@
               <th scope="row">프로젝트명</th>
               <td colspan="5">{{ projectDetail.title }}</td>
               <th scope="row">투입일</th>
-              <td class="txt-center">{{ projectDetail.startYear }}.{{ projectDetail.startMonth }}</td>
+              <td class="txt-center">{{ projectDetail.startYear }}.{{ projectDetail.startMonth < 10 ? `0${projectDetail.startMonth}` : projectDetail.startMonth }}</td>
               <th scope="row">종료일</th>
-              <td class="txt-center">{{ projectDetail.endYear }}.{{ projectDetail.endMonth }}</td>
+              <td class="txt-center">{{ projectDetail.endYear }}.{{ projectDetail.endMonth < 10 ? `0${projectDetail.endMonth}` : projectDetail.endMonth }}</td>
             </tr>
             <tr>
               <th scope="row">담당 역할</th>
@@ -74,7 +74,7 @@
                     >
                       <template
                         v-for="(item, index) in projectDetail.fileListMobile"
-                        :key="`ss${index}`"
+                        :key="`mobileImg${index}`"
                         #[`slide${index+1}`]
                       >
                         <span
@@ -93,7 +93,7 @@
                   >
                     <template
                       v-for="(item, index) in projectDetail.fileListPc"
-                      :key="`ss${index}`"
+                      :key="`pcImg${index}`"
                       #[`slide${index+1}`]
                     >
                       <span
@@ -333,7 +333,7 @@ export default defineComponent({
     // 화면 사이즈 체크
     const windowWidth = ref(window.innerWidth)
     function checkSize () {
-      console.log('사이즈', windowWidth)
+      // console.log('사이즈', windowWidth)
       window.addEventListener('resize', () => {
         windowWidth.value = window.innerWidth
       })

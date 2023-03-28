@@ -1,13 +1,17 @@
 @use '../commons';
 
+.header-wrap {
+    width: 100%;
+	border-bottom: 1px solid #ddd;
+}
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    width: 1000px;
     height: 54px;
+    margin: 0 auto;
     padding: 0 10px;
-	border-bottom: 1px solid #ddd;
     nav {
         display: flex;
         align-items: center;

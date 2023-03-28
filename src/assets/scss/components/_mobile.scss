@@ -57,10 +57,18 @@
     .content-body {
         width: 100%;
         padding: 3rem 2rem;
+        .title-area {
+            padding-bottom: 2rem;
+        }
         &.project {
             .project-list {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
+                grid-template-columns: 1fr;
+                gap: 0;
+                .project-wrap {
+                    + .project-wrap {
+                        margin-top: 2rem;
+                    }
+                }
             }
             .tab-wrap {
                 // height: 600px;

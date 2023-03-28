@@ -15,19 +15,28 @@
             type="button"
             @click="getProjectDetail(project.id)"
           >
-            <h4>{{ project.title }}</h4>
+            <div class="project-title">
+              <h4>{{ project.title }}</h4>
+              <span class="types">
+                <span v-if="project.typePc" class="pc">PC</span>
+                <span v-if="project.typeMobile" class="mobile">모바일</span>
+              </span>
+            </div>
             <div class="date-area">
               <span class="date">
                 <span aria-label="시작년도">{{ project.startYear }}.</span>
-                <span aria-label="시작월">{{ project.startMonth }}</span>
+                <span aria-label="시작월">{{ project.startMonth < 10 ? `0${project.startMonth}` : project.startMonth }}</span>
               </span> ~
               <span class="date">
                 <span aria-label="종료년도">{{ project.endYear }}.</span>
-                <span aria-label="종료월">{{ project.endMonth }}</span>
+                <span aria-label="종료월">{{ project.endMonth < 10 ? `0${project.endMonth}` : project.endMonth }}</span>
               </span>
             </div>
-            <span class="introce">{{ project.introduce }}</span>
-            <span class="type">{{ project.type }}</span>
+            <span class="introduce">{{ project.introduce }}</span>
+            <div class="companies">
+              <span>소속 : <strong>{{ project.company }}</strong></span>
+              <span>발주사 : <strong>{{ project.orderCompany }}</strong></span>
+            </div>
           </button>
         </div>
       </div>
@@ -71,6 +80,9 @@ export default defineComponent({
     async function getProjectList () {
       projectList.value = await projectStore.actionHttpGetProjectList()
       console.log('projectList', projectList.value)
+      // projectList.value.sort((a: number, b: number) => {
+      //   return a.id - b.id
+      // })
     }
 
     onMounted(() => {

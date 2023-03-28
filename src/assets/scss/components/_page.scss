@@ -2,7 +2,7 @@
 
 .content-body {
     .title-area {
-        padding-bottom: 30px;
+        padding-bottom: 50px;
         .main-title {
             font-size: commons.$fs-xl;
             text-align: center;
@@ -235,11 +235,66 @@
                     padding: 20px;
                     border-radius: 16px;
                     text-align: left;
-                    h4 {
-                        padding-bottom: 10px;
+                    .project-title {
+                        position: relative;
+                        width: 100%;
+                        h4 {
+                            padding-top: 20px;
+                            padding-bottom: 5px;
+                            line-height: 24px;
+                            font-weight: bold;
+                            font-size: 18px;
+                        }
+                        .types {
+                            position: absolute;
+                            top: -5px;
+                            right: 0;
+                            display: flex;
+                            span {
+                                display: block;
+                                padding: 3px 2px;
+                                border-radius: 3px;
+                                font-size: 11px;
+                                &.pc {
+                                    background-color: commons.$primary-dark;
+                                    color: commons.$white;
+                                }
+                                &.mobile {
+                                    border: 1px solid commons.$primary-dark;
+                                    color: commons.$primary-dark;
+                                }
+                            }
+                        }
                     }
                     .date-area {
                         padding-bottom: 10px;
+                        color: #666;
+                    }
+                    .introduce {
+                        padding-bottom: 10px;
+                        line-height: 18px;
+                        font-size: 15px;
+                    }
+                    // .types {
+                    //     padding-bottom: 10px;
+                    //     span {
+                    //         &:nth-child(2) {
+                    //             &::before {
+                    //                 content: ', ';
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    .companies {
+                        margin-top: auto;
+                        span {
+                            display: block;
+                            line-height: 18px;
+                            font-size: 15px;
+                            + span {
+                                padding-top: 5px;
+                            }
+                        }
                     }
                 }
                 &:hover {
@@ -283,7 +338,7 @@
         }
         .types {
             span {
-                &:last-child {
+                &:nth-child(2) {
                     &::before {
                         content: ', ';
                     }

@@ -1,113 +1,115 @@
 <template>
-  <header
-    id="header"
-    :class="{
-      'mobile': windowWidth < 768
-    }"
-  >
-    <h1>
-      <img
-        src="~@/assets/images/visual/logo.jpeg"
-      >
-    </h1>
-    <button
-      v-if="windowWidth < 768"
-      class="btn-mo-nav"
-      @click="onShowMo"
+  <div class="header-wrap">
+    <header
+      id="header"
+      :class="{
+        'mobile': windowWidth < 768
+      }"
     >
-      <font-awesome-icon icon="fa-solid fa-bars" aria-label="메뉴 열기" />
-    </button>
-    <nav
-      v-show="windowWidth < 768 ? isMoShow : true"
-    >
-      <div class="global-nav-wrap">
-        <nav>
-          <ul
-            role="menu"
-            v-click-outside="onClickOutside"
-          >
-            <template
-              v-for="(item, index) in navItems"
-              :key="`nav${index}`"
-            >
-              <li
-                v-if="!item.subItems"
-                class="global-nav-item"
-                role="menuitem"
-              >
-                <router-link
-                  :to="item.navUrl"
-                  :title="item.navDesc"
-                  @click="onHideSub"
-                >
-                  {{ item.navTitle }}
-                </router-link>
-              </li>
-              <li
-                v-if="item.subItems"
-                class="global-nav-item"
-                role="menuitem"
-              >
-                <button
-                  type="button"
-                  @click="onShowSub"
-                  :aria-expanded="stateSub"
-                >
-                  <span>{{ item.navTitle }}</span>
-                </button>
-                <div
-                  v-show="windowWidth < 768 ? true : stateSub"
-                  class="local-nav-wrap"
-                >
-                  <ul
-                    class="local-nav-item"
-                    role="menu"
-                  >
-                    <li
-                      v-for="(item2, index) in item.subItems"
-                      :key="`subNav${index}`"
-                      role="menuitem"
-                    >
-                      <router-link
-                        :to="`/board/${item2.category}`"
-                        class="local-nav-sub-item"
-                        @click="stateSub = false"
-                      >
-                        {{ item2.category }}
-                      </router-link>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </template>
-          </ul>
-        </nav>
-      </div>
-      <div class="login-btn-wrap" style="display: none;">
-        <router-link
-          v-if="isLogin"
-          :to="loginData.navUrl"
-          :title="loginData.navDesc"
+      <h1>
+        <img
+          src="~@/assets/images/visual/logo.jpeg"
         >
-          {{ loginData.navTitle }}
-        </router-link>
-        <router-link
-          v-else
-          :to="logoutData.navUrl"
-          :title="logoutData.navDesc"
-        >
-          {{ logoutData.navTitle }}
-        </router-link>
-      </div>
+      </h1>
       <button
         v-if="windowWidth < 768"
-        class="btn-mo-close"
-        @click="onHideMo"
+        class="btn-mo-nav"
+        @click="onShowMo"
       >
-        <font-awesome-icon icon="fa-solid fa-xmark" aria-label="메뉴 닫기" />
+        <font-awesome-icon icon="fa-solid fa-bars" aria-label="메뉴 열기" />
       </button>
-    </nav>
-  </header>
+      <nav
+        v-show="windowWidth < 768 ? isMoShow : true"
+      >
+        <div class="global-nav-wrap">
+          <nav>
+            <ul
+              role="menu"
+              v-click-outside="onClickOutside"
+            >
+              <template
+                v-for="(item, index) in navItems"
+                :key="`nav${index}`"
+              >
+                <li
+                  v-if="!item.subItems"
+                  class="global-nav-item"
+                  role="menuitem"
+                >
+                  <router-link
+                    :to="item.navUrl"
+                    :title="item.navDesc"
+                    @click="onHideSub"
+                  >
+                    {{ item.navTitle }}
+                  </router-link>
+                </li>
+                <li
+                  v-if="item.subItems"
+                  class="global-nav-item"
+                  role="menuitem"
+                >
+                  <button
+                    type="button"
+                    @click="onShowSub"
+                    :aria-expanded="stateSub"
+                  >
+                    <span>{{ item.navTitle }}</span>
+                  </button>
+                  <div
+                    v-show="windowWidth < 768 ? true : stateSub"
+                    class="local-nav-wrap"
+                  >
+                    <ul
+                      class="local-nav-item"
+                      role="menu"
+                    >
+                      <li
+                        v-for="(item2, index) in item.subItems"
+                        :key="`subNav${index}`"
+                        role="menuitem"
+                      >
+                        <router-link
+                          :to="`/board/${item2.category}`"
+                          class="local-nav-sub-item"
+                          @click="stateSub = false"
+                        >
+                          {{ item2.category }}
+                        </router-link>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </nav>
+        </div>
+        <div class="login-btn-wrap" style="display: none;">
+          <router-link
+            v-if="isLogin"
+            :to="loginData.navUrl"
+            :title="loginData.navDesc"
+          >
+            {{ loginData.navTitle }}
+          </router-link>
+          <router-link
+            v-else
+            :to="logoutData.navUrl"
+            :title="logoutData.navDesc"
+          >
+            {{ logoutData.navTitle }}
+          </router-link>
+        </div>
+        <button
+          v-if="windowWidth < 768"
+          class="btn-mo-close"
+          @click="onHideMo"
+        >
+          <font-awesome-icon icon="fa-solid fa-xmark" aria-label="메뉴 닫기" />
+        </button>
+      </nav>
+    </header>
+  </div>
 </template>
 
 <script lang="ts">
@@ -222,12 +224,12 @@ export default defineComponent({
       // 같은 페이지 => watch
       // 페이지 이동 => 다시 그리니까, watch 사용 x
     })
-    // watch(
-    //   () => categoryStore.categoryList,
-    //   newValue => {
-    //     categoryList.value = newValue
-    //   }
-    // )
+    watch(
+      () => categoryStore.categoryList,
+      newValue => {
+        categoryList.value = newValue
+      }
+    )
 
     return {
       categoryStore,
