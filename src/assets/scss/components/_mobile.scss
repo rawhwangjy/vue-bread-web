@@ -62,6 +62,12 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
             }
+            .tab-wrap {
+                // height: 600px;
+                .swiper-component {
+                    height: 200px;
+                }
+            }
         }
     }
     .guide-body {

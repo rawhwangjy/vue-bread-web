@@ -5,9 +5,11 @@
         {{ projectDetail }}
         <h3 class="main-title">{{ projectDetail.title }}</h3>
       </div> -->
-      텍스트로 된 정보는 다 넣기
       <div class="content-area">
-        <table class="table-view">
+        <table
+          v-if="windowWidth > 767"
+          class="table-view"
+        >
           <colgroup>
             <col style="width: 10%">
             <col style="width: 10%">
@@ -63,6 +65,107 @@
             </tr>
             <tr v-if="tabData.length !== 0">
               <td colspan="10">
+                <Tab :tab-data="tabData">
+                  <template v-if="projectDetail.fileListMobile.length !== 0" #tab1>
+                    <Swiper
+                      v-if="projectDetail.fileListMobile.length !== 0"
+                      :options="options"
+                      @slide-change="changeSwiper"
+                    >
+                      <template
+                        v-for="(item, index) in projectDetail.fileListMobile"
+                        :key="`ss${index}`"
+                        #[`slide${index+1}`]
+                      >
+                        <span
+                          class="img-area"
+                        >
+                          <img :src="`${item}`" />
+                        </span>
+                      </template>
+                    </Swiper>
+                  </template>
+                  <template v-if="projectDetail.fileListPc.length !== 0" #tab2>
+                  <Swiper
+                    v-if="projectDetail.fileListPc.length !== 0"
+                    :options="options"
+                    @slide-change="changeSwiper"
+                  >
+                    <template
+                      v-for="(item, index) in projectDetail.fileListPc"
+                      :key="`ss${index}`"
+                      #[`slide${index+1}`]
+                    >
+                      <span
+                        class="img-area"
+                      >
+                        <img :src="`${item}`" />
+                      </span>
+                    </template>
+                  </Swiper>
+                  </template>
+                </Tab>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          v-else
+          class="table-view"
+        >
+          <colgroup>
+            <col style="width: 20%">
+            <col style="width: 30%">
+            <col style="width: 20%">
+            <col style="width: 30%">
+          </colgroup>
+          <tbody>
+            <tr>
+              <th scope="row">프로젝트명</th>
+              <td colspan="3">{{ projectDetail.title }}</td>
+            </tr>
+            <tr>
+              <th scope="row">투입일</th>
+              <td class="txt-center">{{ projectDetail.startYear }}.{{ projectDetail.startMonth }}</td>
+              <th scope="row">종료일</th>
+              <td class="txt-center">{{ projectDetail.endYear }}.{{ projectDetail.endMonth }}</td>
+            </tr>
+            <tr>
+              <th scope="row">담당 역할</th>
+              <td colspan="3">{{ projectDetail.role }}</td>
+            </tr>
+            <tr>
+              <th scope="row">소속회사</th>
+              <td>{{ projectDetail.company }}</td>
+              <th scope="row">발주처</th>
+              <td>{{ projectDetail.orderCompany }}</td>
+            </tr>
+            <tr>
+              <th scope="row">프로젝트<br>내용</th>
+              <td colspan="3">{{ projectDetail.introduce }}</td>
+            </tr>
+            <tr>
+              <th scope="row">주요 업무</th>
+              <td colspan="9">
+                <ul class="jobs">
+                  <li
+                    v-for="(item, index) in projectDetail.jobs"
+                    :key="`jobs${index}`"
+                  >{{ item }}</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">프로젝트<br>타입</th>
+              <td colspan="3">
+                <span class="types">
+                  <span v-if="projectDetail.typePc">PC</span>
+                  <span v-if="projectDetail.typeMobile">모바일</span>
+                </span>
+              </td>
+            </tr>
+            <tr v-if="tabData.length !== 0">
+              <td colspan="4">
                 <Tab :tab-data="tabData">
                   <template v-if="projectDetail.fileListMobile.length !== 0" #tab1>
                     <Swiper
@@ -227,7 +330,16 @@ export default defineComponent({
       })
     }
 
+    // 화면 사이즈 체크
+    const windowWidth = ref(window.innerWidth)
+    function checkSize () {
+      console.log('사이즈', windowWidth)
+      window.addEventListener('resize', () => {
+        windowWidth.value = window.innerWidth
+      })
+    }
     onMounted(() => {
+      checkSize()
       getProjectDetail()
       // nextTick(() => {
       //   if (projectDetail.value.fileListMobile) {
@@ -264,6 +376,7 @@ export default defineComponent({
     return {
       route,
       projectDetail,
+      windowWidth,
       back,
       tabData,
       options,
