@@ -27,8 +27,8 @@
       class="swiper-wrap"
       :style="[
         swiperHeight,
-        initParams.tab ? `margin-top: ${tabHeight}px` : '',
-        initParams.pagination ? `margin-bottom: ${btnPageHeight + 30}px` : '',
+        initParams.tab ? `margin-top: ${tabHeight}px` : ''
+        // initParams.pagination ? `margin-bottom: ${btnPageHeight + 30}px` : '',
       ]"
     >
       <div
@@ -262,21 +262,21 @@ export default defineComponent({
           slide.addEventListener('mouseleave', touchEnd)
         })
         initProps.slideHeight = Math.max.apply(null, slidesHeight)
-        swiperHeight.value = {
-          height: `${initProps.slideHeight}px`
-        }
+        // swiperHeight.value = {
+        //   height: `${initProps.slideHeight}px`
+        // }
       }
       if (initParams.navigation) {
         swiperDom.navigation?.btnPrev?.classList.add('disabled')
         swiperDom.navigation?.btnNext?.addEventListener('click', onNext)
         swiperDom.navigation?.btnPrev?.addEventListener('click', onPrev)
-        if (swiperDom.navigation?.navRoot) {
-          initProps.btnNavTop = {
-            top: initParams.tab
-              ? `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2) + initProps.tabHeight}px`
-              : `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2)}px`
-          }
-        }
+        // if (swiperDom.navigation?.navRoot) {
+        //   initProps.btnNavTop = {
+        //     top: initParams.tab
+        //       ? `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2) + initProps.tabHeight}px`
+        //       : `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2)}px`
+        //   }
+        // }
       }
       window.addEventListener('resize', setPositionByIndex)
       window.oncontextmenu = (event: Event) => {
@@ -317,6 +317,7 @@ export default defineComponent({
     }
     function touchStart (index: number) {
       return (event: Event) => {
+        event.preventDefault()
         if (initParams.direction === 'vertical') {
           document.body.classList.add('scroll-hidden')
         }
