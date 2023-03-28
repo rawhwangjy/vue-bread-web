@@ -65,27 +65,6 @@
       </div>
     </div>
     <div class="footer-area right">
-      <!-- <div class="pagination">
-        <button type="button" class="btn-prev">
-          <font-awesome-icon icon="fa-solid fa-caret-left" aria-label="이전 10개 보기" />
-        </button>
-        <ol>
-          <li>
-            <button type="button" class="active">
-              <span>1</span>
-            </button>
-            <button type="button">
-              <span>2</span>
-            </button>
-            <button type="button">
-              <span>3</span>
-            </button>
-          </li>
-        </ol>
-        <button type="button" class="btn-right">
-          <font-awesome-icon icon="fa-solid fa-caret-right" aria-label="다음 10개 보기" />
-        </button>
-      </div> -->
       <button type="button" class="btn lg dark" @click="boardCreate">글쓰기</button>
     </div>
   </div>
