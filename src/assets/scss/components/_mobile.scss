@@ -66,6 +66,7 @@
                 grid-template-columns: 1fr;
                 gap: 0;
                 .project-wrap {
+                    height: 25rem;
                     + .project-wrap {
                         margin-top: 2rem;
                     }
@@ -74,7 +75,7 @@
             .tab-wrap {
                 // height: 600px;
                 .swiper-component {
-                    height: 200px;
+                    height: 2rem;
                 }
             }
         }
