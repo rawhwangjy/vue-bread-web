@@ -156,6 +156,7 @@ export default defineComponent({
     }
     function onHideSub () {
       stateSub.value = false
+      isMoShow.value = false
     }
     function onClickOutside () {
       stateSub.value = false
