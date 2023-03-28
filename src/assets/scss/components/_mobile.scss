@@ -169,27 +169,33 @@
         }
     }
     // 컴포넌트
-
-.btn {
-    &.xs {
-        // padding: 8px 10px;
-        padding: .2rem .2rem;
+    .btn {
+        &.xs {
+            // padding: 8px 10px;
+            padding: .2rem .2rem;
+        }
+        &.sm {
+            // padding: 10px 12px;
+            padding: .2rem .3rem;
+        }
+        &.md {
+            // padding: 12px 15px;
+            padding: .3rem .4rem;
+        }
+        &.lg {
+            // padding: 13px 20px;
+            padding: .4rem .5rem;
+        }
+        &.xl {
+            // padding: 14px 24px;
+            padding: .5rem .6rem;
+        }
     }
-    &.sm {
-        // padding: 10px 12px;
-        padding: .2rem .3rem;
+    .swiper-component {
+        .swiper-wrap {
+            .swiper {
+                cursor: grab;
+            }
+        }
     }
-    &.md {
-        // padding: 12px 15px;
-        padding: .3rem .4rem;
-    }
-    &.lg {
-        // padding: 13px 20px;
-        padding: .4rem .5rem;
-    }
-    &.xl {
-        // padding: 14px 24px;
-        padding: .5rem .6rem;
-    }
-}
 }
