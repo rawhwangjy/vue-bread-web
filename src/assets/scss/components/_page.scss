@@ -262,11 +262,49 @@
             }
         }
         // view
+        .jobs {
+            li {
+                display: flex;
+                align-items: center;
+                padding-top: 10px;
+                &:first-child {
+                    padding-top: 0;
+                }
+                &::before {
+                    content: '';
+                    display: block;
+                    width: 4px;
+                    height: 4px;
+                    margin-right: 5px;
+                    border-radius: 50%;
+                    background-color: commons.$gray3;
+                }
+            }
+        }
+        .types {
+            span {
+                &:last-child {
+                    &::before {
+                        content: ', ';
+                    }
+                }
+            }
+        }
+        .tab-wrap {
+            // height: 600px;
+            .swiper-component {
+                height: 600px;
+            }
+        }
         // 임시
         .img-area {
-            display: block;
-            width: 100%;
-            height: 100px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            height: 100%;
+            margin: 0 auto;
             img {
                 width: 100%;
                 height: auto;
