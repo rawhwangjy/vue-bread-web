@@ -13,7 +13,7 @@
           </colgroup>
           <thead>
             <tr>
-              <th scope="col">No.</th>
+              <!-- <th scope="col">No.</th> -->
               <th scope="col">Title</th>
             </tr>
           </thead>
@@ -22,7 +22,7 @@
               v-for="(category, index) in categoryList"
               :key="`category${index}`"
             >
-              <td class="txt-center">{{ category.id }}</td>
+              <!-- <td class="txt-center">{{ category.id }}</td> -->
               <td>
                 <div class="edit-btns-wrap">
                   <div class="editable-area">

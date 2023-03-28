@@ -16,6 +16,8 @@
               <!-- :format="dateFormat(start)" -->
             <Datepicker
               v-model="startDate"
+              :format="dateFormat(startDate)"
+              :preview-format="dateFormat(startDate)"
               month-picker
               uid="date"
               locale="kr"
@@ -30,6 +32,8 @@
             <h4>투입 종료일</h4>
             <Datepicker
               v-model="endDate"
+              :format="dateFormat(endDate)"
+              :preview-format="dateFormat(endDate)"
               month-picker
               uid="date"
               locale="kr"
@@ -193,9 +197,9 @@ export default defineComponent({
         month: thisMonth
       }
     })
-    const dateFormat = (selectYear: number, selectMonth: number) => {
-      const year = selectYear
-      const month = selectMonth + 1
+    const dateFormat = (date: DateFormat) => {
+      const year = date.year
+      const month = date.month + 1
       return `${year}-${month < 10 ? '0' + month : month}`
     }
     const projectDetail = reactive<ReqProjectCreateInterface>({
@@ -213,10 +217,20 @@ export default defineComponent({
         mobile: null,
         pc: null
       },
-      startYear: date.startDate.year,
-      startMonth: date.startDate.month,
-      endYear: date.endDate.year,
-      endMonth: date.endDate.month,
+      // startYear: date.startDate.year,
+      // startMonth: date.startDate.month,
+      // endYear: date.endDate.year,
+      // endMonth: date.endDate.month,
+      date: {
+        startDate: {
+          year: thisYear,
+          month: thisMonth
+        },
+        endDate: {
+          year: thisYear,
+          month: thisMonth
+        }
+      },
       skills: {
         html4: false,
         html5: false,
@@ -267,6 +281,11 @@ export default defineComponent({
       }
     }
     async function projectCreate () {
+      // console.log('시작날', projectDetail.startYear)
+      console.log('시작날', projectDetail.date.startDate.year)
+      console.log('시작날', projectDetail.date.startDate.month)
+      console.log('종료날', projectDetail.date.endDate.year)
+      console.log('종료날', projectDetail.date.endDate.month)
       // if (projectDetail.title === '') {
       //   alert('제목을 입력해 주세요.')
       //   return false
@@ -283,10 +302,10 @@ export default defineComponent({
       formData.append('company', projectDetail.company)
       formData.append('orderCompany', projectDetail.orderCompany)
 
-      formData.append('startYear', JSON.stringify(projectDetail.startYear))
-      formData.append('startMonth', JSON.stringify(projectDetail.startMonth + 1))
-      formData.append('endYear', JSON.stringify(projectDetail.endYear))
-      formData.append('endMonth', JSON.stringify(projectDetail.endMonth + 1))
+      formData.append('startYear', JSON.stringify(projectDetail.date.startDate.year))
+      formData.append('startMonth', JSON.stringify(projectDetail.date.startDate.month + 1))
+      formData.append('endYear', JSON.stringify(projectDetail.date.endDate.year))
+      formData.append('endMonth', JSON.stringify(projectDetail.date.endDate.month + 1))
 
       // jobs
       if (projectDetail.jobs.length === 0) {
@@ -381,33 +400,34 @@ export default defineComponent({
       if (standard === 'start') {
         console.log('선택한 날짜', selectDate)
         if (
-          selectDate.year > date.endDate.year ||
-          (selectDate.year === date.endDate.year && selectDate.month > date.endDate.month)
+          selectDate.year > projectDetail.date.endDate.year ||
+          (selectDate.year === projectDetail.date.endDate.year && selectDate.month > projectDetail.date.endDate.month)
         ) {
           alert('시작일은 종료일보다 이전입니다.')
-          date.startDate.year = thisYear
-          date.startDate.month = thisMonth
+          projectDetail.date.startDate.year = thisYear
+          projectDetail.date.startDate.month = thisMonth
         } else {
-          date.startDate.year = selectDate.year
-          date.startDate.month = selectDate.month
+          projectDetail.date.startDate.year = selectDate.year
+          projectDetail.date.startDate.month = selectDate.month
         }
       } else if (standard === 'end') {
         if (
-          selectDate.year < date.startDate.year ||
-          (selectDate.year === date.startDate.year && selectDate.month < date.startDate.month)
+          selectDate.year < projectDetail.date.startDate.year ||
+          (selectDate.year === projectDetail.date.startDate.year && selectDate.month < projectDetail.date.startDate.month)
         ) {
           alert('종료일은 시작일보다 이후입니다.')
-          date.endDate.year = thisYear
-          date.endDate.month = thisMonth
-        } else if (date.endDate.year === thisYear && selectDate.month > thisMonth) {
-          alert('종료일은 최대 이번 달입니다.')
-          date.endDate.year = thisYear
-          date.endDate.month = thisMonth
+          projectDetail.date.endDate.year = thisYear
+          projectDetail.date.endDate.month = thisMonth
         } else {
-          date.endDate.year = selectDate.year
-          date.endDate.month = selectDate.month
+          projectDetail.date.endDate.year = selectDate.year
+          projectDetail.date.endDate.month = selectDate.month
         }
+        // console.log('시작날', projectDetail.date.startDate.year)
+        // console.log('시작날', projectDetail.date.startDate.month)
+        // console.log('종료날', projectDetail.date.endDate.year)
+        // console.log('종료날', projectDetail.date.endDate.month)
       }
+      console.log('가공 날짜', date.startDate)
     }
 
     return {

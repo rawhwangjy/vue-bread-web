@@ -54,7 +54,8 @@ export default defineComponent({
     })
 
     return {
-      pageTitle
+      pageTitle,
+      windowWidth
     }
   }
 })

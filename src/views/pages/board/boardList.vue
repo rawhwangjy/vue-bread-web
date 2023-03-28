@@ -8,13 +8,13 @@
       <div class="data-table-area">
         <table class="table vertical">
           <colgroup>
-            <col class="width10" >
+            <!-- <col class="width10" > -->
             <col class="widthAll" />
             <col class="width20" >
           </colgroup>
           <thead>
             <tr>
-              <th scope="col">ID</th>
+              <!-- <th scope="col">ID</th> -->
               <th scope="col">Title</th>
               <th scope="col">btns</th>
             </tr>
@@ -24,7 +24,7 @@
               v-for="(board, index) in boardList"
               :key="`board${index}`"
             >
-              <td>{{ board.id }}</td>
+              <!-- <td>{{ board.id }}</td> -->
               <td>
                 <a
                   href="javascript:;"
