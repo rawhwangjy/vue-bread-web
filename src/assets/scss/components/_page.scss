@@ -317,10 +317,13 @@
             }
         }
         // view
+        .table-view {
+            line-height: 20px;
+        }
         .jobs {
             li {
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 padding-top: 10px;
                 &:first-child {
                     padding-top: 0;
@@ -330,9 +333,14 @@
                     display: block;
                     width: 4px;
                     height: 4px;
+                    margin-top: 8px;
                     margin-right: 5px;
                     border-radius: 50%;
                     background-color: commons.$gray3;
+                }
+                span {
+                    display: block;
+                    width: calc(100% - 9px);
                 }
             }
         }
