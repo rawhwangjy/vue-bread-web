@@ -44,7 +44,7 @@
             <tr>
               <th scope="row">주요 업무</th>
               <td colspan="9">
-                <ul>
+                <ul class="jobs">
                   <li
                     v-for="(item, index) in projectDetail.jobs"
                     :key="`jobs${index}`"
@@ -52,31 +52,61 @@
                 </ul>
               </td>
             </tr>
-            <!-- <tr>
-              <th scope="row">프로젝트 타입</th>
+            <tr>
+              <th scope="row">프로젝트<br>타입</th>
               <td colspan="9">
-                <span>{{ projectDetail.typeMobile }}</span>
+                <span class="types">
+                  <span v-if="projectDetail.typePc">PC</span>
+                  <span v-if="projectDetail.typeMobile">모바일</span>
+                </span>
               </td>
-            </tr> -->
+            </tr>
+            <tr v-if="tabData.length !== 0">
+              <td colspan="10">
+                <Tab :tab-data="tabData">
+                  <template v-if="projectDetail.fileListMobile.length !== 0" #tab1>
+                    <Swiper
+                      v-if="projectDetail.fileListMobile.length !== 0"
+                      :options="options"
+                      @slide-change="changeSwiper"
+                    >
+                      <template
+                        v-for="(item, index) in projectDetail.fileListMobile"
+                        :key="`ss${index}`"
+                        #[`slide${index+1}`]
+                      >
+                        <span
+                          class="img-area"
+                        >
+                          <img :src="`${item}`" />
+                        </span>
+                      </template>
+                    </Swiper>
+                  </template>
+                  <template v-if="projectDetail.fileListPc.length !== 0" #tab2>
+                  <Swiper
+                    v-if="projectDetail.fileListPc.length !== 0"
+                    :options="options"
+                    @slide-change="changeSwiper"
+                  >
+                    <template
+                      v-for="(item, index) in projectDetail.fileListPc"
+                      :key="`ss${index}`"
+                      #[`slide${index+1}`]
+                    >
+                      <span
+                        class="img-area"
+                      >
+                        <img :src="`${item}`" />
+                      </span>
+                    </template>
+                  </Swiper>
+                  </template>
+                </Tab>
+              </td>
+            </tr>
           </tbody>
         </table>
-        <!-- <Swiper
-          v-if="projectDetail.fileList.mobile.length !== 0"
-          :options="options"
-          @slide-change="changeSwiper"
-        >
-          <template
-            v-for="(item, index) in projectDetail.fileList.mobile"
-            :key="`ss${index}`"
-            #[`slide${index+1}`]
-          >
-            <span
-              class="img-area"
-            >
-              <img :src="`${item}`" />
-            </span>
-          </template>
-        </Swiper> -->
       </div>
       <div class="footer-area side">
         <button class="btn lg light" @click="back">목록</button>
@@ -90,19 +120,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive, toRefs } from 'vue'
+import { defineComponent, onMounted, ref, reactive, watch, nextTick } from 'vue'
 import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
 import { ReqProjectDetailInterface, ResProjectDetailInterface } from '@/service/project/interface/projectDetail.interface'
-// import Swiper from '@/components/Swiper.vue'
+import Swiper from '@/components/Swiper.vue'
+import Tab from '@/components/Tab.vue'
 import { API_URL } from '@/utils/common.constants'
 
 export default defineComponent({
   name: 'projectView',
   components: {
-    Header
-    // Swiper
+    Header,
+    Tab,
+    Swiper
   },
   setup () {
     // router & store
@@ -111,7 +143,7 @@ export default defineComponent({
     const projectStore = useProjectStore()
 
     // init data
-    const currentCategory = route.params.category
+    const tabData = ref<string[]>([])
     const projectDetail = ref<ResProjectDetailInterface>({
       id: 0,
       title: '',
@@ -120,18 +152,14 @@ export default defineComponent({
       company: '',
       orderCompany: '',
       jobs: [],
-      type: {
-        mobile: false,
-        pc: false
-      },
+      typeMobile: false,
+      typePc: false,
       startYear: 0,
       startMonth: 0,
       endYear: 0,
       endMonth: 0,
-      fileList: {
-        mobile: [],
-        pc: []
-      },
+      fileListMobile: [],
+      fileListPc: [],
       skills: {
         html4: false,
         html5: false,
@@ -160,32 +188,19 @@ export default defineComponent({
       }
       const result = await projectStore.actionHttpGetProject(targetProject)
       projectDetail.value = result[0]
-      // projectDetail.value.jobs = JSON.parse(result[0].jobs)
-      // console.log('vvv', JSON.parse(result[0].jobs))
-      // JSON.parse(result[0].jobs).filter((item: string) => {
-      //   return projectDetail.value.jobs.push(item)
-      // })
-
-      // projectDetail.value.fileList.mobile = result[0].fileListMobile
-      // projectDetail.value.fileList.pc = result[0].fileListPc
+      projectDetail.value.jobs = JSON.parse(result[0].jobs)
       console.log('결과', result[0])
-      // console.log('결과 result[0].jobs', JSON.parse(result[0].jobs))
-      // if (result[0].fileListMobile !== '') {
-      //   console.log('for문', [result[0].fileListMobile])
-      // }
 
       // fileList 가공 후 재할당
-      // if (result[0].fileListMobile !== '') {
-      //   const target = result[0].fileListMobile
-      //   console.log('ㅠㅠㅠtarget', target)
-      //   // console.log('ㅠㅠㅠtarget2', JSON.parse(target))
-      //   // const target = result[0].fileListMobile.split(',')
-      //   for (let i = 0; i < target.length; i++) {
-      //     const targetUrl = `${API_URL}/views/upload/${target[i]}`
-      //     projectDetail.value.fileList.mobile.push(targetUrl)
-      //     console.log('dd', i)
-      //   }
-      // }
+      if (result[0].fileListMobile) {
+        tabData.value.push('모바일')
+        const target = result[0].fileListMobile.split(',')
+        projectDetail.value.fileListMobile = []
+        for (let i = 0; i < target.length; i++) {
+          const targetUrl = `${API_URL}/views/upload/${target[i]}`
+          projectDetail.value.fileListMobile.push(targetUrl)
+        }
+      }
       // if (result[0].fileListPc !== '') {
       //   const target = result[0].fileListPc.split(',')
       //   for (let i = 0; i < target.length; i++) {
@@ -195,6 +210,15 @@ export default defineComponent({
       // }
       // console.log('fileList.mobile', projectDetail.value.fileListMobile)
       // console.log('fileList.pc', projectDetail.value.value.fileListPc)
+      if (result[0].fileListPc) {
+        tabData.value.push('PC')
+        const target = result[0].fileListPc.split(',')
+        projectDetail.value.fileListPc = []
+        for (let i = 0; i < target.length; i++) {
+          const targetUrl = `${API_URL}/views/upload/${target[i]}`
+          projectDetail.value.fileListPc.push(targetUrl)
+        }
+      }
     }
 
     function back () {
@@ -206,10 +230,26 @@ export default defineComponent({
     onMounted(() => {
       getProjectDetail()
       // nextTick(() => {
-      //   options.pagination = 'dot'
-      //   options.navigation = true
+      //   if (projectDetail.value.fileListMobile) {
+      //     tabData.value.push('모바일')
+      //   } else if (projectDetail.value.fileListPc) {
+      //     tabData.value.push('PC')
+      //   }
       // })
+      console.log('onMounted tabData', tabData.value)
     })
+    // watch(
+    //   () => tabData.value,
+    //   bindData => {
+    //     // if (projectDetail.value.fileListMobile) {
+    //     //   tabData.value.push('모바일')
+    //     // } else if (projectDetail.value.fileListPc) {
+    //     //   tabData.value.push('PC')
+    //     // }
+    //     console.log('watch tabData', tabData.value)
+    //     console.log('watch bindData', bindData)
+    //   }
+    // )
     const options = reactive({
       pagination: 'dot',
       navigation: true
@@ -225,6 +265,7 @@ export default defineComponent({
       route,
       projectDetail,
       back,
+      tabData,
       options,
       changeSwiper,
       onTouch
