@@ -50,7 +50,9 @@
                   <li
                     v-for="(item, index) in projectDetail.jobs"
                     :key="`jobs${index}`"
-                  >{{ item }}</li>
+                  >
+                    <span>{{ item }}</span>
+                  </li>
                 </ul>
               </td>
             </tr>
@@ -151,7 +153,9 @@
                   <li
                     v-for="(item, index) in projectDetail.jobs"
                     :key="`jobs${index}`"
-                  >{{ item }}</li>
+                  >
+                    <span>{{ item }}</span>
+                  </li>
                 </ul>
               </td>
             </tr>
