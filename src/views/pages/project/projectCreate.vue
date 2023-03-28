@@ -213,10 +213,8 @@ export default defineComponent({
         mobile: false,
         pc: false
       },
-      fileList: {
-        mobile: null,
-        pc: null
-      },
+      fileListMobile: null,
+      fileListPc: null,
       // startYear: date.startDate.year,
       // startMonth: date.startDate.month,
       // endYear: date.endDate.year,
@@ -257,25 +255,23 @@ export default defineComponent({
     // api
     function onChangeFile (target: string, files : FileList) {
       if (target === 'pc') {
-        projectDetail.fileList.pc = files
+        projectDetail.fileListPc = files
       } else if (target === 'mobile') {
-        for (const [key, value] of Object.entries(files)) {
-          console.log('key', key)
-          console.log('value', value)
-          console.log('22', typeof projectDetail.fileList.mobile)
-          // Array.from(projectDetail.fileList.mobile).push(value.name)
-          // if (projectDetail.fileList.mobile === []) {
-          //   projectDetail.fileList.mobile.push(value)
-          // }
-          // Array.from(value).filter((item: Object) => {
-          //   return console.log('item', item)
-          //   // for (const [mobileKey, mobileValue] of Object.entries(item)) {
-          //   //   if (mobileKey === 'name') {
-          //   //     project.fileList.mobile.push(mobileValue)
-          //   //   }
-          //   // }
-          // })
-        }
+        projectDetail.fileListMobile = files
+        // for (const [key, value] of Object.entries(files)) {
+        //   // Array.from(projectDetail.fileList.mobile).push(value.name)
+        //   // if (projectDetail.fileList.mobile === []) {
+        //   //   projectDetail.fileList.mobile.push(value)
+        //   // }
+        //   // Array.from(value).filter((item: Object) => {
+        //   //   return console.log('item', item)
+        //   //   // for (const [mobileKey, mobileValue] of Object.entries(item)) {
+        //   //   //   if (mobileKey === 'name') {
+        //   //   //     project.fileList.mobile.push(mobileValue)
+        //   //   //   }
+        //   //   // }
+        //   // })
+        // }
         // projectDetail.fileList.mobile = value
         // console.log('mobile', value)
       }
@@ -335,14 +331,15 @@ export default defineComponent({
         return false
       }
       // fileList
-      if (projectDetail.fileList.mobile !== null) {
-        for (let i = 0; i < projectDetail.fileList.mobile.length; i++) {
-          formData.append('fileListMobile', projectDetail.fileList.mobile[i])
+      if (projectDetail.fileListMobile !== null) {
+        console.log()
+        for (let i = 0; i < projectDetail.fileListMobile.length; i++) {
+          formData.append('fileListMobile', projectDetail.fileListMobile[i])
         }
       }
-      if (projectDetail.fileList.pc !== null) {
-        for (let i = 0; i < projectDetail.fileList.pc.length; i++) {
-          formData.append('fileListPc', projectDetail.fileList.pc[i])
+      if (projectDetail.fileListPc !== null) {
+        for (let i = 0; i < projectDetail.fileListPc.length; i++) {
+          formData.append('fileListPc', projectDetail.fileListPc[i])
         }
       }
 
