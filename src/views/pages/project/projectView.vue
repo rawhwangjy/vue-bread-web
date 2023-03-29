@@ -65,7 +65,33 @@
                 </span>
               </td>
             </tr>
-            <tr v-if="tabData.length !== 0">
+            <tr>
+              <th scope="row">사용 기술</th>
+              <td colspan="9">
+                <div class="skills">
+                  <span v-if="projectDetail.skills.html4" class="lang html4">HTML4</span>
+                  <span v-if="projectDetail.skills.html5" class="lang html5">HTML5</span>
+                  <span v-if="projectDetail.skills.css2" class="lang css2">CSS2</span>
+                  <span v-if="projectDetail.skills.css3" class="lang css3">CSS3</span>
+                  <span v-if="projectDetail.skills.sass" class="lang sass">Sass</span>
+                  <span v-if="projectDetail.skills.photoshop" class="lang photoshop">Photoshop</span>
+                  <span v-if="projectDetail.skills.sketch" class="lang sketch">Sketch</span>
+                  <span v-if="projectDetail.skills.zeplin" class="lang zeplin">Zeplin</span>
+                  <span v-if="projectDetail.skills.javascript" class="lang javascript">Javascript</span>
+                  <span v-if="projectDetail.skills.typescript" class="lang typescript">Typescript</span>
+                  <span v-if="projectDetail.skills.vue2" class="lang vue2">Vue2</span>
+                  <span v-if="projectDetail.skills.vue3" class="lang vue3">Vue3</span>
+                  <span v-if="projectDetail.skills.jquery" class="lang jquery">Jquery</span>
+                  <span v-if="projectDetail.skills.gitlab" class="lang gitlab">Gitlab</span>
+                  <span v-if="projectDetail.skills.eclipse" class="lang eclipse">Eclipse</span>
+                  <span v-if="projectDetail.skills.node" class="lang node">Node</span>
+                  <span v-if="projectDetail.skills.npm" class="lang npm">NPM</span>
+                  <span v-if="projectDetail.skills.react" class="lang react">React</span>
+                  <span v-if="projectDetail.skills.axios" class="lang axios">Axios</span>
+                </div>
+              </td>
+            </tr>
+            <!-- <tr v-if="tabData.length !== 0">
               <td colspan="10">
                 <Tab :tab-data="tabData">
                   <template v-if="projectDetail.fileListMobile.length !== 0" #tab1>
@@ -108,7 +134,7 @@
                   </template>
                 </Tab>
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
         <table
@@ -254,16 +280,14 @@ import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
 import { ReqProjectDetailInterface, ResProjectDetailInterface } from '@/service/project/interface/projectDetail.interface'
-import Swiper from '@/components/Swiper.vue'
-import Tab from '@/components/Tab.vue'
+// import Swiper from '@/components/Swiper.vue'
+// import Tab from '@/components/Tab.vue'
 import { API_URL } from '@/utils/common.constants'
 
 export default defineComponent({
   name: 'projectView',
   components: {
-    Header,
-    Tab,
-    Swiper
+    Header
   },
   setup () {
     // router & store
