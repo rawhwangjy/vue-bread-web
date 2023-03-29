@@ -19,7 +19,10 @@ export const API_URL = process.env.VUE_APP_API_URL
  * @description: LocalStorage Names
  */
 export enum LocalKey {
-  token = 'TOKEN'
+  token = 'TOKEN',
+  lastPageNum = 'lastPageNum',
+  lastProjectOffsetY = 'lastProjectOffsetY',
+  goProjectList = 'goProjectList'
 }
 // import { LocalKey } from ''
 // localStorage.setItem(LocalKey.token, '')

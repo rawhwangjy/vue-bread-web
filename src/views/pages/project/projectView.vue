@@ -168,7 +168,33 @@
                 </span>
               </td>
             </tr>
-            <tr v-if="tabData.length !== 0">
+            <tr>
+              <th scope="row">사용 기술</th>
+              <td colspan="3">
+                <div class="skills">
+                  <span v-if="projectDetail.skills.html4" class="lang html4">HTML4</span>
+                  <span v-if="projectDetail.skills.html5" class="lang html5">HTML5</span>
+                  <span v-if="projectDetail.skills.css2" class="lang css2">CSS2</span>
+                  <span v-if="projectDetail.skills.css3" class="lang css3">CSS3</span>
+                  <span v-if="projectDetail.skills.sass" class="lang sass">Sass</span>
+                  <span v-if="projectDetail.skills.photoshop" class="lang photoshop">Photoshop</span>
+                  <span v-if="projectDetail.skills.sketch" class="lang sketch">Sketch</span>
+                  <span v-if="projectDetail.skills.zeplin" class="lang zeplin">Zeplin</span>
+                  <span v-if="projectDetail.skills.javascript" class="lang javascript">Javascript</span>
+                  <span v-if="projectDetail.skills.typescript" class="lang typescript">Typescript</span>
+                  <span v-if="projectDetail.skills.vue2" class="lang vue2">Vue2</span>
+                  <span v-if="projectDetail.skills.vue3" class="lang vue3">Vue3</span>
+                  <span v-if="projectDetail.skills.jquery" class="lang jquery">Jquery</span>
+                  <span v-if="projectDetail.skills.gitlab" class="lang gitlab">Gitlab</span>
+                  <span v-if="projectDetail.skills.eclipse" class="lang eclipse">Eclipse</span>
+                  <span v-if="projectDetail.skills.node" class="lang node">Node</span>
+                  <span v-if="projectDetail.skills.npm" class="lang npm">NPM</span>
+                  <span v-if="projectDetail.skills.react" class="lang react">React</span>
+                  <span v-if="projectDetail.skills.axios" class="lang axios">Axios</span>
+                </div>
+              </td>
+            </tr>
+            <!-- <tr v-if="tabData.length !== 0">
               <td colspan="4">
                 <Tab :tab-data="tabData">
                   <template v-if="projectDetail.fileListMobile.length !== 0" #tab1>
@@ -182,9 +208,7 @@
                         :key="`ss${index}`"
                         #[`slide${index+1}`]
                       >
-                        <span
-                          class="img-area"
-                        >
+                        <span class="img-area mobile">
                           <img :src="`${item}`" />
                         </span>
                       </template>
@@ -201,9 +225,7 @@
                       :key="`ss${index}`"
                       #[`slide${index+1}`]
                     >
-                      <span
-                        class="img-area"
-                      >
+                      <span class="img-area pc">
                         <img :src="`${item}`" />
                       </span>
                     </template>
@@ -211,7 +233,7 @@
                   </template>
                 </Tab>
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -281,10 +303,12 @@ export default defineComponent({
         vue2: false,
         vue3: false,
         jquery: false,
-        git: false,
+        gitlab: false,
         eclipse: false,
         node: false,
-        npm: false
+        npm: false,
+        react: false,
+        axios: false
       }
     })
 
@@ -294,9 +318,40 @@ export default defineComponent({
         id: Number(route.params.id)
       }
       const result = await projectStore.actionHttpGetProject(targetProject)
-      projectDetail.value = result[0]
+      // console.log('결과', result[0])
+      projectDetail.value.id = result[0].id
+      projectDetail.value.title = result[0].title
+      projectDetail.value.introduce = result[0].introduce
+      projectDetail.value.role = result[0].role
+      projectDetail.value.company = result[0].company
+      projectDetail.value.orderCompany = result[0].orderCompany
       projectDetail.value.jobs = JSON.parse(result[0].jobs)
-      console.log('결과', result[0])
+      projectDetail.value.typeMobile = result[0].typeMobile
+      projectDetail.value.typePc = result[0].typePc
+      projectDetail.value.startYear = result[0].startYear
+      projectDetail.value.startMonth = result[0].startMonth
+      projectDetail.value.endYear = result[0].endYear
+      projectDetail.value.endMonth = result[0].endMonth
+      projectDetail.value.skills.html4 = result[0].html4
+      projectDetail.value.skills.html5 = result[0].html5
+      projectDetail.value.skills.css2 = result[0].css2
+      projectDetail.value.skills.css3 = result[0].css3
+      projectDetail.value.skills.sass = result[0].sass
+      projectDetail.value.skills.photoshop = result[0].photoshop
+      projectDetail.value.skills.sketch = result[0].sketch
+      projectDetail.value.skills.zeplin = result[0].zeplin
+      projectDetail.value.skills.javascript = result[0].javascript
+      projectDetail.value.skills.typescript = result[0].typescript
+      projectDetail.value.skills.vue2 = result[0].vue2
+      projectDetail.value.skills.vue3 = result[0].vue3
+      projectDetail.value.skills.jquery = result[0].jquery
+      projectDetail.value.skills.gitlab = result[0].gitlab
+      projectDetail.value.skills.eclipse = result[0].eclipse
+      projectDetail.value.skills.node = result[0].node
+      projectDetail.value.skills.npm = result[0].npm
+      projectDetail.value.skills.react = result[0].react
+      projectDetail.value.skills.axios = result[0].axios
+      // console.log('결과2', projectDetail.value)
 
       // fileList 가공 후 재할당
       if (result[0].fileListMobile) {
@@ -352,7 +407,7 @@ export default defineComponent({
       //     tabData.value.push('PC')
       //   }
       // })
-      console.log('onMounted tabData', tabData.value)
+      // console.log('onMounted tabData', tabData.value)
     })
     // watch(
     //   () => tabData.value,

@@ -217,10 +217,29 @@
     }
     &.project {
         // list
+        .skills {
+            display: flex;
+            .lang {
+                display: flex;
+                align-items: center;
+                + .lang {
+                    &::before {
+                        content: ', ';
+                        padding-right: 3px;
+                    }
+                }
+                &:first-child {
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+        }
         .project-list {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 20px;
+            min-height: 620px;
             .project-wrap {
                 width: 100%;
                 height: 300px;
@@ -245,15 +264,18 @@
                             font-weight: bold;
                             font-size: 18px;
                         }
-                        .types {
+                        .types-badge {
                             position: absolute;
                             top: -5px;
                             right: 0;
                             display: flex;
                             span {
                                 display: block;
-                                padding: 3px 2px;
+                                height: 20px;
+                                margin: 0 2px;
+                                padding: 0 2px;
                                 border-radius: 3px;
+                                line-height: 20px;
                                 font-size: 11px;
                                 &.pc {
                                     background-color: commons.$primary-dark;
@@ -359,18 +381,31 @@
                 height: 600px;
             }
         }
-        // 임시
-        .img-area {
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 80%;
-            height: 100%;
-            margin: 0 auto;
-            img {
+        .swiper {
+            .img-area {
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 width: 100%;
-                height: auto;
+                height: 100%;
+                margin: 0 auto;
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+                // &.pc {
+                //     img {
+                //         width: 100%;
+                //         height: auto;
+                //     }
+                // }
+                // &.mobile {
+                //     img {
+                //         width: auto;
+                //         height: 100%;
+                //     }
+                // }
             }
         }
     }

@@ -39,10 +39,12 @@ export interface ReqProjectCreateInterface {
     vue2: boolean,
     vue3: boolean,
     jquery: boolean,
-    git: boolean,
+    gitlab: boolean,
     eclipse: boolean,
     node: boolean,
-    npm: boolean
+    npm: boolean,
+    react: boolean,
+    axios: boolean
   }
 }
 

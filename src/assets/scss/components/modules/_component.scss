@@ -413,7 +413,7 @@
         flex: 1;
         .tab-panel {
             visibility: hidden;
-            min-width: 100%;
+            width: 100%;
             word-break: break-word;
             &.active {
                 visibility: visible;
@@ -450,7 +450,7 @@
                 touch-action: pan-y;
             }
             .slide {
-                min-width: 100%;
+                width: 100%;
                 min-height: 60px;
                 padding: 20px;
                 height: 100%;
@@ -747,6 +747,40 @@
         100% {
             transform: translate(0, 0);
             opacity: 0;
+        }
+    }
+}
+// pagination
+.page-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    > button {
+        display: block;
+        width: 24px;
+        height: 24px;
+        font-size: 18px;
+        &:disabled {
+            color: #999;
+            pointer-events: none;
+        }
+    }
+    ol {
+        display: flex;
+        align-items: center;
+        li {
+            button {
+                display: block;
+                width: 24px;
+                height: 24px;
+                font-size: 14px;
+                &.active {
+                    border-radius: 50%;
+                    background-color: commons.$primary;
+                    color: commons.$white;
+                }
+            }
         }
     }
 }

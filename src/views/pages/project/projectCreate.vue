@@ -243,10 +243,12 @@ export default defineComponent({
         vue2: false,
         vue3: false,
         jquery: false,
-        git: false,
+        gitlab: false,
         eclipse: false,
         node: false,
-        npm: false
+        npm: false,
+        react: false,
+        axios: false
       }
     })
     // const previews = ref<string[]>([])
@@ -324,6 +326,7 @@ export default defineComponent({
         if (value !== false) {
           skillResults++
         }
+        console.log('kk', key)
         formData.append(key, JSON.stringify(value))
       }
       if (skillResults === 0) {
@@ -340,6 +343,7 @@ export default defineComponent({
       if (projectDetail.fileListPc !== null) {
         for (let i = 0; i < projectDetail.fileListPc.length; i++) {
           formData.append('fileListPc', projectDetail.fileListPc[i])
+          console.log('projectDetail.fileListPc[i]', projectDetail.fileListPc[i])
         }
       }
 

@@ -52,10 +52,12 @@ export const projectDetailInit = {
     vue2: false,
     vue3: false,
     jquery: false,
-    git: false,
+    gitlab: false,
     eclipse: false,
     node: false,
-    npm: false
+    npm: false,
+    react: false,
+    axios: false
   }
 }
 export const projectCreateInit = { }
@@ -103,10 +105,12 @@ export const useProjectStore = defineStore({
         vue2: false,
         vue3: false,
         jquery: false,
-        git: false,
+        gitlab: false,
         eclipse: false,
         node: false,
-        npm: false
+        npm: false,
+        react: false,
+        axios: false
       }
     },
     projectCreate: { },

@@ -116,6 +116,7 @@
 import { defineComponent, onMounted, ref, watch } from 'vue'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryDetailInterface } from '@/service/category/interface/categoryDetail.interface'
+import { LocalKey } from '@/utils/common.constants'
 // {
 //   navTitle: 'Guide',
 //   navUrl: '/guide',
@@ -155,10 +156,12 @@ export default defineComponent({
       } else {
         stateSub.value = true
       }
+      localStorage.setItem(LocalKey.lastPageNum, String(1))
     }
     function onHideSub () {
       stateSub.value = false
       isMoShow.value = false
+      localStorage.setItem(LocalKey.lastPageNum, String(1))
     }
     function onClickOutside () {
       stateSub.value = false
