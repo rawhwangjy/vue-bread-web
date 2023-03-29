@@ -52,7 +52,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      console.log('introduce')
+      // console.log('introduce')
       const refHTML: SceneObject = {
         objs: {
           container: mainSection.value,
@@ -66,13 +66,13 @@ export default defineComponent({
       setLayout(sceneInfo)
       window.addEventListener('resize', () => {
         setLayout(sceneInfo)
-        console.log('introduce resize')
+        // console.log('introduce resize')
       })
-      console.log('wi', window)
+      // console.log('wi', window)
       window.addEventListener('scroll', () => {
         yOffset.value = window.pageYOffset
         playAnimation()
-        console.log('introduce scroll')
+        // console.log('introduce scroll')
       })
     })
 

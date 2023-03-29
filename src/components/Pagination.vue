@@ -66,7 +66,7 @@ export default defineComponent({
     })
     function onPageMove (index: number) {
       currentPage.value = index // currentPage
-      console.log('현재 페이지', currentPage.value)
+      // console.log('현재 페이지', currentPage.value)
       const startOffset = (currentPage.value - 1) * props.dataPerPage
       const endOffset = startOffset + props.dataPerPage
       emit('update', currentPage.value, startOffset, endOffset)

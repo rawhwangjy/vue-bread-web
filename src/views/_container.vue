@@ -31,7 +31,7 @@ export default defineComponent({
     const loading = loadingData
     const loadingWrap = ref<HTMLDivElement | null>(null)
     onMounted(() => {
-      // console.log('container')
+      // // console.log('container')
       window.addEventListener('load', () => {
         loadingWrap.value?.remove()
         document.body.classList.remove('before-load')
@@ -39,7 +39,7 @@ export default defineComponent({
     })
     document.querySelector('.loading-wrap')?.addEventListener('transitionend', (e) => {
       // document.body.removeChild(e.currentTarget)
-      // console.log(e, 'e')
+      // // console.log(e, 'e')
     })
     return {
       loading,

@@ -45,7 +45,7 @@ export const httpSetBoard = (reqData: FormData) => {
   // api 잘 찌른다.
   // headers 잘 들어간다.
   // for (const pair of reqData.file.entries()) {
-  //   console.log('httpSetBoard pair', pair)
+  //   // console.log('httpSetBoard pair', pair)
   // }
   return axiosInstance({
     method: RequestEnum.POST,
@@ -59,9 +59,9 @@ export const httpSetBoard = (reqData: FormData) => {
  * @description Board Update Create
  */
 export const httpBoardUpdate = (reqData: FormData) => {
-  console.log('httpSetBoard', reqData)
+  // console.log('httpSetBoard', reqData)
   for (const pair of reqData.entries()) {
-    console.log('httpBoardUpdate pair', pair)
+    // console.log('httpBoardUpdate pair', pair)
   }
   return axiosInstance({
     method: RequestEnum.PUT,

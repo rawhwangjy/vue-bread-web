@@ -129,7 +129,7 @@ export default defineComponent({
         userName: user.userName
       }
       const result = await memberStore.actionHttpSetUser(reqData)
-      console.log('rr', result)
+      // console.log('rr', result)
 
       if (result.state === 'Y') {
         alert('회원가입 완료')

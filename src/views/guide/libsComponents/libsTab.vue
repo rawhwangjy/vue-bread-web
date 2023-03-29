@@ -85,7 +85,7 @@
 
   const tabData: Array&lt;string&gt; = ['Tab01', 'Tab02']
   function changeTab (index: number) {
-    console.log('current', index)
+    // console.log('current', index)
   }
 &lt;/script&gt;
   </code>
@@ -122,7 +122,7 @@ export default defineComponent({
 
     const tabData: Array<string> = ['Tab01', 'Tab02']
     function changeTab (index: number) {
-      console.log('current', index)
+      // console.log('current', index)
     }
     return {
       pageTitle,

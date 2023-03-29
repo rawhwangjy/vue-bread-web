@@ -121,7 +121,7 @@ export default defineComponent({
     async function getCategoryList () {
       const result = await categoryStore.actionHttpGetCategoryList()
       categoryList.value = result
-      console.log('result', result)
+      // console.log('result', result)
     }
     async function categoryUpdate (target: ResCategoryUpdateInterface) {
       await categoryStore.actionHttpCategoryUpdate(target)
@@ -134,7 +134,7 @@ export default defineComponent({
       }
       if (confirm('정말 삭제하시겠습니까?')) {
         alert('삭제되었습니다.')
-        console.log('targetBoard', targetBoard)
+        // console.log('targetBoard', targetBoard)
         await categoryStore.actionHttpCategoryDelete(targetBoard)
         getCategoryList()
         await boardStore.actionHttpBoardListDelete(targetBoard)

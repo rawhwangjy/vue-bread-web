@@ -133,7 +133,7 @@
 
   const inputText = ref('')
   function changeEvent (value : string) {
-    console.log('typing', value)
+    // console.log('typing', value)
   }
 &lt;/script&gt;
   </code>
@@ -170,10 +170,10 @@ export default defineComponent({
 
     const inputText = ref('')
     function changeEvent (value : string) {
-      console.log('parent input', value)
+      // console.log('parent input', value)
     }
     function onChangeFile (value : FileList) {
-      console.log('parent input', value)
+      // console.log('parent input', value)
     }
     return {
       pageTitle,

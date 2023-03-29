@@ -63,7 +63,7 @@ export const useBoardStore = defineStore({
       this.boardCreate = boardCreateInit
       try {
         const res = await httpSetBoard(reqData)
-        console.log('item.id', reqData)
+        // console.log('item.id', reqData)
         // if (res.data) {
         //   this.boardCreate = res.data
         // }

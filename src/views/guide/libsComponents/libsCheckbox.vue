@@ -251,7 +251,7 @@
     arrayCheckbox: []
   })
   function changeEvent (value : boolean | []) {
-    console.log('checked', value)
+    // console.log('checked', value)
   }
 &lt;/script&gt;
   </code>
@@ -293,7 +293,7 @@ export default defineComponent({
       arrayCheckbox: []
     })
     function changeEvent (value : boolean | []) {
-      console.log('checked', value)
+      // console.log('checked', value)
     }
     return {
       pageTitle,

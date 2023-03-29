@@ -75,7 +75,7 @@ export default defineComponent({
       const result = await boardStore.actionHttpBoardDetail(targetBoard)
       result[0].showHide === 1 ? result[0].showHide = true : result[0].showHide = false
       boardDetail.value = result[0]
-      console.log('board', boardDetail.value)
+      // console.log('board', boardDetail.value)
 
       // fileList 가공 후 재할당
       if (result[0].fileList !== '') {

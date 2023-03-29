@@ -213,7 +213,7 @@ export default defineComponent({
     // 화면 사이즈 체크
     const windowWidth = ref(window.innerWidth)
     function checkSize () {
-      console.log('사이즈', windowWidth)
+      // console.log('사이즈', windowWidth)
       window.addEventListener('resize', () => {
         windowWidth.value = window.innerWidth
       })

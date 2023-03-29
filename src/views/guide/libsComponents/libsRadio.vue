@@ -191,7 +191,7 @@
     defaultRadio: ''
   })
   function changeEvent (value : string) {
-    console.log('checked', value)
+    // console.log('checked', value)
   }
 &lt;/script&gt;
   </code>
@@ -277,7 +277,7 @@
     defaultRadio2: ''
   })
   function changeEvent (value : string) {
-    console.log('checked', value)
+    // console.log('checked', value)
   }
 &lt;/script&gt;
   </code>
@@ -317,7 +317,7 @@ export default defineComponent({
       defaultRadio2: ''
     })
     function changeEvent (value : string) {
-      console.log('checked', value)
+      // console.log('checked', value)
     }
     return {
       pageTitle,

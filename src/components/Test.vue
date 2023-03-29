@@ -36,13 +36,13 @@ export default defineComponent({
       input3: 0
     })
     onMounted(() => {
-      console.log('test')
+      // console.log('test')
     })
 
     function onCalc () {
-      console.log('input1', state.input1)
-      console.log('input2', state.input2)
-      console.log('input3', state.input3)
+      // console.log('input1', state.input1)
+      // console.log('input2', state.input2)
+      // console.log('input3', state.input3)
       let a = state.input1
       let b = state.input2
       let r
@@ -51,7 +51,7 @@ export default defineComponent({
         a = b
         b = r
       }
-      console.log('aa', a)
+      // console.log('aa', a)
     }
 
     return {

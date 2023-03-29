@@ -201,7 +201,7 @@
   })
 
   function changeSwiper (index: number) {
-    console.log('current', index)
+    // console.log('current', index)
   }
 &lt;/script&gt;
   </code>
@@ -260,7 +260,7 @@ export default defineComponent({
       // }
     })
     function changeSwiper (index: number) {
-      console.log('current', index)
+      // console.log('current', index)
     }
     return {
       pageTitle,

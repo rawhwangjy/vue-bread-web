@@ -96,7 +96,7 @@
   const seletedText = ref('')
   const selectData = ['123', '테스트', '데이터']
   function changeEvent (value : string) {
-    console.log('selected', value)
+    // console.log('selected', value)
   }
 &lt;/script&gt;
   </code>
@@ -134,7 +134,7 @@ export default defineComponent({
     const seletedText = ref('')
     const selectData = ['123', '테스트', '데이터']
     function changeEvent (value : string) {
-      console.log('selected', value)
+      // console.log('selected', value)
     }
     return {
       pageTitle,

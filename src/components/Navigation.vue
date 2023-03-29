@@ -165,7 +165,7 @@ export default defineComponent({
     }
 
     function onClickIsShowAllMenu () {
-      console.log(isShowModal.value)
+      // console.log(isShowModal.value)
       isShowModal.value ? isShowModal.value = false : isShowModal.value = true
     }
     function onClickMove (item: MenuInterface) {

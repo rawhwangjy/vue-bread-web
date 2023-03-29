@@ -132,7 +132,7 @@ export default defineComponent({
       categoryObject.value.filter((item: ResCategoryListInterface) => {
         if (boardDetail.value.category === item.category) {
           formData.append('categoryId', String(item.id))
-          console.log('item.id', item.id)
+          // console.log('item.id', item.id)
         }
         return false
       })
@@ -149,7 +149,7 @@ export default defineComponent({
 
       const result = await boardStore.actionHttpBoardCreate(formData)
       currentCategory.value = boardDetail.value.category
-      console.log('currentCategory.value', currentCategory.value)
+      // console.log('currentCategory.value', currentCategory.value)
       alert('글 등록이 완료되었습니다.')
       router.push({
         path: `/board/${currentCategory.value}/${result.insertId}`

@@ -108,7 +108,7 @@ export default defineComponent({
     // 화면 사이즈 체크
     const windowWidth = ref(window.innerWidth)
     function checkSize () {
-      console.log('사이즈', windowWidth)
+      // console.log('사이즈', windowWidth)
       window.addEventListener('resize', () => {
         windowWidth.value = window.innerWidth
       })
@@ -225,8 +225,8 @@ export default defineComponent({
     function subNavItemClick (parentIndex: number, currentIndex: number) {
       state.navIndex = parentIndex
       state.subNavIndex = currentIndex
-      // console.log('sub / state.navIndex', state.navIndex)
-      // console.log('sub / state.subNavIndex', state.subNavIndex)
+      // // console.log('sub / state.navIndex', state.navIndex)
+      // // console.log('sub / state.subNavIndex', state.subNavIndex)
       router.push({ path: state.guideItems[state.navIndex].subItems[state.subNavIndex].subNavUrl })
     }
     return {

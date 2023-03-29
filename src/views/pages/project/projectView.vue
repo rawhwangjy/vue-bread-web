@@ -342,7 +342,7 @@ export default defineComponent({
         id: Number(route.params.id)
       }
       const result = await projectStore.actionHttpGetProject(targetProject)
-      // console.log('결과', result[0])
+      // // console.log('결과', result[0])
       projectDetail.value.id = result[0].id
       projectDetail.value.title = result[0].title
       projectDetail.value.introduce = result[0].introduce
@@ -375,7 +375,7 @@ export default defineComponent({
       projectDetail.value.skills.npm = result[0].npm
       projectDetail.value.skills.react = result[0].react
       projectDetail.value.skills.axios = result[0].axios
-      // console.log('결과2', projectDetail.value)
+      // // console.log('결과2', projectDetail.value)
 
       // fileList 가공 후 재할당
       if (result[0].fileListMobile) {
@@ -394,8 +394,8 @@ export default defineComponent({
       //     projectDetail.value.fileList.pc.push(targetUrl)
       //   }
       // }
-      // console.log('fileList.mobile', projectDetail.value.fileListMobile)
-      // console.log('fileList.pc', projectDetail.value.value.fileListPc)
+      // // console.log('fileList.mobile', projectDetail.value.fileListMobile)
+      // // console.log('fileList.pc', projectDetail.value.value.fileListPc)
       if (result[0].fileListPc) {
         tabData.value.push('PC')
         const target = result[0].fileListPc.split(',')
@@ -416,7 +416,7 @@ export default defineComponent({
     // 화면 사이즈 체크
     const windowWidth = ref(window.innerWidth)
     function checkSize () {
-      // console.log('사이즈', windowWidth)
+      // // console.log('사이즈', windowWidth)
       window.addEventListener('resize', () => {
         windowWidth.value = window.innerWidth
       })
@@ -431,7 +431,7 @@ export default defineComponent({
       //     tabData.value.push('PC')
       //   }
       // })
-      // console.log('onMounted tabData', tabData.value)
+      // // console.log('onMounted tabData', tabData.value)
     })
     // watch(
     //   () => tabData.value,
@@ -441,8 +441,8 @@ export default defineComponent({
     //     // } else if (projectDetail.value.fileListPc) {
     //     //   tabData.value.push('PC')
     //     // }
-    //     console.log('watch tabData', tabData.value)
-    //     console.log('watch bindData', bindData)
+    //     // console.log('watch tabData', tabData.value)
+    //     // console.log('watch bindData', bindData)
     //   }
     // )
     const options = reactive({
@@ -450,10 +450,10 @@ export default defineComponent({
       navigation: true
     })
     function changeSwiper (index: number) {
-      console.log('current', index)
+      // console.log('current', index)
     }
     function onTouch () {
-      console.log('ddd')
+      // console.log('ddd')
     }
 
     return {

@@ -42,7 +42,7 @@ export const httpSetProject = (reqData: FormData) => {
   // api 잘 찌른다.
   // headers 잘 들어간다.
   // for (const pair of reqData.file.entries()) {
-  //   console.log('httpSetProject pair', pair)
+  //   // console.log('httpSetProject pair', pair)
   // }
   return axiosInstance({
     method: RequestEnum.POST,
@@ -56,9 +56,9 @@ export const httpSetProject = (reqData: FormData) => {
  * @description Project Update Create
  */
 export const httpProjectUpdate = (reqData: FormData) => {
-  console.log('httpSetProject', reqData)
+  // console.log('httpSetProject', reqData)
   for (const pair of reqData.entries()) {
-    console.log('httpProjectUpdate pair', pair)
+    // console.log('httpProjectUpdate pair', pair)
   }
   return axiosInstance({
     method: RequestEnum.PUT,

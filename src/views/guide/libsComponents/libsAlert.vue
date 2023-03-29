@@ -170,7 +170,7 @@
   const state = ref&lt;boolean&gt;(false)
   function openAlert () {
     state.value = !state.value
-    console.log(state.value)
+    // console.log(state.value)
   }
 &lt;/script&gt;
   </code>

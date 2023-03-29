@@ -37,7 +37,7 @@ export const httpSetMemberAccount = (reqData: ReqMemberCreateInterface) => {
 /**
  * @description Signin
  */
-console.log('token', token)
+// console.log('token', token)
 export const httpMemberSignin = (reqData: ReqMemberSigninInterface) => {
   return axiosInstance({
     // headers: {

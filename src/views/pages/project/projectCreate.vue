@@ -266,7 +266,7 @@ export default defineComponent({
         //   //   projectDetail.fileList.mobile.push(value)
         //   // }
         //   // Array.from(value).filter((item: Object) => {
-        //   //   return console.log('item', item)
+        //   //   return // console.log('item', item)
         //   //   // for (const [mobileKey, mobileValue] of Object.entries(item)) {
         //   //   //   if (mobileKey === 'name') {
         //   //   //     project.fileList.mobile.push(mobileValue)
@@ -275,15 +275,15 @@ export default defineComponent({
         //   // })
         // }
         // projectDetail.fileList.mobile = value
-        // console.log('mobile', value)
+        // // console.log('mobile', value)
       }
     }
     async function projectCreate () {
-      // console.log('시작날', projectDetail.startYear)
-      console.log('시작날', projectDetail.date.startDate.year)
-      console.log('시작날', projectDetail.date.startDate.month)
-      console.log('종료날', projectDetail.date.endDate.year)
-      console.log('종료날', projectDetail.date.endDate.month)
+      // // console.log('시작날', projectDetail.startYear)
+      // console.log('시작날', projectDetail.date.startDate.year)
+      // console.log('시작날', projectDetail.date.startDate.month)
+      // console.log('종료날', projectDetail.date.endDate.year)
+      // console.log('종료날', projectDetail.date.endDate.month)
       // if (projectDetail.title === '') {
       //   alert('제목을 입력해 주세요.')
       //   return false
@@ -326,7 +326,7 @@ export default defineComponent({
         if (value !== false) {
           skillResults++
         }
-        console.log('kk', key)
+        // console.log('kk', key)
         formData.append(key, JSON.stringify(value))
       }
       if (skillResults === 0) {
@@ -335,7 +335,7 @@ export default defineComponent({
       }
       // fileList
       if (projectDetail.fileListMobile !== null) {
-        console.log()
+        // console.log()
         for (let i = 0; i < projectDetail.fileListMobile.length; i++) {
           formData.append('fileListMobile', projectDetail.fileListMobile[i])
         }
@@ -343,7 +343,7 @@ export default defineComponent({
       if (projectDetail.fileListPc !== null) {
         for (let i = 0; i < projectDetail.fileListPc.length; i++) {
           formData.append('fileListPc', projectDetail.fileListPc[i])
-          console.log('projectDetail.fileListPc[i]', projectDetail.fileListPc[i])
+          // console.log('projectDetail.fileListPc[i]', projectDetail.fileListPc[i])
         }
       }
 
@@ -399,7 +399,7 @@ export default defineComponent({
     })
     function handleDate (standard: string, selectDate: DateFormat) {
       if (standard === 'start') {
-        console.log('선택한 날짜', selectDate)
+        // console.log('선택한 날짜', selectDate)
         if (
           selectDate.year > projectDetail.date.endDate.year ||
           (selectDate.year === projectDetail.date.endDate.year && selectDate.month > projectDetail.date.endDate.month)
@@ -423,12 +423,12 @@ export default defineComponent({
           projectDetail.date.endDate.year = selectDate.year
           projectDetail.date.endDate.month = selectDate.month
         }
-        // console.log('시작날', projectDetail.date.startDate.year)
-        // console.log('시작날', projectDetail.date.startDate.month)
-        // console.log('종료날', projectDetail.date.endDate.year)
-        // console.log('종료날', projectDetail.date.endDate.month)
+        // // console.log('시작날', projectDetail.date.startDate.year)
+        // // console.log('시작날', projectDetail.date.startDate.month)
+        // // console.log('종료날', projectDetail.date.endDate.year)
+        // // console.log('종료날', projectDetail.date.endDate.month)
       }
-      console.log('가공 날짜', date.startDate)
+      // console.log('가공 날짜', date.startDate)
     }
 
     return {

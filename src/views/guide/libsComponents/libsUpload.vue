@@ -124,7 +124,7 @@
   import Input from '@/components/Input.vue'
 
   function onChangeFile (value : FileList) {
-    console.log('parent input', value)
+    // console.log('parent input', value)
   }
 &lt;/script&gt;
   </code>
@@ -223,7 +223,7 @@ export default defineComponent({
 
     const testData = ref<string[]>([])
     function onChangeFile (value : FileList) {
-      console.log('parent input', value)
+      // console.log('parent input', value)
     }
 
     // test api

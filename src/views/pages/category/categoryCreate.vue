@@ -69,7 +69,7 @@ export default defineComponent({
 
     onMounted(() => {
       // getCategoryList()
-      console.log(currentCategory)
+      // console.log(currentCategory)
     })
 
     return {

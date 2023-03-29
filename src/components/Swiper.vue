@@ -217,7 +217,7 @@ export default defineComponent({
                 ? props.options.tab?.data
                 : []
           const diff = initProps.slideLength - Number(tabType?.length)
-          console.log(Number(tabType?.length))
+          // console.log(Number(tabType?.length))
           if (Number(tabType?.length) === 0) {
             for (let i = 0; i < initProps.slideLength; i++) {
               tabArray.push('Untitled')
@@ -231,9 +231,9 @@ export default defineComponent({
                 } else {
                   if (diff === 0) {
                     tabArray.push(item)
-                    console.log('여기')
+                    // console.log('여기')
                   } else {
-                    console.log('저기')
+                    // console.log('저기')
                     if (index < i) {
                       tabArray.push('Untitled')
                     } else {

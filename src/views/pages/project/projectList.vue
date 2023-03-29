@@ -93,30 +93,30 @@ export default defineComponent({
       projectList.value = cloneDeep(originProjectList.value).splice(0, 4)
 
       // projectList.value.filter(item => {
-      //   return item.id === 1 ? item.focus() : console.log('NO')
+      //   return item.id === 1 ? item.focus() : // console.log('NO')
       // })
     }
 
     // 화면 사이즈 체크
     const windowWidth = ref(window.innerWidth)
     function checkSize () {
-      console.log('사이즈', windowWidth)
+      // console.log('사이즈', windowWidth)
       window.addEventListener('resize', () => {
         windowWidth.value = window.innerWidth
       })
     }
     onMounted(() => {
-      console.log('projects')
+      // console.log('projects')
       getProjectList()
       checkSize()
     })
     const currentPage = ref(1)
     const currentProject = ref(1)
     // onMounted(() => {
-    //   console.log('projects', Number(localStorage.getItem(LocalKey.lastProjectOffsetY)))
+    //   // console.log('projects', Number(localStorage.getItem(LocalKey.lastProjectOffsetY)))
     //   getProjectList()
     //   if (localStorage.getItem(LocalKey.lastProjectOffsetY) !== 'lastProjectOffsetY') {
-    //     console.log('움직여라')
+    //     // console.log('움직여라')
     //     // window.scrollBy({ top: Number(localStorage.getItem(LocalKey.lastProjectOffsetY)) })
     //     window.scrollTo({ top: Number(localStorage.getItem(LocalKey.lastProjectOffsetY)) })
     //   }
@@ -127,13 +127,13 @@ export default defineComponent({
         path: `/project/${id}`
       })
       // const _event = event as PointerEvent
-      // console.log('evvvet', _event.screenY)
+      // // console.log('evvvet', _event.screenY)
       // localStorage.setItem(LocalKey.lastProjectOffsetY, String(_event.screenY))
     }
     function onPageMove (targetPage: number, startOffset: number, endOffset: number) {
       projectList.value = cloneDeep(originProjectList.value).slice(startOffset, endOffset) // 마지막 처리
-      // console.log('clicked page startOffset', startOffset)
-      // console.log('clicked page endOffset', endOffset)
+      // // console.log('clicked page startOffset', startOffset)
+      // // console.log('clicked page endOffset', endOffset)
       currentPage.value = targetPage
       localStorage.setItem(LocalKey.lastPageNum, String(currentPage.value))
     }
