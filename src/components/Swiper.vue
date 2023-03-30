@@ -129,7 +129,7 @@ export default defineComponent({
       navCustomClass: '',
       pageCustomClass: ''
     })
-    // const swiperHeight = ref()
+    const swiperHeight = ref()
     const curSlider = reactive({
       curSlide: 0,
       curPositon: 0
@@ -285,9 +285,9 @@ export default defineComponent({
         //   slide.style.cssText =
         // swiperDom.swiper.style.cssText = `transform: translate3d(${curSlider.curPositon}px, 0, 0)`
         initProps.slideHeight = Math.max.apply(null, slidesHeight)
-        // swiperHeight.value = {
-        //   height: `${initProps.slideHeight}px`
-        // }
+        swiperHeight.value = {
+          height: `${initProps.slideHeight}px`
+        }
       }
       if (initParams.navigation) {
         swiperDom.navigation?.btnPrev?.classList.add('disabled')
@@ -472,7 +472,7 @@ export default defineComponent({
       emit('update', target)
     }
     return {
-      // swiperHeight,
+      swiperHeight,
       SWIPERROOT,
       tabArray,
       ...toRefs(initProps),
