@@ -293,13 +293,13 @@ export default defineComponent({
         swiperDom.navigation?.btnPrev?.classList.add('disabled')
         swiperDom.navigation?.btnNext?.addEventListener('click', onNext)
         swiperDom.navigation?.btnPrev?.addEventListener('click', onPrev)
-        if (swiperDom.navigation?.navRoot) {
-          initProps.btnNavTop = {
-            top: initParams.tab
-              ? `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2) + initProps.tabHeight}px`
-              : `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2)}px`
-          }
-        }
+        // if (swiperDom.navigation?.navRoot) {
+        //   initProps.btnNavTop = {
+        //     top: initParams.tab
+        //       ? `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2) + initProps.tabHeight}px`
+        //       : `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2)}px`
+        //   }
+        // }
       }
       window.addEventListener('resize', setPositionByIndex)
       window.oncontextmenu = (event: Event) => {
