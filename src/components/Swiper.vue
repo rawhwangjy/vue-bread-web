@@ -26,9 +26,8 @@
     <div
       class="swiper-wrap"
       :style="[
-        swiperHeight,
-        initParams.tab ? `margin-top: ${tabHeight}px` : ''
-        // initParams.pagination ? `margin-bottom: ${btnPageHeight + 30}px` : '',
+        initParams.tab ? `margin-top: ${tabHeight}px` : '',
+        initParams.pagination ? `margin-bottom: ${btnPageHeight + 30}px` : '',
       ]"
     >
       <div
@@ -36,20 +35,18 @@
         :class="{
           'vertical': initParams.direction === 'vertical'
         }"
-        :style="swiperHeight"
       >
         <div
           v-for="(slot, index) of Object.keys($slots)"
           :key="`slide${index}`"
           class="slide"
-          :style="swiperHeight"
         >
           <slot :name="slot" />
         </div>
       </div>
     </div>
     <div
-      v-if="initParams.navigation && Object.keys($slots).length > 1"
+      v-if="initParams.navigation"
       class="navigation-wrap"
       :class="navCustomClass"
       :style="btnNavTop"
@@ -217,7 +214,7 @@ export default defineComponent({
                 ? props.options.tab?.data
                 : []
           const diff = initProps.slideLength - Number(tabType?.length)
-          // console.log(Number(tabType?.length))
+          console.log(Number(tabType?.length))
           if (Number(tabType?.length) === 0) {
             for (let i = 0; i < initProps.slideLength; i++) {
               tabArray.push('Untitled')
@@ -250,6 +247,7 @@ export default defineComponent({
         const slidesHeight: number[] = []
         // any => Element
         swiperDom.slides.forEach((slide: Element, index: number) => {
+          console.log('slide.clientHeight', slide.clientHeight)
           slidesHeight.push(slide.clientHeight)
           // touch events
           slide.addEventListener('touchstart', touchStart(index))
@@ -262,21 +260,21 @@ export default defineComponent({
           slide.addEventListener('mouseleave', touchEnd)
         })
         initProps.slideHeight = Math.max.apply(null, slidesHeight)
-        // swiperHeight.value = {
-        //   height: `${initProps.slideHeight}px`
-        // }
+        swiperHeight.value = {
+          height: `${initProps.slideHeight}px`
+        }
       }
       if (initParams.navigation) {
         swiperDom.navigation?.btnPrev?.classList.add('disabled')
         swiperDom.navigation?.btnNext?.addEventListener('click', onNext)
         swiperDom.navigation?.btnPrev?.addEventListener('click', onPrev)
-        // if (swiperDom.navigation?.navRoot) {
-        //   initProps.btnNavTop = {
-        //     top: initParams.tab
-        //       ? `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2) + initProps.tabHeight}px`
-        //       : `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2)}px`
-        //   }
-        // }
+        if (swiperDom.navigation?.navRoot) {
+          initProps.btnNavTop = {
+            top: initParams.tab
+              ? `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2) + initProps.tabHeight}px`
+              : `${(initProps.slideHeight / 2) - (initProps.btnNavHeight / 2)}px`
+          }
+        }
       }
       window.addEventListener('resize', setPositionByIndex)
       window.oncontextmenu = (event: Event) => {
@@ -390,11 +388,8 @@ export default defineComponent({
 
     function setSliderPosition () {
       if (swiperDom.swiper) {
-        // initParams.direction === 'horizontal'
-        //   ? swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}px; transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
-        //   : swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px; transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
         initParams.direction === 'horizontal'
-          ? swiperDom.swiper.style.cssText = `transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
+          ? swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}px; transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
           : swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px; transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
       }
     }

@@ -375,11 +375,8 @@
                 }
             }
         }
-        .tab-wrap {
-            // height: 600px;
-            .swiper-component {
-                height: 600px;
-            }
+        .swiper-component {
+            width: 90%;
         }
         .swiper {
             .img-area {
@@ -390,6 +387,7 @@
                 width: 100%;
                 height: 100%;
                 margin: 0 auto;
+                padding: 0px 50px;
                 img {
                     width: 100%;
                     height: auto;

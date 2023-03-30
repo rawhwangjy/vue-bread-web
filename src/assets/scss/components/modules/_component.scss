@@ -413,7 +413,7 @@
         flex: 1;
         .tab-panel {
             visibility: hidden;
-            width: 100%;
+            min-width: 100%;
             word-break: break-word;
             &.active {
                 visibility: visible;
@@ -450,9 +450,8 @@
                 touch-action: pan-y;
             }
             .slide {
-                width: 100%;
-                min-height: 60px;
-                padding: 20px;
+                min-width: 100%;
+                // min-height: 60px;
                 height: 100%;
             }
         }
@@ -529,7 +528,7 @@
         position: absolute;
         top: 50%;
         width: 100%;
-        transform: translate(0px, -50%);
+        transform: translate(0px, calc(-50% - 40px));
         button {
             position: absolute;
             display: flex;
