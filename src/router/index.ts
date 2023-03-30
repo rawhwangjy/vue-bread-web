@@ -11,11 +11,12 @@ import routerMember from '@/router/routes/pages.member.route'
 const container = () => import(/* webpackChunkName: "pages" */ '@/views/pages/_pageContainer.vue')
 const main = () => import(/* webpackChunkName: "pages" */ '@/views/pages/main.vue')
 const projectList = () => import(/* webpackChunkName: "pages" */ '@/views/pages/project/projectList.vue')
+const spec = () => import(/* webpackChunkName: "guide" */ '@/views/guide/intro/spec.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: projectList
+    component: spec
   },
   routerIntro,
   routerComponents,
