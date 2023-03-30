@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, PropType, reactive, toRefs, ref, computed } from 'vue'
+import { defineComponent, onMounted, onUnmounted, PropType, reactive, toRefs, ref, computed, nextTick } from 'vue'
 import { Swiper, DomType } from '@/utils/common.interface'
 
 export default defineComponent({
@@ -129,7 +129,7 @@ export default defineComponent({
       navCustomClass: '',
       pageCustomClass: ''
     })
-    const swiperHeight = ref()
+    // const swiperHeight = ref()
     const curSlider = reactive({
       curSlide: 0,
       curPositon: 0
@@ -163,26 +163,40 @@ export default defineComponent({
       }
       Object.assign(swiperDom, getSwiperDom)
       initProps.slideLength = Number(getSwiperDom.swiper?.children.length)
-      initProps.slideWidth = Number(getSwiperDom.swiper?.clientWidth)
+      initProps.slideWidth = Number(getSwiperDom.swiperWrap?.clientWidth)
       initProps.tabHeight = Number(getSwiperDom.tab?.clientHeight)
       initProps.btnNavHeight = Number(getSwiperDom.navigation?.btnPrev?.clientHeight)
       initProps.btnPageHeight = Number(getSwiperDom.pagination?.clientHeight)
       console.log('mount', initProps.slideWidth)
       initFunc()
+      if (swiperDom.slides) {
+        swiperDom.slides.forEach((slide: Element, index: number) => {
+          console.log('initProps.slideWidth', getSwiperDom.swiper?.clientWidth)
+          setTimeout(() => {
+            const target = slide as HTMLElement
+            console.log('target', target)
+            console.log('initProps.slideWidth', getSwiperDom.swiper?.clientWidth)
+            target.style.cssText = `width: ${getSwiperDom.swiper?.clientWidth}px`
+          }, 500)
+          // nextTick(() => {
+          // })
+        })
+      }
     })
 
     function initFunc () {
       const timer = ref()
       if (swiperDom.swiperWrap) {
         if (initParams.tab) {
-          swiperDom.swiperWrap.style.cssText = `width: ${initProps.slideWidth}px; margin-top: ${initProps.tabHeight}px;`
+          swiperDom.swiperWrap.style.cssText = `margin-top: ${initProps.tabHeight}px;`
         }
         if (initParams.pagination) {
-          swiperDom.swiperWrap.style.cssText = `width: ${initProps.slideWidth}px; margin-bottom: ${initProps.btnPageHeight + 30}px;`
+          swiperDom.swiperWrap.style.cssText = `margin-bottom: ${initProps.btnPageHeight + 30}px;`
         }
         if (initParams.tab && initParams.pagination) {
-          swiperDom.swiperWrap.style.cssText = `width: ${initProps.slideWidth}px; margin-top: ${initProps.tabHeight}px; margin-bottom: ${initProps.btnPageHeight + 30}px;`
+          swiperDom.swiperWrap.style.cssText = `margin-top: ${initProps.tabHeight}px; margin-bottom: ${initProps.btnPageHeight + 30}px;`
         }
+        // `width: ${initProps.slideWidth}px;
       }
       if (initParams.autoplay.delay) {
         timer.value = setInterval(autoplay, initParams.autoplay.delay)
@@ -256,6 +270,7 @@ export default defineComponent({
         const slidesHeight: number[] = []
         // any => Element
         swiperDom.slides.forEach((slide: Element, index: number) => {
+          // slide init height
           slidesHeight.push(slide.clientHeight)
           // touch events
           slide.addEventListener('touchstart', touchStart(index))
@@ -267,10 +282,12 @@ export default defineComponent({
           slide.addEventListener('mousemove', touchMove)
           slide.addEventListener('mouseleave', touchEnd)
         })
+        //   slide.style.cssText =
+        // swiperDom.swiper.style.cssText = `transform: translate3d(${curSlider.curPositon}px, 0, 0)`
         initProps.slideHeight = Math.max.apply(null, slidesHeight)
-        swiperHeight.value = {
-          height: `${initProps.slideHeight}px`
-        }
+        // swiperHeight.value = {
+        //   height: `${initProps.slideHeight}px`
+        // }
       }
       if (initParams.navigation) {
         swiperDom.navigation?.btnPrev?.classList.add('disabled')
@@ -400,8 +417,8 @@ export default defineComponent({
         //   ? swiperDom.swiper.style.cssText = `transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
         //   : swiperDom.swiper.style.cssText = `transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
         initParams.direction === 'horizontal'
-          ? swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}px; transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
-          : swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px; transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
+          ? swiperDom.swiper.style.cssText = `transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
+          : swiperDom.swiper.style.cssText = `transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
       }
     }
     /// //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -455,7 +472,7 @@ export default defineComponent({
       emit('update', target)
     }
     return {
-      swiperHeight,
+      // swiperHeight,
       SWIPERROOT,
       tabArray,
       ...toRefs(initProps),
