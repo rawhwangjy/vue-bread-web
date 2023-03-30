@@ -25,10 +25,6 @@
 
     <div
       class="swiper-wrap"
-      :style="[
-        initParams.tab ? `margin-top: ${tabHeight}px` : '',
-        initParams.pagination ? `margin-bottom: ${btnPageHeight + 30}px` : '',
-      ]"
     >
       <div
         class="swiper"
@@ -154,6 +150,7 @@ export default defineComponent({
         customClass.pageCustomClass = initParams.pagination
       }
       const getSwiperDom: DomType = {
+        swiperWrap: SWIPERROOT.value?.querySelector('.swiper-wrap'),
         swiper: SWIPERROOT.value?.querySelector('.swiper'),
         slides: SWIPERROOT.value?.querySelectorAll('.slide'),
         tab: SWIPERROOT.value?.querySelector('.swiper-tab'),
@@ -170,11 +167,23 @@ export default defineComponent({
       initProps.tabHeight = Number(getSwiperDom.tab?.clientHeight)
       initProps.btnNavHeight = Number(getSwiperDom.navigation?.btnPrev?.clientHeight)
       initProps.btnPageHeight = Number(getSwiperDom.pagination?.clientHeight)
+      console.log('mount', initProps.slideWidth)
       initFunc()
     })
 
     function initFunc () {
       const timer = ref()
+      if (swiperDom.swiperWrap) {
+        if (initParams.tab) {
+          swiperDom.swiperWrap.style.cssText = `width: ${initProps.slideWidth}px; margin-top: ${initProps.tabHeight}px;`
+        }
+        if (initParams.pagination) {
+          swiperDom.swiperWrap.style.cssText = `width: ${initProps.slideWidth}px; margin-bottom: ${initProps.btnPageHeight + 30}px;`
+        }
+        if (initParams.tab && initParams.pagination) {
+          swiperDom.swiperWrap.style.cssText = `width: ${initProps.slideWidth}px; margin-top: ${initProps.tabHeight}px; margin-bottom: ${initProps.btnPageHeight + 30}px;`
+        }
+      }
       if (initParams.autoplay.delay) {
         timer.value = setInterval(autoplay, initParams.autoplay.delay)
       }
@@ -214,7 +223,7 @@ export default defineComponent({
                 ? props.options.tab?.data
                 : []
           const diff = initProps.slideLength - Number(tabType?.length)
-          console.log(Number(tabType?.length))
+          // console.log(Number(tabType?.length))
           if (Number(tabType?.length) === 0) {
             for (let i = 0; i < initProps.slideLength; i++) {
               tabArray.push('Untitled')
@@ -247,7 +256,6 @@ export default defineComponent({
         const slidesHeight: number[] = []
         // any => Element
         swiperDom.slides.forEach((slide: Element, index: number) => {
-          console.log('slide.clientHeight', slide.clientHeight)
           slidesHeight.push(slide.clientHeight)
           // touch events
           slide.addEventListener('touchstart', touchStart(index))
@@ -388,6 +396,9 @@ export default defineComponent({
 
     function setSliderPosition () {
       if (swiperDom.swiper) {
+        // initParams.direction === 'horizontal'
+        //   ? swiperDom.swiper.style.cssText = `transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
+        //   : swiperDom.swiper.style.cssText = `transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
         initParams.direction === 'horizontal'
           ? swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}px; transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
           : swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px; transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`

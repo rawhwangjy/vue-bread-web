@@ -21,6 +21,7 @@ export interface Swiper {
   } | boolean | null
 }
 export interface DomType {
+  swiperWrap?: HTMLElement | null,
   swiper?: HTMLElement | null,
   slides?: NodeListOf<Element> | null,
   tab?: HTMLElement | null,
