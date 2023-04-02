@@ -219,6 +219,7 @@
         // list
         .skills {
             display: flex;
+            flex-wrap: wrap;
             .lang {
                 display: flex;
                 align-items: center;
