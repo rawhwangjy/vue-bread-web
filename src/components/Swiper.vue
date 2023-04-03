@@ -129,7 +129,7 @@ export default defineComponent({
       navCustomClass: '',
       pageCustomClass: ''
     })
-    const swiperHeight = ref()
+    // const swiperHeight = ref()
     const curSlider = reactive({
       curSlide: 0,
       curPositon: 0
@@ -169,19 +169,19 @@ export default defineComponent({
       initProps.btnPageHeight = Number(getSwiperDom.pagination?.clientHeight)
       console.log('mount', initProps.slideWidth)
       initFunc()
-      if (swiperDom.slides) {
-        swiperDom.slides.forEach((slide: Element, index: number) => {
-          console.log('initProps.slideWidth', getSwiperDom.swiper?.clientWidth)
-          setTimeout(() => {
-            const target = slide as HTMLElement
-            console.log('target', target)
-            console.log('initProps.slideWidth', getSwiperDom.swiper?.clientWidth)
-            target.style.cssText = `width: ${getSwiperDom.swiper?.clientWidth}px`
-          }, 500)
-          // nextTick(() => {
-          // })
-        })
-      }
+      // if (swiperDom.slides) {
+      //   swiperDom.slides.forEach((slide: Element, index: number) => {
+      //     console.log('initProps.slideWidth', getSwiperDom.swiper?.clientWidth)
+      //     setTimeout(() => {
+      //       const target = slide as HTMLElement
+      //       console.log('target', target)
+      //       console.log('initProps.slideWidth', getSwiperDom.swiper?.clientWidth)
+      //       target.style.cssText = `width: ${getSwiperDom.swiper?.clientWidth}px`
+      //     }, 500)
+      //     // nextTick(() => {
+      //     // })
+      //   })
+      // }
     })
 
     function initFunc () {
@@ -270,6 +270,7 @@ export default defineComponent({
         const slidesHeight: number[] = []
         // any => Element
         swiperDom.slides.forEach((slide: Element, index: number) => {
+          console.log('slide', slide)
           // slide init height
           slidesHeight.push(slide.clientHeight)
           // touch events
@@ -285,8 +286,16 @@ export default defineComponent({
         //   slide.style.cssText =
         // swiperDom.swiper.style.cssText = `transform: translate3d(${curSlider.curPositon}px, 0, 0)`
         initProps.slideHeight = Math.max.apply(null, slidesHeight)
-        swiperHeight.value = {
-          height: `${initProps.slideHeight}px`
+        // swiperHeight.value = {
+        //   height: `${initProps.slideHeight}px`
+        // }
+        if (swiperDom.swiper) {
+          // swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px`
+          console.log('cu', initParams.direction)
+          console.log('cu', `height: ${initProps.slideHeight}px`)
+          initParams.direction === 'horizontal'
+            ? swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px`
+            : swiperDom.swiper.style.cssText = `width: ${initProps.slideHeight}px`
         }
       }
       if (initParams.navigation) {
@@ -413,12 +422,9 @@ export default defineComponent({
 
     function setSliderPosition () {
       if (swiperDom.swiper) {
-        // initParams.direction === 'horizontal'
-        //   ? swiperDom.swiper.style.cssText = `transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
-        //   : swiperDom.swiper.style.cssText = `transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
         initParams.direction === 'horizontal'
-          ? swiperDom.swiper.style.cssText = `transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
-          : swiperDom.swiper.style.cssText = `transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
+          ? swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px; transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
+          : swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}px; transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
       }
     }
     /// //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -472,7 +478,7 @@ export default defineComponent({
       emit('update', target)
     }
     return {
-      swiperHeight,
+      // swiperHeight,
       SWIPERROOT,
       tabArray,
       ...toRefs(initProps),
