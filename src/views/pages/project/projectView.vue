@@ -91,7 +91,7 @@
                 </div>
               </td>
             </tr>
-            <!-- <tr v-if="tabData.length !== 0">
+            <tr v-if="tabData.length !== 0">
               <td colspan="10">
                 <Tab :tab-data="tabData">
                   <template v-if="projectDetail.fileListMobile.length !== 0" #tab1>
@@ -102,12 +102,10 @@
                     >
                       <template
                         v-for="(item, index) in projectDetail.fileListMobile"
-                        :key="`mobileImg${index}`"
+                        :key="`mobile${index}`"
                         #[`slide${index+1}`]
                       >
-                        <span
-                          class="img-area"
-                        >
+                        <span class="img-area mobile">
                           <img :src="`${item}`" />
                         </span>
                       </template>
@@ -121,12 +119,10 @@
                   >
                     <template
                       v-for="(item, index) in projectDetail.fileListPc"
-                      :key="`pcImg${index}`"
+                      :key="`pc${index}`"
                       #[`slide${index+1}`]
                     >
-                      <span
-                        class="img-area"
-                      >
+                      <span class="img-area pc">
                         <img :src="`${item}`" />
                       </span>
                     </template>
@@ -134,7 +130,7 @@
                   </template>
                 </Tab>
               </td>
-            </tr> -->
+            </tr>
           </tbody>
         </table>
         <table
@@ -220,8 +216,8 @@
                 </div>
               </td>
             </tr>
-            <!-- <tr v-if="tabData.length !== 0">
-              <td colspan="4">
+            <tr v-if="tabData.length !== 0">
+              <td colspan="10">
                 <Tab :tab-data="tabData">
                   <template v-if="projectDetail.fileListMobile.length !== 0" #tab1>
                     <Swiper
@@ -231,7 +227,7 @@
                     >
                       <template
                         v-for="(item, index) in projectDetail.fileListMobile"
-                        :key="`ss${index}`"
+                        :key="`mobile${index}`"
                         #[`slide${index+1}`]
                       >
                         <span class="img-area mobile">
@@ -248,7 +244,7 @@
                   >
                     <template
                       v-for="(item, index) in projectDetail.fileListPc"
-                      :key="`ss${index}`"
+                      :key="`pc${index}`"
                       #[`slide${index+1}`]
                     >
                       <span class="img-area pc">
@@ -259,7 +255,7 @@
                   </template>
                 </Tab>
               </td>
-            </tr> -->
+            </tr>
           </tbody>
         </table>
       </div>
@@ -280,14 +276,16 @@ import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useProjectStore } from '@/store/project/project.module'
 import { ReqProjectDetailInterface, ResProjectDetailInterface } from '@/service/project/interface/projectDetail.interface'
-// import Swiper from '@/components/Swiper.vue'
-// import Tab from '@/components/Tab.vue'
+import Swiper from '@/components/Swiper.vue'
+import Tab from '@/components/Tab.vue'
 import { API_URL } from '@/utils/common.constants'
 
 export default defineComponent({
   name: 'projectView',
   components: {
-    Header
+    Header,
+    Tab,
+    Swiper
   },
   setup () {
     // router & store

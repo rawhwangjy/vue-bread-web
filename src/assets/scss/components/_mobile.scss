@@ -74,9 +74,26 @@
                 }
             }
             .tab-wrap {
-                // height: 600px;
-                .swiper-component {
-                    height: 40rem;
+                .tabs {
+                    .tab {
+                        button {
+                            font-size: 1.5rem;
+                        }
+                    }
+                }
+            }
+            .swiper-component {
+                .slide {
+                    padding: 30px 40px;
+                }
+                .img-area {
+                    &.pc {
+                        width: 100%;
+                    }
+                    &.mobile {
+                        width: 100%;
+                        height: 300px;
+                    }
                 }
             }
         }
