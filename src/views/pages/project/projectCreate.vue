@@ -6,44 +6,88 @@
     </div>
     <div class="content-area">
       <div class="form-area">
-        <div class="form-row flex">
-          <Input
-            v-model="title"
-            label="프로젝트명"
-          />
-          <div class="date-wrap">
-            <h4>투입 시작일</h4>
-              <!-- :format="dateFormat(start)" -->
-            <Datepicker
-              v-model="startDate"
-              :format="dateFormat(startDate)"
-              :preview-format="dateFormat(startDate)"
-              month-picker
-              uid="date"
-              locale="kr"
-              select-text="시작일 선택"
-              cancel-text="취소"
-              @update:modelValue="handleDate('start', $event)"
-              :clearable="false"
-              :max-date="new Date()"
+        <slot v-if="windowWidth > 767">
+          <div class="form-row flex">
+            <Input
+              v-model="title"
+              label="프로젝트명"
+            />
+            <div class="date-wrap">
+              <h4>투입 시작일</h4>
+                <!-- :format="dateFormat(start)" -->
+              <Datepicker
+                v-model="startDate"
+                :format="dateFormat(startDate)"
+                :preview-format="dateFormat(startDate)"
+                month-picker
+                uid="date"
+                locale="kr"
+                select-text="시작일 선택"
+                cancel-text="취소"
+                @update:modelValue="handleDate('start', $event)"
+                :clearable="false"
+                :max-date="new Date()"
+              />
+            </div>
+            <div class="date-wrap">
+              <h4>투입 종료일</h4>
+              <Datepicker
+                v-model="endDate"
+                :format="dateFormat(endDate)"
+                :preview-format="dateFormat(endDate)"
+                month-picker
+                uid="date"
+                locale="kr"
+                select-text="종료일 선택"
+                cancel-text="취소"
+                @update:modelValue="handleDate('end', $event)"
+                :clearable="false"
+              />
+            </div>
+          </div>
+        </slot>
+        <slot v-else>
+          <div class="form-row">
+            <Input
+              v-model="title"
+              label="프로젝트명"
             />
           </div>
-          <div class="date-wrap">
-            <h4>투입 종료일</h4>
-            <Datepicker
-              v-model="endDate"
-              :format="dateFormat(endDate)"
-              :preview-format="dateFormat(endDate)"
-              month-picker
-              uid="date"
-              locale="kr"
-              select-text="종료일 선택"
-              cancel-text="취소"
-              @update:modelValue="handleDate('end', $event)"
-              :clearable="false"
-            />
+          <div class="form-row flex">
+            <div class="date-wrap">
+              <h4>투입 시작일</h4>
+                <!-- :format="dateFormat(start)" -->
+              <Datepicker
+                v-model="startDate"
+                :format="dateFormat(startDate)"
+                :preview-format="dateFormat(startDate)"
+                month-picker
+                uid="date"
+                locale="kr"
+                select-text="시작일 선택"
+                cancel-text="취소"
+                @update:modelValue="handleDate('start', $event)"
+                :clearable="false"
+                :max-date="new Date()"
+              />
+            </div>
+            <div class="date-wrap">
+              <h4>투입 종료일</h4>
+              <Datepicker
+                v-model="endDate"
+                :format="dateFormat(endDate)"
+                :preview-format="dateFormat(endDate)"
+                month-picker
+                uid="date"
+                locale="kr"
+                select-text="종료일 선택"
+                cancel-text="취소"
+                @update:modelValue="handleDate('end', $event)"
+                :clearable="false"
+              />
+            </div>
           </div>
-        </div>
+        </slot>
         <div class="form-row flex">
           <Input
             v-model="role"
@@ -389,6 +433,14 @@ export default defineComponent({
       })
     }
 
+    // 화면 사이즈 체크
+    const windowWidth = ref(window.innerWidth)
+    function checkSize () {
+      // // console.log('사이즈', windowWidth)
+      window.addEventListener('resize', () => {
+        windowWidth.value = window.innerWidth
+      })
+    }
     onMounted(() => {
       // 첫번쨰 인풋 포커스
       firstFocus.value?.focus()
@@ -396,6 +448,7 @@ export default defineComponent({
       firstFocus.value?.addEventListener('selection-change', () => {
         firstFocus.value?.focus()
       })
+      checkSize()
     })
     function handleDate (standard: string, selectDate: DateFormat) {
       if (standard === 'start') {
@@ -444,7 +497,8 @@ export default defineComponent({
       onChangeFile,
       dateFormat,
       handleDate,
-      onAddChange
+      onAddChange,
+      windowWidth
     }
   }
 })

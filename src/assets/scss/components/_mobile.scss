@@ -61,6 +61,24 @@
         .title-area {
             padding-bottom: 2rem;
         }
+        .content-area {
+            .form-area {
+                .form-row {
+                    .date-wrap {
+                        width: 50%;
+                        margin-left: 0;
+                        + .date-wrap {
+                            margin-left: 1rem;
+                        }
+                    }
+                    .check-list {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(30%, auto));
+                        row-gap: 10px;
+                    }
+                }
+            }
+        }
         &.project {
             .project-list {
                 grid-template-columns: 1fr;
@@ -231,8 +249,5 @@
                 cursor: grab;
             }
         }
-    }
-    .date-wrap {
-        width: 100px;
     }
 }
