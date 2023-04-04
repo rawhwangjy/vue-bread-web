@@ -60,7 +60,7 @@
                 </li>
                 <li>
                   <em>백엔드</em>
-                  <span>[DB] Sequel Pro, [RDBMS] MYSQL, [SERVER] Expressjs</span>
+                  <span>[DB] Sequel Pro, <br>[RDBMS] MYSQL, <br>[SERVER] Expressjs</span>
                 </li>
                 <li>
                   <em>프론트엔드</em>

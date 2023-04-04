@@ -360,12 +360,17 @@
                 }
                 .dot-list {
                     li {
+                        display: flex;
                         padding-bottom: 5px;
+                        line-height: 20px;
+                        em {
+                            padding-right: 10px;
+                        }
                         &:last-child {
                             padding-bottom: 0;
                         }
-                        em {
-                            padding-right: 10px;
+                        &::before {
+                            margin-top: 6px;
                         }
                     }
                 }
