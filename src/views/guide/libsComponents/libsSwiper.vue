@@ -117,6 +117,10 @@
               @update="changeSwiper"
             >
               <template #slide1>
+                <h2>제목</h2>
+                <br>
+                <p>이것은 문구입니다.</p>
+                <br><br>
                 <button type="button" class="btn sm primary">버튼</button>
               </template>
               <template #slide2>
@@ -126,7 +130,28 @@
                 slide3333
               </template>
               <template #slide4>
-                slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444slide4444
+                <ol>
+                  <li>1. 데이터가 많을 경우</li>
+                  <li>2. 데이터가 많을 경우</li>
+                  <li>3. 데이터가 많을 경우</li>
+                  <li>4. 데이터가 많을 경우</li>
+                  <li>5. 데이터가 많을 경우</li>
+                  <li>6. 데이터가 많을 경우</li>
+                  <li>7. 데이터가 많을 경우</li>
+                  <li>8. 데이터가 많을 경우</li>
+                  <li>9. 데이터가 많을 경우</li>
+                  <li>10. 데이터가 많을 경우</li>
+                  <li>11. 데이터가 많을 경우</li>
+                  <li>12. 데이터가 많을 경우</li>
+                  <li>13. 데이터가 많을 경우</li>
+                  <li>14. 데이터가 많을 경우</li>
+                  <li>15. 데이터가 많을 경우</li>
+                  <li>16. 데이터가 많을 경우</li>
+                  <li>17. 데이터가 많을 경우</li>
+                  <li>18. 데이터가 많을 경우</li>
+                  <li>19. 데이터가 많을 경우</li>
+                  <li>20. 데이터가 많을 경우</li>
+                </ol>
               </template>
             </Swiper>
           </div>
