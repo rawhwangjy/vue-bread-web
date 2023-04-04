@@ -430,11 +430,13 @@
     touch-action: pan-y;
     .swiper-wrap {
         overflow: hidden;
+        position: relative;
         height: 100%;
         .swiper {
             box-sizing: content-box;
             position: relative;
             display: flex;
+            align-items: stretch;
             width: 100%;
             height: 100%;
             scrollbar-width: none;
@@ -454,11 +456,10 @@
                 touch-action: pan-y;
             }
             .slide {
-                box-sizing: border-box;
+                // box-sizing: border-box;
                 position: relative;
                 flex: 1 0 auto;
                 width: 100%;
-                height: 100%;
                 // min-width: 100%;
                 // min-height: 60px;
                 padding: 0 40px;
