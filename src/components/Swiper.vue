@@ -23,9 +23,7 @@
       </ul>
     </div>
 
-    <div
-      class="swiper-wrap"
-    >
+    <div class="swiper-wrap">
       <div
         class="swiper"
         :class="{
@@ -167,26 +165,15 @@ export default defineComponent({
       initProps.tabHeight = Number(getSwiperDom.tab?.clientHeight)
       initProps.btnNavHeight = Number(getSwiperDom.navigation?.btnPrev?.clientHeight)
       initProps.btnPageHeight = Number(getSwiperDom.pagination?.clientHeight)
-      console.log('mount', initProps.slideWidth)
+      // console.log('mount slideWidth', initProps.slideWidth)
+      // console.log('mount slideHeight', initProps.slideHeight)
       initFunc()
-      // if (swiperDom.slides) {
-      //   swiperDom.slides.forEach((slide: Element, index: number) => {
-      //     console.log('initProps.slideWidth', getSwiperDom.swiper?.clientWidth)
-      //     setTimeout(() => {
-      //       const target = slide as HTMLElement
-      //       console.log('target', target)
-      //       console.log('initProps.slideWidth', getSwiperDom.swiper?.clientWidth)
-      //       target.style.cssText = `width: ${getSwiperDom.swiper?.clientWidth}px`
-      //     }, 500)
-      //     // nextTick(() => {
-      //     // })
-      //   })
-      // }
     })
 
     function initFunc () {
       const timer = ref()
       if (swiperDom.swiperWrap) {
+        // console.log('SWIPERROOT.value', SWIPERROOT.value)
         if (initParams.tab) {
           swiperDom.swiperWrap.style.cssText = `margin-top: ${initProps.tabHeight}px;`
         }
@@ -196,7 +183,6 @@ export default defineComponent({
         if (initParams.tab && initParams.pagination) {
           swiperDom.swiperWrap.style.cssText = `margin-top: ${initProps.tabHeight}px; margin-bottom: ${initProps.btnPageHeight + 30}px;`
         }
-        // `width: ${initProps.slideWidth}px;
       }
       if (initParams.autoplay.delay) {
         timer.value = setInterval(autoplay, initParams.autoplay.delay)
@@ -266,38 +252,31 @@ export default defineComponent({
           }
         }
       }
-      if (swiperDom.slides) {
-        const slidesHeight: number[] = []
-        // any => Element
-        swiperDom.slides.forEach((slide: Element, index: number) => {
-          console.log('slide', slide)
-          // slide init height
-          slidesHeight.push(slide.clientHeight)
-          // touch events
-          slide.addEventListener('touchstart', touchStart(index))
-          slide.addEventListener('touchend', touchEnd)
-          slide.addEventListener('touchmove', touchMove)
-          // mouse events
-          slide.addEventListener('mousedown', touchStart(index))
-          slide.addEventListener('mouseup', touchEnd)
-          slide.addEventListener('mousemove', touchMove)
-          slide.addEventListener('mouseleave', touchEnd)
-        })
-        //   slide.style.cssText =
-        // swiperDom.swiper.style.cssText = `transform: translate3d(${curSlider.curPositon}px, 0, 0)`
-        initProps.slideHeight = Math.max.apply(null, slidesHeight)
-        // swiperHeight.value = {
-        //   height: `${initProps.slideHeight}px`
-        // }
-        if (swiperDom.swiper) {
-          // swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px`
-          console.log('cu', initParams.direction)
-          console.log('cu', `height: ${initProps.slideHeight}px`)
-          initParams.direction === 'horizontal'
-            ? swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px`
-            : swiperDom.swiper.style.cssText = `width: ${initProps.slideHeight}px`
+      nextTick(() => {
+        const slidesHeightArray: number[] = []
+        if (swiperDom.slides) {
+          // any => Element
+          // console.log('swiperDom.slides', swiperDom.slides)
+          swiperDom.slides.forEach((slide: Element, index: number) => {
+            // console.log('slidesHeightArray', slidesHeightArray)
+            // console.log('each slide HEIGHT', slide.clientHeight)
+
+            // slide init height
+            slidesHeightArray.push(slide.clientHeight)
+            // touch events
+            slide.addEventListener('touchstart', touchStart(index))
+            slide.addEventListener('touchend', touchEnd)
+            slide.addEventListener('touchmove', touchMove)
+            // mouse events
+            slide.addEventListener('mousedown', touchStart(index))
+            slide.addEventListener('mouseup', touchEnd)
+            slide.addEventListener('mousemove', touchMove)
+            slide.addEventListener('mouseleave', touchEnd)
+          })
         }
-      }
+        initProps.slideHeight = Math.max.apply(null, slidesHeightArray)
+        // console.log('MAX height', Math.max.apply(null, slidesHeightArray))
+      })
       if (initParams.navigation) {
         swiperDom.navigation?.btnPrev?.classList.add('disabled')
         swiperDom.navigation?.btnNext?.addEventListener('click', onNext)
@@ -310,6 +289,16 @@ export default defineComponent({
         //   }
         // }
       }
+      nextTick(() => {
+        if (swiperDom.swiper) {
+          // console.log('cu', initParams.direction)
+          // console.log('cu', `slideWidth: ${initProps.slideWidth}px`)
+          // console.log('c1u', `slideHeight: ${initProps.slideHeight}px`)
+          initParams.direction === 'horizontal'
+            ? swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}; height: ${initProps.slideHeight}px`
+            : swiperDom.swiper.style.cssText = `width: ${initProps.slideHeight}; height: ${initProps.slideWidth}px`
+        }
+      })
       window.addEventListener('resize', setPositionByIndex)
       window.oncontextmenu = (event: Event) => {
         event.preventDefault()
@@ -423,8 +412,8 @@ export default defineComponent({
     function setSliderPosition () {
       if (swiperDom.swiper) {
         initParams.direction === 'horizontal'
-          ? swiperDom.swiper.style.cssText = `height: ${initProps.slideHeight}px; transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
-          : swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}px; transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
+          ? swiperDom.swiper.style.cssText = `width: ${initProps.slideWidth}px; height: ${initProps.slideHeight}px; transform: translate3d(${draggingSlider.currentTranslate}px, 0, 0)`
+          : swiperDom.swiper.style.cssText = `width: ${initProps.slideHeight}px; height: ${initProps.slideWidth}px; transform: translate3d(0, ${draggingSlider.currentTranslate}px, 0)`
       }
     }
     /// //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -477,6 +466,7 @@ export default defineComponent({
     function changeSwiper (target: number) {
       emit('update', target)
     }
+
     return {
       // swiperHeight,
       SWIPERROOT,
