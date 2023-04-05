@@ -8,7 +8,7 @@
     >
       <h1>
         <img
-          src="~@/assets/images/visual/logo.jpeg"
+          src="~@/assets/images/visual/logo.png"
         >
       </h1>
       <button
