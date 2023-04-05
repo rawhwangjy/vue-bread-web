@@ -20,6 +20,7 @@
     }
 }
 .guide-nav {
+    overflow-y: auto;
     width: 250px;
     border-right: 1px solid commons.$main-border;
     a {
