@@ -1,6 +1,7 @@
 @use '../commons';
 
 .page-container {
+    height: 100%;
     padding-top: 55px;
 }
 .header-wrap {
@@ -96,7 +97,9 @@ header {
     }
 }
 .content-body {
+    overflow-y: auto;
     width: 800px;
+    height: 100%;
     margin: 0 auto;
     padding: 70px 0 50px;
 }
