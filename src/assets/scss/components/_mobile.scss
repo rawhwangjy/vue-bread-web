@@ -88,7 +88,7 @@
     }
     .content-body {
         width: 100%;
-        padding: 3rem 2rem;
+        padding: 8.5rem 2rem 5rem;
         .title-area {
             padding-bottom: 2rem;
         }
@@ -148,6 +148,7 @@
         }
     }
     .guide-body {
+        overflow-y: auto;
         position: relative;
         flex-direction: column;
         .guide-content {
@@ -189,7 +190,7 @@
         .guide-nav {
             overflow-y: auto;
             position: absolute;
-            top: 1rem;
+            top: 7rem;
             right: 1rem;
             z-index: 10;
             width: 100%;
