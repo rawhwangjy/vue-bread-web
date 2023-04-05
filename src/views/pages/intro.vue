@@ -1,35 +1,42 @@
 <template>
-  <section class="main-section" id="section0" ref="mainSection">
-    <h2>Lorem Ipsum</h2>
-    <div class="sticky-element a" ref="message1">
-      <p>Lorem Ipsum<br/>is simply dummy text</p>
-    </div>
-    <div class="sticky-element b" ref="message2">
-      <p>국회는<br/>의장 1인과 부의장 2인을 선출한다.</p>
-    </div>
-    <div class="sticky-element c" ref="message3">
-      <p>Neque porro quisquam<br/>est qui dolorem</p>
-    </div>
-    <div class="sticky-element d" ref="message4">
-      <p>국무총리는<br/>국무위원의 해임을 대통령에게 건의할 수 있다.</p>
-    </div>
-  </section>
+  <Header />
+  <div class="content-body main" id="content-body">
+    <section class="main-section" id="section0" ref="mainSection">
+      <h2>안녕하세요.</h2>
+      <div class="sticky-element a" ref="message1">
+        <p>프론트엔드 개발자<br/>황지영입니다.</p>
+      </div>
+      <div class="sticky-element b" ref="message2">
+        <p>이 사이트는 포트폴리오 사이트입니다.<br/>디자인부터 DB까지 모든 것을 작업했습니다.</p>
+      </div>
+      <div class="sticky-element c" ref="message3">
+        <p>매일 리팩토링 작업 중입니다.<br/>부족하지만 재밌게 봐주세요.</p>
+      </div>
+      <div class="sticky-element d" ref="message4">
+        <p>매 순간 행복하세요.&#x1F970;</p>
+        <span class="img-area">
+          <img src="~@/assets/images/visual/bye.jpeg">
+        </span>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
+import Header from '@/views/layout/Header.vue'
 import { SceneObject, SceneInfo } from '@/utils/common.interface'
 import { setLayout, calcValues } from '@/utils/common.function'
 
 export default defineComponent({
-  name: 'Introduce',
+  name: 'Main',
   components: {
+    Header
   },
   setup () {
-    // {id: 0, heightNum: 5, scrollHeight: 0, values: {…}, objs: {…}}
     const sceneInfo: SceneInfo = {
       id: 0,
-      heightNum: 20,
+      heightNum: 17,
       scrollHeight: 0,
       values: {
         messageAOpacityIn: [0, 1, { start: 0.1, end: 0.2 }],
@@ -52,7 +59,6 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      // console.log('introduce')
       const refHTML: SceneObject = {
         objs: {
           container: mainSection.value,
@@ -66,13 +72,10 @@ export default defineComponent({
       setLayout(sceneInfo)
       window.addEventListener('resize', () => {
         setLayout(sceneInfo)
-        // console.log('introduce resize')
       })
-      // console.log('wi', window)
       window.addEventListener('scroll', () => {
         yOffset.value = window.pageYOffset
         playAnimation()
-        // console.log('introduce scroll')
       })
     })
 

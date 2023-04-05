@@ -1,5 +1,10 @@
 <template>
-  <div class="header-wrap">
+  <div
+    class="header-wrap"
+    :class="{
+      'active': windowWidth < 768 && isMoShow
+    }"
+  >
     <header
       id="header"
       :class="{
@@ -7,21 +12,26 @@
       }"
     >
       <h1>
-        <img
-          src="~@/assets/images/visual/logo.png"
+        <router-link
+          to="/"
+          title="메인 이동"
         >
+          <img src="~@/assets/images/visual/logo.png">
+        </router-link>
       </h1>
-      <button
-        v-if="windowWidth < 768"
-        class="btn-mo-nav"
-        @click="onShowMo"
-      >
-        <font-awesome-icon icon="fa-solid fa-bars" aria-label="메뉴 열기" />
-      </button>
-      <nav
-        v-show="windowWidth < 768 ? isMoShow : true"
-      >
-        <div class="global-nav-wrap">
+      <!-- v-show="windowWidth < 768 ? isMoShow : true" -->
+      <div class="nav-wrap">
+        <button
+          v-if="windowWidth < 768"
+          class="btn-mo-nav"
+          @click="onShowMo"
+        >
+          <font-awesome-icon icon="fa-solid fa-bars" aria-label="메뉴 열기" />
+        </button>
+        <div
+          v-show="windowWidth < 768 ? isMoShow : true"
+          class="global-nav-wrap"
+          >
           <nav>
             <ul
               role="menu"
@@ -83,7 +93,15 @@
               </template>
             </ul>
           </nav>
+          <button
+            v-if="windowWidth < 768"
+            class="btn-mo-close"
+            @click="onHideMo"
+          >
+            <font-awesome-icon icon="fa-solid fa-xmark" aria-label="메뉴 닫기" />
+          </button>
         </div>
+        <!-- 로그인 숨김 -->
         <div class="login-btn-wrap" style="display: none;">
           <router-link
             v-if="isLogin"
@@ -100,14 +118,7 @@
             {{ logoutData.navTitle }}
           </router-link>
         </div>
-        <button
-          v-if="windowWidth < 768"
-          class="btn-mo-close"
-          @click="onHideMo"
-        >
-          <font-awesome-icon icon="fa-solid fa-xmark" aria-label="메뉴 닫기" />
-        </button>
-      </nav>
+      </div>
     </header>
   </div>
 </template>

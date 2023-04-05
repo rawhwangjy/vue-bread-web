@@ -67,6 +67,26 @@
             }
         }
     }
+    #section0 {
+        h2 {
+            font-size: 50px;
+        }
+        .sticky-element {
+            line-height: 50px;
+            font-size: 30px;
+            &.b {
+                line-height: 36px;
+                font-size: 18px;
+            }
+            &.c {
+                line-height: 40px;
+                font-size: 20px;
+            }
+        }
+        .img-area {
+            width: 300px;
+        }
+    }
     .content-body {
         width: 100%;
         padding: 3rem 2rem;
