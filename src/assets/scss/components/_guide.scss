@@ -29,6 +29,7 @@
         cursor: pointer;
     }
     .guide-wrap {
+        overflow-y: auto;
         > ul {
             padding: 20px;
             > li {
@@ -60,7 +61,6 @@
     }
 }
 .guide-body {
-    overflow: hidden;
     display: flex;
     height: 100%;
     padding-top: 55px;
@@ -83,6 +83,7 @@
         }
     }
     .guide-content {
+        overflow-y: auto;
         flex: 1;
         padding: 30px 50px;
         margin-left: -1px;

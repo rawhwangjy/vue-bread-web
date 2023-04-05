@@ -148,7 +148,6 @@
         }
     }
     .guide-body {
-        overflow-y: auto;
         position: relative;
         flex-direction: column;
         .guide-content {
@@ -188,7 +187,6 @@
             }
         }
         .guide-nav {
-            overflow-y: auto;
             position: absolute;
             top: 7rem;
             right: 1rem;
@@ -206,7 +204,6 @@
                 font-size: 1.2rem;
             }
             .guide-wrap {
-                overflow-y: auto;
                 position: fixed;
                 top: 5.4rem;
                 left: 0;
