@@ -1,6 +1,7 @@
 @use '../commons';
 
 .page-container {
+    overflow: hidden;
     height: 100%;
 }
 .header-wrap {
