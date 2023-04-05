@@ -88,15 +88,15 @@ const guideItems = [
     subItems: [
       { subNavTitle: 'Button', subNavUrl: '/guide/modules/button', desc: '버튼 CSS 모듈 라이브러리 사용 방법' }
     ]
-  },
-  {
-    navTitle: 'Test',
-    navUrl: '/guide/test',
-    navDesc: 'test 페이지',
-    subItems: [
-      { subNavTitle: 'testing', subNavUrl: '/guide/intro/testing', desc: 'testing' }
-    ]
   }
+  // {
+  //   navTitle: 'Test',
+  //   navUrl: '/guide/test',
+  //   navDesc: 'test 페이지',
+  //   subItems: [
+  //     { subNavTitle: 'testing', subNavUrl: '/guide/intro/testing', desc: 'testing' }
+  //   ]
+  // }
 ]
 export default defineComponent({
   name: '',
