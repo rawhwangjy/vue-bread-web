@@ -191,7 +191,6 @@
             top: 7rem;
             right: 1rem;
             z-index: 10;
-            width: 100%;
             border-right: 0 none;
             border-bottom: 0 none;
             .btn-mo-guide-nav {
@@ -235,8 +234,8 @@
             }
         }
         .btn-mo-guide-close {
-            position: absolute;
-            top: 2rem;
+            position: fixed;
+            top: 7rem;
             right: 2rem;
             z-index: 10;
             display: block;
