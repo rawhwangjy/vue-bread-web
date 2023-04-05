@@ -1,5 +1,8 @@
 @use '../commons';
 
+.page-container {
+    padding-top: 55px;
+}
 .header-wrap {
     position: fixed;
     top: 0;
@@ -91,9 +94,6 @@ header {
             }
         }
     }
-}
-.page-container {
-    margin: 0 auto;
 }
 .content-body {
     width: 800px;
