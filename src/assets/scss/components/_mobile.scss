@@ -2,42 +2,54 @@
 
 // mobile
 @media screen and (max-width: 768px) {
+    .header-wrap {
+        &.active {
+            height: 100%;
+        }
+    }
     header.mobile {
         width: 100%;
-        .btn-mo-nav {
-            display: block;
+        height: auto;
+        .nav-wrap {
+            max-width: initial;
+            height: auto;
             margin-left: auto;
-            padding: .3rem .7rem;
-            border: 1px solid #000;
-            border-radius: .3rem;
-            font-size: 2rem;
-        }
-        .btn-mo-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            z-index: 20;
-            display: block;
-            font-size: 2rem;
-        }
-        .global-nav-wrap {
-            nav {
+            .btn-mo-nav {
+                display: block;
+                padding: .3rem .7rem;
+                border: 1px solid #000;
+                border-radius: .3rem;
+                font-size: 2rem;
+            }
+            .btn-mo-close {
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+                z-index: 20;
+                display: block;
+                font-size: 2rem;
+            }
+            .global-nav-wrap {
                 position: fixed;
                 top: 0;
+                bottom: 0;
                 left: 0;
+                right: 0;
                 z-index: 20;
                 display: block;
                 width: 100%;
                 height: 100%;
                 background-color: rgba(commons.$white, .95);
-                > ul {
-                    display: block;
-                    padding: 5rem 3rem;
-                    .global-nav-item {
-                        width: 100%;
-                        text-align: left;
-                        + .global-nav-item {
-                            margin-left: 0;
+                nav {
+                    > ul {
+                        display: block;
+                        padding: 5rem 3rem;
+                        .global-nav-item {
+                            width: 100%;
+                            text-align: left;
+                            + .global-nav-item {
+                                margin-left: 0;
+                            }
                         }
                     }
                 }
@@ -155,45 +167,31 @@
                 }
             }
         }
-        .btn-mo-guide-nav {
+        .guide-nav {
+            overflow-y: auto;
             position: absolute;
             top: 1rem;
             right: 1rem;
             z-index: 10;
-            display: block;
-            margin-left: auto;
-            padding: 1rem .7rem;
-            border: 1px solid #000;
-            border-radius: .3rem;
-            background-color: commons.$white;
-            font-size: 1.2rem;
-        }
-        .btn-mo-guide-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            z-index: 10;
-            display: block;
-            font-size: 2rem;
-        }
-        .guide-nav {
-            overflow-y: auto;
             width: 100%;
             border-right: 0 none;
-            border-bottom: .1rem solid #ddd;
-            > ul {
-                > li {
-                    padding-bottom: 2rem;
-                    > a {
-                        font-size: 1.3rem;
-                    }
-                }
+            border-bottom: 0 none;
+            .btn-mo-guide-nav {
+                display: block;
+                margin-left: auto;
+                padding: 1rem .7rem;
+                border: 1px solid #000;
+                border-radius: .3rem;
+                background-color: commons.$white;
+                font-size: 1.2rem;
             }
             .guide-wrap {
                 overflow-y: auto;
                 position: fixed;
                 top: 5.4rem;
                 left: 0;
+                right: 0;
+                bottom: 0;
                 z-index: 10;
                 display: block;
                 width: 100%;
@@ -218,6 +216,14 @@
                     }
                 }
             }
+        }
+        .btn-mo-guide-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            z-index: 10;
+            display: block;
+            font-size: 2rem;
         }
     }
     // 컴포넌트
