@@ -197,11 +197,12 @@
             .img-wrap {
                 .img-title {
                     display: flex;
-                    width: 100%;
                     margin-top: 5px;
+                    span {
+                        display: block;
+                    }
                     .title {
                         overflow: hidden;
-                        display: block;
                         max-width: calc(100% - 20px);
                         text-overflow: ellipsis;
                         white-space: nowrap;
