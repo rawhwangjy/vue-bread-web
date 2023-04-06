@@ -91,7 +91,7 @@ export default defineComponent({
     async function getProjectList () {
       originProjectList.value = await projectStore.actionHttpGetProjectList()
       originProjectList.value.sort((a: ResProjectListInterface, b: ResProjectListInterface): number => {
-        return a.id - b.id
+        return b.id - a.id
       })
       projectList.value = cloneDeep(originProjectList.value).splice(0, 4)
       // projectList.value.filter(item => {
