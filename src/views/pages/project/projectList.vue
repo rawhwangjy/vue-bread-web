@@ -18,7 +18,7 @@
         <slot v-if="currentFilter === '연도별'">
           <Select
             v-model="currentFilterYear"
-            initTitle="2023"
+            initTitle="전체"
             :selectData="filterListYear"
             class="half-width"
             @change="changeFilterYear"
@@ -123,38 +123,53 @@ export default defineComponent({
     // filter
     const filterList = ref(['전체', '연도별', '타입별'])
     const currentFilter = ref('전체')
-    const currentFilterYear = ref('2023')
+    const currentFilterYear = ref('2022')
     const currentFilterType = ref('전체')
     const filterListYear = ref<string[]>([])
     const filterListType = ref<string[]>(['전체', '모바일', 'PC'])
+    // watch(
+    //   () => originProjectList.value,
+    //   updateValue => {
+    //     console.log('ori', originProjectList.value)
+    //     console.log('updateValue', updateValue)
+    //     originProjectList.value = updateValue
+    //   }
+    // )
 
     function changeFilter (value : string) {
       currentFilter.value = value
+      localStorage.setItem(LocalKey.lastPageNum, 'lastPageNum')
       if (value === '전체') {
         getProjectListAll()
       } else if (value === '연도별') {
-        changeFilterYear(currentFilterYear.value)
+        changeFilterYear('전체')
       } else if (value === '타입별') {
-        changeFilterType(currentFilterType.value)
+        changeFilterType('전체')
       }
     }
     async function changeFilterYear (value : string) {
       currentFilterYear.value = value
+      localStorage.setItem(LocalKey.lastPageNum, 'lastPageNum')
       const targetYear = {
-        year: currentFilterYear.value
+        year: currentFilterYear.value === '전체' ? 'all' : currentFilterYear.value
       }
       originProjectList.value = []
       originProjectList.value = await projectStore.actionHttpGetProjectListYear(targetYear)
-      dataMapping(originProjectList.value)
+      nextTick(() => {
+        dataMapping(originProjectList.value)
+      })
     }
     async function changeFilterType (value : string) {
       currentFilterType.value = value
+      localStorage.setItem(LocalKey.lastPageNum, 'lastPageNum')
       const targetType = {
         type: currentFilterType.value === '전체' ? 'all' : currentFilterType.value === '모바일' ? 'mobile' : 'pc'
       }
       originProjectList.value = []
       originProjectList.value = await projectStore.actionHttpGetProjectListType(targetType)
-      dataMapping(originProjectList.value)
+      nextTick(() => {
+        dataMapping(originProjectList.value)
+      })
     }
 
     // api
@@ -176,15 +191,14 @@ export default defineComponent({
       filterListYear.value.sort((a: string, b: string): number => {
         return Number(b) - Number(a)
       })
+      filterListYear.value.unshift('전체')
     }
     // data 가공 공통 함수
     function dataMapping (targetData: ResProjectListInterface[]) {
       targetData.sort((a: ResProjectListInterface, b: ResProjectListInterface): number => {
         return b.id - a.id
       })
-      nextTick(() => {
-        projectList.value = cloneDeep(targetData).splice(0, windowWidth.value >= 768 ? 6 : 2)
-      })
+      projectList.value = cloneDeep(targetData).splice(0, windowWidth.value >= 768 ? 6 : 2)
     }
 
     // 화면 사이즈 체크
