@@ -13,7 +13,7 @@
         <p>매일 리팩토링 작업 중입니다.<br/>부족하지만 재밌게 봐주세요.</p>
       </div>
       <div class="sticky-element d" ref="message4">
-        <p>매 순간 행복하세요.&#x1F970;</p>
+        <p>행복하세요.&#x1F970;</p>
         <span class="img-area">
           <img src="~@/assets/images/visual/bye.jpeg">
         </span>
