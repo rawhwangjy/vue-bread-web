@@ -321,6 +321,7 @@
     position: relative;
     z-index: 10;
     height: 36px;
+    background-color: commons.$white;
     &.active {
         .selected {
             border-bottom-color: #fff;
