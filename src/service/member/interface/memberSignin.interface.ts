@@ -9,5 +9,13 @@ export interface ReqMemberSigninInterface {
 
 export interface ResMemberSigninInterface {
   state: string,
+  userId: string,
+  userName: string,
+  accessToken: string
+}
+
+export interface ResMemberSigninStateInterface {
+  userId: string,
+  userName: string,
   accessToken: string
 }

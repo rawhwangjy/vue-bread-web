@@ -102,21 +102,21 @@
           </button>
         </div>
         <!-- 로그인 숨김 -->
-        <div class="login-btn-wrap" style="display: none;">
+        <!-- 상태 : {{ memberStore.signinState }} -->
+        <div class="login-btn-wrap">
           <router-link
-            v-if="isLogin"
+            v-if="memberStore.signinState?.userId === ''"
             :to="loginData.navUrl"
             :title="loginData.navDesc"
           >
             {{ loginData.navTitle }}
           </router-link>
-          <router-link
-            v-else
-            :to="logoutData.navUrl"
+          <a v-else
+            :href="logoutData.navUrl"
             :title="logoutData.navDesc"
           >
             {{ logoutData.navTitle }}
-          </router-link>
+          </a>
         </div>
       </div>
     </header>
@@ -124,9 +124,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue'
+import { defineComponent, onMounted, ref, watch, nextTick } from 'vue'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryDetailInterface } from '@/service/category/interface/categoryDetail.interface'
+import { useMemberStore } from '@/store/member/member.module'
 import { LocalKey } from '@/utils/common.constants'
 // {
 //   navTitle: 'Guide',
@@ -152,6 +153,7 @@ export default defineComponent({
   setup () {
     // router & store
     const categoryStore = useCategoryStore()
+    const memberStore = useMemberStore()
 
     // init
     const stateSub = ref(false)
@@ -187,7 +189,7 @@ export default defineComponent({
       navUrl: '/',
       navDesc: '화면 이동'
     })
-    const isLogin = ref<string | null>(localStorage.getItem('jwt-token'))
+    // const isLogin = ref<string | null>(localStorage.getItem('jwt-token'))
     const navItems = ref([
       {
         navTitle: '사이트 가이드',
@@ -232,6 +234,9 @@ export default defineComponent({
     onMounted(() => {
       getCategoryList()
       checkSize()
+
+      // const result = memberStore.signinState
+
       // if (categoryStore.categoryList.length === 0) {
       //   getCategoryList()
       // }
@@ -247,9 +252,9 @@ export default defineComponent({
 
     return {
       categoryStore,
+      memberStore,
       loginData,
       logoutData,
-      isLogin,
       navItems,
       stateSub,
       onShowSub,

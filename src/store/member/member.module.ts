@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 import { ReqMemberCheckIdInterface, ResMemberCheckIdInterface } from '@/service/member/interface/memberCheckId.interface'
 import { ReqMemberCreateInterface, ResMemberCreateInterface } from '@/service/member/interface/memberCreate.interface'
-import { ReqMemberSigninInterface, ResMemberSigninInterface } from '@/service/member/interface/memberSignin.interface'
+import { ReqMemberSigninInterface, ResMemberSigninInterface, ResMemberSigninStateInterface } from '@/service/member/interface/memberSignin.interface'
 
 import {
   httpCheckId,
@@ -13,7 +13,8 @@ import {
 interface memberState {
   checkId: ResMemberCheckIdInterface,
   signup: ResMemberCreateInterface,
-  signin: ResMemberSigninInterface
+  signin: ResMemberSigninInterface,
+  signinState: ResMemberSigninStateInterface
 }
 
 export const checkIdInit = {
@@ -22,6 +23,8 @@ export const checkIdInit = {
 export const signupInit = { }
 export const signinInit = {
   state: '',
+  userId: '',
+  userName: '',
   accessToken: ''
 }
 
@@ -34,9 +37,21 @@ export const useMemberStore = defineStore({
     signup: { },
     signin: {
       state: '',
+      userId: '',
+      userName: '',
+      accessToken: ''
+    },
+    signinState: {
+      userId: '',
+      userName: '',
       accessToken: ''
     }
   }),
+  getters: {
+    getLoginInfo (): ResMemberSigninStateInterface | null {
+      return this.signinState
+    }
+  },
   actions: {
     async actionHttpCheckId (reqData: ReqMemberCheckIdInterface) {
       this.checkId = checkIdInit
@@ -68,8 +83,11 @@ export const useMemberStore = defineStore({
         const res = await httpMemberSignin(reqData)
         if (res.data) {
           this.signup = res.data
+          this.signinState.userId = res.data.userId
+          this.signinState.userName = res.data.userName
+          this.signinState.accessToken = res.data.accessToken
           if (res.data.accessToken) {
-            localStorage.setItem('jst-token', res.data.accessToken)
+            localStorage.setItem('jwt-token', res.data.accessToken)
           }
         }
         return res.data
