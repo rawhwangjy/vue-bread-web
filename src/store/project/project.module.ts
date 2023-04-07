@@ -1,13 +1,15 @@
 import { defineStore } from 'pinia'
 
-import { ReqProjectListInterface, ResProjectListInterface } from '@/service/project/interface/projectList.interface'
+import { ReqProjectListInterface, ReqProjectListYearInterface, ReqProjectListTypeInterface, ResProjectListInterface } from '@/service/project/interface/projectList.interface'
 import { ReqProjectDetailInterface, ResProjectDetailInterface } from '@/service/project/interface/projectDetail.interface'
 import { ResProjectCreateInterface } from '@/service/project/interface/projectCreate.interface'
 import { ReqProjectUpdateInterface, ResProjectUpdateInterface } from '@/service/project/interface/projectUpdate.interface'
 import { ReqProjectDeleteInterface, ResProjectDeleteInterface } from '@/service/project/interface/projectDelete.interface'
 
 import {
-  httpGetProjectList,
+  httpGetProjectListAll,
+  httpGetProjectListYear,
+  httpGetProjectListType,
   httpGetProject,
   httpSetProject,
   httpProjectUpdate,
@@ -15,7 +17,9 @@ import {
 } from '@/service/project/project.api'
 
 interface projectState {
-  projectList: ResProjectListInterface[],
+  projectListAll: ResProjectListInterface[],
+  projectListYear: ResProjectListInterface[],
+  projectListType: ResProjectListInterface[],
   projectDetail: ResProjectDetailInterface,
   projectCreate: ResProjectCreateInterface,
   projectUpdate: ResProjectUpdateInterface,
@@ -74,7 +78,9 @@ export const useProjectStore = defineStore({
   state: (): projectState => ({
     // Res에 대한 초기값
     // 스토어가 생성될 때의 초기값
-    projectList: [],
+    projectListAll: [],
+    projectListYear: [],
+    projectListType: [],
     projectDetail: {
       id: 0,
       title: '',
@@ -120,12 +126,36 @@ export const useProjectStore = defineStore({
     }
   }),
   actions: {
-    async actionHttpGetProjectList () {
-      this.projectList = []
+    async actionHttpGetProjectListAll () {
+      this.projectListAll = []
       try {
-        const res = await httpGetProjectList()
+        const res = await httpGetProjectListAll()
         if (res.data) {
-          this.projectList = res.data
+          this.projectListAll = res.data
+        }
+        return res.data
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
+    async actionHttpGetProjectListYear (reqData: ReqProjectListYearInterface) {
+      this.projectListYear = []
+      try {
+        const res = await httpGetProjectListYear(reqData)
+        if (res.data) {
+          this.projectListYear = res.data
+        }
+        return res.data
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
+    async actionHttpGetProjectListType (reqData: ReqProjectListTypeInterface) {
+      this.projectListType = []
+      try {
+        const res = await httpGetProjectListType(reqData)
+        if (res.data) {
+          this.projectListType = res.data
         }
         return res.data
       } catch (error) {

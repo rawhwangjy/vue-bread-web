@@ -5,6 +5,12 @@
 export interface ReqProjectListInterface {
   category: string
 }
+export interface ReqProjectListYearInterface {
+  year: string
+}
+export interface ReqProjectListTypeInterface {
+  type: string
+}
 
 export interface ResProjectListInterface {
   id: number,

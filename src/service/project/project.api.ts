@@ -1,12 +1,14 @@
 import { axiosInstance } from '@/utils/instance.axios'
 import { RequestEnum } from '@/utils/common.constants'
 
-import { ReqProjectListInterface } from '@/service/project/interface/projectList.interface'
+import { ReqProjectListInterface, ReqProjectListYearInterface, ReqProjectListTypeInterface } from '@/service/project/interface/projectList.interface'
 import { ReqProjectDetailInterface } from '@/service/project/interface/projectDetail.interface'
 import { ReqProjectDeleteInterface } from '@/service/project/interface/projectDelete.interface'
 
 enum Api {
-  getProjectList = '/project/projectList',
+  getProjectListAll = '/project/projectList',
+  getProjectListYear = '/project/projectList/year/:year',
+  getProjectListType = '/project/projectList/type/:type',
   getProjectDetail = '/project/:id',
   projectCreate = '/project/create',
   projectUpdate = '/project/update/:id',
@@ -14,12 +16,34 @@ enum Api {
 }
 
 /**
- * @description Project List
+ * @description Project List ALL
  */
-export const httpGetProjectList = () => {
+export const httpGetProjectListAll = () => {
   return axiosInstance({
     method: RequestEnum.POST,
-    url: Api.getProjectList
+    url: Api.getProjectListAll
+  })
+}
+
+/**
+ * @description Project List YEAR
+ */
+export const httpGetProjectListYear = (reqData: ReqProjectListYearInterface) => {
+  return axiosInstance({
+    method: RequestEnum.POST,
+    url: Api.getProjectListYear,
+    data: reqData
+  })
+}
+
+/**
+ * @description Project List Type
+ */
+export const httpGetProjectListType = (reqData: ReqProjectListTypeInterface) => {
+  return axiosInstance({
+    method: RequestEnum.POST,
+    url: Api.getProjectListType,
+    data: reqData
   })
 }
 
