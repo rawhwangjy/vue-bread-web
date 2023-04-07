@@ -134,42 +134,40 @@
         }
     }
     &.login {
-        .login-content {
-            width: 500px;
-            margin: 0 auto;
-            .login-form {
-                .form-row {
+        width: 500px;
+        margin: 0 auto;
+        .form-area {
+            .form-row {
+                .input-area {
+                    flex-direction: column;
+                    .input {
+                        display: flex;
+                        input {
+                            width: 100%;
+                        }
+                    }
+                }
+                + .form-row {
+                    margin-top: 40px;
+                }
+                &.id-check {
                     .input-area {
-                        flex-direction: column;
                         .input {
-                            display: flex;
+                            justify-content: space-between;
                             input {
-                                width: 100%;
+                                width: 72%;
                             }
-                        }
-                    }
-                    + .form-row {
-                        margin-top: 40px;
-                    }
-                    &.id-check {
-                        .input-area {
-                            .input {
-                                justify-content: space-between;
-                                input {
-                                    width: 72%;
-                                }
-                                .btn-delete-input {
-                                    right: 30%;
-                                }
+                            .btn-delete-input {
+                                right: 30%;
                             }
                         }
                     }
                 }
-                .login-tip {
-                    display: block;
-                    padding-top: 10px;
-                    color: red;
-                }
+            }
+            .login-tip {
+                display: block;
+                padding-top: 10px;
+                color: red;
             }
         }
     }
