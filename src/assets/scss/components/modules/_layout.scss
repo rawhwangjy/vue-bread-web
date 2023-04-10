@@ -52,14 +52,24 @@ header {
                 height: 100%;
                 > ul {
                     display: flex;
+                    align-items: center;
                     height: 100%;
                     .global-nav-item {
                         position: relative;
+                        display: block;
+                        height: 100%;
                         > a, button {
-                            display: block;
+                            display: flex;
+                            align-items: center;
                             height: 100%;
                             padding: 15px;
+                            line-height: 1;
                             font-size: commons.$fs-l;
+                            span {
+                                display: flex;
+                                align-items: center;
+                                height: 100%;
+                            }
                         }
                         + .global-nav-item {
                             margin-left: 20px;
