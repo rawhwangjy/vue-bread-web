@@ -4,12 +4,13 @@ import { RequestEnum } from '@/utils/common.constants'
 import { ReqMemberCheckIdInterface } from '@/service/member/interface/memberCheckId.interface'
 import { ReqMemberCreateInterface } from '@/service/member/interface/memberCreate.interface'
 import { ReqMemberSigninInterface } from '@/service/member/interface/memberSignin.interface'
+import { ReqMemberRefreshInterface } from '@/service/member/interface/memberRefreshToken.interface'
 
-const token = localStorage.getItem('jwt-token') || null
 enum Api {
   checkId = '/member/signup/:id',
   setMemberAccount = '/member/signup',
-  signin = '/member/signin'
+  signin = '/member/signin',
+  reIssusAccessToken = '/member/refresh'
 }
 
 /**
@@ -37,7 +38,6 @@ export const httpSetMemberAccount = (reqData: ReqMemberCreateInterface) => {
 /**
  * @description Signin
  */
-// console.log('token', token)
 export const httpMemberSignin = (reqData: ReqMemberSigninInterface) => {
   return axiosInstance({
     // headers: {
@@ -46,6 +46,17 @@ export const httpMemberSignin = (reqData: ReqMemberSigninInterface) => {
     // },
     method: RequestEnum.POST,
     url: Api.signin,
+    data: reqData
+  })
+}
+
+/**
+ * @description Refresh Token
+ */
+export const httpReIssueRefreshTokken = (reqData: ReqMemberRefreshInterface) => {
+  return axiosInstance({
+    method: RequestEnum.POST,
+    url: Api.reIssusAccessToken,
     data: reqData
   })
 }

@@ -51,7 +51,7 @@
                     :title="item.navDesc"
                     @click="onHideSub"
                   >
-                    {{ item.navTitle }}
+                    <span>{{ item.navTitle }}</span>
                   </router-link>
                 </li>
                 <li
@@ -105,7 +105,7 @@
         <!-- 상태 : {{ memberStore.signinState }} -->
         <div class="login-btn-wrap">
           <router-link
-            v-if="memberStore.signinState?.userId === ''"
+            v-if="!isLogin"
             :to="loginData.navUrl"
             :title="loginData.navDesc"
           >
@@ -114,6 +114,7 @@
           <a v-else
             :href="logoutData.navUrl"
             :title="logoutData.navDesc"
+            @click="onLogout"
           >
             {{ logoutData.navTitle }}
           </a>
@@ -231,17 +232,14 @@ export default defineComponent({
         windowWidth.value = window.innerWidth
       })
     }
+    const isLogin = ref(false)
     onMounted(() => {
       getCategoryList()
       checkSize()
-
-      // const result = memberStore.signinState
-
-      // if (categoryStore.categoryList.length === 0) {
-      //   getCategoryList()
-      // }
-      // 같은 페이지 => watch
-      // 페이지 이동 => 다시 그리니까, watch 사용 x
+      if (localStorage.getItem('jwt-token')) {
+        console.log('dd', memberStore.signinState?.accessToken)
+        isLogin.value = true
+      }
     })
     watch(
       () => categoryStore.categoryList,
@@ -249,6 +247,11 @@ export default defineComponent({
         categoryList.value = newValue
       }
     )
+    function onLogout () {
+      // token 삭제
+      localStorage.removeItem('jwt-token')
+      isLogin.value = false
+    }
 
     return {
       categoryStore,
@@ -263,7 +266,9 @@ export default defineComponent({
       windowWidth,
       isMoShow,
       onShowMo,
-      onHideMo
+      onHideMo,
+      isLogin,
+      onLogout
     }
   }
 })

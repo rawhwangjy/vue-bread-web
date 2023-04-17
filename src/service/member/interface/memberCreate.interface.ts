@@ -8,4 +8,9 @@ export interface ReqMemberCreateInterface {
   userName: string
 }
 
-export type ResMemberCreateInterface = Record<string, never>
+export type ResMemberCreateInterface = {
+  state: string,
+  userId: string,
+  accessToken: string,
+  refreshToken: string
+}

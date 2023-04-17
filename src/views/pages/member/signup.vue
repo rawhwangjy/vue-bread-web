@@ -70,6 +70,7 @@ import { useMemberStore } from '@/store/member/member.module'
 import { ReqMemberCreateInterface, ResMemberCreateInterface } from '@/service/member/interface/memberCreate.interface'
 import Input from '@/components/Input.vue'
 import Alert from '@/components/Alert.vue'
+import { LocalKey } from '@/utils/common.constants'
 
 interface MemberModel {
   userId: string,
@@ -107,18 +108,18 @@ export default defineComponent({
         alert('아이디를 입력해 주세요.')
         return false
       }
-      if (isCheckId.value === false) {
-        alert('ID 중복 검사해 주세요.')
-        return false
-      }
-      if (!idReg.test(user.userId)) {
-        alert('아이디는 소문자, 숫자 조합으로 4자리 이상입니다.')
-        return false
-      }
-      if (!pwReg.test(user.userPw)) {
-        alert('비밀번호는 문자, 숫자를 1개 이상 포함한 10자리 이상입니다.')
-        return false
-      }
+      // if (isCheckId.value === false) {
+      //   alert('ID 중복 검사해 주세요.')
+      //   return false
+      // }
+      // if (!idReg.test(user.userId)) {
+      //   alert('아이디는 소문자, 숫자 조합으로 4자리 이상입니다.')
+      //   return false
+      // }
+      // if (!pwReg.test(user.userPw)) {
+      //   alert('비밀번호는 문자, 숫자를 1개 이상 포함한 10자리 이상입니다.')
+      //   return false
+      // }
       if (!user.userName) {
         alert('이름을 입력해 주세요.')
         return false
@@ -133,6 +134,11 @@ export default defineComponent({
 
       if (result.state === 'Y') {
         alert('회원가입 완료')
+        localStorage.setItem(LocalKey.accessToken, result.accessToken)
+        console.log('ACESS', result.accessToken)
+
+        localStorage.setItem(LocalKey.refreshToken, result.refreshToken)
+        console.log('REFRESG', result.refreshToken)
         router.push({
           path: '/signup/complete'
         })
@@ -142,10 +148,10 @@ export default defineComponent({
       isCheckId.value = false
     }
     async function onCheckId () {
-      if (!idReg.test(user.userId)) {
-        alert('아이디는 소문자, 숫자 조합으로 4자리 이상입니다.')
-        return false
-      }
+      // if (!idReg.test(user.userId)) {
+      //   alert('아이디는 소문자, 숫자 조합으로 4자리 이상입니다.')
+      //   return false
+      // }
       isCheckId.value = true
       const reqData = {
         userId: user.userId

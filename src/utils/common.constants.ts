@@ -22,7 +22,9 @@ export enum LocalKey {
   token = 'TOKEN',
   lastPageNum = 'lastPageNum',
   lastProjectOffsetY = 'lastProjectOffsetY',
-  goProjectList = 'goProjectList'
+  goProjectList = 'goProjectList',
+  accessToken = 'accessToken',
+  refreshToken = 'refreshToken'
 }
 // import { LocalKey } from ''
 // localStorage.setItem(LocalKey.token, '')

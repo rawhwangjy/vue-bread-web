@@ -30,15 +30,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs, onMounted } from 'vue'
 import Header from '@/views/layout/Header.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useMemberStore } from '@/store/member/member.module'
 import Input from '@/components/Input.vue'
+import { LocalKey } from '@/utils/common.constants'
 
 interface MemberModel {
-  userId: string,
-  userPw: string
+    userId: string,
+    userPw: string
 }
 
 export default defineComponent({
@@ -57,6 +58,9 @@ export default defineComponent({
       userId: '',
       userPw: ''
     })
+    onMounted(() => {
+      // data.token = localStorage.getItem('accessToken')
+    })
     async function onSignin () {
       if (!user.userId) {
         alert('아이디를 입력해 주세요.')
@@ -67,12 +71,13 @@ export default defineComponent({
         return false
       }
       const result = await memberStore.actionHttpSignin(user)
+
       if (result.state === 'Y') {
         alert('로그인 완료')
         router.push({
           path: '/project'
         })
-      } else {
+      } else if (result.state === 'N') {
         alert('아이디, 비밀번호를 확인해 주세요.')
       }
     }

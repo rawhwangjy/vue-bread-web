@@ -123,6 +123,9 @@
                 width: 100%;
             }
         }
+        &.login {
+            width: 100%;
+        }
         &.project {
             .project-list {
                 grid-template-columns: 1fr;
