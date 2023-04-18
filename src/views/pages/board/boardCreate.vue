@@ -1,16 +1,21 @@
 <template>
   <Header />
-  <div class="content-body board" id="content-body">
+  <div
+    id="content-body"
+    class="content-body board"
+  >
     <div class="title-area">
-      <h3 class="main-title">글 쓰기</h3>
+      <h3 class="main-title">
+        글 쓰기
+      </h3>
     </div>
     <div class="content-area">
       <div class="form-area">
         <div class="form-row flex">
           <Select
             v-model="boardDetail.category"
-            initTitle="카테고리를 선택해주세요."
-            :selectData="categoryList"
+            init-title="카테고리를 선택해주세요."
+            :select-data="categoryList"
           />
           <Input
             v-model="boardDetail.title"
@@ -32,24 +37,36 @@
           <Input
             files
             preview
-            label="name1"
+            label="첨부파일"
             name="currentDefault"
             @change="onChangeFile"
           />
         </div>
-        <div class="form-row">
+        <!-- <div class="form-row">
           <Checkbox
             v-model="boardDetail.showHide"
             label="동의합니다."
             value="html5"
             name="skills"
           />
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="footer-area side">
-      <button type="button" class="btn lg light" @click="back">목록</button>
-      <button type="button" class="btn lg dark" @click="boardCreate">저장</button>
+      <button
+        type="button"
+        class="btn lg light"
+        @click="back"
+      >
+        목록
+      </button>
+      <button
+        type="button"
+        class="btn lg dark"
+        @click="boardCreate"
+      >
+        저장
+      </button>
     </div>
   </div>
 </template>
@@ -65,7 +82,6 @@ import { ReqBoardCreateInterface } from '@/service/board/interface/boardCreate.i
 import { quillEditor } from 'vue3-quill'
 import Select from '@/components/Select.vue'
 import Input from '@/components/Input.vue'
-import Checkbox from '@/components/Checkbox.vue'
 import { logger } from '@/utils/instance.logger'
 
 interface vueEditor {
@@ -75,13 +91,12 @@ interface vueEditor {
 }
 
 export default defineComponent({
-  name: 'boardCreate',
+  name: 'BoardCreate',
   components: {
     Header,
     quillEditor,
     Select,
-    Input,
-    Checkbox
+    Input
   },
   setup () {
     // router & store

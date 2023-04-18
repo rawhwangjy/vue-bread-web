@@ -148,10 +148,12 @@
             justify-content: space-between;
             flex-direction: row-reverse;
             label {
-                display: block;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 width: 9rem;
                 height: 3.6rem;
-                padding: 1rem 2rem;
+                padding: 1rem;
                 margin-left: 1rem;
                 background-color: commons.$primary;
                 color: #fff;
@@ -341,6 +343,7 @@
         border: .1rem solid commons.$gray8;
         svg {
             margin-left: auto;
+            padding-left: .5rem;
         }
     }
     .select {

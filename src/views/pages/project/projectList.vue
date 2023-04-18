@@ -1,15 +1,20 @@
 <template>
   <Header />
-  <div class="content-body project" id="content-body">
+  <div
+    id="content-body"
+    class="content-body project"
+  >
     <div class="title-area">
-      <h3 class="main-title">프로젝트</h3>
+      <h3 class="main-title">
+        프로젝트
+      </h3>
     </div>
     <div class="content-area">
       <div class="project-filter">
         <Select
           v-model="currentFilter"
-          initTitle="전체"
-          :selectData="filterList"
+          init-title="전체"
+          :select-data="filterList"
           :class="{
             'half-width': currentFilter === '연도별' || currentFilter === '타입별'
           }"
@@ -18,8 +23,8 @@
         <slot v-if="currentFilter === '연도별'">
           <Select
             v-model="currentFilterYear"
-            initTitle="전체"
-            :selectData="filterListYear"
+            init-title="전체"
+            :select-data="filterListYear"
             class="half-width"
             @change="changeFilterYear"
           />
@@ -27,15 +32,17 @@
         <slot v-if="currentFilter === '타입별'">
           <Select
             v-model="currentFilterType"
-            initTitle="전체"
-            :selectData="filterListType"
+            init-title="전체"
+            :select-data="filterListType"
             class="half-width"
             @change="changeFilterType"
           />
         </slot>
       </div>
-      <div v-if="projectList.length !== 0"
-        class="project-list">
+      <div
+        v-if="projectList.length !== 0"
+        class="project-list"
+      >
         <div
           v-for="(project, index) in projectList"
           :key="`project${index}`"
@@ -45,11 +52,22 @@
             type="button"
             @click="getProjectDetail(project.id)"
           >
-            <div class="project-title">
+            <div
+              class="project-title"
+              :class="{
+                'wBadge': project.typePc || project.typeMobile
+              }"
+            >
               <h4>{{ project.title }}</h4>
               <span class="types-badge">
-                <span v-if="project.typePc" class="pc">PC</span>
-                <span v-if="project.typeMobile" class="mobile">모바일</span>
+                <span
+                  v-if="project.typePc"
+                  class="pc"
+                >PC</span>
+                <span
+                  v-if="project.typeMobile"
+                  class="mobile"
+                >모바일</span>
               </span>
             </div>
             <div class="date-area">
@@ -70,7 +88,9 @@
           </button>
         </div>
       </div>
-      <div v-else>데이터가 없습니다.</div>
+      <div v-else>
+        데이터가 없습니다.
+      </div>
       <Pagination
         v-if="originProjectList.length !== 0"
         :total-data-length="originProjectList.length"
@@ -79,7 +99,12 @@
       />
     </div>
     <div class="footer-area right">
-      <button @click="projectCreate" class="btn lg dark">글쓰기</button>
+      <button
+        class="btn lg dark"
+        @click="projectCreate"
+      >
+        글쓰기
+      </button>
     </div>
   </div>
 </template>
@@ -96,7 +121,7 @@ import { LocalKey } from '@/utils/common.constants'
 import Select from '@/components/Select.vue'
 
 export default defineComponent({
-  name: 'projectList',
+  name: 'ProjectList',
   components: {
     Header,
     Select,

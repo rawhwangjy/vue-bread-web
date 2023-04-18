@@ -124,6 +124,9 @@
                         grid-template-columns: repeat(auto-fill, minmax(30%, auto));
                         row-gap: 1rem;
                     }
+                    .select-wrap {
+                        width: auto;
+                    }
                 }
             }
             .preview-wrap {
@@ -290,6 +293,23 @@
             .swiper {
                 cursor: grab;
             }
+        }
+    }
+    .input-wrap {
+        .btn-input {
+            padding: 1rem 0;
+        }
+        &.files {
+            .input-area {
+                label {
+                    padding: 0 1rem;
+                }
+            }
+        }
+    }
+    .alert-wrap {
+        .alert {
+            width: 90%;
         }
     }
 }

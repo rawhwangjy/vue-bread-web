@@ -59,7 +59,7 @@
                 </li>
                 <li
                   v-if="item.subItems"
-                  class="global-nav-item"
+                  class="global-nav-item subs"
                   role="menuitem"
                 >
                   <button
