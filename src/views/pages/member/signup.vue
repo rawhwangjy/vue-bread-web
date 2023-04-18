@@ -1,8 +1,13 @@
 <template>
   <Header />
-  <div class="content-body login" id="content-body">
+  <div
+    id="content-body"
+    class="content-body login"
+  >
     <div class="title-area">
-      <h3 class="main-title">회원가입</h3>
+      <h3 class="main-title">
+        회원가입
+      </h3>
     </div>
     <div class="content-area">
       <div class="form-area">
@@ -56,8 +61,18 @@
       </div>
     </div>
     <div class="footer-area side">
-      <button class="btn lg light" @click="back">목록</button>
-      <button class="btn lg dark" @click="onRegistUser">회원가입</button>
+      <button
+        class="btn lg light"
+        @click="back"
+      >
+        목록
+      </button>
+      <button
+        class="btn lg dark"
+        @click="onRegistUser"
+      >
+        회원가입
+      </button>
     </div>
   </div>
 </template>
@@ -95,8 +110,8 @@ export default defineComponent({
     const isCheckId = ref<boolean>(false)
     const isShowCheckIdAlert = ref<boolean>(false)
     const checkIdResult = ref<string>('')
-    const idReg = /^[a-z0-9_-]{4,30}$/ // 소문자 + 숫자 + 언더바/하이픈 허용 4~20자리
-    const pwReg = /(?=.*\d)(?=.*[a-zA-ZS]).{8,}/ // 문자, 숫자 1개이상 포함, 8자리 이상
+    const idReg = /^[a-z0-9_-]{4,30}$/ // 소문자 + 숫자 + 언더바/하이픈 허용 4~30자리
+    const pwReg = /(?=.*\d)(?=.*[a-zA-ZS]).{5,}/ // 문자, 숫자 1개이상 포함, 8자리 이상
     const user = reactive<MemberModel>({
       userId: '',
       userPw: '',
@@ -108,18 +123,18 @@ export default defineComponent({
         alert('아이디를 입력해 주세요.')
         return false
       }
-      // if (isCheckId.value === false) {
-      //   alert('ID 중복 검사해 주세요.')
-      //   return false
-      // }
-      // if (!idReg.test(user.userId)) {
-      //   alert('아이디는 소문자, 숫자 조합으로 4자리 이상입니다.')
-      //   return false
-      // }
-      // if (!pwReg.test(user.userPw)) {
-      //   alert('비밀번호는 문자, 숫자를 1개 이상 포함한 10자리 이상입니다.')
-      //   return false
-      // }
+      if (isCheckId.value === false) {
+        alert('ID 중복 검사해 주세요.')
+        return false
+      }
+      if (!idReg.test(user.userId)) {
+        alert('아이디는 소문자, 숫자 조합으로 4자리 이상입니다.')
+        return false
+      }
+      if (!pwReg.test(user.userPw)) {
+        alert('비밀번호는 문자, 숫자를 1개 이상 포함한 5자리 이상입니다.')
+        return false
+      }
       if (!user.userName) {
         alert('이름을 입력해 주세요.')
         return false
@@ -148,10 +163,10 @@ export default defineComponent({
       isCheckId.value = false
     }
     async function onCheckId () {
-      // if (!idReg.test(user.userId)) {
-      //   alert('아이디는 소문자, 숫자 조합으로 4자리 이상입니다.')
-      //   return false
-      // }
+      if (!idReg.test(user.userId)) {
+        alert('아이디는 소문자, 숫자 조합으로 4자리 이상입니다.')
+        return false
+      }
       isCheckId.value = true
       const reqData = {
         userId: user.userId
