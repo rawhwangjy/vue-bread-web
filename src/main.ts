@@ -6,14 +6,14 @@ import '@/assets/scss/root.scss'
 // icons
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPencil, faTrash, faCircleXmark, faXmark, faCaretUp, faCaretDown, faChevronLeft, faChevronRight, faCaretLeft, faCaretRight, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faPencil, faTrash, faCircleXmark, faXmark, faCaretUp, faCaretDown, faChevronLeft, faChevronRight, faCaretLeft, faCaretRight, faBars, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 // module
 import vClickOutside from 'click-outside-vue3'
 import VueCookies from 'vue-cookies'
 import Datepicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
-library.add(faPencil, faTrash, faCircleXmark, faXmark, faCaretUp, faCaretDown, faChevronLeft, faChevronRight, faCaretLeft, faCaretRight, faBars)
+library.add(faPencil, faTrash, faCircleXmark, faXmark, faCaretUp, faCaretDown, faChevronLeft, faChevronRight, faCaretLeft, faCaretRight, faBars, faExclamationCircle)
 
 createApp(App).use(router).use(pinia)
   .component('font-awesome-icon', FontAwesomeIcon)

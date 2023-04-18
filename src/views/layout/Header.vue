@@ -26,16 +26,19 @@
           class="btn-mo-nav"
           @click="onShowMo"
         >
-          <font-awesome-icon icon="fa-solid fa-bars" aria-label="메뉴 열기" />
+          <font-awesome-icon
+            icon="fa-solid fa-bars"
+            aria-label="메뉴 열기"
+          />
         </button>
         <div
           v-show="windowWidth < 768 ? isMoShow : true"
           class="global-nav-wrap"
-          >
+        >
           <nav>
             <ul
-              role="menu"
               v-click-outside="onClickOutside"
+              role="menu"
             >
               <template
                 v-for="(item, index) in navItems"
@@ -61,8 +64,8 @@
                 >
                   <button
                     type="button"
-                    @click="onShowSub"
                     :aria-expanded="stateSub"
+                    @click="onShowSub"
                   >
                     <span>{{ item.navTitle }}</span>
                   </button>
@@ -98,7 +101,10 @@
             class="btn-mo-close"
             @click="onHideMo"
           >
-            <font-awesome-icon icon="fa-solid fa-xmark" aria-label="메뉴 닫기" />
+            <font-awesome-icon
+              icon="fa-solid fa-xmark"
+              aria-label="메뉴 닫기"
+            />
           </button>
         </div>
         <!-- 로그인 숨김 -->
@@ -108,16 +114,54 @@
             v-if="!isLogin"
             :to="loginData.navUrl"
             :title="loginData.navDesc"
+            class="btn-login"
           >
-            {{ loginData.navTitle }}
+            <span>{{ loginData.navTitle }}</span>
           </router-link>
-          <a v-else
+          <a
+            v-else
             :href="logoutData.navUrl"
             :title="logoutData.navDesc"
+            class="btn-login"
             @click="onLogout"
           >
-            {{ logoutData.navTitle }}
+            <span>{{ logoutData.navTitle }}</span>
+            {{ display }}
           </a>
+          <div class="tooltip-wrap">
+            <button
+              type="button"
+              class="btn-tooltip"
+              @click="onShowTooltip"
+            >
+              <font-awesome-icon
+                icon="fa-solid fa-exclamation-circle"
+                aria-label="툴팁"
+              />
+            </button>
+            <div
+              v-show="isShowTooltip"
+              v-click-outside="onClickOutside"
+              class="tooltip"
+              role="tooltip"
+            >
+              <ul class="dot-list">
+                <li>JWT 토큰을 이용한 로그인</li>
+                <li>Access Token : Expired Day 30m</li>
+                <li>Refresh Token : Expired Day 14d</li>
+              </ul>
+              <button
+                type="button"
+                class="btn-close"
+                @click="onShowTooltip"
+              >
+                <font-awesome-icon
+                  icon="fa-solid fa-xmark"
+                  aria-label="툴팁 닫기"
+                />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -130,6 +174,7 @@ import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryDetailInterface } from '@/service/category/interface/categoryDetail.interface'
 import { useMemberStore } from '@/store/member/member.module'
 import { LocalKey } from '@/utils/common.constants'
+import { tr } from 'date-fns/locale'
 // {
 //   navTitle: 'Guide',
 //   navUrl: '/guide',
@@ -165,6 +210,7 @@ export default defineComponent({
       categoryList.value = await categoryStore.actionHttpGetCategoryList()
     }
     function onShowSub () {
+      console.log('stateSub', stateSub.value)
       if (stateSub.value) {
         stateSub.value = false
       } else {
@@ -178,7 +224,14 @@ export default defineComponent({
       localStorage.setItem(LocalKey.lastPageNum, String(1))
     }
     function onClickOutside () {
-      stateSub.value = false
+      // if (stateSub.value) {
+      //   stateSub.value = false
+      // }
+      // if (isShowTooltip.value) {
+      //   isShowTooltip.value = false
+      // }
+      // stateSub.value = false
+      // isShowTooltip.value = false
     }
     const loginData = ref({
       navTitle: '로그인',
@@ -236,8 +289,7 @@ export default defineComponent({
     onMounted(() => {
       getCategoryList()
       checkSize()
-      if (localStorage.getItem('jwt-token')) {
-        console.log('dd', memberStore.signinState?.accessToken)
+      if (localStorage.getItem('accessToken')) {
         isLogin.value = true
       }
     })
@@ -249,8 +301,34 @@ export default defineComponent({
     )
     function onLogout () {
       // token 삭제
-      localStorage.removeItem('jwt-token')
+      localStorage.removeItem('accessToken')
       isLogin.value = false
+    }
+    const display = ref('')
+    function loginTimer (duration: number) {
+      let remains = duration
+      const minutes = ref(0)
+      const seconds = ref(0)
+      const countInterval = setInterval(() => {
+        minutes.value = Math.floor(remains / 60)
+        seconds.value = Math.floor(remains % 60)
+
+        display.value = `${minutes.value}:${seconds.value === 0 ? '00' : seconds.value}`
+        remains = remains - 1
+        if (remains < 0) {
+          clearInterval(countInterval)
+        }
+      }, 1000)
+      return display
+    }
+
+    const isShowTooltip = ref(false)
+    function onShowTooltip () {
+      if (isShowTooltip.value) {
+        isShowTooltip.value = false
+      } else {
+        isShowTooltip.value = true
+      }
     }
 
     return {
@@ -268,7 +346,11 @@ export default defineComponent({
       onShowMo,
       onHideMo,
       isLogin,
-      onLogout
+      onLogout,
+      loginTimer,
+      display,
+      onShowTooltip,
+      isShowTooltip
     }
   }
 })
