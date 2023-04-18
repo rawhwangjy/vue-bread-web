@@ -136,7 +136,7 @@ export const useMemberStore = defineStore({
           }
           if (res.data.refreshToken) {
             localStorage.setItem(LocalKey.refreshToken, res.data.refreshToken)
-            console.log('return refreshToken 재설정', res.data.accessToken)
+            console.log('return refreshToken 재설정', res.data.refreshToken)
           }
         }
         return res.data
