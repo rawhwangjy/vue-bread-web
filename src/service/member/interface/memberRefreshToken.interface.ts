@@ -7,5 +7,6 @@ export interface ReqMemberRefreshInterface {
 }
 
 export interface ResMemberRefreshInterface {
-  accessToken: string
+  accessToken: string,
+  refreshToken: string
 }

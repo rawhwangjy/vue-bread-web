@@ -40,7 +40,8 @@ export const signinInit = {
   refreshToken: ''
 }
 export const refreshInit = {
-  accessToken: ''
+  accessToken: '',
+  refreshToken: ''
 }
 
 export const useMemberStore = defineStore({
@@ -69,7 +70,8 @@ export const useMemberStore = defineStore({
       accessToken: ''
     },
     refresh: {
-      accessToken: ''
+      accessToken: '',
+      refreshToken: ''
     }
   }),
   getters: {
@@ -130,7 +132,11 @@ export const useMemberStore = defineStore({
           this.refresh = res.data
           if (res.data.accessToken) {
             localStorage.setItem(LocalKey.accessToken, res.data.accessToken)
-            console.log('return access 재설정', res.data.accessToken)
+            console.log('return accessToken 재설정', res.data.accessToken)
+          }
+          if (res.data.refreshToken) {
+            localStorage.setItem(LocalKey.refreshToken, res.data.refreshToken)
+            console.log('return refreshToken 재설정', res.data.accessToken)
           }
         }
         return res.data

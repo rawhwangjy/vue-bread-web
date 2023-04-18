@@ -19,17 +19,7 @@ function createInstance () {
 export function setInterceptors (instance: AxiosInstance): AxiosInstance {
   instance.interceptors.request.use(
     (config) => {
-      console.log('interceptors.request authorization >>> ', config.headers?.authorization)
       // 요청을 보내기 전 수행할 작업
-      // console.log('123 setInterceptors instance', instance)
-      // console.log('setInterceptors >>> 받은 토큰', token)
-      // if (config.headers !== undefined) {
-      //   // config.headers.accessToken = null
-      //   // config.headers.refreshToken = null
-      //   // return config
-      //   config.headers.Authorization = token
-      //   console.log('123 setInterceptors config', config)
-      // }
       return config
     },
     (error) => {
@@ -63,6 +53,7 @@ export function setInterceptors (instance: AxiosInstance): AxiosInstance {
             ...originReq.headers,
             authorization: localStorage.getItem('accessToken')
           }
+          // originReq.headers.authorization = localStorage.getItem('accessToken')
           return axios(originReq)
         }
       }
