@@ -7,7 +7,7 @@ $primary-bg: #f5fcff;
 // gray color
 $gray3: #333; // font
 $gray6: #666; // font
-$gray8: #888; // font size 18px OR bold 14px // expadable page's common text, image text
+$gray8: #888; // font size 1.8rem OR bold 1.4rem // expadable page's common text, image text
 
 $grayA: #aaa; // border
 $grayB: #bbb; // border
@@ -31,11 +31,11 @@ $disabled-font: $grayA;
 $white: #fff;
 
 // font-size
-$fs-xs: 11px;
-$fs-s: 13px;
-$fs-m: 15px;
-$fs-l: 18px;
-$fs-xl: 24px;
+$fs-xs: 1.1rem;
+$fs-s: 1.3rem;
+$fs-m: 1.5rem;
+$fs-l: 1.8rem;
+$fs-xl: 2.4rem;
 
 // font-weight
 $font-bold: 700;

@@ -28,10 +28,10 @@ body.before-load {
 .sr-only {
 	overflow: hidden;
 	position: absolute;
-	width: 1px;
-	height: 1px;
+	width: .1rem;
+	height: .1rem;
 	border: 0;
-	margin: -1px;
+	margin: -.1rem;
 	padding: 0;
 	clip: rect(0, 0, 0, 0);
 	clip-path: rect(0, 0, 0, 0);
@@ -40,17 +40,17 @@ body.before-load {
     li {
         display: flex;
         align-items: flex-start;
-        padding-top: 20px;
+        padding-top: 2rem;
         &:first-child {
             padding-top: 0;
         }
         &::before {
             content: '';
             display: block;
-            width: 4px;
-            height: 4px;
-            margin-top: 4px;
-            margin-right: 5px;
+            width: .4rem;
+            height: .4rem;
+            margin-top: .4rem;
+            margin-right: .5rem;
             border-radius: 50%;
             background-color: commons.$gray3;
         }
@@ -62,9 +62,9 @@ body.before-load {
     &::before {
         content: '';
         display: block;
-        width: 4px;
-        height: 4px;
-        margin-right: 5px;
+        width: .4rem;
+        height: .4rem;
+        margin-right: .5rem;
         border-radius: 50%;
         background-color: commons.$gray3;
         line-height: 1;
@@ -72,7 +72,7 @@ body.before-load {
 }
 // button
 a.btn {
-    max-width: 100px;
+    max-width: 10rem;
     text-align: center;
 }
 .btn {
@@ -80,24 +80,24 @@ a.btn {
     justify-content: center;
     align-items: center;
     &.xs {
-        padding: 8px 10px;
-        font-size: 11px;
+        padding: .8rem 1rem;
+        font-size: 1.1rem;
     }
     &.sm {
-        padding: 10px 12px;
-        font-size: 12px;
+        padding: 1rem 1.2rem;
+        font-size: 1.2rem;
     }
     &.md {
-        padding: 12px 15px;
-        font-size: 13px;
+        padding: 1.2rem 1.5rem;
+        font-size: 1.3rem;
     }
     &.lg {
-        padding: 13px 20px;
-        font-size: 14px;
+        padding: 1.3rem 2rem;
+        font-size: 1.4rem;
     }
     &.xl {
-        padding: 14px 24px;
-        font-size: 16px;
+        padding: 1.4rem 2.4rem;
+        font-size: 1.6rem;
     }
     &.primary {
         background-color: commons.$primary;
@@ -112,12 +112,12 @@ a.btn {
         color: commons.$white;
     }
     &.light {
-        border: 1px solid commons.$grayC;
+        border: .1rem solid commons.$grayC;
         background-color: commons.$white;
         color: commons.$main-font;
     }
     &.border {
-        border-radius: 5px;
+        border-radius: .5rem;
     }
 }
 // table
@@ -126,7 +126,7 @@ a.btn {
     border-spacing: 0;
     width: 100%;
     border-radius: 1rem;
-    border: 1px solid commons.$grayD;
+    border: .1rem solid commons.$grayD;
     .width10 {
         width: 10%;
     }
@@ -153,9 +153,9 @@ a.btn {
     }
     thead {
         th {
-            padding: 20px;
-            border-bottom: 1px solid commons.$grayD;
-            border-right: 1px solid commons.$grayD;
+            padding: 2rem;
+            border-bottom: .1rem solid commons.$grayD;
+            border-right: .1rem solid commons.$grayD;
             background-color: commons.$primary-bg;
             &:first-child {
                 border-top-left-radius: 1rem;
@@ -168,9 +168,9 @@ a.btn {
     }
     tbody {
         th, td {
-            border-bottom: 1px solid commons.$grayD;
-            border-right: 1px solid commons.$grayD;
-            padding: 20px;
+            border-bottom: .1rem solid commons.$grayD;
+            border-right: .1rem solid commons.$grayD;
+            padding: 2rem;
             &:last-child {
                 border-right: 0 none;
             }
@@ -211,12 +211,12 @@ a.btn {
         tr {
             &:first-child {
                 th, td {
-                    border-top: 2px solid #999;
+                    border-top: .2rem solid #999;
                 }
             }
             &:last-child {
                 th, td {
-                    border-bottom: 1px solid #ccc;
+                    border-bottom: .1rem solid #ccc;
                 }
             }
         }
@@ -224,8 +224,8 @@ a.btn {
             background-color: rgba(#4337ca, .05);
         }
         th, td {
-            border-top: 1px solid #ccc;
-            padding: 20px 5px;
+            border-top: .1rem solid #ccc;
+            padding: 2rem .5rem;
         }
     }
     .txt-left {

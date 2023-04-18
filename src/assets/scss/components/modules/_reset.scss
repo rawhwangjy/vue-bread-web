@@ -24,7 +24,7 @@ input, textarea, button, select, header, footer, main, article, section, aside, 
 }
 body, input, textarea, select, button, table {
     // font-family: $spoqa, sans-serif;
-    font-size: 13px;
+    font-size: 1.3rem;
     color: #111;
 }
 img, fieldset {
@@ -33,11 +33,11 @@ img, fieldset {
 fieldset { // bug
     min-width: 0;
 }
-a, button, details, embed, iframe, label, select, input, textarea {
-    &:focus {
-        border: 1px solid rgba(#4337ca, .5);
-    }
-}
+// a, button, details, embed, iframe, label, select, input, textarea {
+//     &:focus {
+//         border: .1rem solid rgba(#4337ca, .5);
+//     }
+// }
 a {
     color: #111;
     text-decoration: none;

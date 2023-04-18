@@ -2,7 +2,7 @@
 
 .content-body {
     .title-area {
-        padding-bottom: 50px;
+        padding-bottom: 5rem;
         .main-title {
             font-size: commons.$fs-xl;
             text-align: center;
@@ -12,11 +12,11 @@
         .form-area {
             .form-row {
                 + .form-row {
-                    margin-top: 20px;
+                    margin-top: 2rem;
                 }
                 h4 {
                     display: inline-flex;
-                    padding-bottom: 15px;
+                    padding-bottom: 1.5rem;
                     font-weight: bold;
                     font-size: commons.$fs-m;
                     color: commons.$gray6;
@@ -26,18 +26,18 @@
                     .input-wrap {
                         flex: 1;
                         + .input-wrap {
-                            margin-left: 10px;
+                            margin-left: 1rem;
                         }
                     }
                 }
                 .select-wrap {
                     width: 30%;
                     + .input-wrap {
-                        margin-left: 10px;
+                        margin-left: 1rem;
                     }
                 }
                 .date-wrap {
-                    margin-left: 10px;
+                    margin-left: 1rem;
                 }
                 .editor-wrap {
                     flex: 1;
@@ -46,7 +46,7 @@
                     }
                     .ql-toolbar {
                         &:focus {
-                            outline: 1px solid red;
+                            outline: .1rem solid red;
                         }
                     }
                     .ql-container {
@@ -57,7 +57,7 @@
                                 color: commons.$gray8;
                             }
                             &:focus {
-                                outline: 1px solid rgba(#4337ca, .5);
+                                outline: .1rem solid rgba(#4337ca, .5);
                             }
                         }
                     }
@@ -65,8 +65,8 @@
                 .check-list {
                     display: grid;
                     grid-template-columns: repeat(auto-fill, minmax(20%, auto));
-                    row-gap: 10px;
-                    padding: 20px;
+                    row-gap: 1rem;
+                    padding: 2rem;
                     background-color: rgba(#4337ca, .05);
                 }
             }
@@ -74,16 +74,16 @@
         .data-table-area {
             .table {
                 td {
-                    height: 70px;
-                    padding: 0 20px;
+                    height: 7rem;
+                    padding: 0 2rem;
                     .board-title {
                         display: inline-block;
-                        padding: 10px;
+                        padding: 1rem;
                     }
                     .btn-icon {
                         display: block;
-                        width: 24px;
-                        height: 24px;
+                        width: 2.4rem;
+                        height: 2.4rem;
                         font-size: commons.$fs-m;
                     }
                 }
@@ -97,13 +97,13 @@
                         align-items: center;
                         .category-title {
                             display: block;
-                            margin-right: 10px;
+                            margin-right: 1rem;
                         }
                     }
                     .editable {
                         display: flex;
                         align-items: center;
-                        margin-right: 10px;
+                        margin-right: 1rem;
                     }
                 }
             }
@@ -116,11 +116,11 @@
     }
     .footer-area {
         display: flex;
-        padding-top: 30px;
+        padding-top: 3rem;
         justify-content: center;
         a, button {
             + a, + button {
-                margin-left: 20px;
+                margin-left: 2rem;
             }
         }
         &.left {
@@ -134,7 +134,7 @@
         }
     }
     &.login {
-        width: 500px;
+        width: 50rem;
         margin: 0 auto;
         .form-area {
             .form-row {
@@ -148,7 +148,7 @@
                     }
                 }
                 + .form-row {
-                    margin-top: 40px;
+                    margin-top: 4rem;
                 }
                 &.id-check {
                     .input-area {
@@ -166,7 +166,7 @@
             }
             .login-tip {
                 display: block;
-                padding-top: 10px;
+                padding-top: 1rem;
                 color: red;
             }
         }
@@ -179,13 +179,13 @@
     &.project {
         .project-filter {
             display: flex;
-            width: 200px;
-            margin-bottom: 20px;
+            width: 20rem;
+            margin-bottom: 2rem;
             margin-left: auto;
             .select-wrap {
                 width: 100%;
                 + .select-wrap {
-                    margin-left: 10px;
+                    margin-left: 1rem;
                 }
                 &.half-width {
                     width: 50%;
@@ -202,7 +202,7 @@
                 + .lang {
                     &::before {
                         content: ', ';
-                        padding-right: 3px;
+                        padding-right: .3rem;
                     }
                 }
                 &:first-child {
@@ -215,83 +215,73 @@
         .project-list {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            min-height: 620px;
+            gap: 2rem;
+            min-height: 6.2rem;
             .project-wrap {
                 width: 100%;
-                height: 300px;
-                border-radius: 16px;
-                box-shadow: 1px 1px 10px 1px #ececec;
+                height: 30rem;
+                border-radius: 1.6rem;
+                box-shadow: .1rem .1rem 1rem .1rem #ececec;
                 background-color: commons.$white;
                 button {
                     display: flex;
                     flex-direction: column;
                     width: 100%;
                     height: 100%;
-                    padding: 20px;
-                    border-radius: 16px;
+                    padding: 2rem;
+                    border-radius: 1.6rem;
                     text-align: left;
                     .project-title {
                         position: relative;
                         width: 100%;
                         h4 {
-                            padding-top: 20px;
-                            padding-bottom: 5px;
-                            line-height: 24px;
+                            padding-top: 2rem;
+                            padding-bottom: .5rem;
+                            line-height: 2.4rem;
                             font-weight: bold;
-                            font-size: 18px;
+                            font-size: 1.8rem;
                         }
                         .types-badge {
                             position: absolute;
-                            top: -5px;
+                            top: -.5rem;
                             right: 0;
                             display: flex;
                             span {
                                 display: block;
-                                height: 20px;
-                                margin: 0 2px;
-                                padding: 0 2px;
-                                border-radius: 3px;
-                                line-height: 20px;
-                                font-size: 11px;
+                                height: 2rem;
+                                margin: 0 .2rem;
+                                padding: 0 .2rem;
+                                border-radius: .3rem;
+                                line-height: 2rem;
+                                font-size: 1.1rem;
                                 &.pc {
                                     background-color: commons.$primary-dark;
                                     color: commons.$white;
                                 }
                                 &.mobile {
-                                    border: 1px solid commons.$primary-dark;
+                                    border: .1rem solid commons.$primary-dark;
                                     color: commons.$primary-dark;
                                 }
                             }
                         }
                     }
                     .date-area {
-                        padding-bottom: 10px;
+                        padding-bottom: 1rem;
                         color: #666;
                     }
                     .introduce {
-                        padding-bottom: 10px;
-                        line-height: 18px;
-                        font-size: 15px;
+                        padding-bottom: 1rem;
+                        line-height: 1.8rem;
+                        font-size: 1.5rem;
                     }
-                    // .types {
-                    //     padding-bottom: 10px;
-                    //     span {
-                    //         &:nth-child(2) {
-                    //             &::before {
-                    //                 content: ', ';
-                    //             }
-                    //         }
-                    //     }
-                    // }
                     .companies {
                         margin-top: auto;
                         span {
                             display: block;
-                            line-height: 18px;
-                            font-size: 15px;
+                            line-height: 1.8rem;
+                            font-size: 1.5rem;
                             + span {
-                                padding-top: 5px;
+                                padding-top: .5rem;
                             }
                         }
                     }
@@ -317,29 +307,29 @@
         }
         // view
         .table-view {
-            line-height: 20px;
+            line-height: 2rem;
         }
         .jobs {
             li {
                 display: flex;
                 align-items: flex-start;
-                padding-top: 10px;
+                padding-top: 1rem;
                 &:first-child {
                     padding-top: 0;
                 }
                 &::before {
                     content: '';
                     display: block;
-                    width: 4px;
-                    height: 4px;
-                    margin-top: 8px;
-                    margin-right: 5px;
+                    width: .4rem;
+                    height: .4rem;
+                    margin-top: .8rem;
+                    margin-right: .5rem;
                     border-radius: 50%;
                     background-color: commons.$gray3;
                 }
                 span {
                     display: block;
-                    width: calc(100% - 9px);
+                    width: calc(100% - .9rem);
                 }
             }
         }
@@ -354,14 +344,14 @@
         }
         .swiper-component {
             .slide {
-                padding: 30px 40px;
+                padding: 3rem 4rem;
             }
             .img-area {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 &.pc {
-                    width: 300px;
+                    width: 30rem;
                     height: 100%;
                     margin: 0 auto;
                     img {
@@ -371,7 +361,7 @@
                 }
                 &.mobile {
                     width: 100%;
-                    height: 300px;
+                    height: 30rem;
                     margin: 0 auto;
                     img {
                         width: auto;
@@ -391,26 +381,26 @@
 #section0 {
     h2 {
         font-weight: bold;
-        font-size: 90px;
+        font-size: 9rem;
         text-align: center;
-        transform: translate3d(0, calc(50vh - 100px), 0);
+        transform: translate3d(0, calc(50vh - 10rem), 0);
     }
     .sticky-element {
         display: none;
         position: fixed;
-        top: calc(50% - 80px);
+        top: calc(50% - 8rem);
         left: 0;
         width: 100%;
         transform: translate3d(0, -50%, 0);
         opacity: 0;
-        line-height: 80px;
-        font-size: 40px;
+        line-height: 8rem;
+        font-size: 4rem;
         text-align: center;
     }
     .img-area {
         display: block;
-        width: 400px;
-        margin: 20px auto 0;
+        width: 40rem;
+        margin: 2rem auto 0;
         img {
             width: 100%;
             height: auto;

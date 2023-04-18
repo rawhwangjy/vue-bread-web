@@ -34,16 +34,16 @@
         cursor: pointer;
         span {
             display: block;
-            padding: 0 5px;
-            line-height: 18px;
+            padding: 0 .5rem;
+            line-height: 1.8rem;
         }
         &::before {
             content: '';
             box-sizing: border-box;
             display: block;
-            width: 18px;
-            height: 18px;
-            border: 1px solid commons.$grayC;
+            width: 1.8rem;
+            height: 1.8rem;
+            border: .1rem solid commons.$grayC;
             background-color: commons.$white;
         }
         &::after {
@@ -51,8 +51,8 @@
             box-sizing: border-box;
             position: absolute;
             display: block;
-            width: 18px;
-            height: 18px;
+            width: 1.8rem;
+            height: 1.8rem;
         }
     }
 }
@@ -61,7 +61,7 @@
     @extend %input-reset;
     label {
         &::before, &::after {
-            border-radius: 3px;
+            border-radius: .3rem;
         }
     }
 }
@@ -80,21 +80,21 @@
         display: flex;
         li {
             + li {
-                margin-left: 10px;
+                margin-left: 1rem;
             }
         } 
     }
     .radio-wrap {
         + .radio-wrap {
-            margin-left: 10px;
+            margin-left: 1rem;
         }
         input {
             + label {
                 &::before, &::after {
                     display: none;
                 }
-                border: 1px solid commons.$disabled-border;
-                padding: 10px;
+                border: .1rem solid commons.$disabled-border;
+                padding: 1rem;
             }
             &:checked {
                 + label {
@@ -111,7 +111,7 @@
     .input-area {
         label {
             display: inline-flex;
-            padding-bottom: 15px;
+            padding-bottom: 1.5rem;
             font-weight: bold;
             font-size: commons.$fs-m;
             color: commons.$gray6;
@@ -120,9 +120,9 @@
             position: relative;
             input {
                 width: 100%;
-                height: 36px;
-                border: 1px solid commons.$gray8;
-                padding: 0 30px 0 10px;
+                height: 3.6rem;
+                border: .1rem solid commons.$gray8;
+                padding: 0 3rem 0 1rem;
                 color: commons.$main-font;
                 &::placeholder {
                     color: commons.$gray8;
@@ -132,11 +132,11 @@
                 display: block;
                 position: absolute;
                 top: 50%;
-                right: 10px;
+                right: 1rem;
                 transform: translate3d(0, -50%, 0);
                 .fa-circle-xmark {
                     display: block;
-                    font-size: 20px;
+                    font-size: 2rem;
                     color: commons.$grayB;
                 }
             }
@@ -149,32 +149,32 @@
             flex-direction: row-reverse;
             label {
                 display: block;
-                width: 90px;
-                height: 36px;
-                padding: 10px 20px;
-                margin-left: 10px;
+                width: 9rem;
+                height: 3.6rem;
+                padding: 1rem 2rem;
+                margin-left: 1rem;
                 background-color: commons.$primary;
                 color: #fff;
                 text-align: center;
                 cursor: pointer;
             }
             .input {
-                width: calc(100% - 100px);
+                width: calc(100% - 10rem);
                 .file-name {
                     overflow-x: auto;
                     display: flex;
                     align-items: center;
                     width: 100%;
-                    height: 36px;
-                    padding: 0 10px;
-                    border: 1px solid commons.$gray8;
+                    height: 3.6rem;
+                    padding: 0 1rem;
+                    border: .1rem solid commons.$gray8;
                     color: commons.$main-font;
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     span {
                         &::after {
                             content: ',';
-                            padding-right: 5px;
+                            padding-right: .5rem;
                         }
                         &:last-child {
                             &::after {
@@ -185,48 +185,6 @@
                 }
                 input {
                     @include commons.sr-only;
-                }
-            }
-        }
-        .preview-wrap {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(calc(25% - 20px), auto));
-            gap: 10px;
-            width: calc(100% - 100px);
-            margin-top: 10px;
-            .img-wrap {
-                .img-title {
-                    display: flex;
-                    margin-top: 5px;
-                    span {
-                        display: block;
-                    }
-                    .title {
-                        overflow: hidden;
-                        max-width: calc(100% - 20px);
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                    }
-                }
-                .img-area {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 100%;
-                    height: 200px;
-                    border: .1rem solid commons.$grayC;
-                    &.width-full {
-                        img {
-                            width: 100%;
-                            height: auto;
-                        }
-                    }
-                    &.height-full {
-                        img {
-                            width: auto;
-                            height: 100%;
-                        }
-                    }
                 }
             }
         }
@@ -249,21 +207,63 @@
     }
     .btn-input {
         display: block;
-        min-width: 90px;
-        height: 36px;
-        padding: 10px 20px;
-        margin-left: 10px;
+        min-width: 9rem;
+        height: 3.6rem;
+        padding: 1rem 2rem;
+        margin-left: 1rem;
         background-color: commons.$primary;
         color: #fff;
         cursor: pointer;
     }
 }
+.preview-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(calc(25% - 2rem), auto));
+    gap: 1rem;
+    width: calc(100% - 10rem);
+    margin-top: 1rem;
+    .img-wrap {
+        .img-title {
+            display: flex;
+            margin-top: .5rem;
+            span {
+                display: block;
+            }
+            .title {
+                overflow: hidden;
+                max-width: calc(100% - 2rem);
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+        .img-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 20rem;
+            border: .1rem solid commons.$grayC;
+            &.width-full {
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            &.height-full {
+                img {
+                    width: auto;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
 // create list
 .add-list-wrap {
     .reault-list {
-        min-height: 36px;
-        margin-top: 10px;
-        padding: 10px 20px;
+        min-height: 3.6rem;
+        margin-top: 1rem;
+        padding: 1rem 2rem;
         background-color: rgba(#4337ca, .05);
         .text-wrap {
             flex: 1;
@@ -274,20 +274,20 @@
 }
 // date picker
 .date-wrap {
-    width: 140px;
+    width: 14rem;
     .dp__input {
-        height: 36px;
-        border: 1px solid commons.$gray8;
+        height: 3.6rem;
+        border: .1rem solid commons.$gray8;
         font-size: commons.$fs-s;
     }
 }
 #dp-menu-date {
-    min-width: 220px;
-    height: 240px;
+    min-width: 22rem;
+    height: 24rem;
     font-size: commons.$fs-s;
     .dp__arrow_top {
         + div {
-            height: 200px;
+            height: 20rem;
             .dp__instance_calendar{
                 height: 100%;
             }
@@ -312,7 +312,7 @@
     }
     .dp__calendar {
         > div {
-            height: 165px !important;
+            height: 16.5rem !important;
         }
     }
 }
@@ -320,14 +320,14 @@
 .select-wrap {
     position: relative;
     z-index: 10;
-    height: 36px;
+    height: 3.6rem;
     background-color: commons.$white;
     &.active {
         .selected {
             border-bottom-color: #fff;
         }
         .select {
-            border: 1px solid commons.$gray8;
+            border: .1rem solid commons.$gray8;
             border-top: 0 none;
         }
     }
@@ -336,9 +336,9 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        height: 36px;
-        padding: 0 10px;
-        border: 1px solid commons.$gray8;
+        height: 3.6rem;
+        padding: 0 1rem;
+        border: .1rem solid commons.$gray8;
         svg {
             margin-left: auto;
         }
@@ -353,8 +353,8 @@
             button {
                 display: block;
                 width: 100%;
-                height: 36px;
-                padding: 0 10px;
+                height: 3.6rem;
+                padding: 0 1rem;
                 text-align: left;
                 &:hover {
                     background-color: commons.$primary-light;
@@ -374,7 +374,7 @@
         display: flex;
         justify-content: center;
         width: 100%;
-        height: 46px;
+        height: 4.6rem;
         .tab {
             display: inline-flex;
             width: 100%;
@@ -389,7 +389,7 @@
                 justify-content: center;
                 width: 100%;
                 height: 100%;
-                border-bottom: 1px solid commons.$grayC;
+                border-bottom: .1rem solid commons.$grayC;
                 background-color: #fff;
                 white-space: nowrap;
                 font-weight: commons.$font-light;
@@ -401,7 +401,7 @@
             }
             &.active {
                 button {
-                    border-bottom: 2px solid commons.$primary;
+                    border-bottom: .2rem solid commons.$primary;
                     font-weight: commons.$font-medium;
                     color: commons.$primary;
                     cursor: default;
@@ -458,13 +458,10 @@
                 touch-action: pan-y;
             }
             .slide {
-                // box-sizing: border-box;
                 position: relative;
                 flex: 1 0 auto;
                 width: 100%;
-                // min-width: 100%;
-                // min-height: 60px;
-                padding: 0 40px;
+                padding: 0 4rem;
                 transform: translateZ(0);
                 transition-property: transform, -webkit-transform;
                 backface-visibility: hidden;
@@ -482,7 +479,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 40px;
+            height: 4rem;
             li {
                 flex: 1;
                 width: 100%;
@@ -495,7 +492,7 @@
                     height: 100%;
                 }
                 &.active {
-                    border-bottom: 2px solid commons.$primary;
+                    border-bottom: .2rem solid commons.$primary;
                     button {
                         color: commons.$primary;
                     }
@@ -518,8 +515,8 @@
             li {
                 .indicator {
                     display: block;
-                    width: 10px;
-                    height: 10px;
+                    width: 1rem;
+                    height: 1rem;
                     border-radius: 50%;
                     background-color: commons.$disabled-bg;
                 }
@@ -529,13 +526,13 @@
                     }
                 }
                 + li {
-                    margin-left: 10px;
+                    margin-left: 1rem;
                 }
             }
             &.bar {
                 .indicator {
-                    width: 30px;
-                    height: 2px;
+                    width: 3rem;
+                    height: .2rem;
                     border-radius: 0;
                 }
             }
@@ -545,15 +542,15 @@
         position: absolute;
         top: 50%;
         width: 100%;
-        transform: translate(0px, calc(-50% - 40px));
+        transform: translate(0, calc(-50% - 4rem));
         button {
             position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 40px;
-            height: 40px;
-            font-size: 30px;
+            width: 4rem;
+            height: 4rem;
+            font-size: 3rem;
             &.btn-prev {
                 left: 0;
             }
@@ -591,12 +588,12 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    border-radius: 10px;
+    border-radius: 1rem;
     background-color: commons.$white;
     .content {
         display: flex;
         flex: 1;
-        padding: 40px 20px 20px;
+        padding: 4rem 2rem 2rem;
         &.center {
             justify-content: center;
         }
@@ -607,7 +604,7 @@
     }
     .btn-area {
         display: flex;
-        padding: 10px 20px;
+        padding: 1rem 2rem;
         &.center {
             justify-content: center;
         }
@@ -623,13 +620,13 @@
         left: 0;
         right: 0;
         @extend %pop-content-reset;
-        width: 500px;
-        border: 1px solid commons.$grayB;
-        box-shadow: 1px 5px 10px commons.colorToRgba(commons.$gray8, .2);
+        width: 50rem;
+        border: .1rem solid commons.$grayB;
+        box-shadow: .1rem .5rem 1rem commons.colorToRgba(commons.$gray8, .2);
         font-size: commons.$fs-m;
         &.no-bg {
-            border: 1px solid commons.$gray6;
-            box-shadow: 1px 5px 10px commons.colorToRgba(commons.$gray8, .1);
+            border: .1rem solid commons.$gray6;
+            box-shadow: .1rem .5rem 1rem commons.colorToRgba(commons.$gray8, .1);
         }
         .content {
             font-size: commons.$fs-s;
@@ -642,8 +639,8 @@
         }
         .btn-area {
             .btn-close {
-                height: 36px;
-                padding: 0 10px;
+                height: 3.6rem;
+                padding: 0 1rem;
             }
         }
     }
@@ -658,15 +655,15 @@
         @extend %pop-content-reset;
         width: 80%;
         height: 80vh;
-        border: 1px solid commons.$grayB;
-        border-radius: 3px;
-        box-shadow: 1px 5px 10px commons.colorToRgba(commons.$gray8, .2);
+        border: .1rem solid commons.$grayB;
+        border-radius: .3rem;
+        box-shadow: .1rem .5rem 1rem commons.colorToRgba(commons.$gray8, .2);
         font-size: commons.$fs-m;
         .modal-header {
             display: flex;
             align-items: center;
-            height: 40px;
-            padding: 0 40px 0 20px;
+            height: 4rem;
+            padding: 0 4rem 0 2rem;
             font-weight: bold;
             + .modal-content {
                 margin-top: 0;
@@ -674,8 +671,8 @@
         }
         .modal-content {
             flex: 1;
-            margin-top: 40px;
-            padding: 10px 20px 20px;
+            margin-top: 4rem;
+            padding: 1rem 2rem 2rem;
         }
         .modal-footer {
             position: absolute;
@@ -685,8 +682,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 40px;
-                height: 40px;
+                width: 4rem;
+                height: 4rem;
                 font-size: commons.$fs-xl;
             }
         }
@@ -719,13 +716,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(100% - 36px);
-    height: 44px;
-    margin: 0 18px;
-    padding: 0 18px;
-    border-radius: 5px;
+    width: calc(100% - 3.6rem);
+    height: 4.4rem;
+    margin: 0 1.8rem;
+    padding: 0 1.8rem;
+    border-radius: .5rem;
     background-color: rgba(#000, .8);
-    transform: translate(0, -20px);
+    transform: translate(0, -2rem);
     .toast {
       line-height: 2.1rem;
       font-size: commons.$fs-m;
@@ -751,13 +748,13 @@
             opacity: 0;
         }
         100% {
-            transform: translate(0, -20px);
+            transform: translate(0, -2rem);
             opacity: 1;
         }
     }
     @keyframes toast-out {
         0% {
-            transform: translate(0, -20px);
+            transform: translate(0, -2rem);
             opacity: 1;
         }
         100% {
@@ -771,12 +768,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 3rem;
     > button {
         display: block;
-        width: 24px;
-        height: 24px;
-        font-size: 18px;
+        width: 2.4rem;
+        height: 2.4rem;
+        font-size: 1.8rem;
         &:disabled {
             color: #999;
             pointer-events: none;
@@ -788,9 +785,9 @@
         li {
             button {
                 display: block;
-                width: 24px;
-                height: 24px;
-                font-size: 14px;
+                width: 2.4rem;
+                height: 2.4rem;
+                font-size: 1.4rem;
                 &.active {
                     border-radius: 50%;
                     background-color: commons.$primary;

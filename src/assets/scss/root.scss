@@ -13,16 +13,16 @@
 // // box.scss 
 // $background-color: red; 
 // @function getBorder($is-black: true) { 
-//     @if $is-black { @return 4px solid black; 
+//     @if $is-black { @return .4rem solid black; 
 //     } @else 
-//     { @return 2px dashed blue; } 
+//     { @return .2rem dashed blue; } 
 // } 
 // .box { background-color: $background-color; width: 200px; height: 200px; }
 
 // // card.scss 
 // $background-color: blue; 
 // @function getBorder($is-black: true) { 
-//     @if $is-black { @return 1px dashed black; 
+//     @if $is-black { @return .1rem dashed black; 
 //     } @else { 
 //         @return none; } 
 //     } 
