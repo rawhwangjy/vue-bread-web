@@ -6,7 +6,10 @@
       :disabled="currentPage === 1"
       @click="onPageMove(currentPage - 1)"
     >
-      <font-awesome-icon icon="fa-solid fa-caret-left" aria-label="이전 10개 보기" />
+      <font-awesome-icon
+        icon="fa-solid fa-caret-left"
+        aria-label="이전 10개 보기"
+      />
     </button>
     <ol>
       <li
@@ -30,7 +33,10 @@
       :disabled="currentPage === pagesNum"
       @click="onPageMove(currentPage + 1)"
     >
-      <font-awesome-icon icon="fa-solid fa-caret-right" aria-label="다음 10개 보기" />
+      <font-awesome-icon
+        icon="fa-solid fa-caret-right"
+        aria-label="다음 10개 보기"
+      />
     </button>
   </div>
 </template>
@@ -80,9 +86,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss" scoped>
-.test-code {
-  border: 1px solid red;
-}
-</style>
