@@ -141,25 +141,6 @@
         }
         &.login {
             width: 100%;
-            .form-area {
-                .form-row {
-                    &.id-check {
-                        .input-area {
-                            .input {
-                                input {
-                                    width: calc(100% - 11rem);
-                                }
-                                .btn-input {
-                                    min-width: 10rem;
-                                }
-                                .btn-delete-input {
-                                    right: 12rem;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
         &.project {
             .project-list {

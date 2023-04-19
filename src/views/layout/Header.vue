@@ -149,6 +149,7 @@
                 <li>JWT 토큰을 이용한 로그인</li>
                 <li>Access Token : Expired Day 30m</li>
                 <li>Refresh Token : Expired Day 14d</li>
+                <li>Test 계정 : admin / admin123!</li>
               </ul>
               <button
                 type="button"
