@@ -1,9 +1,9 @@
 const container = () => import(/* webpackChunkName: "pages" */ '@/views/pages/_pageContainer.vue')
 
-const boardList = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardList.vue')
-const boardView = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardView.vue')
-const boardCreate = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardCreate.vue')
-const boardUpdate = () => import(/* webpackChunkName: "pages" */ '@/views/pages/board/boardUpdate.vue')
+const boardList = () => import(/* webpackChunkName: "pageBoard" */ '@/views/pages/board/boardList.vue')
+const boardView = () => import(/* webpackChunkName: "pageBoard" */ '@/views/pages/board/boardView.vue')
+const boardCreate = () => import(/* webpackChunkName: "pageBoard" */ '@/views/pages/board/boardCreate.vue')
+const boardUpdate = () => import(/* webpackChunkName: "pageBoard" */ '@/views/pages/board/boardUpdate.vue')
 
 export default {
   path: '/board/:category',

@@ -72,6 +72,10 @@
         }
         .login-btn-wrap {
             margin-right: 2rem;
+            .btn-login {
+                padding: 1.5rem 0;
+                font-size: 1.5rem;
+            }
             .tooltip-wrap {
                 .tooltip {
                     width: 23rem;
@@ -137,6 +141,25 @@
         }
         &.login {
             width: 100%;
+            .form-area {
+                .form-row {
+                    &.id-check {
+                        .input-area {
+                            .input {
+                                input {
+                                    width: calc(100% - 11rem);
+                                }
+                                .btn-input {
+                                    min-width: 10rem;
+                                }
+                                .btn-delete-input {
+                                    right: 12rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         &.project {
             .project-list {

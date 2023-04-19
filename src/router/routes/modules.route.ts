@@ -1,5 +1,5 @@
 const container = () => import(/* webpackChunkName: "guide" */ '@/views/guide/_iaContainer.vue')
-const button = () => import(/* webpackChunkName: "guide" */ '@/views/guide/libsModules/libsButton.vue')
+const button = () => import(/* webpackChunkName: "uiModule" */ '@/views/guide/libsModules/libsButton.vue')
 
 export default {
   path: '/guide/modules/button',
