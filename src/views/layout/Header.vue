@@ -170,12 +170,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch, nextTick } from 'vue'
+import { defineComponent, onMounted, ref, watch, computed } from 'vue'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryDetailInterface } from '@/service/category/interface/categoryDetail.interface'
 import { useMemberStore } from '@/store/member/member.module'
 import { LocalKey } from '@/utils/common.constants'
-import { tr } from 'date-fns/locale'
+import { decodedToken } from '@/utils/token/verification'
+
 // {
 //   navTitle: 'Guide',
 //   navUrl: '/guide',
@@ -286,13 +287,9 @@ export default defineComponent({
         windowWidth.value = window.innerWidth
       })
     }
-    const isLogin = ref(false)
     onMounted(() => {
       getCategoryList()
       checkSize()
-      if (localStorage.getItem('accessToken')) {
-        isLogin.value = true
-      }
     })
     watch(
       () => categoryStore.categoryList,
@@ -300,10 +297,25 @@ export default defineComponent({
         categoryList.value = newValue
       }
     )
+    const isLogin = computed(() => {
+      const token: string | null = localStorage.getItem('accessToken') !== null ? localStorage.getItem('accessToken') : null
+      const state = ref(false)
+      if (token !== null) {
+        const tokenVerify = decodedToken(token)
+        if (tokenVerify) {
+          // console.log('토큰 유효')
+          state.value = true
+        } else {
+          // console.log('토큰 XX')
+          state.value = false
+        }
+      }
+      // console.log('토큰', state.value)
+      return state.value
+    })
     function onLogout () {
       // token 삭제
       localStorage.removeItem('accessToken')
-      isLogin.value = false
     }
     const display = ref('')
     function loginTimer (duration: number) {
