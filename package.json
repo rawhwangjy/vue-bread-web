@@ -20,6 +20,7 @@
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.7",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "loglevel": "^1.8.1",
     "pinia": "^2.0.27",
@@ -32,6 +33,7 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@types/jwt-decode": "^3.1.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.9",
     "@types/prismjs": "^1.26.0",
