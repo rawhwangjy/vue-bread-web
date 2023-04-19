@@ -41,8 +41,8 @@ export function setInterceptors (instance: AxiosInstance): AxiosInstance {
       // return Promise.reject(error)
       const { config, response: { status } } = error
       const originReq = config
-      console.log('originReq', JSON.parse(originReq.data))
-      console.log('originReq', JSON.parse(originReq.data).userId, JSON.parse(originReq.data).userPw)
+      // console.log('originReq', JSON.parse(originReq.data))
+      // console.log('originReq', JSON.parse(originReq.data).userId, JSON.parse(originReq.data).userPw)
       if (status === 401) {
         // console.log('RES >>> 401')
         if (error.response.data.message === 'Token Expired') {

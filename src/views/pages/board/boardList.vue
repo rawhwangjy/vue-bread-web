@@ -1,22 +1,31 @@
 <template>
   <Header />
-  <div class="content-body board" id="content-body">
+  <div
+    id="content-body"
+    class="content-body board"
+  >
     <div class="title-area">
-      <h3 class="main-title">{{ targetCategory.category.toUpperCase() }}</h3>
+      <h3 class="main-title">
+        {{ targetCategory.category.toUpperCase() }}
+      </h3>
     </div>
     <div class="content-area">
       <div class="data-table-area">
         <table class="table vertical">
           <colgroup>
             <!-- <col class="width10" > -->
-            <col class="widthAll" />
-            <col class="width20" >
+            <col class="widthAll">
+            <col class="width20">
           </colgroup>
           <thead>
             <tr>
               <!-- <th scope="col">ID</th> -->
-              <th scope="col">Title</th>
-              <th scope="col">btns</th>
+              <th scope="col">
+                Title
+              </th>
+              <th scope="col">
+                btns
+              </th>
             </tr>
           </thead>
           <tbody v-if="boardList.length > 0">
@@ -41,14 +50,20 @@
                     class="btn-icon"
                     @click="boardUpdate(board.id)"
                   >
-                    <font-awesome-icon icon="fa-solid fa-pencil" aria-label="수정" />
+                    <font-awesome-icon
+                      icon="fa-solid fa-pencil"
+                      aria-label="수정"
+                    />
                   </button>
                   <button
                     type="button"
                     class="btn-icon"
                     @click="boardDelete(board.id)"
                   >
-                    <font-awesome-icon icon="fa-solid fa-trash" aria-label="삭제" />
+                    <font-awesome-icon
+                      icon="fa-solid fa-trash"
+                      aria-label="삭제"
+                    />
                   </button>
                 </div>
               </td>
@@ -57,7 +72,9 @@
           <tbody v-else>
             <tr>
               <td colspan="3">
-                <p class="no-data">게시글이 없습니다.</p>
+                <p class="no-data">
+                  게시글이 없습니다.
+                </p>
               </td>
             </tr>
           </tbody>
@@ -65,7 +82,13 @@
       </div>
     </div>
     <div class="footer-area right">
-      <button type="button" class="btn lg dark" @click="boardCreate">글쓰기</button>
+      <button
+        type="button"
+        class="btn lg dark"
+        @click="boardCreate"
+      >
+        글쓰기
+      </button>
     </div>
   </div>
 </template>
@@ -79,7 +102,7 @@ import { ResBoardListInterface } from '@/service/board/interface/boardList.inter
 import { logger } from '@/utils/instance.logger'
 
 export default defineComponent({
-  name: 'boardList',
+  name: 'BoardList',
   components: {
     Header
   },
@@ -134,7 +157,7 @@ export default defineComponent({
 
     onMounted(() => {
       getBoardList()
-      logger.info('BOARD List')
+      // logger.info('BOARD List')
       // console.log('A')
     })
     function formatDate (data: number) {
