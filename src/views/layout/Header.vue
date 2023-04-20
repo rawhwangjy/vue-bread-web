@@ -147,7 +147,7 @@
             >
               <ul class="dot-list">
                 <li>JWT 토큰을 이용한 로그인</li>
-                <li>Access Token : Expired Day 30m</li>
+                <li>Access Token : Expired Day 10m</li>
                 <li>Refresh Token : Expired Day 14d</li>
                 <li>Test 계정 : admin / admin123!</li>
               </ul>
@@ -170,12 +170,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch, computed } from 'vue'
+import { defineComponent, onMounted, ref, watch, computed, onBeforeMount, onUnmounted, onBeforeUnmount } from 'vue'
 import { useCategoryStore } from '@/store/category/category.module'
 import { ResCategoryDetailInterface } from '@/service/category/interface/categoryDetail.interface'
 import { useMemberStore } from '@/store/member/member.module'
 import { LocalKey } from '@/utils/common.constants'
-import { decodedToken } from '@/utils/token/verification'
+import { decodedToken } from '@/utils/token/tokenDecoder'
 
 // {
 //   navTitle: 'Guide',
@@ -287,16 +287,39 @@ export default defineComponent({
         windowWidth.value = window.innerWidth
       })
     }
-    onMounted(() => {
-      getCategoryList()
-      checkSize()
-    })
     watch(
       () => categoryStore.categoryList,
       newValue => {
         categoryList.value = newValue
       }
     )
+    const countInterval = ref()
+    onUnmounted(() => {
+      clearInterval(countInterval.value)
+    })
+    onMounted(() => {
+      getCategoryList()
+      checkSize()
+      if (isLogin.value) {
+        countInterval.value = setInterval(loginTimer, 1000)
+      }
+    })
+    // timer
+    const display = ref('')
+    let remains = 60 * 10
+    function loginTimer () {
+      const minutes = ref(0)
+      const seconds = ref(0)
+      minutes.value = Math.floor(remains / 60)
+      seconds.value = Math.floor(remains % 60)
+
+      display.value = `${minutes.value}:${seconds.value === 0 ? '00' : seconds.value}`
+      remains = remains - 1
+      if (remains < 0) {
+        clearInterval(countInterval.value)
+      }
+      console.log(display.value)
+    }
     const isLogin = computed(() => {
       const token: string | null = localStorage.getItem('accessToken') !== null ? localStorage.getItem('accessToken') : null
       const state = ref(false)
@@ -310,29 +333,14 @@ export default defineComponent({
           state.value = false
         }
       }
-      // console.log('토큰', state.value)
+      if (display.value === '0:00' && !state.value) {
+        alert('10분간 움직임이 없어 로그아웃 되었습니다.')
+      }
       return state.value
     })
     function onLogout () {
       // token 삭제
       localStorage.removeItem('accessToken')
-    }
-    const display = ref('')
-    function loginTimer (duration: number) {
-      let remains = duration
-      const minutes = ref(0)
-      const seconds = ref(0)
-      const countInterval = setInterval(() => {
-        minutes.value = Math.floor(remains / 60)
-        seconds.value = Math.floor(remains % 60)
-
-        display.value = `${minutes.value}:${seconds.value === 0 ? '00' : seconds.value}`
-        remains = remains - 1
-        if (remains < 0) {
-          clearInterval(countInterval)
-        }
-      }, 1000)
-      return display
     }
 
     const isShowTooltip = ref(false)
@@ -360,7 +368,6 @@ export default defineComponent({
       onHideMo,
       isLogin,
       onLogout,
-      loginTimer,
       display,
       onShowTooltip,
       isShowTooltip
