@@ -126,7 +126,7 @@
             @click="onLogout"
           >
             <span>{{ logoutData.navTitle }}</span>
-            {{ display }}
+            <span class="timer">{{ display }}</span>
           </a>
           <div class="tooltip-wrap">
             <button
@@ -305,7 +305,7 @@ export default defineComponent({
       }
     })
     // timer
-    const display = ref('')
+    const display = ref('10:00')
     let remains = 60 * 10
     function loginTimer () {
       const minutes = ref(0)
@@ -313,7 +313,7 @@ export default defineComponent({
       minutes.value = Math.floor(remains / 60)
       seconds.value = Math.floor(remains % 60)
 
-      display.value = `${minutes.value}:${seconds.value === 0 ? '00' : seconds.value}`
+      display.value = `${minutes.value < 10 ? `0${minutes.value}` : `${minutes.value}`}:${seconds.value < 10 ? `0${seconds.value}` : seconds.value}`
       remains = remains - 1
       if (remains < 0) {
         clearInterval(countInterval.value)
@@ -330,11 +330,13 @@ export default defineComponent({
           state.value = true
         } else {
           // console.log('토큰 XX')
+          clearInterval(countInterval.value)
           state.value = false
         }
       }
-      if (display.value === '0:00' && !state.value) {
+      if (display.value === '00:00' && !state.value) {
         alert('10분간 움직임이 없어 로그아웃 되었습니다.')
+        clearInterval(countInterval.value)
       }
       return state.value
     })

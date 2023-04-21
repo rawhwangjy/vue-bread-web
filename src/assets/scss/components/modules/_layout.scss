@@ -116,6 +116,19 @@ header {
             // line-height: 1;
             font-size: commons.$fs-l;
         }
+        .timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 3.8rem;
+            height: 1.8rem;
+            margin-left: 1rem;
+            padding: 0 .5rem .1rem;
+            border-radius: .9rem;
+            background-color: commons.$primary;
+            font-size: 1.1rem;
+            color: commons.$white;
+        }
         .tooltip-wrap {
             position: relative;
             .btn-tooltip {
