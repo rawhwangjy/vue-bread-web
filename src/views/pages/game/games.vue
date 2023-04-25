@@ -128,16 +128,27 @@
       </div><!-- // answer-wrap -->
     </div>
   </div>
+  <Alert
+    :state="state"
+    content-align="center"
+    btn-align="center"
+    bg
+    @close="state = false"
+  >
+    아직 작업 중인 화면입니다.
+  </Alert>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import Header from '@/views/layout/Header.vue'
+import Alert from '@/components/Alert.vue'
 
 export default defineComponent({
   name: '',
   components: {
-    Header
+    Header,
+    Alert
   },
   setup () {
     const answer = ref('GOOD')
@@ -154,8 +165,9 @@ export default defineComponent({
     //   // }
     //   })
     // })
+    const state = ref<boolean>(false)
     onMounted(() => {
-      alert('아직 작업 중인 화면입니다.')
+      state.value = true
       console.log('keyboards', keyboards)
       for (const item of Object.values(keyboards)) {
         item?.addEventListener('click', (e: Event) => {
@@ -202,7 +214,8 @@ export default defineComponent({
       charCheck,
       currentIndex,
       failState,
-      randomEmoji
+      randomEmoji,
+      state
     }
   }
 })
