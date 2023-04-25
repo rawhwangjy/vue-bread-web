@@ -258,6 +258,11 @@ export default defineComponent({
         navDesc: '화면 이동'
       },
       {
+        navTitle: '게임',
+        navUrl: '/games',
+        navDesc: '화면 이동'
+      },
+      {
         navTitle: '게시판 관리',
         navUrl: '/board/category',
         navDesc: '화면 이동'

@@ -7,11 +7,9 @@ import routerCategory from '@/router/routes/pages.category.route'
 import routerBoard from '@/router/routes/pages.board.route'
 import routerProject from '@/router/routes/pages.project.route'
 import routerMember from '@/router/routes/pages.member.route'
+import routerGame from '@/router/routes/pages.game.route'
 
-const container = () => import(/* webpackChunkName: "pages" */ '@/views/pages/_pageContainer.vue')
 const intro = () => import(/* webpackChunkName: "pages" */ '@/views/pages/intro.vue')
-const projectList = () => import(/* webpackChunkName: "pages" */ '@/views/pages/project/projectList.vue')
-const spec = () => import(/* webpackChunkName: "guide" */ '@/views/guide/intro/spec.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,7 +22,8 @@ const routes: Array<RouteRecordRaw> = [
   routerCategory,
   routerBoard,
   routerProject,
-  routerMember
+  routerMember,
+  routerGame
 ]
 
 const router = createRouter({
