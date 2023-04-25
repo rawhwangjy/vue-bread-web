@@ -178,6 +178,20 @@
                 }
             }
         }
+        &.game {
+            .content-area {
+                flex-direction: column;
+                .answer-wrap {
+                    margin-left: 0;
+                    .quiz {
+                        margin-bottom: 2rem;
+                    }
+                    .keyboard-wrap {
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
     .guide-body {
         position: relative;
