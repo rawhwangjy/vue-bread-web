@@ -15,7 +15,7 @@
           <svg
             class="head"
             :class="{
-              'active': failState >= 1
+              'active': totalFailCnt >= 1
             }"
           >
             <circle
@@ -27,7 +27,7 @@
           <svg
             class="body"
             :class="{
-              'active': failState >= 2
+              'active': totalFailCnt >= 2
             }"
           >
             <line
@@ -40,7 +40,7 @@
           <svg
             class="left-arm"
             :class="{
-              'active': failState >= 3
+              'active': totalFailCnt >= 3
             }"
           >
             <line
@@ -53,7 +53,7 @@
           <svg
             class="right-arm"
             :class="{
-              'active': failState >= 4
+              'active': totalFailCnt >= 4
             }"
           >
             <line
@@ -66,7 +66,7 @@
           <svg
             class="left-leg"
             :class="{
-              'active': failState >= 5
+              'active': totalFailCnt >= 5
             }"
           >
             <line
@@ -79,7 +79,7 @@
           <svg
             class="right-leg"
             :class="{
-              'active': failState >= 6
+              'active': totalFailCnt >= 6
             }"
           >
             <line
@@ -90,19 +90,19 @@
             />
           </svg>
         </div>
-        <!-- <div
-          v-show="maxChance === failState"
+        <div
+          v-show="totalFailCnt >= 0 && MAXCHANCE <= 0"
           class="result"
         >
           <span
-            v-if="successState"
-            class="fail"
-          >Fail</span>
-          <span
-            v-else
+            v-if="MAXCHANCE === 0"
             class="success"
           >Success</span>
-        </div> -->
+          <span
+            v-else
+            class="fail"
+          >Fail</span>
+        </div>
       </div><!-- // game-wrap -->
       <div class="answer-wrap">
         <div class="quiz">
@@ -111,7 +111,7 @@
             :key="`char${index}`"
             class="character"
           >
-            <span class="char">{{ currentIndex.includes(index) ? answer[index] : randomEmoji() }}</span>
+            <span class="char">{{ indexPosition.includes(index) ? answer[index] : randomEmoji() }}</span>
             <span class="blank" />
           </div>
         </div>
@@ -154,24 +154,12 @@ export default defineComponent({
     const answer = ref('GOOD')
     const keyboards = document.getElementsByClassName('keyboard-wrap')
     const keyboard = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    // console.log('e', keyboards)
-    // keyboards.forEach(item => {
-    //   console.log(item)
-    //   item.addEventListener('click', (e: Event) => {
-    //     const e_ = e as KeyboardEvent
-    //     console.log('e', e_)
-    //     // switch () {
-
-    //   // }
-    //   })
-    // })
     const state = ref<boolean>(false)
     onMounted(() => {
-      state.value = true
+      // state.value = true
       console.log('keyboards', keyboards)
       for (const item of Object.values(keyboards)) {
         item?.addEventListener('click', (e: Event) => {
-          console.log('target', e)
           const target = e.target as HTMLElement
           if (target.localName === 'button') {
             charCheck(target.children[0].innerHTML)
@@ -181,22 +169,38 @@ export default defineComponent({
         })
       }
     })
-    const answerLength = ref<number>(answer.value.length)
-    const currentIndex = ref<number[]>([])
-    const failState = ref(0)
+    const MAXCHANCE = ref<number>(answer.value.length)
+    const restChance = ref<number>(answer.value.length) // 맞춘 횟수 // 전체 넘버에서 맞추면, 맞춘 갯수 뺌 // 4 => 0
+
+    const indexPosition = ref<number[]>([]) // 스트링에서 c 위치
+    const totalFailCnt = ref(0) // 실패 횟수 // 인간 만들 때 카운트 됨 0 => 4
+
+    const failState = ref(false) // 성공 여부
     function charCheck (value: string) {
       const str = answer.value
       const searchvalue = value
       let pos = 0
       if (str.indexOf(searchvalue) === -1) {
-        failState.value = failState.value + 1
+        totalFailCnt.value = totalFailCnt.value + 1
         return
       }
+      // if (MAXCHANCE.value <= 0) {
+      //   failState.value = true
+      // } else {
+      //   failState.value = false
+      // }
+      /*
+        [성공 화면]
+        restChance 0 이면 성공 화면
+
+        [실패 화면]
+        실패 횟수가
+      */
       while (true) {
         const foundPos = str.indexOf(searchvalue, pos)
         if (foundPos === -1) break
-        console.log('foundPos', foundPos)
-        currentIndex.value.push(foundPos)
+        indexPosition.value.push(foundPos)
+        restChance.value = restChance.value - 1
         pos = foundPos + 1
       }
     }
@@ -205,17 +209,18 @@ export default defineComponent({
       const randomNumber = Math.floor(Math.random() * (emoji.value.length - 1)) + 1
       const textArea = document.createElement('textarea')
       textArea.innerHTML = emoji.value[randomNumber]
-      console.log('textArea.innerHTML', randomNumber)
       return textArea.value
     }
     return {
       answer,
       keyboard,
       charCheck,
-      currentIndex,
-      failState,
+      indexPosition,
+      MAXCHANCE,
+      totalFailCnt,
       randomEmoji,
-      state
+      state,
+      failState
     }
   }
 })
