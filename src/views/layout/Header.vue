@@ -248,7 +248,7 @@ export default defineComponent({
     // const isLogin = ref<string | null>(localStorage.getItem('jwt-token'))
     const navItems = ref([
       {
-        navTitle: '사이트 가이드',
+        navTitle: '소스 코드',
         navUrl: '/guide',
         navDesc: '화면 이동'
       },
