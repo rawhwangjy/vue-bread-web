@@ -5,7 +5,7 @@
 				<div class="content">
 					<p>이 사이트는 Vue3 프레임워크를 이용해 만들었습니다.</p>
 					<a
-						href="http://rbreadg.dothome.co.kr/"
+						href="http://reactbreadg.dothome.co.kr/"
 						target="_blank"
 						role="button"
 						class="btn sm primary border"
