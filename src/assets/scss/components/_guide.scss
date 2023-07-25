@@ -289,46 +289,6 @@
                         }
                     }
                 }
-                .preview-wrap {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(calc(25% - 2rem), auto));
-                    gap: 1rem;
-                    width: calc(100% - 10rem);
-                    .img-wrap {
-                        .img-title {
-                            display: flex;
-                            width: 100%;
-                            margin-top: .5rem;
-                            .title {
-                                overflow: hidden;
-                                display: block;
-                                max-width: calc(100% - 2rem);
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                            }
-                        }
-                        .img-area {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 100%;
-                            height: 20rem;
-                            border: .1rem solid commons.$grayC;
-                            &.width-full {
-                                img {
-                                    width: 100%;
-                                    height: auto;
-                                }
-                            }
-                            &.height-full {
-                                img {
-                                    width: auto;
-                                    height: 100%;
-                                }
-                            }
-                        }
-                    }
-                }
             }
             .code {
                 margin-top: 3rem;

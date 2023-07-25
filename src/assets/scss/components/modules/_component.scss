@@ -223,43 +223,44 @@
 		cursor: pointer;
 	}
 }
+// Upload
 .preview-wrap {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(calc(25% - 2rem), auto));
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	gap: 1rem;
 	width: calc(100% - 10rem);
 	margin-top: 1rem;
 	.img-wrap {
 		.img-title {
 			display: flex;
+			width: 100%;
 			margin-top: 0.5rem;
-			span {
-				display: block;
-			}
 			.title {
 				overflow: hidden;
+				display: block;
 				max-width: calc(100% - 2rem);
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
 		}
 		.img-area {
+			overflow: hidden;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 100%;
+			width: 20rem;
 			height: 20rem;
 			border: 0.1rem solid commons.$grayC;
 			&.width-full {
 				img {
-					width: 100%;
+					width: 20rem;
 					height: auto;
 				}
 			}
 			&.height-full {
 				img {
 					width: auto;
-					height: 100%;
+					height: 20rem;
 				}
 			}
 		}
