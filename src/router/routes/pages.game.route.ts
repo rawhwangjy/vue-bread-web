@@ -1,15 +1,17 @@
-const container = () => import(/* webpackChunkName: "pages" */ '@/views/pages/_pageContainer.vue')
+const container = () =>
+	import(/* webpackChunkName: "pages" */ '@/views/pages/_pageContainer.vue');
 
-const games = () => import(/* webpackChunkName: "pageGame" */ '@/views/pages/game/games.vue')
+const game = () =>
+	import(/* webpackChunkName: "pageGame" */ '@/views/pages/game/game.vue');
 
 export default {
-  path: '/games',
-  component: container,
-  children: [
-    {
-      path: '/games',
-      name: 'games',
-      component: games
-    }
-  ]
-}
+	path: '/game',
+	component: container,
+	children: [
+		{
+			path: '/game',
+			name: 'game',
+			component: game,
+		},
+	],
+};

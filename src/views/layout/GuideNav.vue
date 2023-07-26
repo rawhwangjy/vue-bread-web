@@ -99,7 +99,7 @@ const guideItems = [
   // }
 ]
 export default defineComponent({
-  name: '',
+  name: 'GuideNav',
   components: {
   },
   setup () {

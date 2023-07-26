@@ -1,19 +1,17 @@
 <template>
-  <div class="page-container">
-    <router-view />
-  </div>
+	<div class="page-container">
+		<router-view />
+	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: '',
-  components: {
-  },
-  setup () {
-    return {
-    }
-  }
-})
+	name: '_pageContainer',
+	components: {},
+	setup() {
+		return {};
+	},
+});
 </script>

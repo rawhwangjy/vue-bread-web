@@ -38,7 +38,7 @@ import { defineComponent, onMounted, ref } from 'vue';
 import Checkbox from '@/components/Checkbox.vue';
 
 export default defineComponent({
-	name: 'CookiePopup',
+	name: 'cookiePopup',
 	components: {
 		Checkbox,
 	},

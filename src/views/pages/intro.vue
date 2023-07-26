@@ -4,7 +4,7 @@
 		class="content-body main"
 		id="content-body"
 	>
-		<CookiePopup
+		<cookiePopup
 			v-if="cookieState"
 			@change="closeCookiePopup"
 		/>
@@ -57,13 +57,13 @@ import Header from '@/views/layout/Header.vue';
 import { SceneObject, SceneInfo } from '@/utils/common.interface';
 import { setLayout, calcValues } from '@/utils/common.function';
 
-import CookiePopup from '@/views/pages/popup/CookiePopup.vue';
+import cookiePopup from '@/views/pages/popup/cookiePopup.vue';
 
 export default defineComponent({
-	name: 'Main',
+	name: 'intro',
 	components: {
 		Header,
-		CookiePopup,
+		cookiePopup,
 	},
 	setup() {
 		// cookie

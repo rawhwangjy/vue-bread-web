@@ -145,7 +145,7 @@ import Header from '@/views/layout/Header.vue'
 import Alert from '@/components/Alert.vue'
 
 export default defineComponent({
-  name: '',
+  name: 'game',
   components: {
     Header,
     Alert
