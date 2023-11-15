@@ -4,6 +4,7 @@
 			<div class="cookie-content">
 				<div class="content">
 					<p>이 사이트는 Vue3 프레임워크를 이용해 만들었습니다.</p>
+					<p>로그인 기능 수정 중 입니다.😂</p>
 					<a
 						href="http://reactbreadg.dothome.co.kr/"
 						target="_blank"
