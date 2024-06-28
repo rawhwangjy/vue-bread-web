@@ -71,9 +71,10 @@
 								</li>
 								<li>
 									<em>백엔드</em>
-									<span
-										>[DB] Sequel Pro, <br />[RDBMS] MYSQL,
-										<br />[SERVER] Expressjs</span
+									<span>
+										[DB] MariaDB(Docker 사용), <br />
+										[RDBMS] MySQL, <br />
+										[SERVER] Express.js</span
 									>
 								</li>
 								<li>

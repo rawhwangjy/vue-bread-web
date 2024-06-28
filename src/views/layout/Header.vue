@@ -113,7 +113,7 @@
 				</div>
 				<!-- 로그인 숨김 -->
 				<!-- 상태 : {{ memberStore.signinState }} -->
-				<div class="login-btn-wrap">
+				<!-- <div class="login-btn-wrap">
 					<router-link
 						v-if="!isLogin"
 						:to="loginData.navUrl"
@@ -166,7 +166,7 @@
 							</button>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</header>
 	</div>
@@ -225,7 +225,7 @@ export default defineComponent({
 				await categoryStore.actionHttpGetCategoryList();
 		}
 		function onShowSub() {
-			console.log('stateSub', stateSub.value);
+			// console.log('stateSub', stateSub.value);
 			if (stateSub.value) {
 				stateSub.value = false;
 			} else {
@@ -248,16 +248,16 @@ export default defineComponent({
 			// stateSub.value = false
 			// isShowTooltip.value = false
 		}
-		const loginData = ref({
-			navTitle: '로그인',
-			navUrl: '/signin',
-			navDesc: '화면 이동',
-		});
-		const logoutData = ref({
-			navTitle: '로그아웃',
-			navUrl: '/',
-			navDesc: '화면 이동',
-		});
+		// const loginData = ref({
+		// 	navTitle: '로그인',
+		// 	navUrl: '/signin',
+		// 	navDesc: '화면 이동',
+		// });
+		// const logoutData = ref({
+		// 	navTitle: '로그아웃',
+		// 	navUrl: '/',
+		// 	navDesc: '화면 이동',
+		// });
 		// const isLogin = ref<string | null>(localStorage.getItem('jwt-token'))
 		const navItems = ref([
 			{
@@ -270,11 +270,11 @@ export default defineComponent({
 				navUrl: '/project',
 				navDesc: '화면 이동',
 			},
-			{
-				navTitle: '게임',
-				navUrl: '/game',
-				navDesc: '화면 이동',
-			},
+			// {
+			// 	navTitle: '게임',
+			// 	navUrl: '/game',
+			// 	navDesc: '화면 이동',
+			// },
 			{
 				navTitle: '게시판 관리',
 				navUrl: '/board/category',
@@ -380,8 +380,8 @@ export default defineComponent({
 		return {
 			categoryStore,
 			memberStore,
-			loginData,
-			logoutData,
+			// loginData,
+			// logoutData,
 			navItems,
 			stateSub,
 			onShowSub,
